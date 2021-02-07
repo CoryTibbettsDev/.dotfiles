@@ -1,3 +1,6 @@
 alias ll='ls -la'
 
+# Alias for using git with my repo that tracks configuration.nix file
+alias nixgit='git --git-dir=$HOME/.nixos/ --work-tree=/etc/nixos/'
+
 unset SSH_ASKPASS
