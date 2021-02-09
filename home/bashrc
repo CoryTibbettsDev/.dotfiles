@@ -1,6 +1,5 @@
 alias ll='ls -la'
 
-# Alias for using git with my repo that tracks configuration.nix file
-alias nixgit='git --git-dir=$HOME/.nixos/ --work-tree=/etc/nixos/'
+alias audio='pulseaudio-ctl'
 
 unset SSH_ASKPASS
