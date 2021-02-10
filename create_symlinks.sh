@@ -25,9 +25,9 @@ linkconfig() {
 	cd ..
 }
 
-linkconfig awesome/
 linkconfig termite/
-linkconfig qutebrowser/
-linkconfig epiphany/
+
+# Link XMonad since it has it's own directory
+ln -srf ./xmonad/xmonad.hs ~/.xmonad
 
 echo Done
