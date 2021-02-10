@@ -22,9 +22,12 @@ linkconfig() {
 		LINKFILE=~/.config/$1
 		ln -srf $FILE $LINKFILE && echo $LINKFILE links to $FILE || echo $FILE not linked
 	done
+	cd ..
 }
 
 linkconfig awesome/
 linkconfig termite/
+linkconfig qutebrowser/
+linkconfig epiphany/
 
 echo Done
