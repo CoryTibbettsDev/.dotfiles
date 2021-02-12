@@ -36,7 +36,7 @@ myBorderWidth   = 3
 -- ("right alt"), which does not conflict with emacs keybindings. The
 -- "windows key" is usually mod4Mask.
 --
-myModMask       = mod4Mask
+myModMask       = mod1Mask
 
 -- The default number of workspaces (virtual screens) and their names.
 -- By default we use numeric strings, but any string may be used as a
@@ -61,6 +61,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+
+    -- launch dmenu
+    , ((modm,               xK_e     ), spawn "epiphany")
 
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "dmenu_run")
