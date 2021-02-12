@@ -28,6 +28,6 @@ linkconfig() {
 linkconfig termite/
 
 # Link XMonad since it has it's own directory
-ln -srf ./xmonad/xmonad.hs ~/.xmonad
+ln -srf ./xmonad/xmonad.hs ~/.xmonad/xmonad.hs
 
 echo Done

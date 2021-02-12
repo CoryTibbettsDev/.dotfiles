@@ -61,10 +61,6 @@ set whichwrap+=<,>,h,l,[,]
 set ignorecase
 set smartcase
 
-" Scrolling does not move window until you are the specified number of lines
-" from the bottom
-set scrolloff=8
-
 " Adds extra column good for linting
 set signcolumn=yes
 
