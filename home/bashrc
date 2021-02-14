@@ -1,4 +1,22 @@
+#      / __        ___        ___       / __        __        ___    
+#     //   ) )   //   ) )   ((   ) )   //   ) )   //  ) )   //   ) ) 
+#    //   / /   //   / /     \ \      //   / /   //        //        
+# ()((___/ /   ((___( (   //   ) )   //   / /   //        ((____  
+
+# https://wiki.archlinux.org/index.php/Git#Git_prompt
+ESC=$(printf "\e")
+CYAN="$ESC[36m"
+RESETCOLOR="$ESC[0m"
+PS1='${CYAN} [\u@\h \W$(__git_ps1 " (%s)")]\$ ${RESETCOLOR}'
+
+alias ls='ls --color=auto'
 alias ll='ls -la'
+
+# Wholesome Unix
+alias pls='sudo'
+alias please='sudo'
+
+alias cl='clear'
 
 alias audio='pulseaudio-ctl'
 

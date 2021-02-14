@@ -62,7 +62,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
-    -- launch dmenu
+    -- launch epiphany
     , ((modm,               xK_e     ), spawn "epiphany")
 
     -- launch dmenu
