@@ -1,3 +1,4 @@
 xmobar &
+nitrogen --restore &
 
 exec xmonad
