@@ -7,7 +7,8 @@
 ESC=$(printf "\e")
 CYAN="$ESC[36m"
 RESETCOLOR="$ESC[0m"
-PS1='${CYAN} [\u@\h \W$(__git_ps1 " (%s)")]\$ ${RESETCOLOR}'
+# Bash Prompt
+PS1='${CYAN}[\u@\h \W]\$ ${RESETCOLOR}'
 
 alias ls='ls --color=auto'
 alias ll='ls -la'
