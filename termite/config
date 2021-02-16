@@ -1,5 +1,5 @@
 [options]
-font = Monospace 12
+font = Monospace 14
 [colors]
 foreground = #dcdccc
 background  = #3f3f3f
