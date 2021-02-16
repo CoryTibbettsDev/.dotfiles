@@ -13,6 +13,7 @@ done
 # Move back to starting directory
 cd ..
 
+mkdir -p ~/.config
 linkconfig() {
 	echo linking $1
 	mkdir ~/.config/$1
@@ -28,6 +29,7 @@ linkconfig() {
 linkconfig termite/
 
 # Link XMonad since it has it's own directory
+mkdir -p ~/.xmonad
 ln -srf ./xmonad/xmonad.hs ~/.xmonad/xmonad.hs
 
 echo Done
