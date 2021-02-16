@@ -1,24 +1,19 @@
-Config { 
-
-   -- appearance
-     font =         "xft:Bitstream Vera Sans Mono:size=12:bold:antialias=true"
-   , bgColor =      "black"
-   , fgColor =      "#646464"
-   , position =     Top
-   , border =       BottomB
-   , borderColor =  "#646464"
-
-   -- layout
-   , sepChar =  "%"   -- delineator between plugin names and straight text
-   , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%date%"
-
-   -- general behavior
-   , lowerOnStart =     True    -- send to bottom of window stack on start
-   , hideOnStart =      False   -- start with window unmapped (hidden)
-   , allDesktops =      True    -- show on all desktops
-   , overrideRedirect = True    -- set the Override Redirect flag (Xlib)
-   , pickBroadest =     False   -- choose widest display (multi-monitor)
-   , persistent =       True    -- enable/disable hiding (True = disabled)
-
-  }
+Config { font = "xft:Bitstream Vera Sans Mono:size=12:bold:antialias=true"
+        , borderColor = "black"
+        , border = TopB
+        , bgColor = "black"
+        , fgColor = "grey"
+        , position = TopW L 100
+		, allDesktops = True
+        , commands = [  Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                        , Run Network "eth1" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                        , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                        , Run Memory ["-t","Mem: <usedratio>%"] 10
+                        , Run Swap [] 10
+                        , Run Com "uname" ["-s","-r"] "" 36000
+                        , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                        ]
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "%uname% }{ %cpu% | %memory% * %swap% | %eth0% - %eth1% | <fc=#ee9a00>%date%</fc>"
+        }
