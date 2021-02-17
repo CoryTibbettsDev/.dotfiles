@@ -6,7 +6,7 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=12:bold:antialias=true"
         , position = TopW L 100
 		, allDesktops = True
         , commands = [  Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                        , Run Network "eth1" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                        , Run Network "enps43s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
                         , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                         , Run Memory ["-t","Mem: <usedratio>%"] 10
                         , Run Swap [] 10

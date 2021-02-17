@@ -3,6 +3,11 @@
 #    //   / /   //   / /     \ \      //   / /   //        //        
 # ()((___/ /   ((___( (   //   ) )   //   / /   //        ((____  
 
+# Automatically start xserver when in tty1 with no xmonad running
+if [ "$(tty)" = "/dev/tty1" ]; then
+	pgrep xmonad || startx
+fi
+
 # https://wiki.archlinux.org/index.php/Git#Git_prompt
 ESC=$(printf "\e")
 CYAN="$ESC[36m"
@@ -16,6 +21,8 @@ alias ll='ls -la'
 # Wholesome Unix
 alias pls='sudo'
 alias please='sudo'
+
+alias dl='youtube-dl --no-call-home'
 
 alias cl='clear'
 
