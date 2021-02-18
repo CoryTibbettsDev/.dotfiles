@@ -5,7 +5,7 @@
 Config {
 
    -- appearance
-     font =         "xft:Bitstream Vera Sans Mono:size=12:bold:antialias=true"
+     font =         "xft:Bitstream Vera Sans Mono:size=14:bold:antialias=true"
    , bgColor =      "black"
    , fgColor =      "#646464"
    , position =     Top
