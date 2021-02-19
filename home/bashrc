@@ -8,6 +8,8 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 	pgrep xmonad || startx
 fi
 
+export PATH=$PATH:~/.cargo/bin
+
 # https://wiki.archlinux.org/index.php/Git#Git_prompt
 ESC=$(printf "\e")
 CYAN="$ESC[36m"
@@ -22,6 +24,7 @@ alias ll='ls -la'
 alias pls='sudo'
 alias please='sudo'
 
+alias youtube-dl='youtube-dl --no-call-home'
 alias dl='youtube-dl --no-call-home'
 
 alias cl='clear'

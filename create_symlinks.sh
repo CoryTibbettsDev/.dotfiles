@@ -27,9 +27,6 @@ linkconfig() {
 }
 
 linkconfig termite/
-
-# Link XMonad since it has it's own directory
-mkdir -p ~/.xmonad
-ln -srf ./xmonad/xmonad.hs ~/.xmonad/xmonad.hs
+linkconfig awesome/
 
 echo Done

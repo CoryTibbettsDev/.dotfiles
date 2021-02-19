@@ -51,6 +51,13 @@ set hlsearch
 " script, <http://www.vim.org/scripts/script.php?script_id=1876>.
 set nomodeline
 
+"-----------------------------------------------------------
+" Netrw Options (the file browser that ships with vim)
+" https://shapeshed.com/vim-netrw/
+let g:netrw_browse_split = 2
+let g:netrw_winsize = 75
+let g:netrw_liststyle = 3
+
 "------------------------------------------------------------
 " Usability options
 " This causes the left and right arrow keys, as well as h and l,
