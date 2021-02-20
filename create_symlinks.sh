@@ -2,8 +2,6 @@
 
 # Script for creating symbolic links for my dotfiles
 
-echo Starting
-
 cd home/
 HOMEFILES=$(ls)
 for FILE in $HOMEFILES; do
@@ -28,5 +26,5 @@ linkconfig() {
 
 linkconfig termite/
 linkconfig awesome/
-
-echo Done
+# Symlink awesome widgets
+ln -srf ./awesome/awesome-wm-widgets ~/.config/awesome/awesome-wm-widgets && echo Widgets linked || echo Widgets not linked
