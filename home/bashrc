@@ -29,6 +29,7 @@ alias dl='youtube-dl --no-call-home'
 
 alias cl='clear'
 
-alias audio='pulseaudio-ctl'
+# Alias for YouTube command line search tool
+alias ytf='ytfzf'
 
 unset SSH_ASKPASS
