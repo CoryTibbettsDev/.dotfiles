@@ -2,12 +2,6 @@
 
 # Script for creating symbolic links for my dotfiles
 
-# Vim folder
-ln -srf ./vim/ ~/.vim && echo "Vim linked" || echo "Vim not linked"
-
-# Awesome widgets
-ln -srf ./awesome/awesome-wm-widgets ~/.config/awesome/awesome-wm-widgets && echo "Widgets linked" || echo "Widgets not linked"
-
 # Link all files in home directory to user's home directory
 cd home/
 HOMEFILES=$(ls)
@@ -18,7 +12,7 @@ done
 # Move back to starting directory
 cd ..
 
-mkdir -p ~/.config
+mkdir  ~/.config
 linkconfig() {
 	echo linking $1
 	mkdir ~/.config/$1
@@ -31,4 +25,5 @@ linkconfig() {
 	cd ..
 }
 linkconfig awesome/
+linkconfig nvim/
 linkconfig alacritty/

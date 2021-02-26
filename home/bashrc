@@ -3,9 +3,9 @@
 #    //   / /   //   / /     \ \      //   / /   //        //        
 # ()((___/ /   ((___( (   //   ) )   //   / /   //        ((____  
 
-# Automatically start xserver when in tty1 with no xmonad running
+# Automatically start xserver when in tty1 with no window manager running
 if [ "$(tty)" = "/dev/tty1" ]; then
-	pgrep xmonad || startx
+	pgrep awesome || startx
 fi
 
 export PATH=$PATH:~/.cargo/bin
@@ -20,16 +20,20 @@ PS1='${CYAN}[\u@\h \W]\$ ${RESETCOLOR}'
 alias ls='ls --color=auto'
 alias ll='ls -la'
 
+# Alias for nvim editor
+# e is easy to reach and I remember with e for edit
+alias e='nvim'
+
 # Wholesome Unix
 alias pls='sudo'
 alias please='sudo'
 
+alias cl='clear'
+
 alias youtube-dl='youtube-dl --no-call-home'
 alias dl='youtube-dl --no-call-home'
 
-alias cl='clear'
-
 # Alias for YouTube command line search tool
-alias ytf='ytfzf'
+alias yt='ytfzf'
 
 unset SSH_ASKPASS

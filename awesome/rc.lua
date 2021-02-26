@@ -3,6 +3,7 @@
 pcall(require, "luarocks.loader")
 
 -- Import custom widgets
+local temp_widget = require("awesome-wm-widgets.temp-widget.temp-widget")
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local fs_widget = require("awesome-wm-widgets.fs-widget.fs-widget")
 local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
@@ -57,7 +58,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "mytheme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
-editor = os.getenv("EDITOR") or "vim"
+editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -220,6 +221,18 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
+            temp_widget(),
+
+            --------------- Temp Widget for AMD CPU ---------------
+            awful.widget.watch('bash -c "sensors | grep Tctl"', 15),
+            awful.widget.watch('bash -c "sensors | grep Tdie"', 15),
+            --------------------------------------------------------
+            ------------------ Temp Widget for Intel CPU -------------------
+            -- awful.widget.watch('bash -c "sensors | grep Package id 0"', 15),
+            -- awful.widget.watch('bash -c "sensors | grep Core 0"', 15),
+            -- awful.widget.watch('bash -c "sensors | grep Core 1"', 15),
+            ----------------------------------------------------------------
+
 			cpu_widget(),
 			ram_widget(),
 			fs_widget(),
