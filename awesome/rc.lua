@@ -221,18 +221,16 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            temp_widget(),
-
-            --------------- Temp Widget for AMD CPU ---------------
-            awful.widget.watch('bash -c "sensors | grep Tctl"', 15),
-            awful.widget.watch('bash -c "sensors | grep Tdie"', 15),
-            --------------------------------------------------------
+            ------------------------ Temp Widget for AMD CPU ------------------------
+            awful.widget.watch('bash -c "sensors | grep Tctl | sed \'s/ //g\'"', 15),
+            awful.widget.watch('bash -c "sensors | grep Tdie | sed \'s/ //g\'"', 15),
+            -------------------------------------------------------------------------
             ------------------ Temp Widget for Intel CPU -------------------
             -- awful.widget.watch('bash -c "sensors | grep Package id 0"', 15),
             -- awful.widget.watch('bash -c "sensors | grep Core 0"', 15),
             -- awful.widget.watch('bash -c "sensors | grep Core 1"', 15),
             ----------------------------------------------------------------
-
+            -- temp_widget(),
 			cpu_widget(),
 			ram_widget(),
 			fs_widget(),

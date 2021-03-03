@@ -1,5 +1,5 @@
-" Disable creation of swap files
-set noswapfile
+" Detect filetype
+filetype plugin indent on
 
 " Enable syntax highlighting
 syntax on
@@ -7,8 +7,8 @@ syntax on
 " Enable true color support
 set termguicolors
 
-" Detect filetype
-filetype plugin indent on
+" Disable creation of swap files
+set noswapfile
 
 " How tabs are displayed and inserted
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
@@ -38,6 +38,7 @@ set wrap breakindent
 " Move window as you scroll instead of going all the way to the bottom
 set scrolloff=11
 
+" UTS-8 character encoding pretty standard
 set encoding=utf-8
 
 " Enables line numbers and numbers relative to cursor position
@@ -53,7 +54,7 @@ map tj :tabprev<CR>
 map th :tabfirst<CR>
 map tl :tablast<CR>
 
-" Allows for wrapping movement
+" Allows for wrapping movement to next or previous line
 set whichwrap+=<,>,h,l,[,]
 
 " Netrw file browser settings
