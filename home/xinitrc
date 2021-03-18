@@ -1,3 +1,6 @@
-nitrogen --restore &
+feh --recursive --bg-fill --randomize ~/.wallpaper &
+
+VISUAL=nvim
+EDITOR=nvim
 
 exec awesome

@@ -14,11 +14,13 @@ set noswapfile
 let g:netrw_dirhistmax = 0
 
 " How tabs are displayed and inserted
-" Indentation settings for using hard tabs for indent. Display tabs as
-" four characters wide.
+" Settings for hardtabs
 set shiftwidth=4 tabstop=4
 " Settings for softtabs
 " set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
+
+" Vertical line showing end of the line
+set colorcolumn=80
 
 " Automatically indents lines
 set cindent
@@ -34,10 +36,6 @@ set wildmenu
 " Wildmenu will ignore certain things
 " Ignore all variations of node_modules
 set wildignore=**node_modules**
-
-" Shows trailing spaces and tabs
-set list listchars=trail:»,tab:»-
-set fillchars+=vert:\ 
 
 " Allows wrapping of text if window too small
 set wrap breakindent
@@ -67,6 +65,15 @@ map tl :tablast<CR>
 
 " Allows for wrapping movement to next or previous line
 set whichwrap+=<,>,h,l,[,]
+" remap shift-enter to fire up the sidebar
+nnoremap <silent> <S-CR> :rightbelow 20vs<CR>:e .<CR>
+" the same remap as above - may be necessary in some distros
+nnoremap <silent> <C-M> :rightbelow 20vs<CR>:e .<CR>
+" remap control-enter to open files in new tab
+nmap <silent> <C-CR> t :rightbelow 20vs<CR>:e .<CR>:wincmd h<CR>
+" the same remap as above - may be necessary in some distros
+nmap <silent> <NL> t :rightbelow 20vs<CR>:e .<CR>:wincmd h<CR>
+
 
 " Netrw file browser settings
 " Tree like listing

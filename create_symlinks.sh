@@ -12,7 +12,7 @@ done
 # Move back to starting directory
 cd ~/.dotfiles
 
-mkdir  ~/.config
+mkdir -p ~/.config
 linkconfig() {
     # Remove old directory
     rm -r ~/.config/$1
@@ -23,5 +23,6 @@ linkconfig() {
     ln -s ~/.dotfiles/$1 ~/.config && echo $1 linked || echo $1 not linked
 }
 linkconfig awesome
-linkconfig alacritty
+linkconfig kitty
 linkconfig nvim
+linkconfig ranger

@@ -10,6 +10,10 @@ fi
 
 export PATH=$PATH:~/.cargo/bin
 
+# Set editor details for programs that look for them
+export VISUAL=nvim;
+export EDITOR=nvim;
+
 # https://wiki.archlinux.org/index.php/Git#Git_prompt
 ESC=$(printf "\e")
 CYAN="$ESC[36m"
@@ -20,20 +24,27 @@ PS1='${CYAN}[\u@\h \W]\$ ${RESETCOLOR}'
 alias ls='ls --color=auto'
 alias ll='ls -la'
 
+# Wholesome Unix
+alias pls='sudo'
+alias please='sudo'
+# alias pls='doas --'
+# alias please='doas --'
+
+alias cl='clear'
+
 # Alias for nvim editor
 # e is easy to reach and I remember with e for edit
 alias e='nvim'
 
-# Wholesome Unix
-alias pls='sudo'
-alias please='sudo'
+# CLI file browser
+alias r='ranger'
 
-alias cl='clear'
+# Alias for YouTube command line search tool
+alias yt='ytfzf'
 
 alias youtube-dl='youtube-dl --no-call-home'
 alias dl='youtube-dl --no-call-home'
 
-# Alias for YouTube command line search tool
-alias yt='ytfzf'
+alias wp='feh --recursive --bg-fill --randomize ~/.wallpaper &'
 
 unset SSH_ASKPASS
