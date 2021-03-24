@@ -1,3 +1,7 @@
+" I accidentally do :W instead of :w to save a lot
+" Custom command to call lowercase w with uppercase W
+command! W :w
+
 " Detect filetype
 filetype plugin indent on
 
@@ -13,6 +17,9 @@ set noswapfile
 " Disable netrw history
 let g:netrw_dirhistmax = 0
 
+" Highlight trailing whitespace
+set list listchars=tab:>-,trail:.,extends:>
+
 " How tabs are displayed and inserted
 " Settings for hardtabs
 set shiftwidth=4 tabstop=4
@@ -20,7 +27,7 @@ set shiftwidth=4 tabstop=4
 " set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
 
 " Vertical line showing end of the line
-set colorcolumn=80
+" set colorcolumn=80
 
 " Automatically indents lines
 set cindent
@@ -74,11 +81,63 @@ nmap <silent> <C-CR> t :rightbelow 20vs<CR>:e .<CR>:wincmd h<CR>
 " the same remap as above - may be necessary in some distros
 nmap <silent> <NL> t :rightbelow 20vs<CR>:e .<CR>:wincmd h<CR>
 
-
 " Netrw file browser settings
 " Tree like listing
 let g:netrw_liststyle = 3
 
+" Satus Line
+" Shows two line status bar at bottom of editor
+" Show current command and mode
+set ruler laststatus=2 showcmd showmode
+" https://stackoverflow.com/questions/9065941/how-can-i-change-vim-status-line-colour
+" Show highlight test command > :so $VIMRUNTIME/syntax/hitest.vim
+
+" Functions for getting git branch
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+" https://stackoverflow.com/questions/48271865/vim-whats-the-best-way-to-set-statusline-color-to-change-based-on-mode
+hi NormalColor guibg=#665c54 guifg=#ebdbb2
+hi InsertColor guibg=#b8bb26 guifg=#504945
+hi ReplaceColor guibg=#fb4934 guifg=#504945
+hi VisualColor  guibg=#8ec07c guifg=#504945
+
+" StatusLine starting colors
+hi StatusLine guibg=white guifg=DarkSlateGray
+" Colors of the non current statusline
+" (the one that's not focused)
+hi StatusLine guibg=white guifg=Blue
+" Formats the statusline
+set statusline=
+" Output Mode and color it with the colors set earlier
+" Does not work correctly with visual block :h mode() for reference
+set statusline+=%#NormalColor#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#InsertColor#%{(mode()=='i')?'\ \ INSERT\ ':''}
+set statusline+=%#ReplaceColor#%{(mode()=='R')?'\ \ REPLACE\ ':''}
+set statusline+=%#VisualColor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
+set statusline+=%#NormalColor#%{(mode()=='c')?'\ \ COMMAND\ ':''}
+set statusline+=%#NormalColor#%{(mode()=='f')?'\ \ FINDER\ ':''}
+
+set statusline+=%{StatuslineGit()} " Calls function to get git branch
+set statusline+=%f " file name
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
+set statusline+=%{&ff}] " file format
+set statusline+=%y " filetype
+set statusline+=%h " help file flag
+set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] "modified flag
+set statusline+=%r " read only flag
+set statusline+=\ %= " align left
+set statusline+=\ [%b][0x%B]\ " ASCII and byte code under cursor
+set statusline+=Line:%l/%L[%p%%] " line X of Y [percent of file]
+set statusline+=\ Col:%c " current column
+set statusline+=\ Buf:%n " Buffer number
+
+" Completion
 " Cuztomize color of popup menu
 " https://vi.stackexchange.com/questions/12664/is-there-any-way-to-change-the-popup-menu-color
 " NOTE: gui colors are used here because I have termguicolors on
@@ -92,56 +151,7 @@ hi PmenuSbar guibg=black ctermbg=0
 " Thumb of scrollbar
 hi PmenuThumb guibg=gray ctermbg=7
 
-" Satus Line
-" Shows two line status bar at bottom of editor
-" Show current command and mode
-set ruler laststatus=2 showcmd showmode
-" https://stackoverflow.com/questions/9065941/how-can-i-change-vim-status-line-colour
-function! ModifiedColor()
-    if &mod == 1
-        "hi statusline guibg=White ctermfg=8 guifg=OrangeRed4 ctermbg=15
-        hi statusline guibg=White ctermfg=8 guifg=SlateBlue ctermbg=15
-    else
-        hi statusline guibg=White ctermfg=8 guifg=DarkSlateGray ctermbg=15
-	endif
-endfunction
-
-au InsertLeave,InsertEnter,BufWritePost   * call ModifiedColor()
-" default the statusline when entering Vim
-hi statusline guibg=White ctermfg=8 guifg=DarkSlateGray ctermbg=15
-
-" Functions for getting git branch
-function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
-function! StatuslineGit()
-  let l:branchname = GitBranch()
-  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-endfunction
-
-" Formats the statusline
-set statusline=
-set statusline+=%{StatuslineGit()} " Calls function to get git branch
-set statusline+=%f                           " file name
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
-set statusline+=%{&ff}] " file format
-set statusline+=%y      " filetype
-set statusline+=%h      " help file flag
-set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] "modified flag
-set statusline+=%r      " read only flag
-set statusline+=\ %=                        " align left
-set statusline+=\ [%b][0x%B]\               " ASCII and byte code under cursor
-set statusline+=Line:%l/%L[%p%%]            " line X of Y [percent of file]
-set statusline+=\ Col:%c                    " current column
-set statusline+=\ Buf:%n                    " Buffer number
-
-
 " Automatically call autocomplete popup
-" vim: set noet fenc=utf-8 ff=unix sts=4 sw=4 ts=4 :
-"
-" apc.vim - auto popup completion window
-"
 " Created by skywind on 2020/03/05
 " Last Modified: 2020/03/09 20:28
 "

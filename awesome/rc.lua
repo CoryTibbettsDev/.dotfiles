@@ -57,7 +57,7 @@ end
 beautiful.init(gears.filesystem.get_configuration_dir() .. "mytheme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "alacritty"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -336,8 +336,10 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
+    -- awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+              -- {description = "rofi run prompt", group = "launcher"}),
+    awful.key({ modkey }, "r", function () awful.spawn("rofi -show run") end,
+              {description = "rofi run prompt", group = "launcher"}),
 
     awful.key({ modkey }, "x",
               function ()

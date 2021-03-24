@@ -1,7 +1,4 @@
-#      / __        ___        ___       / __        __        ___    
-#     //   ) )   //   ) )   ((   ) )   //   ) )   //  ) )   //   ) ) 
-#    //   / /   //   / /     \ \      //   / /   //        //        
-# ()((___/ /   ((___( (   //   ) )   //   / /   //        ((____  
+# fancy bashrc ascii art here
 
 # Automatically start xserver when in tty1 with no window manager running
 if [ "$(tty)" = "/dev/tty1" ]; then
@@ -27,6 +24,7 @@ alias ll='ls -la'
 # Wholesome Unix
 alias pls='sudo'
 alias please='sudo'
+# In case I switch to doas
 # alias pls='doas --'
 # alias please='doas --'
 
@@ -45,6 +43,17 @@ alias yt='ytfzf'
 alias youtube-dl='youtube-dl --no-call-home'
 alias dl='youtube-dl --no-call-home'
 
+# Set wallpaper again
 alias wp='feh --recursive --bg-fill --randomize ~/.wallpaper &'
+
+alias reload='source ~/.bashrc'
+
+# Compile a groff document into a pdf
+groffpdf() {
+	RAWINPUTFILE=$(echo ${1} | awk -F. '{print $1}')
+	COMPILEDFILE=${RAWINPUTFILE}.pdf
+	printf "groff compiling %b to %b \n" ${1} ${COMPILEDFILE}
+	groff -mom -T pdf ${1} > ${COMPILEDFILE}
+}
 
 unset SSH_ASKPASS

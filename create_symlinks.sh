@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/binsh
 
 # Script for creating symbolic links for my dotfiles
 
@@ -6,23 +6,16 @@
 HOMEFILES=$(ls ~/.dotfiles/home)
 for FILE in $HOMEFILES; do
     DOTFILE=~/.$FILE
-    ln -sf ~/.dotfiles/home/$FILE $DOTFILE && echo $DOTFILE links to $FILE || echo $FILE not linked
+    ln -sf ~/.dotfiles/home/$FILE $DOTFILE && printf "${DOTFILE} links to ${FILE}\n" || printf "${FILE} not linked\n"
 done
 
-# Move back to starting directory
-cd ~/.dotfiles
-
+# Make the directory in case it does not exist
 mkdir -p ~/.config
 linkconfig() {
-    # Remove old directory
-    rm -r ~/.config/$1
-	# If you want to move the folder instead of delete
-	# mv -r ~/.config/$1 ~/.config/${1}_old
-
-    echo linking $1
-    ln -s ~/.dotfiles/$1 ~/.config && echo $1 linked || echo $1 not linked
+	# Add -b --backup flag if you want to backup old files
+	printf "linking ${1}\n"
+	ln -sf ~/.dotfiles/$1 ~/.config && printf "${1} linked\n" || printf "${1} not linked\n"
 }
 linkconfig awesome
 linkconfig kitty
 linkconfig nvim
-linkconfig ranger
