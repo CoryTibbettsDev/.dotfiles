@@ -18,7 +18,7 @@ set noswapfile
 let g:netrw_dirhistmax = 0
 
 " Highlight trailing whitespace
-set list listchars=tab:>-,trail:.,extends:>
+" set list listchars=tab:>-,trail:.,extends:>
 
 " How tabs are displayed and inserted
 " Settings for hardtabs
@@ -142,9 +142,9 @@ set statusline+=\ Buf:%n " Buffer number
 " https://vi.stackexchange.com/questions/12664/is-there-any-way-to-change-the-popup-menu-color
 " NOTE: gui colors are used here because I have termguicolors on
 " :help guibg or ctermbg for color info
-" normal item
+" Normal item
 hi Pmenu guibg=DarkSlateGray ctermbg=0
-" selected item
+" Selected item
 hi PmenuSel guibg=SlateBlue ctermbg=4
 " Scollbar
 hi PmenuSbar guibg=black ctermbg=0
@@ -152,6 +152,7 @@ hi PmenuSbar guibg=black ctermbg=0
 hi PmenuThumb guibg=gray ctermbg=7
 
 " Automatically call autocomplete popup
+" https://github.com/skywind3000/vim-auto-popmenu
 " Created by skywind on 2020/03/05
 " Last Modified: 2020/03/09 20:28
 "
