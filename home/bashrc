@@ -5,6 +5,8 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 	pgrep awesome || startx
 fi
 
+export PATH=$HOME/Scripts:$PATH
+
 # Bash Prompt
 # get current branch in git repo
 function parse_git_branch() {

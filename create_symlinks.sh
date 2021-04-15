@@ -19,3 +19,6 @@ linkconfig() {
 linkconfig awesome
 linkconfig kitty
 linkconfig nvim
+
+# Copy Wallpapers
+cp -nv Wallpaper/* ~/Media/Wallpaper
