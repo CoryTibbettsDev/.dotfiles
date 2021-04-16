@@ -10,6 +10,9 @@ for FILE in $HOMEFILES; do
     ln -sf ~/.dotfiles/home/$FILE $DOTFILE && printf "${DOTFILE} links to ${FILE}\n" || printf "${FILE} not linked\n"
 done
 
+# Copy Wallpapers
+cp -nv Wallpaper/* ~/Media/Wallpaper
+
 # Make the directory in case it does not exist
 mkdir -p ~/.config
 linkconfig() {
@@ -19,6 +22,4 @@ linkconfig() {
 linkconfig awesome
 linkconfig kitty
 linkconfig nvim
-
-# Copy Wallpapers
-cp -nv Wallpaper/* ~/Media/Wallpaper
+linkconfig gtk-3.0
