@@ -50,6 +50,9 @@ PACKAGES=(
 	# Themes
 	# GTK
 	arc-solid-gtk-theme
+	# Office Suit
+	# libreoffice-fresh
+	libreoffice-still
 
 	#### VirtualBox ####
 	# virtualbox
@@ -116,19 +119,20 @@ paru -S librewolf-bin --noconfirm
 # Source code: https://github.com/pystardust/ytfzf
 echo "Installing ytfzf"
 # Dependencies
-sudo pacman -S mpv youtube-dl jq fzf # ueberzug --noconfirm
+sudo pacman -S mpv youtube-dl jq fzf --noconfirm # ueberzug
 paru -S ytfzf-git --noconfirm
 
 # Change swappiness to better value
 sudo sysctl vm.swappiness=10
 echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-swappiness.conf
 
+# Setup home directory
+printf "Creating Home Directory\n"
+cd ~
+mkdir -pv Downloads Projects Stuff
+
 echo "Getting Dotfiles"
 cd ~
 git clone https://github.com/CoryTibbettsDev/.dotfiles
 cd .dotfiles
 sh create_symlinks.sh
-
-# Setup home directory
-cd ~
-mkdir -v Downloads Media Projects Source

@@ -11,7 +11,7 @@ for FILE in $HOMEFILES; do
 done
 
 # Copy Wallpapers
-cp -nv Wallpaper/* ~/Media/Wallpaper
+cp -nv Wallpaper/* ~/Stuff/Wallpaper
 
 # Make the directory in case it does not exist
 mkdir -p ~/.config
@@ -22,4 +22,5 @@ linkconfig() {
 linkconfig awesome
 linkconfig kitty
 linkconfig nvim
+linkconfig ytfzf
 linkconfig gtk-3.0

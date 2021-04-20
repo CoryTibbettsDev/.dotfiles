@@ -2,6 +2,10 @@
 " mycolorscheme.vim
 " Thank you to the many wonderful people who's colorschemes I
 " learned from
+" Colors based on tokyonight
+" https://github.com/ghifarit53/tokyonight.vim/
+" Color function based on onehalf
+" https://github.com/sonph/onehalf
 " ===============================================================
 
 " Setup: {{{
@@ -14,29 +18,6 @@ let g:colors_name="mycolorscheme"
 " }}}
 
 " Palette: {{{
-" let s:black       = { "gui": "#282c34", "cterm": "236" }
-" let s:red         = { "gui": "#e06c75", "cterm": "168" }
-" let s:green       = { "gui": "#98c379", "cterm": "114" }
-" let s:yellow      = { "gui": "#e5c07b", "cterm": "180" }
-" let s:cyan        = { "gui": "#61afef", "cterm": "75"  }
-" let s:purple      = { "gui": "#c678dd", "cterm": "176" }
-" let s:blue        = { "gui": "#56b6c2", "cterm": "73"  }
-" let s:white       = { "gui": "#dcdfe4", "cterm": "188" }
-" 
-" let s:fg          = s:white
-" let s:bg          = s:black
-" 
-" let s:comment_fg  = { "gui": "#5c6370", "cterm": "241" }
-" let s:gutter_bg   = { "gui": "#282c34", "cterm": "236" }
-" let s:gutter_fg   = { "gui": "#919baa", "cterm": "247" }
-" let s:non_text    = { "gui": "#373C45", "cterm": "239" }
-" 
-" let s:cursor_line = { "gui": "#313640", "cterm": "237" }
-" let s:color_col   = { "gui": "#313640", "cterm": "237" }
-" 
-" let s:selection   = { "gui": "#474e5d", "cterm": "239" }
-" let s:vertsplit   = { "gui": "#313640", "cterm": "237" }
-
 let s:black = { "gui": "#24283b", "cterm": "235" }
 let s:white = { "gui": "#a9b1d6", "cterm": "250" }
 let s:darkgray1 = { "gui": "#06080a", "cterm": "237" }
@@ -59,10 +40,10 @@ let s:purple = { "gui": "#ad8ee6", "cterm": "176" }
 let s:gray = { "gui": "#444B6A", "cterm": "246" }
 
 let s:fg = s:white
-let s:bg = s:darkgray1
+let s:bg = s:darkgray2
 let s:non_text = s:bg
-let s:cursor_line = s:darkgray2
-let s:selection = s:orange
+let s:cursor_line = s:darkgray3
+let s:selection = s:darkgray4
 let s:comment_fg = s:purple
 
 " let s:palette = {

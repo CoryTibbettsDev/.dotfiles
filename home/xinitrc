@@ -1,4 +1,4 @@
-feh --recursive --bg-fill --randomize ~/Media/Wallpaper &
+feh --recursive --bg-fill --randomize ~/Stuff/Wallpaper &
 
 VISUAL=nvim
 EDITOR=nvim
