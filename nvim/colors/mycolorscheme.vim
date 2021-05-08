@@ -106,8 +106,8 @@ call s:h("DiffChange", s:yellow, "", "")
 call s:h("DiffDelete", s:red, "", "")
 call s:h("DiffText", s:blue, "", "")
 
-call s:h("IncSearch", s:bg, s:yellow, "")
-call s:h("Search", s:bg, s:yellow, "")
+call s:h("IncSearch", s:bg, s:bg_red, "")
+call s:h("Search", s:bg, s:bg_green, "")
 
 call s:h("ErrorMsg", s:fg, "", "bold,underline")
 call s:h("ModeMsg", s:fg, "", "")
@@ -115,8 +115,8 @@ call s:h("MoreMsg", s:fg, "", "")
 call s:h("WarningMsg", s:red, "", "")
 call s:h("Question", s:purple, "", "")
 
-call s:h("Pmenu", s:fg, s:bg, "")
-call s:h("PmenuSel", s:fg, s:blue, "")
+call s:h("Pmenu", s:fg, s:black, "")
+call s:h("PmenuSel", s:black, s:blue, "")
 call s:h("PmenuSbar", "", s:selection, "")
 call s:h("PmenuThumb", "", s:fg, "")
 

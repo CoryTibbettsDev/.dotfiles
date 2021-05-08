@@ -1,16 +1,38 @@
-" I accidentally do :W instead of :w to save a lot
-" Custom command to call lowercase w with uppercase W
-command! W :w
+" Many settings are different by default in nvim but I set them in case my
+" config is used with vim
+" https://dev.to/vonheikemen/how-many-lines-of-code-does-it-take-to-turn-vim-into-a-nice-editor-10ni
+" UTS-8 character encoding pretty standard
+set encoding=utf-8
+
+" Stuff that needs to been set in vim but not nvim
+if !has('nvim')
+	set nocompatible
+	set backspace=indent,eol,start
+	set hidden
+	set mouse=a
+endif
 
 " Detect filetype
 filetype plugin indent on
 
-" Colors
-" Enable syntax highlighting
+" Title of window is name of file being edited
+set title
+
+" Enables line numbers and numbers relative to cursor position
+set number
+set relativenumber
+
+" Allows for wrapping movement to next or previous line
+" set whichwrap+=<,>,h,l,[,]
+
+" Enable syntax highlighting and true color
 syntax on
 
-set termguicolors
-
+" Turn on true color if available
+if has('termguicolors')
+	set termguicolors
+endif
+" Set Colorscheme if available
 try
 	colorscheme mycolorscheme
 catch /^Vim\%((\a\+)\)\=:E185/
@@ -18,46 +40,16 @@ catch /^Vim\%((\a\+)\)\=:E185/
 	set background=dark
 endtry
 
-" Get highlight group of the word under cursor
-" Use ctrl+shitf+p
-nmap <C-S-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-    if !exists("*synstack")
-        return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunction
-
-" Text folding :help folds
-" Folds text inside {{{'}}} by default
-set foldenable
-set foldmethod=marker
-
-" Disable annoying features
-" Disable creation of swap files
-set noswapfile
-" Disable netrw history
-let g:netrw_dirhistmax = 0
-
-" Highlight trailing whitespace
-set list listchars=tab:>-,trail:.,extends:>
-
 " How tabs are displayed and inserted
 " Settings for hardtabs
 set tabstop=4 shiftwidth=4
 " Settings for softtabs
 " set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
 
-" Vertical line showing end of the line
-" set colorcolumn=80
-
-" Automatically indents lines
+" Automatically indents lines when you insert a new line :h smartindent
 set cindent
-" Other ways to autoindent
-" set autoindent
-" set smartindent
 
-" Case insensitive search
+" Case insensitive search and highlight
 set incsearch ignorecase smartcase hlsearch
 
 " Better command-line completion
@@ -66,23 +58,28 @@ set wildmenu
 " Ignore all variations of node_modules
 set wildignore=**node_modules**
 
-" Allows wrapping of text if window too small
-set wrap breakindent
-
-" Move window as you scroll instead of going all the way to the bottom
+" Move window as you scroll
 set scrolloff=11
+set sidescrolloff=5
 
-" UTS-8 character encoding pretty standard
-set encoding=utf-8
+" Text folding :help folds
+" Folds text inside {{{'}}} by default
+set foldenable
+set foldmethod=marker
 
-" Enables line numbers and numbers relative to cursor position
-set number
-set relativenumber
+" Re-read file when changes are made outside of vim
+set autoread
 
-set title
+" Disable annoying features
+" Disable creation of swap files
+set noswapfile
+set nobackup
+set nowrap
+" Disable netrw history
+let g:netrw_dirhistmax = 0
 
-" Allows for wrapping movement to next or previous line
-set whichwrap+=<,>,h,l,[,]
+" Highlight trailing whitespace
+set list listchars=tab:>-,trail:.,extends:>
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
@@ -95,23 +92,66 @@ map tj :tabprev<CR>
 map th :tabfirst<CR>
 map tl :tablast<CR>
 
-"" remap shift-enter to fire up the sidebar
-"nnoremap <silent> <S-CR> :rightbelow 20vs<CR>:e .<CR>
-"" the same remap as above - may be necessary in some distros
-"nnoremap <silent> <C-M> :rightbelow 20vs<CR>:e .<CR>
-"" remap control-enter to open files in new tab
-"nmap <silent> <C-CR> t :rightbelow 20vs<CR>:e .<CR>:wincmd h<CR>
-"" the same remap as above - may be necessary in some distros
-"nmap <silent> <NL> t :rightbelow 20vs<CR>:e .<CR>:wincmd h<CR>
-
 " Netrw file browser settings
 " Tree like listing
 let g:netrw_liststyle = 3
 
-" Satus Line
+" I accidentally do :W instead of :w to save a lot
+" Custom command to call lowercase w with uppercase W
+command! W :w
+
+" https://www.maketecheasier.com/turn-vim-word-processor/
+" https://thepracticalsysadmin.com/using-vim-as-a-word-processor/
+" :h formatoptions and :h fo-table
+function! WordProcessor()
+  " movement changes
+  map j gj
+  map k gk
+  " formatting text
+  setlocal noexpandtab
+  setlocal wrap
+  setlocal linebreak
+  set textwidth=80
+  setlocal smartindent
+  " Hard Wrap
+  " setlocal formatoptions+=a
+  " spelling and thesaurus
+  setlocal spell spelllang=en_us
+  " set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
+  " complete+=s makes autocompletion search the thesaurus
+  " set complete+=s
+endfunction
+command! WP call WordProcessor()
+
+" Insert license header in file
+" https://www.gilesorr.com/blog/vimscript-insert.html
+command! License :call s:insertlicense()
+function! s:insertlicense()
+	let text = "/* See LICENSE for copyright and license details. */"
+	" Append text to line 0 means insert on the first line
+	let failed = append(0, text)
+	if (failed)
+		echo "Unable to insert license text"
+	else
+		" Set buffer to modified
+		let &modified = 1
+	endif
+endfunction
+
+" Get highlight group of the word under cursor
+" Use ctrl+shitf+p
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+    if !exists("*synstack")
+        return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunction
+
+" Status Line
 " Shows two line status bar at bottom of editor
 " Show current command and mode
-set ruler laststatus=2 showcmd showmode
+set laststatus=2 showcmd showmode
 " https://stackoverflow.com/questions/9065941/how-can-i-change-vim-status-line-colour
 " Show highlight test command > :so $VIMRUNTIME/syntax/hitest.vim
 
@@ -123,8 +163,6 @@ function! StatuslineGit()
   let l:branchname = GitBranch()
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
-
-" https://stackoverflow.com/questions/48271865/vim-whats-the-best-way-to-set-statusline-color-to-change-based-on-mode
 " Formats the statusline
 set statusline=
 set statusline+=%{StatuslineGit()} " Calls function to get git branch
@@ -133,7 +171,7 @@ set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
 set statusline+=%{&ff}] " file format
 set statusline+=%y " filetype
 set statusline+=%h " help file flag
-set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] "modified flag
+set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] " modified flag
 set statusline+=%r " read only flag
 set statusline+=\ %= " align left
 set statusline+=\ [%b][0x%B]\ " ASCII and byte code under cursor
@@ -141,12 +179,13 @@ set statusline+=Line:%l/%L[%p%%] " line X of Y [percent of file]
 set statusline+=\ Col:%c " current column
 set statusline+=\ Buf:%n " Buffer number
 
+" Completion menu settings
 set completeopt=menu,menuone,noselect
 set complete=.,w,b,u,t
 " myacp.vim
-let g:myacp_enable_ft = get(g:, 'myacp_enable_ft', {})    " enable filetypes
-let g:myacp_enable_tab = get(g:, 'myacp_enable_tab', 1)   " remap tab
-let g:myacp_min_length = get(g:, 'myacp_min_length', 2)   " minimal length to open popup
-let g:myacp_key_ignore = get(g:, 'myacp_key_ignore', [])  " ignore keywords
+let g:myacp_enable_ft = get(g:, 'myacp_enable_ft', {})   " enable filetypes
+let g:myacp_enable_tab = get(g:, 'myacp_enable_tab', 1)  " remap tab
+let g:myacp_min_length = get(g:, 'myacp_min_length', 1)  " minimal length to open popup
+let g:myacp_key_ignore = get(g:, 'myacp_key_ignore', []) " ignore keywords
 " Enable for all files
 let g:myacp_enable_ft = {'*':1}

@@ -50,6 +50,10 @@ PACKAGES=(
 	# Themes
 	# GTK
 	arc-solid-gtk-theme
+	# Raster Image Editor
+	# gimp
+	# Vector Image Editor
+	# inkscape
 	# Office Suit
 	# libreoffice-fresh
 	libreoffice-still
