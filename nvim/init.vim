@@ -40,6 +40,15 @@ catch /^Vim\%((\a\+)\)\=:E185/
 	set background=dark
 endtry
 
+" Disable annoying features
+" Disable creation of swap files
+set noswapfile
+set nobackup
+set nowrap
+set viminfo=
+" Disable netrw history
+let g:netrw_dirhistmax = 0
+
 " How tabs are displayed and inserted
 " Settings for hardtabs
 set tabstop=4 shiftwidth=4
@@ -70,16 +79,28 @@ set foldmethod=marker
 " Re-read file when changes are made outside of vim
 set autoread
 
-" Disable annoying features
-" Disable creation of swap files
-set noswapfile
-set nobackup
-set nowrap
-" Disable netrw history
-let g:netrw_dirhistmax = 0
-
 " Highlight trailing whitespace
 set list listchars=tab:>-,trail:.,extends:>
+
+" Mappings
+" View mappings
+" :nmap - Display normal mode maps
+" :imap - Display insert mode maps
+" :vmap - Display visual and select mode maps
+" :smap - Display select mode maps
+" :xmap - Display visual mode maps
+" :cmap - Display command-line mode maps
+" :omap - Display operator pending mode maps
+" Maps leader key to comma
+let mapleader = ','
+
+" I accidentally do :W instead of :w to save a lot
+" Custom command to call lowercase w with uppercase W
+command! W :w
+
+nnoremap <leader>w :wq<CR>
+nnoremap <leader>s :w<CR>
+nnoremap <leader>r :source $MYVIMRC<CR>
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
@@ -92,46 +113,46 @@ map tj :tabprev<CR>
 map th :tabfirst<CR>
 map tl :tablast<CR>
 
-" Netrw file browser settings
-" Tree like listing
-let g:netrw_liststyle = 3
+" Comment all selected lines in visual mode
+" https://stackoverflow.com/questions/46893804/vimscript-mapping-for-commenting-visual-blocks
+vnoremap <Leader>c :s/^/#/<bar>nohlsearch<cr>
 
-" I accidentally do :W instead of :w to save a lot
-" Custom command to call lowercase w with uppercase W
-command! W :w
+" Insert c multiline comment like /* */
+" Insert comment into normal mode move left 2 spaces into insert mode
+inoremap <C-d> /*  */<ESC>2hi
 
 " https://www.maketecheasier.com/turn-vim-word-processor/
 " https://thepracticalsysadmin.com/using-vim-as-a-word-processor/
 " :h formatoptions and :h fo-table
-function! WordProcessor()
-  " movement changes
-  map j gj
-  map k gk
-  " formatting text
-  setlocal noexpandtab
-  setlocal wrap
-  setlocal linebreak
-  set textwidth=80
-  setlocal smartindent
-  " Hard Wrap
-  " setlocal formatoptions+=a
-  " spelling and thesaurus
-  setlocal spell spelllang=en_us
-  " set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
-  " complete+=s makes autocompletion search the thesaurus
-  " set complete+=s
-endfunction
 command! WP call WordProcessor()
+function! WordProcessor()
+	" movement changes
+	map j gj
+	map k gk
+	" formatting text
+	setlocal noexpandtab
+	setlocal wrap
+	setlocal linebreak
+	set textwidth=80
+	setlocal smartindent
+	" Hard Wrap
+	" setlocal formatoptions+=a
+	" spelling and thesaurus
+	setlocal spell spelllang=en_us
+	" set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
+	" complete+=s makes autocompletion search the thesaurus
+	" set complete+=s
+endfunction
 
 " Insert license header in file
 " https://www.gilesorr.com/blog/vimscript-insert.html
-command! License :call s:insertlicense()
-function! s:insertlicense()
-	let text = "/* See LICENSE for copyright and license details. */"
+command! License :call InsertLicense()
+function! InsertLicense()
+	let text = '/* See LICENSE for copyright and license details. */'
 	" Append text to line 0 means insert on the first line
 	let failed = append(0, text)
 	if (failed)
-		echo "Unable to insert license text"
+		echo 'Unable to insert license text'
 	else
 		" Set buffer to modified
 		let &modified = 1
@@ -147,6 +168,10 @@ function! <SID>SynStack()
     endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
+
+" Netrw file browser settings
+" Tree like listing
+let g:netrw_liststyle = 3
 
 " Status Line
 " Shows two line status bar at bottom of editor
