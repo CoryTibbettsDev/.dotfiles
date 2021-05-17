@@ -1,6 +1,8 @@
+# Set Wallpaper
 feh --recursive --bg-fill --randomize ~/Stuff/Wallpaper &
 
-VISUAL=nvim
-EDITOR=nvim
+# Set Xmodmap is available
+[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
+# Start Window Manager
 exec awesome

@@ -9,6 +9,9 @@ for FILE in $HOMEFILES; do
     DOTFILE=~/.$FILE
     ln -sf ~/.dotfiles/home/$FILE $DOTFILE && printf "${DOTFILE} links to ${FILE}\n" || printf "${FILE} not linked\n"
 done
+# Run lesskey to create binary config for less
+# It is dumb they store their config in a binary file but what can you do?
+lesskey
 
 # Copy Wallpapers
 cp -nv Wallpaper/* ~/Stuff/Wallpaper

@@ -45,6 +45,7 @@ endtry
 set noswapfile
 set nobackup
 set nowrap
+" Think this disables vim info file
 set viminfo=
 " Disable netrw history
 let g:netrw_dirhistmax = 0
@@ -121,6 +122,21 @@ vnoremap <Leader>c :s/^/#/<bar>nohlsearch<cr>
 " Insert comment into normal mode move left 2 spaces into insert mode
 inoremap <C-d> /*  */<ESC>2hi
 
+" Insert license header in file
+" https://www.gilesorr.com/blog/vimscript-insert.html
+command! License :call InsertLicense()
+function! InsertLicense()
+	let text = '/* See LICENSE for copyright and license details. */'
+	" Append text to line 0 means insert on the first line
+	let failed = append(0, text)
+	if (failed)
+		echo 'Unable to insert license text'
+	else
+		" Set buffer to modified
+		let &modified = 1
+	endif
+endfunction
+
 " https://www.maketecheasier.com/turn-vim-word-processor/
 " https://thepracticalsysadmin.com/using-vim-as-a-word-processor/
 " :h formatoptions and :h fo-table
@@ -142,21 +158,6 @@ function! WordProcessor()
 	" set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
 	" complete+=s makes autocompletion search the thesaurus
 	" set complete+=s
-endfunction
-
-" Insert license header in file
-" https://www.gilesorr.com/blog/vimscript-insert.html
-command! License :call InsertLicense()
-function! InsertLicense()
-	let text = '/* See LICENSE for copyright and license details. */'
-	" Append text to line 0 means insert on the first line
-	let failed = append(0, text)
-	if (failed)
-		echo 'Unable to insert license text'
-	else
-		" Set buffer to modified
-		let &modified = 1
-	endif
 endfunction
 
 " Get highlight group of the word under cursor

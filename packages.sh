@@ -56,7 +56,7 @@ PACKAGES=(
 	# inkscape
 	# Office Suit
 	# libreoffice-fresh
-	libreoffice-still
+	# libreoffice-still
 
 	#### VirtualBox ####
 	# virtualbox
@@ -97,13 +97,13 @@ PACKAGES=(
 	# lib32-vulkan-intel
 	# lib32-vulkan-icd-loader
 )
-echo "Installing Packages"
+printf "Installing Packages\n"
 for PKG in "${PACKAGES[@]}"; do
 	echo "Installing $PKG"
 	sudo pacman -S "$PKG" --noconfirm
 done
 
-echo "Installing Paru"
+printf "Installing Paru\n"
 # Install paru Arch User Rrpository helper
 cd ~
 # Dependencies
@@ -113,17 +113,17 @@ cd paru
 makepkg -si
 cd ~
 
-echo "Installing Librewolf"
+printf "Installing Librewolf\n"
 # Install librewolf browser
 paru -S librewolf-bin --noconfirm
 
 # Command line tool for searching and watching YouTube Videos
-# Dependencies are youtube-dl, mpv, jq, (optional for a menu) fzf,
+# Dependencies are youtube-dl, mpv, jq, fzf
 # (optional for thumbnails) ueberzug
 # Source code: https://github.com/pystardust/ytfzf
-echo "Installing ytfzf"
+printf "Installing ytfzf\n"
 # Dependencies
-sudo pacman -S mpv youtube-dl jq fzf --noconfirm # ueberzug
+sudo pacman -S mpv youtube-dl jq fzf --noconfirm
 paru -S ytfzf-git --noconfirm
 
 # Change swappiness to better value
@@ -133,9 +133,9 @@ echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-swappiness.conf
 # Setup home directory
 printf "Creating Home Directory\n"
 cd ~
-mkdir -pv Downloads Projects Stuff
+mkdir -pv Downloads Projects Repositories Stuff
 
-echo "Getting Dotfiles"
+printf "Getting Dotfiles\n"
 cd ~
 git clone https://github.com/CoryTibbettsDev/.dotfiles
 cd .dotfiles
