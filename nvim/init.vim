@@ -109,6 +109,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 
 " Rempaps for managing tabs
 map tn :tabnew<Space>
+map tc :tabclose<CR>
 map tk :tabnext<CR>
 map tj :tabprev<CR>
 map th :tabfirst<CR>

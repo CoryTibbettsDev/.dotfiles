@@ -2,8 +2,9 @@
 
 # Script for creating symbolic links for my dotfiles
 
-# Link all files in home directory to user's home directory
 # Add -b or --backup flag to ln if you want to backup old files
+
+# Link all files in home directory to user's home directory
 HOMEFILES=$(ls ~/.dotfiles/home)
 for FILE in $HOMEFILES; do
     DOTFILE=~/.$FILE

@@ -12,7 +12,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "sans 13"
+theme.font          = "sans 14"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c"
@@ -128,4 +128,3 @@ theme.awesome_icon = theme_assets.awesome_icon(
 theme.icon_theme = nil
 
 return theme
-

@@ -53,6 +53,32 @@ function parse_git_dirty() {
 	fi
 }
 
+# ex - archive extractor
+# usage: ex <file>
+# Stolen from https://github.com/ChrisTitusTech/zsh
+ex ()
+{
+  if [ -f $1 ]; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.tar.xz)    tar xJf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
 export PS1="\[\e[36m\][\u@\h \w\`parse_git_branch\`]\$\[\e[m\] "
 
 # History Settings
@@ -74,12 +100,16 @@ alias please='sudo'
 
 alias cl='clear'
 
-# Alias for nvim editor
-# e is easy to reach and I remember with e for edit
-alias e='nvim'
+alias grep='grep --color'
+alias sgrep='grep -R -n -C 3 --exclude-dir={.git,.svn,CVS} '
 
-# CLI file browser
-alias r='ranger'
+alias h='history'
+# alias hgrep="fc -El 0 | grep"
+alias hg="history | grep"
+
+# Alias for nvim editor
+# e is easy to reach and I remember with e for edit like in vim
+alias e='nvim'
 
 # Alias for YouTube command line search tool
 alias yt='ytfzf'

@@ -16,35 +16,37 @@ PACKAGES=(
 	awesome
 	# Version Control
 	git
-	cvs
+	# cvs
+	# Audio control
+	alsa
+	alsa-utils
+	# Battery Monitor
+	acpi # Client for battery, power, and thermal readings
+	# Terminal emulator
+	kitty
 	# Utilities
 	tree
 	htop
 	# For naviagting source code with vim
-	# jump to definition with Ctrl-] jump back with Ctrl-o
-	ctags
-	# Terminal emulator
-	kitty
+	ctags # jump to definition with Ctrl-] jump back with Ctrl-o
+	# Web browser
+	firefox
 	# Run prompt
 	rofi
-	# Audio control
-	alsa
-	alsa-utils
-	# Web browser
-	epiphany
 	# Download videos
 	youtube-dl
 	# Video player
 	mpv
 	# Image viewer
 	feh # Also use for setting wallpaper
-	# CLI file browser
-	ranger
 	# GUI file browser
 	pcmanfm
 	# Document viewer
 	zathura # https://wiki.archlinux.org/index.php/Zathura
 	zathura-pdf-mupfd # PDF EPUB XPS support
+	# CD Utils
+	# xfburn # GUI Xfce burner
+	# brasero # GUI gnome burner
 	# Auto mount external devices
 	udiskie
 	# Themes
