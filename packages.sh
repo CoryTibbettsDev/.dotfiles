@@ -24,9 +24,11 @@ PACKAGES=(
 	acpi # Client for battery, power, and thermal readings
 	# Terminal emulator
 	kitty
-	# Utilities
-	tree
+	# System Management Utilities
 	htop
+	# xfce4-power-manager
+	# xorg-xbacklight
+	# network-manager-applet
 	# For naviagting source code with vim
 	ctags # jump to definition with Ctrl-] jump back with Ctrl-o
 	# Web browser

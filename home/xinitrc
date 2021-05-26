@@ -1,7 +1,7 @@
 # Set Wallpaper
 feh --recursive --bg-fill --randomize ~/Stuff/Wallpaper &
 
-# Set Xmodmap is available
+# Set Xmodmap if available
 [ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
 # Start Window Manager

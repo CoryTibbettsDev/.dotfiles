@@ -1,8 +1,9 @@
 # .bashrc
 
 # Automatically start xserver when in tty1 with no window manager running
+# https://wiki.archlinux.org/title/Xinit#Installation
 if [ "$(tty)" = "/dev/tty1" ]; then
-	pgrep awesome || startx
+	pgrep awesome || exec startx
 fi
 
 # Bash Prompt
@@ -101,7 +102,8 @@ alias please='sudo'
 alias cl='clear'
 
 alias grep='grep --color'
-alias sgrep='grep -R -n -C 3 --exclude-dir={.git,.svn,CVS} '
+# alias sgrep='grep -R -n -C 3 --exclude-dir={.git,.svn,CVS} '
+alias sgrep='grep -R -n --exclude-dir={.git,.svn,CVS} '
 
 alias h='history'
 # alias hgrep="fc -El 0 | grep"

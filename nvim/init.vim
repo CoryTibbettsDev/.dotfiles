@@ -9,6 +9,7 @@ if !has('nvim')
 	set nocompatible
 	set backspace=indent,eol,start
 	set hidden
+	set visualbell
 	set mouse=a
 endif
 
@@ -47,6 +48,9 @@ set nobackup
 set nowrap
 " Think this disables vim info file
 set viminfo=
+" Modelines have historically been a source of security vulnerabilities.
+" As such, it may be a good idea to disable them.
+set nomodeline
 " Disable netrw history
 let g:netrw_dirhistmax = 0
 
@@ -201,7 +205,7 @@ set statusline+=%h " help file flag
 set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] " modified flag
 set statusline+=%r " read only flag
 set statusline+=\ %= " align left
-set statusline+=\ [%b][0x%B]\ " ASCII and byte code under cursor
+set statusline+=\ [%b][0x%B] " ASCII and byte code under cursor
 set statusline+=Line:%l/%L[%p%%] " line X of Y [percent of file]
 set statusline+=\ Col:%c " current column
 set statusline+=\ Buf:%n " Buffer number
