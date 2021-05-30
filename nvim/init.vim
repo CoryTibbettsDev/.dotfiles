@@ -1,10 +1,7 @@
-" Many settings are different by default in nvim but I set them in case my
-" config is used with vim
-" https://dev.to/vonheikemen/how-many-lines-of-code-does-it-take-to-turn-vim-into-a-nice-editor-10ni
-" UTS-8 character encoding pretty standard
-set encoding=utf-8
+" init.vim
 
-" Stuff that needs to been set in vim but not nvim
+" {{{ Vim Specific Settings
+" These settings are on by default in nvim
 if !has('nvim')
 	set nocompatible
 	set backspace=indent,eol,start
@@ -12,11 +9,16 @@ if !has('nvim')
 	set visualbell
 	set mouse=a
 endif
+" }}}
+
+" {{{ Basic Settings
+" UTS-8 character encoding pretty standard
+set encoding=utf-8
 
 " Detect filetype
 filetype plugin indent on
 
-" Title of window is name of file being edited
+" Title of terminal window is name of file being edited
 set title
 
 " Enables line numbers and numbers relative to cursor position
@@ -41,7 +43,7 @@ catch /^Vim\%((\a\+)\)\=:E185/
 	set background=dark
 endtry
 
-" Disable annoying features
+" Disable Annoying Features
 " Disable creation of swap files
 set noswapfile
 set nobackup
@@ -51,8 +53,6 @@ set viminfo=
 " Modelines have historically been a source of security vulnerabilities.
 " As such, it may be a good idea to disable them.
 set nomodeline
-" Disable netrw history
-let g:netrw_dirhistmax = 0
 
 " How tabs are displayed and inserted
 " Settings for hardtabs
@@ -81,13 +81,19 @@ set sidescrolloff=5
 set foldenable
 set foldmethod=marker
 
-" Re-read file when changes are made outside of vim
-set autoread
-
 " Highlight trailing whitespace
 set list listchars=tab:>-,trail:.,extends:>
 
-" Mappings
+" Completion Menu Settings
+set completeopt=menu,menuone,noselect
+set complete=.,w,b,u,t
+" }}}
+
+" {{{ Custom Mappings and Commands
+" I accidentally do :W instead of :w to save a lot
+" Custom command to call lowercase w with uppercase W
+command! W :w
+
 " View mappings
 " :nmap - Display normal mode maps
 " :imap - Display insert mode maps
@@ -98,10 +104,6 @@ set list listchars=tab:>-,trail:.,extends:>
 " :omap - Display operator pending mode maps
 " Maps leader key to comma
 let mapleader = ','
-
-" I accidentally do :W instead of :w to save a lot
-" Custom command to call lowercase w with uppercase W
-command! W :w
 
 nnoremap <leader>w :wq<CR>
 nnoremap <leader>s :w<CR>
@@ -174,12 +176,16 @@ function! <SID>SynStack()
     endif
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
+" }}}
 
-" Netrw file browser settings
+" {{{ Netrw File Browser(Default Plugin)
+" Disable netrw history
+let g:netrw_dirhistmax = 0
 " Tree like listing
 let g:netrw_liststyle = 3
+" }}}
 
-" Status Line
+" {{{ Status Line
 " Shows two line status bar at bottom of editor
 " Show current command and mode
 set laststatus=2 showcmd showmode
@@ -209,14 +215,18 @@ set statusline+=\ [%b][0x%B] " ASCII and byte code under cursor
 set statusline+=Line:%l/%L[%p%%] " line X of Y [percent of file]
 set statusline+=\ Col:%c " current column
 set statusline+=\ Buf:%n " Buffer number
+" }}}
 
+" {{{ My Custom Plugins
 " Completion menu settings
-set completeopt=menu,menuone,noselect
-set complete=.,w,b,u,t
 " myacp.vim
+" Use these completion settings for myacp.vim
+" set completeopt=menu,menuone,noselect
+" set complete=.,w,b,u,t
 let g:myacp_enable_ft = get(g:, 'myacp_enable_ft', {})   " enable filetypes
 let g:myacp_enable_tab = get(g:, 'myacp_enable_tab', 1)  " remap tab
 let g:myacp_min_length = get(g:, 'myacp_min_length', 1)  " minimal length to open popup
 let g:myacp_key_ignore = get(g:, 'myacp_key_ignore', []) " ignore keywords
 " Enable for all files
 let g:myacp_enable_ft = {'*':1}
+" }}}

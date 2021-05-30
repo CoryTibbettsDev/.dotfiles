@@ -107,6 +107,7 @@ alias sgrep='grep -R -n --exclude-dir={.git,.svn,CVS} '
 
 alias h='history'
 # alias hgrep="fc -El 0 | grep"
+alias hgrep="history | grep"
 alias hg="history | grep"
 
 # Alias for nvim editor

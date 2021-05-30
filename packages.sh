@@ -2,6 +2,13 @@
 
 # Script for installing all the packages on my system
 
+# exit when any command fails
+set -e
+# Keep track of the last executed command
+trap 'LAST_COMMAND=$CURRENT_COMMAND; CURRENT_COMMAND=$BASH_COMMAND' DEBUG
+# echo an error message before exiting
+trap 'echo "\"${LAST_COMMAND}\" command filed with exit code $?."' EXIT
+
 PACKAGES=(
 	# Documentation
 	man-pages
@@ -10,7 +17,7 @@ PACKAGES=(
 	# Xserver windowing
 	xorg
 	xorg-xinit
-	## Run nested xorg server for developement
+	# # Run nested xorg server for developement
 	# xorg-server-xephyr
 	# Window Manager
 	awesome
@@ -20,21 +27,12 @@ PACKAGES=(
 	# Audio control
 	alsa
 	alsa-utils
-	# Battery Monitor
-	acpi # Client for battery, power, and thermal readings
 	# Terminal emulator
 	kitty
-	# System Management Utilities
-	htop
-	# xfce4-power-manager
-	# xorg-xbacklight
-	# network-manager-applet
 	# For naviagting source code with vim
-	ctags # jump to definition with Ctrl-] jump back with Ctrl-o
+	ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
 	# Web browser
 	firefox
-	# Run prompt
-	rofi
 	# Download videos
 	youtube-dl
 	# Video player
@@ -49,9 +47,7 @@ PACKAGES=(
 	# CD Utils
 	# xfburn # GUI Xfce burner
 	# brasero # GUI gnome burner
-	# Auto mount external devices
-	udiskie
-	# Themes
+	## Themes ##
 	# GTK
 	arc-solid-gtk-theme
 	# Raster Image Editor
@@ -59,51 +55,38 @@ PACKAGES=(
 	# Vector Image Editor
 	# inkscape
 	# Office Suit
-	# libreoffice-fresh
 	# libreoffice-still
 
-	#### VirtualBox ####
+	## VirtualBox ##
 	# virtualbox
 	## For normal arch kernel
 	# virtualbox-host-modules-arch
 	## For other kernels
 	# virtualbox-host-dkms
 
-	#### DRIVERS ####
+	## DRIVERS ##
 	# https://github.com/lutris/docs/blob/master/InstallingDrivers.md
 	# If you want to run 32 bit applications install the 32 bit packages
 	# edit /etc/pacman.conf and uncomment the mutlilib mirror list
 	# Also need these for wine
-
-	# vulkan-validation-layers
-	## AMD
-	# vulkan-radeon
-	# vulkan-icd-loader
-	## 32 bit AMD
-	# lib32-mesa
-	# lib32-vulkan-radeon
-	# lib32-vulkan-icd-loader
-
-	## Nvidia
-	# nvidia-dkms
-	# nvidia-utils
-	# nvidia-settings
-	# vulkan-icd-loader
-	## 32 bit Nvidia
-	# lib32-nvidia-utils
-	# lib32-vulkan-icd-loader
-
-	## Intel
-	# vulkan-intel
-	# vulkan-icd-loader
-	## 32 bit Intel
-	# lib32-mesa
-	# lib32-vulkan-intel
-	# lib32-vulkan-icd-loader
 )
+if [ -n "$1" ]; then # If parameter is passed
+	if [ "$1" = "l" -o "$1" = "laptop" ]; then
+		PACKAGES+=(
+			acpi # Client for battery, power, and thermal readings
+			xorg-xbacklight # Brightness control
+		)
+	elif [ "$1" = "d" -o "$1" = "desktop" ]; then 
+		PACKAGES+=(
+			neofetch
+		)
+	else
+		printf "Unrecognized parameter\n"
+	fi
+fi
 printf "Installing Packages\n"
 for PKG in "${PACKAGES[@]}"; do
-	echo "Installing $PKG"
+	printf "Installing $PKG\n"
 	sudo pacman -S "$PKG" --noconfirm
 done
 
