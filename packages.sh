@@ -90,37 +90,31 @@ for PKG in "${PACKAGES[@]}"; do
 	sudo pacman -S "$PKG" --noconfirm
 done
 
-printf "Installing Paru\n"
-# Install paru Arch User Rrpository helper
+# Setup home directory
+printf "Creating Home Directory\n"
 cd ~
-# Dependencies
-sudo pacman -S base-devel --noconfirm
-git clone https://aur.archlinux.org/paru.git
-cd paru
+mkdir -pv Downloads Projects Repositories Stuff
+
+printf "Fetching and Installing Librewolf\n"
+cd ~/Repositories
+git clone https://aur.archlinux.org/librewolf-bin.git
 makepkg -si
 cd ~
-
-printf "Installing Librewolf\n"
-# Install librewolf browser
-paru -S librewolf-bin --noconfirm
 
 # Command line tool for searching and watching YouTube Videos
 # Dependencies are youtube-dl, mpv, jq, fzf
 # (optional for thumbnails) ueberzug
 # Source code: https://github.com/pystardust/ytfzf
-printf "Installing ytfzf\n"
+printf "Fetching ytfzf\n"
 # Dependencies
 sudo pacman -S mpv youtube-dl jq fzf --noconfirm
-paru -S ytfzf-git --noconfirm
+cd ~/Repositories
+git clone https://github.com/pystardust/ytfzf
+cd ~
 
 # Change swappiness to better value
 sudo sysctl vm.swappiness=10
 echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-swappiness.conf
-
-# Setup home directory
-printf "Creating Home Directory\n"
-cd ~
-mkdir -pv Downloads Projects Repositories Stuff
 
 printf "Getting Dotfiles\n"
 cd ~
