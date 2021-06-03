@@ -15,6 +15,7 @@ done
 lesskey
 
 # Copy Wallpapers
+mkdir -p ~/Stuff/Wallpaper
 cp -nv Wallpaper/* ~/Stuff/Wallpaper
 
 # Make the directory in case it does not exist

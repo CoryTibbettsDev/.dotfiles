@@ -28,7 +28,8 @@ PACKAGES=(
 	alsa
 	alsa-utils
 	# Terminal emulator
-	kitty
+	# kitty
+	xterm
 	# For naviagting source code with vim
 	ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
 	# Web browser
@@ -43,7 +44,7 @@ PACKAGES=(
 	pcmanfm
 	# Document viewer
 	zathura # https://wiki.archlinux.org/index.php/Zathura
-	zathura-pdf-mupfd # PDF EPUB XPS support
+	zathura-pdf-mupdf # PDF EPUB XPS support
 	# CD Utils
 	# xfburn # GUI Xfce burner
 	# brasero # GUI gnome burner
@@ -75,6 +76,7 @@ if [ -n "$1" ]; then # If parameter is passed
 		PACKAGES+=(
 			acpi # Client for battery, power, and thermal readings
 			xorg-xbacklight # Brightness control
+			broadcom-wl # Broadcom Wifi Driver
 		)
 	elif [ "$1" = "d" -o "$1" = "desktop" ]; then 
 		PACKAGES+=(
@@ -98,6 +100,7 @@ mkdir -pv Downloads Projects Repositories Stuff
 printf "Fetching and Installing Librewolf\n"
 cd ~/Repositories
 git clone https://aur.archlinux.org/librewolf-bin.git
+cd librewolf-bin
 makepkg -si
 cd ~
 
