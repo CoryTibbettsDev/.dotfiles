@@ -16,7 +16,7 @@ local menubar = require("menubar")
 beautiful.init(gears.filesystem.get_configuration_dir() .. "mytheme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty"
+terminal = "xterm"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -145,9 +145,10 @@ awful.screen.connect_for_each_screen(function(s)
             -------------------------------------------------------------------------
             ------------------ Temp Widget for Intel CPU -------------------
             -- awful.widget.watch('sh -c "sensors | grep Package id 0"', 15),
-            -- awful.widget.watch('sh -c "sensors | grep Core 0"', 15),
-            -- awful.widget.watch('sh -c "sensors | grep Core 1"', 15),
+            -- awful.widget.watch('sh -c "sensors | grep Core | sed \'s/ //g\'"', 15),
             ----------------------------------------------------------------
+			-- Battery Information
+            awful.widget.watch('sh -c "acpi"', 15),
             mytextclock,
             mykeyboardlayout,
             s.mylayoutbox,

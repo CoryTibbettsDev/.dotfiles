@@ -1,5 +1,5 @@
 # Set Wallpaper
-feh --recursive --bg-fill --randomize ~/Stuff/Wallpaper &
+feh --no-fehbg --bg-fill --recursive --randomize ~/Stuff/Wallpaper &
 
 # Set Xmodmap if available
 [ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap

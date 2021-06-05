@@ -1,6 +1,6 @@
 !! Use a nice truetype font and size by default... 
 xterm*faceName: Monospace
-xterm*faceSize: 18
+xterm*faceSize: 16
 !! xterm.font: *-fixed-*-*-*-18-*
 
 URxvt.letterSpace: 0
