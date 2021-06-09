@@ -19,7 +19,7 @@ let g:colors_name="mycolorscheme"
 
 " Palette: {{{
 let s:black = { "gui": "#24283b", "cterm": "235" }
-let s:white = { "gui": "#a9b1d6", "cterm": "250" }
+let s:white = { "gui": "#ffffff", "cterm": "250" }
 let s:darkgray1 = { "gui": "#06080a", "cterm": "237" }
 let s:darkgray2 = { "gui": "#282d42", "cterm": "236" }
 let s:darkgray3 = { "gui": "#2f344d", "cterm": "236" }

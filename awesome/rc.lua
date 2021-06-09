@@ -16,7 +16,7 @@ local menubar = require("menubar")
 beautiful.init(gears.filesystem.get_configuration_dir() .. "mytheme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
+terminal = "xfce4-terminal"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -139,16 +139,12 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            ------------------------ Temp Widget for AMD CPU ------------------------
-            awful.widget.watch('sh -c "sensors | grep Tctl | sed \'s/ //g\'"', 15),
-            awful.widget.watch('sh -c "sensors | grep Tdie | sed \'s/ //g\'"', 15),
-            -------------------------------------------------------------------------
-            ------------------ Temp Widget for Intel CPU -------------------
-            -- awful.widget.watch('sh -c "sensors | grep Package id 0"', 15),
-            -- awful.widget.watch('sh -c "sensors | grep Core | sed \'s/ //g\'"', 15),
-            ----------------------------------------------------------------
+            -- Temp Widget for AMD CPU
+            awful.widget.watch('sh -c "sensors | grep -e Tctl -e Tdie | sed \'s/ //g\'"', 30),
+            -- Temp Widget for Intel CPU
+            awful.widget.watch('sh -c "sensors | grep Core | sed \'s/°.*$//;s/ //g\'"', 30),
 			-- Battery Information
-            awful.widget.watch('sh -c "acpi"', 15),
+            awful.widget.watch('sh -c "acpi"', 30),
             mytextclock,
             mykeyboardlayout,
             s.mylayoutbox,

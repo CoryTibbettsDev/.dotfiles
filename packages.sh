@@ -2,23 +2,18 @@
 
 # Script for installing all the packages on my system
 
-# exit when any command fails
-set -e
-# Keep track of the last executed command
-trap 'LAST_COMMAND=$CURRENT_COMMAND; CURRENT_COMMAND=$BASH_COMMAND' DEBUG
-# echo an error message before exiting
-trap 'echo "\"${LAST_COMMAND}\" command filed with exit code $?."' EXIT
-
 PACKAGES=(
 	# Documentation
 	man-pages
+	# Base System
+	base
+	base-devel
 	# Text Editor
 	neovim
 	# Xserver windowing
 	xorg
 	xorg-xinit
-	# # Run nested xorg server for developement
-	# xorg-server-xephyr
+	# xorg-server-xephyr # Run nested xorg server for developement
 	# Window Manager
 	awesome
 	# Version Control
@@ -28,8 +23,7 @@ PACKAGES=(
 	alsa
 	alsa-utils
 	# Terminal emulator
-	# kitty
-	xterm
+	xfce4-terminal
 	# For naviagting source code with vim
 	ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
 	# Web browser
@@ -45,6 +39,10 @@ PACKAGES=(
 	# Document viewer
 	zathura # https://wiki.archlinux.org/index.php/Zathura
 	zathura-pdf-mupdf # PDF EPUB XPS support
+	# Document Converter
+	pandoc
+	# Mount External Devices
+	udisks2
 	# CD Utils
 	# xfburn # GUI Xfce burner
 	# brasero # GUI gnome burner
@@ -80,7 +78,7 @@ if [ -n "$1" ]; then # If parameter is passed
 		)
 	elif [ "$1" = "d" -o "$1" = "desktop" ]; then 
 		PACKAGES+=(
-			neofetch
+			kitty # Terminal Emulator
 		)
 	else
 		printf "Unrecognized parameter\n"
@@ -97,11 +95,9 @@ printf "Creating Home Directory\n"
 cd ~
 mkdir -pv Downloads Projects Repositories Stuff
 
-printf "Fetching and Installing Librewolf\n"
+printf "Fetching Librewolf\n"
 cd ~/Repositories
 git clone https://aur.archlinux.org/librewolf-bin.git
-cd librewolf-bin
-makepkg -si
 cd ~
 
 # Command line tool for searching and watching YouTube Videos
