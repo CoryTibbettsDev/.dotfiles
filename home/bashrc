@@ -114,6 +114,10 @@ alias hg="history | grep"
 # e is easy to reach and I remember with e for edit like in vim
 alias e='nvim'
 
+# Alias for my most command find command
+alias myfind='find . -name'
+alias mf='find . -name'
+
 # Alias for YouTube command line search tool
 alias yt='ytfzf'
 

@@ -8,15 +8,13 @@ if !has('nvim')
 	set hidden
 	set visualbell
 	set mouse=a
+	set autoread
 endif
 " }}}
 
 " {{{ Basic Settings
 " UTS-8 character encoding pretty standard
 set encoding=utf-8
-
-" Detect filetype
-filetype plugin indent on
 
 " Title of terminal window is name of file being edited
 set title
@@ -25,11 +23,15 @@ set title
 set number
 set relativenumber
 
-" Allows for wrapping movement to next or previous line
-" set whichwrap+=<,>,h,l,[,]
+" Detect filetype
+if has('autocmd')
+	filetype plugin indent on
+endif
 
 " Enable syntax highlighting and true color
-syntax on
+if has('syntax')
+	syntax on
+endif
 
 " Turn on true color if available
 if has('termguicolors')
@@ -43,6 +45,9 @@ catch /^Vim\%((\a\+)\)\=:E185/
 	set background=dark
 endtry
 
+" Allows for wrapping movement to next or previous line
+" set whichwrap+=<,>,h,l,[,]
+
 " Disable Annoying Features
 " Disable creation of swap files
 set noswapfile
@@ -53,6 +58,10 @@ set viminfo=
 " Modelines have historically been a source of security vulnerabilities.
 " As such, it may be a good idea to disable them.
 set nomodeline
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^Eterm'
+	set t_Co=16
+endif
 
 " How tabs are displayed and inserted
 " Settings for hardtabs
@@ -69,8 +78,15 @@ set incsearch ignorecase smartcase hlsearch
 " Better command-line completion
 set wildmenu
 " Wildmenu will ignore certain things
-" Ignore all variations of node_modules
+" Ignore all variations of these files/folders
 set wildignore=**node_modules**
+set wildignore+=*_build/*
+set wildignore+=**/coverage/*
+set wildignore+=**/node_modules/*
+set wildignore+=**/android/*
+set wildignore+=**/ios/*
+set wildignore+=**/.git/*
+set wildignore+=*.pyc
 
 " Move window as you scroll
 set scrolloff=11
@@ -83,6 +99,9 @@ set foldmethod=marker
 
 " Highlight trailing whitespace
 set list listchars=tab:>-,trail:.,extends:>
+" if &listchars ==# 'eol:$'
+"   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+" endif
 
 " Completion Menu Settings
 set completeopt=menu,menuone,noselect
@@ -108,6 +127,9 @@ let mapleader = ','
 nnoremap <leader>w :wq<CR>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
+
+" greatest remap ever
+vnoremap <leader>p "_dP
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search

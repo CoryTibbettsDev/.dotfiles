@@ -39,8 +39,6 @@ PACKAGES=(
 	# Document viewer
 	zathura # https://wiki.archlinux.org/index.php/Zathura
 	zathura-pdf-mupdf # PDF EPUB XPS support
-	# Document Converter
-	pandoc
 	# Mount External Devices
 	udisks2
 	# CD Utils
@@ -111,7 +109,17 @@ cd ~/Repositories
 git clone https://github.com/pystardust/ytfzf
 cd ~
 
+printf "Fetching neatroff\n"
+# Dependencies
+sudo pacman -S ghostscript wget unzip --noconfirm
+cd ~/Repositories
+git clone https://github.com/aligrudi/neatroff_make
+cd neatroff_make
+make init && make neat
+cd ~
+
 # Change swappiness to better value
+printf "Setting Swappiness\n"
 sudo sysctl vm.swappiness=10
 echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-swappiness.conf
 
@@ -119,4 +127,4 @@ printf "Getting Dotfiles\n"
 cd ~
 git clone https://github.com/CoryTibbettsDev/.dotfiles
 cd .dotfiles
-sh create_symlinks.sh
+sh symlinks.sh

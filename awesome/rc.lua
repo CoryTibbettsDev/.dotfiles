@@ -143,6 +143,8 @@ awful.screen.connect_for_each_screen(function(s)
             awful.widget.watch('sh -c "sensors | grep -e Tctl -e Tdie | sed \'s/ //g\'"', 30),
             -- Temp Widget for Intel CPU
             awful.widget.watch('sh -c "sensors | grep Core | sed \'s/°.*$//;s/ //g\'"', 30),
+			-- Seperator
+			wibox.widget.textbox(' | '),
 			-- Battery Information
             awful.widget.watch('sh -c "acpi"', 30),
             mytextclock,
@@ -239,7 +241,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift"      }, "f", function () awful.spawn("librewolf") end,
               {description = "open librewolf browser", group = "launcher"}),
     awful.key({ modkey, "Shift"      }, "l", function () awful.spawn("luakit") end,
-              {description = "open librewolf browser", group = "launcher"})
+              {description = "open luakit browser", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
