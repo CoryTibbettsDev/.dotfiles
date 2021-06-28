@@ -10,7 +10,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 
--- {{{ Variable definitions
+-- {{{ Define Variables and Layouts
 -- Themes define colours, icons, font and wallpapers.
 -- Changed to reference custom theme
 beautiful.init(gears.filesystem.get_configuration_dir() .. "mytheme.lua")
@@ -29,8 +29,12 @@ modkey = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.tile,
+	awful.layout.suit.tile.bottom,
     awful.layout.suit.floating,
+    awful.layout.suit.tile,
+	-- All Possible Layouts
+    -- awful.layout.suit.tile,
+    -- awful.layout.suit.floating,
 	-- awful.layout.suit.tile.left,
 	-- awful.layout.suit.tile.bottom,
 	-- awful.layout.suit.tile.top,

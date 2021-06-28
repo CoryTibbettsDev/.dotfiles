@@ -124,12 +124,10 @@ command! W :w
 " Maps leader key to comma
 let mapleader = ','
 
+nnoremap <leader>q :qa!<CR>
 nnoremap <leader>w :wq<CR>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
-
-" greatest remap ever
-vnoremap <leader>p "_dP
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
@@ -143,13 +141,16 @@ map tj :tabprev<CR>
 map th :tabfirst<CR>
 map tl :tablast<CR>
 
-" Comment all selected lines in visual mode
-" https://stackoverflow.com/questions/46893804/vimscript-mapping-for-commenting-visual-blocks
-vnoremap <Leader>c :s/^/#/<bar>nohlsearch<cr>
-
 " Insert c multiline comment like /* */
 " Insert comment into normal mode move left 2 spaces into insert mode
 inoremap <C-d> /*  */<ESC>2hi
+
+" Comment all selected lines in visual mode
+" https://stackoverflow.com/questions/46893804/vimscript-mapping-for-commenting-visual-blocks
+vnoremap <Leader>c :s/^/#/<bar>nohlsearch<CR>
+
+" ThePrimegen
+vnoremap <leader>p "_dP
 
 " Insert license header in file
 " https://www.gilesorr.com/blog/vimscript-insert.html
@@ -169,19 +170,8 @@ endfunction
 " https://www.maketecheasier.com/turn-vim-word-processor/
 " https://thepracticalsysadmin.com/using-vim-as-a-word-processor/
 " :h formatoptions and :h fo-table
-command! WP call WordProcessor()
-function! WordProcessor()
-	" movement changes
-	map j gj
-	map k gk
-	" formatting text
-	setlocal noexpandtab
-	setlocal wrap
-	setlocal linebreak
-	set textwidth=80
-	setlocal smartindent
-	" Hard Wrap
-	" setlocal formatoptions+=a
+command! WM call WritingMode()
+function! WritingMode()
 	" spelling and thesaurus
 	setlocal spell spelllang=en_us
 	" set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
@@ -245,9 +235,9 @@ set statusline+=\ Buf:%n " Buffer number
 " Use these completion settings for myacp.vim
 " set completeopt=menu,menuone,noselect
 " set complete=.,w,b,u,t
-let g:myacp_enable_ft = get(g:, 'myacp_enable_ft', {})   " enable filetypes
-let g:myacp_enable_tab = get(g:, 'myacp_enable_tab', 1)  " remap tab
-let g:myacp_min_length = get(g:, 'myacp_min_length', 1)  " minimal length to open popup
+let g:myacp_enable_ft = get(g:, 'myacp_enable_ft', {}) " enable filetypes
+let g:myacp_enable_tab = get(g:, 'myacp_enable_tab', 1) " remap tab
+let g:myacp_min_length = get(g:, 'myacp_min_length', 2) " minimal length to open popup
 let g:myacp_key_ignore = get(g:, 'myacp_key_ignore', []) " ignore keywords
 " Enable for all files
 let g:myacp_enable_ft = {'*':1}

@@ -41,31 +41,27 @@ PACKAGES=(
 	zathura-pdf-mupdf # PDF EPUB XPS support
 	# Mount External Devices
 	udisks2
-	# CD Utils
-	# xfburn # GUI Xfce burner
-	# brasero # GUI gnome burner
-	## Themes ##
-	# GTK
+	# GTK Theme
 	arc-solid-gtk-theme
 	# Raster Image Editor
 	# gimp
 	# Vector Image Editor
 	# inkscape
-	# Office Suit
-	# libreoffice-still
+	# CD Utils
+	# xfburn # GUI Xfce burner
+	# brasero # GUI gnome burner
 
-	## VirtualBox ##
+	## VirtualBox
 	# virtualbox
 	## For normal arch kernel
 	# virtualbox-host-modules-arch
 	## For other kernels
 	# virtualbox-host-dkms
 
-	## DRIVERS ##
+	## Steam and drivers
 	# https://github.com/lutris/docs/blob/master/InstallingDrivers.md
-	# If you want to run 32 bit applications install the 32 bit packages
-	# edit /etc/pacman.conf and uncomment the mutlilib mirror list
-	# Also need these for wine
+	# Edit /etc/pacman.conf and uncomment the multilib mirror list
+	# multilib is needed for steam and 32-bit programs and libraries
 )
 if [ -n "$1" ]; then # If parameter is passed
 	if [ "$1" = "l" -o "$1" = "laptop" ]; then
@@ -109,13 +105,9 @@ cd ~/Repositories
 git clone https://github.com/pystardust/ytfzf
 cd ~
 
-printf "Fetching neatroff\n"
-# Dependencies
-sudo pacman -S ghostscript wget unzip --noconfirm
+printf "Fetching Cactus File Manager\n"
 cd ~/Repositories
-git clone https://github.com/aligrudi/neatroff_make
-cd neatroff_make
-make init && make neat
+git clone https://github.com/WillEccles/cfm
 cd ~
 
 # Change swappiness to better value

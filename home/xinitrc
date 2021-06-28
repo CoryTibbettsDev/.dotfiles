@@ -1,8 +1,10 @@
 # Set Wallpaper
 feh --no-fehbg --bg-fill --recursive --randomize ~/Stuff/Wallpaper &
 
-# Set Xmodmap if available
+# Set Xmodmap if file exists
 [ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
+# Run xrdb to load .Xresources if file exists
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
 
 # Start Window Manager
 exec awesome

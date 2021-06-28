@@ -4,25 +4,32 @@
 
 # Add -b or --backup flag to ln if you want to backup old files
 
+DOTFILESDIR="$HOME/.dotfiles"
+CONFIGDIR="$HOME/.config"
+STUFFDIR="$HOME/Stuff"
+
 # Link all files in home directory to user's home directory
-HOMEFILES=$(ls ~/.dotfiles/home)
+HOMEFILES=$(ls ./home)
 for FILE in $HOMEFILES; do
-    DOTFILE=~/.$FILE
-    ln -sf ~/.dotfiles/home/$FILE $DOTFILE && printf "${DOTFILE} links to ${FILE}\n" || printf "${FILE} not linked\n"
+    DOTFILE=$HOME/.$FILE
+    ln -sf $DOTFILESDIR/home/$FILE $DOTFILE && printf "${DOTFILE} links to ${FILE}\n" || printf "${FILE} not linked\n"
 done
 # Run lesskey to create binary config for less
 # It is dumb they store their config in a binary file but what can you do?
-lesskey
+[ -f ~/.lesskey ] && lesskey
+# Run xrdb to load .Xresources if file exists
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
 
 # Copy Wallpapers
-mkdir -p ~/Stuff/Wallpaper
-cp -nv Wallpaper/* ~/Stuff/Wallpaper
+WALLPAPERDIR="$STUFFDIR/Wallpaper"
+mkdir -p $WALLPAPERDIR
+cp -vrn Wallpaper/ $WALLPAPERDIR
 
 # Make the directory in case it does not exist
-mkdir -p ~/.config
+mkdir -p $CONFIGDIR
 linkconfig() {
 	printf "linking ${1}\n"
-	ln -sf ~/.dotfiles/$1 ~/.config && printf "${1} linked\n" || printf "${1} not linked\n"
+	ln -sf $DOTFILESDIR/$1 $CONFIGDIR && printf "${1} linked\n" || printf "${1} not linked\n"
 }
 linkconfig awesome
 linkconfig kitty

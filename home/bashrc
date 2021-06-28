@@ -8,7 +8,7 @@ fi
 
 # Bash Prompt
 # get current branch in git repo
-function parse_git_branch() {
+parse_git_branch() {
 	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
 	if [ ! "${BRANCH}" == "" ]
 	then
@@ -18,9 +18,8 @@ function parse_git_branch() {
 		echo ""
 	fi
 }
-
 # get current status of git repo
-function parse_git_dirty() {
+parse_git_dirty() {
 	status=`git status 2>&1 | tee`
 	dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
 	untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
@@ -54,6 +53,8 @@ function parse_git_dirty() {
 	fi
 }
 
+export PS1="\[\e[36m\][\u@\h \w\`parse_git_branch\`]\$\[\e[m\] "
+
 # ex - archive extractor
 # usage: ex <file>
 # Stolen from https://github.com/ChrisTitusTech/zsh
@@ -80,8 +81,6 @@ ex ()
   fi
 }
 
-export PS1="\[\e[36m\][\u@\h \w\`parse_git_branch\`]\$\[\e[m\] "
-
 # History Settings
 HISTCONTROL=ignoreboth
 
@@ -102,21 +101,19 @@ alias please='sudo'
 alias cl='clear'
 
 alias grep='grep --color'
-# alias sgrep='grep -R -n -C 3 --exclude-dir={.git,.svn,CVS} '
-alias sgrep='grep -R -n --exclude-dir={.git,.svn,CVS} '
+alias sgrep='grep -R -I -n -C 3 --exclude-dir={.git,.svn,CVS} '
 
-alias h='history'
-# alias hgrep="fc -El 0 | grep"
-alias hgrep="history | grep"
-alias hg="history | grep"
+# Us fc instead of history as it in POSIX compliant
+alias hgrep="fc -l 1 | grep"
+alias hg="fc -l 1 | grep"
 
 # Alias for nvim editor
 # e is easy to reach and I remember with e for edit like in vim
 alias e='nvim'
 
 # Alias for my most command find command
-alias myfind='find . -name'
-alias mf='find . -name'
+alias myfind='find .'
+alias mf='find .'
 
 # Alias for YouTube command line search tool
 alias yt='ytfzf'
@@ -124,13 +121,14 @@ alias yt='ytfzf'
 alias youtube-dl='youtube-dl --no-call-home'
 alias dl='youtube-dl --no-call-home'
 
-# Compile a groff document into a pdf
-groffpdf() {
-	RAWINPUTFILE=$(echo ${1} | awk -F. '{print $1}')
-	COMPILEDFILE=${RAWINPUTFILE}.pdf
-	printf "groff compiling %b to %b \n" ${1} ${COMPILEDFILE}
-	groff -mom -T pdf ${1} > ${COMPILEDFILE}
-}
+# Cactus File Manager
+alias c='cfm'
+
+# https://old.reddit.com/r/archlinux/comments/5m2os3/mpv_is_it_possible_to_change_video_quality_while/
+alias mpv720='mpv --ytdl-format=22'
+alias mpv360='mpv --ytdl-format=18'
+alias mpv7='mpv --ytdl-format=22'
+alias mpv3='mpv --ytdl-format=18'
 
 unset SSH_ASKPASS
 

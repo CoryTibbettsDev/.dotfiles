@@ -14,9 +14,7 @@ keysym  u = u U uacute Uacute downarrow uparrow downarrow
 keysym  i = i I iacute Iacute rightarrow idotless rightarrow
 keysym  o = o O oacute Oacute oslash Oslash oslash
 keysym  n = n N ntilde Ntilde n N n
-! keysym  question = comma question comma questiondown dead_acute dead_doubleacute dead_acute
 keysym  question = slash question questiondown dead_acute dead_doubleacute dead_acute
-! keysym  exclam = exclam section exclamdown section dead_belowdot dead_abovedot dead_belowdot
 keysym  exclam = 1 exclam exclamdown dead_belowdot dead_abovedot dead_belowdot
 ! Maps the Mode key to the Alt key
 keysym Alt_R = Mode_switch
