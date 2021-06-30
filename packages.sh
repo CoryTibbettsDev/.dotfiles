@@ -2,7 +2,19 @@
 
 # Script for installing all the packages on my system
 
-PACKAGES=(
+dotfiles_dir="$HOME/.dotfiles"
+stuff_dir="$HOME/Stuff"
+repo_dir="$HOME/Repositories"
+
+clone_repo()
+{
+	printf "Cloning %s\n" "$1"
+	cd $repo_dir
+	git clone $1
+	cd $HOME
+}
+
+packages=(
 	# Documentation
 	man-pages
 	# Base System
@@ -65,50 +77,43 @@ PACKAGES=(
 )
 if [ -n "$1" ]; then # If parameter is passed
 	if [ "$1" = "l" -o "$1" = "laptop" ]; then
-		PACKAGES+=(
+		packages+=(
 			acpi # Client for battery, power, and thermal readings
-			xorg-xbacklight # Brightness control
 			broadcom-wl # Broadcom Wifi Driver
 		)
 	elif [ "$1" = "d" -o "$1" = "desktop" ]; then 
-		PACKAGES+=(
+		packages+=(
 			kitty # Terminal Emulator
 		)
 	else
-		printf "Unrecognized parameter\n"
+		printf "Unrecognized Parameter\n"
 	fi
 fi
 printf "Installing Packages\n"
-for PKG in "${PACKAGES[@]}"; do
-	printf "Installing $PKG\n"
-	sudo pacman -S "$PKG" --noconfirm
+for pkg in "${packages[@]}"; do
+	printf "Installing $pkg\n"
+	sudo pacman -S "$pkg" --noconfirm
 done
 
 # Setup home directory
 printf "Creating Home Directory\n"
-cd ~
+cd $HOME
 mkdir -pv Downloads Projects Repositories Stuff
 
-printf "Fetching Librewolf\n"
-cd ~/Repositories
-git clone https://aur.archlinux.org/librewolf-bin.git
-cd ~
+# Librewolf
+clone_repo https://aur.archlinux.org/librewolf-bin.git
 
+# ytfzf
 # Command line tool for searching and watching YouTube Videos
 # Dependencies are youtube-dl, mpv, jq, fzf
 # (optional for thumbnails) ueberzug
 # Source code: https://github.com/pystardust/ytfzf
-printf "Fetching ytfzf\n"
 # Dependencies
 sudo pacman -S mpv youtube-dl jq fzf --noconfirm
-cd ~/Repositories
-git clone https://github.com/pystardust/ytfzf
-cd ~
+clone_repo https://github.com/pystardust/ytfzf
 
-printf "Fetching Cactus File Manager\n"
-cd ~/Repositories
-git clone https://github.com/WillEccles/cfm
-cd ~
+# Cactus File Manager
+clone_repo https://github.com/WillEccles/cfm
 
 # Change swappiness to better value
 printf "Setting Swappiness\n"
@@ -116,7 +121,8 @@ sudo sysctl vm.swappiness=10
 echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-swappiness.conf
 
 printf "Getting Dotfiles\n"
-cd ~
+cd $HOME
 git clone https://github.com/CoryTibbettsDev/.dotfiles
-cd .dotfiles
+cd $dotfiles_dir
+
 sh symlinks.sh
