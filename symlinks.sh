@@ -7,7 +7,9 @@
 dotfile_dir=$(pwd)
 config_dir="$HOME/.config"
 stuff_dir="$HOME/Stuff"
-wallpaper_dir="$stuff_dir/Wallpaper"
+
+# Make the directories in case they do not exist
+mkdir -pv $config_dir $stuff_dir
 
 # link all files in home directory to user's home directory
 homefiles=$(ls ./home)
@@ -21,14 +23,18 @@ done
 # Run xrdb to load .Xresources if file exists
 [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
 
-# Copy Wallpapers
-mkdir -p $wallpaper_dir
-cp -vn Wallpaper/* $wallpaper_dir
+# link all files in config directory to user's config directory
+configfiles=$(ls ./config)
+for file in $configfiles; do
+	configfile=$config_dir/$file
+    ln -sf $dotfile_dir/config/$file $configfile && printf "${configfile} links to ${file}\n" || printf "${file} not linked\n"
+done
+[ -f $config_dir/user-dirs.dirs ] && xdg-user-dirs-update
 
-# Make the directory in case it does not exist
-mkdir -p $config_dir
+# Copy Wallpapers
+cp -vrn Wallpaper/ $stuff_dir
+
 linkconfig() {
-	printf "linking ${1}\n"
 	ln -sf $dotfile_dir/$1 $config_dir && printf "${1} linked\n" || printf "${1} not linked\n"
 }
 linkconfig awesome

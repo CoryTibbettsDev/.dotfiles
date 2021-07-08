@@ -53,7 +53,6 @@ endtry
 set noswapfile
 set nobackup
 set nowrap
-" Think this disables vim info file
 set viminfo=
 " Modelines have historically been a source of security vulnerabilities.
 " As such, it may be a good idea to disable them.
@@ -121,11 +120,10 @@ command! W :w
 " :xmap - Display visual mode maps
 " :cmap - Display command-line mode maps
 " :omap - Display operator pending mode maps
-" Maps leader key to comma
-let mapleader = ','
+" Maps leader key to space
+let mapleader = ' '
 
-nnoremap <leader>q :qa!<CR>
-nnoremap <leader>w :wq<CR>
+nnoremap <leader>w :w<CR>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
 

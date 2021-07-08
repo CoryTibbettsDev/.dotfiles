@@ -1,18 +1,33 @@
 #!/bin/sh
 
-# Script for installing all the packages on my system
+# Print error message "$1" to stderr and exit
+die(){
+	printf "Error: %s, exiting\n" "$1" >&2
+	exit 1
+}
 
-dotfiles_dir="$HOME/.dotfiles"
-stuff_dir="$HOME/Stuff"
-repo_dir="$HOME/Repositories"
+# Print warning message "$1" to stderr don't exit
+warn(){
+	printf "Warning: %s\n" "$1" >&2
+	return 1
+}
 
 clone_repo()
 {
 	printf "Cloning %s\n" "$1"
-	cd $repo_dir
+	cd $repos_dir
 	git clone $1
 	cd $HOME
 }
+
+dotfiles_dir=$(pwd)
+downloads_dir="$HOME/Downloads"
+stuff_dir="$HOME/Stuff"
+projects_dir="$HOME/Projects"
+repos_dir="$HOME/Repositories"
+
+# Setup home directory
+mkdir -pv $downloads_dir $stuff_dir $projects_dir $repos_dir
 
 packages=(
 	# Documentation
@@ -40,6 +55,8 @@ packages=(
 	ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
 	# Web browser
 	firefox
+	# Firewall
+	ufw
 	# Download videos
 	youtube-dl
 	# Video player
@@ -53,6 +70,8 @@ packages=(
 	zathura-pdf-mupdf # PDF EPUB XPS support
 	# Mount External Devices
 	udisks2
+	# Update XDG Dirs annoying af
+	xdg-user-dirs
 	# GTK Theme
 	arc-solid-gtk-theme
 	# Raster Image Editor
@@ -86,7 +105,7 @@ if [ -n "$1" ]; then # If parameter is passed
 			kitty # Terminal Emulator
 		)
 	else
-		printf "Unrecognized Parameter\n"
+		die "Unrecognized Parameter"
 	fi
 fi
 printf "Installing Packages\n"
@@ -94,11 +113,6 @@ for pkg in "${packages[@]}"; do
 	printf "Installing $pkg\n"
 	sudo pacman -S "$pkg" --noconfirm
 done
-
-# Setup home directory
-printf "Creating Home Directory\n"
-cd $HOME
-mkdir -pv Downloads Projects Repositories Stuff
 
 # Librewolf
 clone_repo https://aur.archlinux.org/librewolf-bin.git

@@ -1,12 +1,5 @@
 # .bashrc
 
-# Automatically start xserver when in tty1 with no window manager running
-# https://wiki.archlinux.org/title/Xinit#Installation
-if [ "$(tty)" = "/dev/tty1" ]; then
-	pgrep awesome || exec startx
-fi
-
-# Bash Prompt
 # get current branch in git repo
 parse_git_branch() {
 	BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
@@ -101,9 +94,9 @@ alias please='sudo'
 alias cl='clear'
 
 alias grep='grep --color'
-alias sgrep='grep -R -I -n -C 3 --exclude-dir={.git,.svn,CVS} '
+alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 
-# Us fc instead of history as it in POSIX compliant
+# Use fc instead of history as it is POSIX compliant
 alias hgrep="fc -l 1 | grep"
 alias hg="fc -l 1 | grep"
 
@@ -111,10 +104,11 @@ alias hg="fc -l 1 | grep"
 # e is easy to reach and I remember with e for edit like in vim
 alias e='nvim'
 
-# Alias for my most command find command
-# Have to quote regex search patterns like: mf "*pattern*"
-alias myfind='find . -name'
-alias mf='find . -name'
+# Custom find command because it is annoying to type everytime
+# Is case sensitive
+mf() {
+	find . -name "*$1*"
+}
 
 # Alias for YouTube command line search tool
 alias yt='ytfzf'
