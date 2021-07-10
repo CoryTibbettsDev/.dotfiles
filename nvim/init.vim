@@ -66,10 +66,12 @@ endif
 " Settings for hardtabs
 set tabstop=4 shiftwidth=4
 " Settings for softtabs
-" set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
-
+" set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+if !has('nvim')
+	set smarttab
+endif
 " Automatically indents lines when you insert a new line :h smartindent
-set cindent
+set smartindent
 
 " Case insensitive search and highlight
 set incsearch ignorecase smartcase hlsearch
@@ -143,11 +145,9 @@ map tl :tablast<CR>
 " Insert comment into normal mode move left 2 spaces into insert mode
 inoremap <C-d> /*  */<ESC>2hi
 
-" Comment all selected lines in visual mode
-" https://stackoverflow.com/questions/46893804/vimscript-mapping-for-commenting-visual-blocks
-vnoremap <Leader>c :s/^/#/<bar>nohlsearch<CR>
+" Comment all selected lines in visual mode with //
+vnoremap <Leader>c :s/^/\/\//<bar>nohlsearch<CR>
 
-" ThePrimegen
 vnoremap <leader>p "_dP
 
 " Insert license header in file
@@ -165,8 +165,6 @@ function! InsertLicense()
 	endif
 endfunction
 
-" https://www.maketecheasier.com/turn-vim-word-processor/
-" https://thepracticalsysadmin.com/using-vim-as-a-word-processor/
 " :h formatoptions and :h fo-table
 command! WM call WritingMode()
 function! WritingMode()
@@ -179,7 +177,7 @@ endfunction
 
 " Get highlight group of the word under cursor
 " Use ctrl+shitf+p
-nmap <C-S-P> :call <SID>SynStack()<CR>
+nmap <leader>hi :call <SID>SynStack()<CR>
 function! <SID>SynStack()
     if !exists("*synstack")
         return

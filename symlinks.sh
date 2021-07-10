@@ -29,7 +29,6 @@ for file in $configfiles; do
 	configfile=$config_dir/$file
     ln -sf $dotfile_dir/config/$file $configfile && printf "${configfile} links to ${file}\n" || printf "${file} not linked\n"
 done
-[ -f $config_dir/user-dirs.dirs ] && xdg-user-dirs-update
 
 # Copy Wallpapers
 cp -vrn Wallpaper/ $stuff_dir

@@ -48,6 +48,43 @@ parse_git_dirty() {
 
 export PS1="\[\e[36m\][\u@\h \w\`parse_git_branch\`]\$\[\e[m\] "
 
+# History Settings
+HISTCONTROL=ignoreboth
+
+# Set editor details for programs that look for them
+export VISUAL=nvim;
+export EDITOR=nvim;
+
+alias ls='ls --color=auto'
+alias ll='ls -la'
+
+alias cl='clear'
+
+alias cpv='cp -v'
+alias mvv='mv -v'
+alias rmv='rm -v'
+
+alias grep='grep --color'
+alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
+
+# Use fc instead of history as it is POSIX compliant
+alias hgrep="fc -l 1 | grep"
+alias hg="fc -l 1 | grep"
+
+# Wholesome Unix
+alias pls='sudo'
+alias please='sudo'
+
+# Alias for nvim editor
+# e is easy to reach and I remember with e for edit like in vim
+alias e='nvim'
+
+# Custom find command because it is annoying to type everytime
+# Is case sensitive
+mf() {
+	find . -name "*$1*"
+}
+
 # ex - archive extractor
 # usage: ex <file>
 # Stolen from https://github.com/ChrisTitusTech/zsh
@@ -72,42 +109,6 @@ ex ()
 	else
 		echo "'$1' is not a valid file"
 	fi
-}
-
-# History Settings
-HISTCONTROL=ignoreboth
-
-# Set editor details for programs that look for them
-export VISUAL=nvim;
-export EDITOR=nvim;
-
-alias ls='ls --color=auto'
-alias ll='ls -la'
-
-# Wholesome Unix
-alias pls='sudo'
-alias please='sudo'
-# In case I switch to doas
-# alias pls='doas --'
-# alias please='doas --'
-
-alias cl='clear'
-
-alias grep='grep --color'
-alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
-
-# Use fc instead of history as it is POSIX compliant
-alias hgrep="fc -l 1 | grep"
-alias hg="fc -l 1 | grep"
-
-# Alias for nvim editor
-# e is easy to reach and I remember with e for edit like in vim
-alias e='nvim'
-
-# Custom find command because it is annoying to type everytime
-# Is case sensitive
-mf() {
-	find . -name "*$1*"
 }
 
 # Alias for YouTube command line search tool

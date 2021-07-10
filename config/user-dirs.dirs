@@ -1,7 +1,5 @@
 # Set XDG DIRS
 # so programs stop fucking with my directories
-# man xdg-user-dirs-update
-# Need xdg-user-dirs package
 XDG_DESKTOP_DIR="$HOME/Downloads"
 XDG_DOCUMENTS_DIR="$HOME/Downloads"
 XDG_DOWNLOAD_DIR="$HOME/Downloads/"
@@ -10,4 +8,3 @@ XDG_PICTURES_DIR="$HOME/Downloads"
 XDG_PUBLICHSARE_DIR="$HOME/Downloads"
 XDG_TEMPLATES_DIR="$HOME/Downloads"
 XDG_VIDEOS_DIR="$HOME/Downloads"
-XDG_PUBLICSHARE_DIR="$HOME/Downloads"
