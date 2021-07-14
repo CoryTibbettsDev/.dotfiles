@@ -1,18 +1,14 @@
-" ===============================================================
+" =================================
 " mycolorscheme.vim
-" Thank you to the many wonderful people who's colorschemes I
-" learned from
-" Colors based on tokyonight
-" https://github.com/ghifarit53/tokyonight.vim/
 " Color function based on onehalf
 " https://github.com/sonph/onehalf
-" ===============================================================
+" =================================
 
 " Setup: {{{
 set background=dark
 highlight clear
 if exists("syntax_on")
-  syntax reset
+	syntax reset
 endif
 let g:colors_name="mycolorscheme"
 " }}}
@@ -49,21 +45,21 @@ let s:comment_fg = s:purple
 
 " Color Function: {{{
 function! s:hl(group, fg, bg, attr)
-  if type(a:fg) == type({})
-    exec "hi " . a:group . " guifg=" . a:fg.gui . " ctermfg=" . a:fg.cterm
-  else
-    exec "hi " . a:group . " guifg=NONE cterm=NONE"
-  endif
-  if type(a:bg) == type({})
-    exec "hi " . a:group . " guibg=" . a:bg.gui . " ctermbg=" . a:bg.cterm
-  else
-    exec "hi " . a:group . " guibg=NONE ctermbg=NONE"
-  endif
-  if a:attr != ""
-    exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
-  else
-    exec "hi " . a:group . " gui=NONE cterm=NONE"
-  endif
+	if type(a:fg) == type({})
+		exec "hi " . a:group . " guifg=" . a:fg.gui . " ctermfg=" . a:fg.cterm
+	else
+		exec "hi " . a:group . " guifg=NONE cterm=NONE"
+	endif
+	if type(a:bg) == type({})
+		exec "hi " . a:group . " guibg=" . a:bg.gui . " ctermbg=" . a:bg.cterm
+	else
+		exec "hi " . a:group . " guibg=NONE ctermbg=NONE"
+	endif
+	if a:attr != ""
+		exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
+	else
+		exec "hi " . a:group . " gui=NONE cterm=NONE"
+	endif
 endfun
 " }}}
 
@@ -76,11 +72,6 @@ call s:hl("CursorLine", "", s:cursor_line, "")
 
 call s:hl("LineNr", s:fg, s:bg, "")
 call s:hl("CursorLineNr", s:fg, "", "")
-
-call s:hl("DiffAdd", s:green, "", "")
-call s:hl("DiffChange", s:yellow, "", "")
-call s:hl("DiffDelete", s:red, "", "")
-call s:hl("DiffText", s:blue, "", "")
 
 call s:hl("IncSearch", s:bg, s:bg_red, "")
 call s:hl("Search", s:bg, s:bg_green, "")
@@ -122,6 +113,11 @@ call s:hl("MatchParen", s:blue, "", "underline")
 call s:hl("SpecialKey", s:fg, "", "")
 call s:hl("Title", s:green, "", "")
 call s:hl("WildMenu", s:fg, "", "")
+
+call s:hl("DiffAdd", s:green, "", "")
+call s:hl("DiffChange", s:yellow, "", "")
+call s:hl("DiffDelete", s:red, "", "")
+call s:hl("DiffText", s:blue, "", "")
 " }}}
 
 " Syntax Colors: {{{
@@ -171,47 +167,25 @@ call s:hl("Error", s:red, s:bg, "")
 call s:hl("Todo", s:purple, "", "")
 " }}}
 
-" Git {{{
-call s:hl("gitcommitComment", s:comment_fg, "", "")
-call s:hl("gitcommitUnmerged", s:red, "", "")
-call s:hl("gitcommitOnBranch", s:fg, "", "")
-call s:hl("gitcommitBranch", s:purple, "", "")
-call s:hl("gitcommitDiscardedType", s:red, "", "")
-call s:hl("gitcommitSelectedType", s:green, "", "")
-call s:hl("gitcommitHeader", s:fg, "", "")
-call s:hl("gitcommitUntrackedFile", s:blue, "", "")
-call s:hl("gitcommitDiscardedFile", s:red, "", "")
-call s:hl("gitcommitSelectedFile", s:green, "", "")
-call s:hl("gitcommitUnmergedFile", s:yellow, "", "")
-call s:hl("gitcommitFile", s:fg, "", "")
-hi link gitcommitNoBranch gitcommitBranch
-hi link gitcommitUntracked gitcommitComment
-hi link gitcommitDiscarded gitcommitComment
-hi link gitcommitSelected gitcommitComment
-hi link gitcommitDiscardedArrow gitcommitDiscardedFile
-hi link gitcommitSelectedArrow gitcommitSelectedFile
-hi link gitcommitUnmergedArrow gitcommitUnmergedFile
-" }}}
-
 " Fix colors in neovim terminal buffers {{{
-  if has('nvim')
-    let g:terminal_color_0 = s:black.gui
-    let g:terminal_color_1 = s:red.gui
-    let g:terminal_color_2 = s:green.gui
-    let g:terminal_color_3 = s:yellow.gui
-    let g:terminal_color_4 = s:blue.gui
-    let g:terminal_color_5 = s:purple.gui
-    let g:terminal_color_6 = s:blue.gui
-    let g:terminal_color_7 = s:white.gui
-    let g:terminal_color_8 = s:black.gui
-    let g:terminal_color_9 = s:red.gui
-    let g:terminal_color_10 = s:green.gui
-    let g:terminal_color_11 = s:yellow.gui
-    let g:terminal_color_12 = s:blue.gui
-    let g:terminal_color_13 = s:purple.gui
-    let g:terminal_color_14 = s:blue.gui
-    let g:terminal_color_15 = s:white.gui
-    let g:terminal_color_background = s:bg.gui
-    let g:terminal_color_foreground = s:fg.gui
-  endif
+if has('nvim')
+	let g:terminal_color_0 = s:black.gui
+	let g:terminal_color_1 = s:red.gui
+	let g:terminal_color_2 = s:green.gui
+	let g:terminal_color_3 = s:yellow.gui
+	let g:terminal_color_4 = s:blue.gui
+	let g:terminal_color_5 = s:purple.gui
+	let g:terminal_color_6 = s:blue.gui
+	let g:terminal_color_7 = s:white.gui
+	let g:terminal_color_8 = s:black.gui
+	let g:terminal_color_9 = s:red.gui
+	let g:terminal_color_10 = s:green.gui
+	let g:terminal_color_11 = s:yellow.gui
+	let g:terminal_color_12 = s:blue.gui
+	let g:terminal_color_13 = s:purple.gui
+	let g:terminal_color_14 = s:blue.gui
+	let g:terminal_color_15 = s:white.gui
+	let g:terminal_color_background = s:bg.gui
+	let g:terminal_color_foreground = s:fg.gui
+endif
 " }}}

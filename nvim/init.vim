@@ -9,11 +9,13 @@ if !has('nvim')
 	set visualbell
 	set mouse=a
 	set autoread
+	set smarttab
+	" Better command-line completion
+	set wildmenu
 endif
 " }}}
 
 " {{{ Basic Settings
-" UTS-8 character encoding pretty standard
 set encoding=utf-8
 
 " Title of terminal window is name of file being edited
@@ -45,9 +47,6 @@ catch /^Vim\%((\a\+)\)\=:E185/
 	set background=dark
 endtry
 
-" Allows for wrapping movement to next or previous line
-" set whichwrap+=<,>,h,l,[,]
-
 " Disable Annoying Features
 " Disable creation of swap files
 set noswapfile
@@ -57,36 +56,23 @@ set viminfo=
 " Modelines have historically been a source of security vulnerabilities.
 " As such, it may be a good idea to disable them.
 set nomodeline
-" Allow color schemes to do bright colors without forcing bold.
-if &t_Co == 8 && $TERM !~# '^Eterm'
-	set t_Co=16
-endif
 
 " How tabs are displayed and inserted
 " Settings for hardtabs
 set tabstop=4 shiftwidth=4
-" Settings for softtabs
-" set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-if !has('nvim')
-	set smarttab
-endif
 " Automatically indents lines when you insert a new line :h smartindent
 set smartindent
 
 " Case insensitive search and highlight
 set incsearch ignorecase smartcase hlsearch
 
-" Better command-line completion
-set wildmenu
 " Wildmenu will ignore certain things
 " Ignore all variations of these files/folders
-set wildignore=**node_modules**
-set wildignore+=*_build/*
-set wildignore+=**/coverage/*
-set wildignore+=**/node_modules/*
-set wildignore+=**/android/*
-set wildignore+=**/ios/*
-set wildignore+=**/.git/*
+set wildignore+=*/node_modules/*
+set wildignore+=*/__pycache__/*
+set wildignore+=*/android/*
+set wildignore+=*/ios/*
+set wildignore+=*/.git/*
 set wildignore+=*.pyc
 
 " Move window as you scroll
@@ -99,10 +85,7 @@ set foldenable
 set foldmethod=marker
 
 " Highlight trailing whitespace
-set list listchars=tab:>-,trail:.,extends:>
-" if &listchars ==# 'eol:$'
-"   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-" endif
+set list " listchars=tab:>-,trail:.,extends:>
 
 " Completion Menu Settings
 set completeopt=menu,menuone,noselect
@@ -110,9 +93,8 @@ set complete=.,w,b,u,t
 " }}}
 
 " {{{ Custom Mappings and Commands
-" I accidentally do :W instead of :w to save a lot
-" Custom command to call lowercase w with uppercase W
-command! W :w
+" Remap control+c to behave like escape so it triggers InsertLeave autocmd
+noremap <C-c> <esc>
 
 " View mappings
 " :nmap - Display normal mode maps
@@ -125,29 +107,46 @@ command! W :w
 " Maps leader key to space
 let mapleader = ' '
 
+" I accidentally do :W instead of :w to save a lot
+command! W :w
 nnoremap <leader>w :w<CR>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
+nnoremap <leader>m :make<CR>
+nnoremap <leader>t :make test<CR>
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
 
-" Rempaps for managing tabs
-map tn :tabnew<Space>
-map tc :tabclose<CR>
-map tk :tabnext<CR>
-map tj :tabprev<CR>
-map th :tabfirst<CR>
-map tl :tablast<CR>
+" Remaps for managing tabs
+noremap tn :tabnew<Space>
+noremap tc :tabclose<CR>
+noremap tk :tabnext<CR>
+noremap tj :tabprev<CR>
+noremap th :tabfirst<CR>
+noremap tl :tablast<CR>
+" Remaps for managing windows
+noremap <leader>h :wincmd h<CR>
+noremap <leader>j :wincmd j<CR>
+noremap <leader>k :wincmd k<CR>
+noremap <leader>l :wincmd l<CR>
+noremap <leader>c :wincmd c<CR>
+noremap <leader>+ :vertical resize +5<CR>
+noremap <leader>- :vertical resize -5<CR>
+noremap <leader>pv :wincmd v<CR>
+noremap <leader>pn :wincmd n<CR>
+" Open Netrw and resize window
+noremap <leader>f :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 
 " Insert c multiline comment like /* */
 " Insert comment into normal mode move left 2 spaces into insert mode
 inoremap <C-d> /*  */<ESC>2hi
 
 " Comment all selected lines in visual mode with //
-vnoremap <Leader>c :s/^/\/\//<bar>nohlsearch<CR>
+vnoremap <Leader>d :s/^/\/\//<bar>nohlsearch<CR>
 
+" Delete line and paste it above the line it was previously under
 vnoremap <leader>p "_dP
 
 " Insert license header in file

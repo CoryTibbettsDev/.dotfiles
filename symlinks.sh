@@ -17,9 +17,6 @@ for file in $homefiles; do
 	dotfile=$HOME/.$file
     ln -sf $dotfile_dir/home/$file $dotfile && printf "${dotfile} links to ${file}\n" || printf "${file} not linked\n"
 done
-# Run lesskey to create binary config for less
-# It is dumb they store their config in a binary file but what can you do?
-[ -f ~/.lesskey ] && lesskey
 # Run xrdb to load .Xresources if file exists
 [ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
 

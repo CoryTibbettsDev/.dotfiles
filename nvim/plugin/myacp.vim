@@ -1,5 +1,5 @@
 " MyAutoCompletePopup
-" mycp.vim - auto popup completion window
+" myacp.vim - auto popup completion window
 "
 " Forked from https://github.com/skywind3000/vim-auto-popmenu
 "

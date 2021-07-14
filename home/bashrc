@@ -51,10 +51,6 @@ export PS1="\[\e[36m\][\u@\h \w\`parse_git_branch\`]\$\[\e[m\] "
 # History Settings
 HISTCONTROL=ignoreboth
 
-# Set editor details for programs that look for them
-export VISUAL=nvim;
-export EDITOR=nvim;
-
 alias ls='ls --color=auto'
 alias ll='ls -la'
 
@@ -82,7 +78,7 @@ alias e='nvim'
 # Custom find command because it is annoying to type everytime
 # Is case sensitive
 mf() {
-	find . -name "*$1*"
+	find . -iname "*$1*"
 }
 
 # ex - archive extractor
@@ -127,6 +123,3 @@ alias mpv7='mpv --ytdl-format=22'
 alias mpv3='mpv --ytdl-format=18'
 
 unset SSH_ASKPASS
-
-# Append dircolors to bashrc
-# dircolors -b >> .bashrc

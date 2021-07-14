@@ -1,0 +1,11 @@
+# .profile
+# This file is called by all the shell specific profiles
+# such as (.bash_profile, .zprofile etc.) so I have a unified place
+# for all all my configuration
+# https://nanxiao.me/en/why-doesnt-profile-take-effect-in-arch-linux/
+
+# Set editor details for programs that look for them
+export VISUAL=nvim
+export EDITOR=nvim
+
+export DOWNLOADS_DIR=$HOME/Downloads
