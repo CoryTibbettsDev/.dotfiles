@@ -4,9 +4,11 @@
 
 # Add -b or --backup flag to ln if you want to backup old files
 
-dotfile_dir=$(pwd)
+library_file=$(pwd)/lib.sh
+[ -f $library_file ] || { printf "No library file: %s\n" "$library_file"; exit 1; }
+. $library_file
+
 config_dir="$HOME/.config"
-stuff_dir="$HOME/Stuff"
 
 # Make the directories in case they do not exist
 mkdir -pv $config_dir $stuff_dir
@@ -15,26 +17,31 @@ mkdir -pv $config_dir $stuff_dir
 homefiles=$(ls ./home)
 for file in $homefiles; do
 	dotfile=$HOME/.$file
-    ln -sf $dotfile_dir/home/$file $dotfile && printf "${dotfile} links to ${file}\n" || printf "${file} not linked\n"
+	ln -sf $dotfiles_dir/home/$file $dotfile &&
+	printf "%s links to %s\n" "${dotfile}" "home/${file}" ||
+	printf "%s not linked\n" "home/${file}"
 done
 # Run xrdb to load .Xresources if file exists
-[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+[ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
 
 # link all files in config directory to user's config directory
 configfiles=$(ls ./config)
 for file in $configfiles; do
 	configfile=$config_dir/$file
-    ln -sf $dotfile_dir/config/$file $configfile && printf "${configfile} links to ${file}\n" || printf "${file} not linked\n"
+	ln -sf $dotfiles_dir/config/$file $configfile &&
+	printf "%s links to %s\n" "${configfile}" "config/${file}" ||
+	printf "%s not linked\n" "config/${file}"
 done
 
 # Copy Wallpapers
 cp -vrn Wallpaper/ $stuff_dir
 
-linkconfig() {
-	ln -sf $dotfile_dir/$1 $config_dir && printf "${1} linked\n" || printf "${1} not linked\n"
+link_config() {
+	ln -sf $dotfiles_dir/$1 $config_dir &&
+	printf "%s links to %s\n" "$1" "$dotfiles_dir/$1"
 }
-linkconfig awesome
-linkconfig kitty
-linkconfig nvim
-linkconfig ytfzf
-linkconfig gtk-3.0
+link_config awesome
+link_config kitty
+link_config nvim
+link_config ytfzf
+link_config gtk-3.0

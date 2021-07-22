@@ -5,7 +5,6 @@
 if !has('nvim')
 	set nocompatible
 	set backspace=indent,eol,start
-	set hidden
 	set visualbell
 	set mouse=a
 	set autoread
@@ -17,6 +16,9 @@ endif
 
 " {{{ Basic Settings
 set encoding=utf-8
+
+" Remember unloaded buffers
+set hidden
 
 " Title of terminal window is name of file being edited
 set title
@@ -84,7 +86,7 @@ set sidescrolloff=5
 set foldenable
 set foldmethod=marker
 
-" Highlight trailing whitespace
+" Indicate tabs and trailing spaces
 set list " listchars=tab:>-,trail:.,extends:>
 
 " Completion Menu Settings
@@ -94,7 +96,7 @@ set complete=.,w,b,u,t
 
 " {{{ Custom Mappings and Commands
 " Remap control+c to behave like escape so it triggers InsertLeave autocmd
-noremap <C-c> <esc>
+imap <C-c> <Esc>
 
 " View mappings
 " :nmap - Display normal mode maps
@@ -175,7 +177,6 @@ function! WritingMode()
 endfunction
 
 " Get highlight group of the word under cursor
-" Use ctrl+shitf+p
 nmap <leader>hi :call <SID>SynStack()<CR>
 function! <SID>SynStack()
     if !exists("*synstack")

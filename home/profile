@@ -5,7 +5,32 @@
 # https://nanxiao.me/en/why-doesnt-profile-take-effect-in-arch-linux/
 
 # Set editor details for programs that look for them
-export VISUAL=nvim
 export EDITOR=nvim
+export VISUAL=nvim
 
-export DOWNLOADS_DIR=$HOME/Downloads
+# Shell rc file is not automatically sourced by login shells so we
+# source the appropriate rc file depending on the shell running
+# https://unix.stackexchange.com/questions/71121/determine-shell-in-script-during-runtime
+if [ -n "$BASH_VERSION" ]; then
+	if [ -f "$HOME/.bashrc" ]; then
+		. "$HOME/.bashrc"
+	fi
+elif [ -n "$ZSH_VERSION" ]; then
+	if [ -f "$HOME/.zshrc" ]; then
+		. "$HOME/.zshrc"
+	fi
+elif [ -n "$KSH_VERSION" ]; then
+	if [ -f "$HOME/.kshrc" ]; then
+		. "$HOME/.kshrc"
+	fi
+elif [ -n "$FCEDIT" ]; then
+	if [ -f "$HOME/.kshrc" ]; then
+		. "$HOME/.kshrc"
+	fi
+fi
+
+# Automatically startx on login
+# https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login
+if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+	exec startx
+fi

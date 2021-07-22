@@ -1,10 +1,23 @@
 # Set Wallpaper
-feh --no-fehbg --bg-fill --recursive --randomize ~/Stuff/Wallpaper &
+# if [ -n "$WALLPAPER_DIR" ]; then
+# 	wd=$WALLPAPER_DIR
+# elif
+# 	wd=$HOME/Wallpaper
+# fi
+# feh --no-fehbg --bg-fill --recursive --randomize $wd &
+feh --no-fehbg --bg-fill --recursive --randomize $HOME/Stuff/Wallpaper &
 
 # Set Xmodmap if file exists
-[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
+[ -f $HOME/.Xmodmap ] && xmodmap $HOME/.Xmodmap
 # Run xrdb to load .Xresources if file exists
-[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+[ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
 
 # Start Window Manager
-exec awesome
+# if [ -z "$WINDOW_MANAGER" ]; then
+# 	exec $WINDOW_MANAGER
+# elif
+# 	exec awesome
+# fi
+# wm=awesome
+wm="$WINDOW_MANAGER"
+exec $wm

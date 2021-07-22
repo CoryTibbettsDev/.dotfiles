@@ -1,30 +1,24 @@
 #!/bin/sh
 
-# Print error message "$1" to stderr and exit
-die(){
-	printf "Error: %s, exiting\n" "$1" >&2
-	exit 1
-}
+remote_url="https://github.com/CoryTibbettsDev/.dotfiles"
+dir_name=".dotfiles"
+lib_name="lib.sh"
+deploy_dir="$HOME/$dir_name"
+library_file="$deploy_dir/$lib_name"
+if [ -d $deploy_dir ]; then
+	git clone $remote_url $HOME/$dir_name ||
+	{ printf "%s git clone failed" "$dir_name"; exit 1; }
+fi
+[ -f $library_file ] || { printf "No library file: %s\n" "$library_file"; exit 1; }
+. $library_file
 
-# Print warning message "$1" to stderr don't exit
-warn(){
-	printf "Warning: %s\n" "$1" >&2
-	return 1
-}
-
+# Arg 1 is repo URL Arg2 is directory name
+# clone_repo https://example.com/repo directory_name
 clone_repo()
 {
 	printf "Cloning %s\n" "$1"
-	cd $repos_dir
-	git clone $1
-	cd $HOME
+	git clone $1 "$repos_dir/$2" || warn "git clone failed"
 }
-
-dotfiles_dir=$(pwd)
-downloads_dir="$HOME/Downloads"
-stuff_dir="$HOME/Stuff"
-projects_dir="$HOME/Projects"
-repos_dir="$HOME/Repositories"
 
 # Setup home directory
 mkdir -pv $downloads_dir $stuff_dir $projects_dir $repos_dir
@@ -100,7 +94,7 @@ if [ -n "$1" ]; then # If parameter is passed
 			acpi # Client for battery, power, and thermal readings
 			broadcom-wl # Broadcom Wifi Driver
 		)
-	elif [ "$1" = "d" -o "$1" = "desktop" ]; then 
+	elif [ "$1" = "d" -o "$1" = "desktop" ]; then
 		packages+=(
 			kitty # Terminal Emulator
 		)
@@ -114,9 +108,6 @@ for pkg in "${packages[@]}"; do
 	sudo pacman -S "$pkg" --noconfirm
 done
 
-# Librewolf
-clone_repo https://aur.archlinux.org/librewolf-bin.git
-
 # ytfzf
 # Command line tool for searching and watching YouTube Videos
 # Dependencies are youtube-dl, mpv, jq, fzf
@@ -124,19 +115,14 @@ clone_repo https://aur.archlinux.org/librewolf-bin.git
 # Source code: https://github.com/pystardust/ytfzf
 # Dependencies
 sudo pacman -S mpv youtube-dl jq fzf --noconfirm
-clone_repo https://github.com/pystardust/ytfzf
+clone_repo https://github.com/pystardust/ytfzf ytfzf
 
 # Cactus File Manager
-clone_repo https://github.com/WillEccles/cfm
+clone_repo https://github.com/WillEccles/cfm cfm
 
 # Change swappiness to better value
 printf "Setting Swappiness\n"
 sudo sysctl vm.swappiness=10
 echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-swappiness.conf
 
-printf "Getting Dotfiles\n"
-cd $HOME
-git clone https://github.com/CoryTibbettsDev/.dotfiles
-cd $dotfiles_dir
-
-sh symlinks.sh
+. $dotfiles_dir/symlinks.sh
