@@ -4,6 +4,7 @@
 
 # Add -b or --backup flag to ln if you want to backup old files
 
+# Source library file
 library_file=$(pwd)/lib.sh
 [ -f $library_file ] || { printf "No library file: %s\n" "$library_file"; exit 1; }
 . $library_file

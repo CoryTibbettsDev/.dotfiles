@@ -75,6 +75,14 @@ alias please='sudo'
 # e is easy to reach and I remember with e for edit like in vim
 alias e='nvim'
 
+# Change directory clear screen and list
+cdl()
+{
+	cd $1
+	clear
+	ls
+}
+
 # Custom find command because it is annoying to type everytime
 # Is case sensitive
 mf() {
@@ -100,10 +108,10 @@ ex ()
 			*.zip) unzip $1;;
 			*.Z) uncompress $1;;
 			*.7z) 7z x $1;;
-			*) echo "'$1' cannot be extracted via ex()";;
+			*) printf "%s cannot be extracted via ex()\n" "$1";;
 		esac
 	else
-		echo "'$1' is not a valid file"
+		printf "%s is not a valid file" "$1"
 	fi
 }
 

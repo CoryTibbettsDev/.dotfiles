@@ -1,11 +1,11 @@
+# .xinitrc
+# Source library file
+library_file=$HOME/.dotfiles/lib.sh
+[ -f $library_file ] || { printf "No library file: %s\n" "$library_file"; exit 1; }
+. $library_file
+
 # Set Wallpaper
-# if [ -n "$WALLPAPER_DIR" ]; then
-# 	wd=$WALLPAPER_DIR
-# elif
-# 	wd=$HOME/Wallpaper
-# fi
-# feh --no-fehbg --bg-fill --recursive --randomize $wd &
-feh --no-fehbg --bg-fill --recursive --randomize $HOME/Stuff/Wallpaper &
+feh --no-fehbg --bg-fill --recursive --randomize $wallpaper_dir &
 
 # Set Xmodmap if file exists
 [ -f $HOME/.Xmodmap ] && xmodmap $HOME/.Xmodmap
@@ -13,11 +13,4 @@ feh --no-fehbg --bg-fill --recursive --randomize $HOME/Stuff/Wallpaper &
 [ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
 
 # Start Window Manager
-# if [ -z "$WINDOW_MANAGER" ]; then
-# 	exec $WINDOW_MANAGER
-# elif
-# 	exec awesome
-# fi
-# wm=awesome
-wm="$WINDOW_MANAGER"
-exec $wm
+exec $window_manager
