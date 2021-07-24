@@ -3,8 +3,6 @@
 # Useful ways to detect commands failing
 # https://stackoverflow.com/questions/13793836/how-to-detect-if-a-git-clone-failed-in-a-bash-script
 
-dotfiles_url="https://github.com/CoryTibbettsDev/.dotfiles"
-dotfiles_dir="$HOME/.dotfiles"
 downloads_dir="$HOME/Downloads"
 stuff_dir="$HOME/Stuff"
 wallpaper_dir="$stuff_dir/Wallpaper"
