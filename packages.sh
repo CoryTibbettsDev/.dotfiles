@@ -1,5 +1,7 @@
 #!/bin/sh
 
+su_cmd="sudo"
+
 remote_url="https://github.com/CoryTibbettsDev/.dotfiles"
 dir_name=".dotfiles"
 lib_name="lib.sh"
@@ -43,8 +45,6 @@ packages=(
 	# Audio control
 	alsa
 	alsa-utils
-	# Terminal emulator
-	xfce4-terminal
 	# For naviagting source code with vim
 	ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
 	# Web browser
@@ -59,13 +59,15 @@ packages=(
 	feh # Also use for setting wallpaper
 	# GUI file browser
 	pcmanfm
+	# Screen locker
+	i3lock
 	# Document viewer
 	zathura # https://wiki.archlinux.org/index.php/Zathura
 	zathura-pdf-mupdf # PDF EPUB XPS support
 	# Mount External Devices
 	udisks2
 	# Update XDG Dirs annoying af
-	xdg-user-dirs
+	# xdg-user-dirs
 	# GTK Theme
 	arc-solid-gtk-theme
 	# Raster Image Editor
@@ -88,24 +90,14 @@ packages=(
 	# Edit /etc/pacman.conf and uncomment the multilib mirror list
 	# multilib is needed for steam and 32-bit programs and libraries
 )
-if [ -n "$1" ]; then # If parameter is passed
-	if [ "$1" = "l" -o "$1" = "laptop" ]; then
-		packages+=(
-			acpi # Client for battery, power, and thermal readings
-			broadcom-wl # Broadcom Wifi Driver
-		)
-	elif [ "$1" = "d" -o "$1" = "desktop" ]; then
-		packages+=(
-			kitty # Terminal Emulator
-		)
-	else
-		die "Unrecognized Parameter"
-	fi
-fi
+yes_or_no "Install kitty?" && packages+=(kitty)
+yes_or_no "Install xfce4-terminal?" && packages+=(xfce4-terminal)
+yes_or_no "Install acpi?" && packages+=(acpi)
+yes_or_no "Install broadcom-wl?" && packages+=(broadcom-wl)
 printf "Installing Packages\n"
 for pkg in "${packages[@]}"; do
 	printf "Installing $pkg\n"
-	sudo pacman -S "$pkg" --noconfirm
+	$su_cmd pacman -S "$pkg" --noconfirm
 done
 
 # ytfzf
@@ -114,7 +106,7 @@ done
 # (optional for thumbnails) ueberzug
 # Source code: https://github.com/pystardust/ytfzf
 # Dependencies
-sudo pacman -S mpv youtube-dl jq fzf --noconfirm
+$su_cmd pacman -S mpv youtube-dl jq fzf --noconfirm
 clone_repo https://github.com/pystardust/ytfzf ytfzf
 
 # Cactus File Manager
@@ -122,7 +114,12 @@ clone_repo https://github.com/WillEccles/cfm cfm
 
 # Change swappiness to better value
 printf "Setting Swappiness\n"
-sudo sysctl vm.swappiness=10
-echo "vm.swappiness=10" | sudo tee -a /etc/sysctl.d/99-swappiness.conf
+$su_cmd sysctl vm.swappiness=10
+echo "vm.swappiness=10" | $su_cmd tee -a /etc/sysctl.d/99-swappiness.conf
+
+# Firewall setup
+$su_cmd ufw default deny incoming
+$su_cmd ufw default allow outgoing
+$su_cmd ufw enable
 
 . $dotfiles_dir/symlinks.sh

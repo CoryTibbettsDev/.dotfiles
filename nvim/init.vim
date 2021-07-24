@@ -149,8 +149,12 @@ inoremap <C-d> /*  */<ESC>2hi
 " Comment all selected lines in visual mode with //
 vnoremap <Leader>d :s/^/\/\//<bar>nohlsearch<CR>
 
-" Delete line and paste it above the line it was previously under
+" Delete visual selection and paste it above the line it was previously under
 vnoremap <leader>p "_dP
+
+" Strip whitespace
+" https://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+autocmd BufWritePre *.c :%s/\s\+$//e
 
 " Insert license header in file
 " https://www.gilesorr.com/blog/vimscript-insert.html

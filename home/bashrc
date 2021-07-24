@@ -139,4 +139,7 @@ alias paclsorphans='pacman -Qdt'
 # Remove orphans
 alias pacrmorphans='pacman -Rs $(pacman -Qtdq)'
 
+# Screen locker
+alias lock='i3lock'
+
 unset SSH_ASKPASS
