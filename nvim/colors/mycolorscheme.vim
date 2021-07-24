@@ -14,33 +14,41 @@ let g:colors_name="mycolorscheme"
 " }}}
 
 " Palette: {{{
-let s:black = { "gui": "#24283b", "cterm": "235" }
-let s:white = { "gui": "#ffffff", "cterm": "250" }
-let s:darkgray1 = { "gui": "#06080a", "cterm": "237" }
-let s:darkgray2 = { "gui": "#282d42", "cterm": "236" }
-let s:darkgray3 = { "gui": "#2f344d", "cterm": "236" }
-let s:darkgray4 = { "gui": "#333954", "cterm": "237" }
-let s:darkgray4 = { "gui": "#3a405e", "cterm": "237" }
-let s:bg_red = { "gui": "#ff7a93", "cterm": "203" }
-let s:diff_red = { "gui": "#804d49", "cterm": "52" }
-let s:bg_green = { "gui": "#b9f27c", "cterm": "107" }
-let s:diff_green = { "gui": "#618041", "cterm": "22" }
-let s:bg_blue = { "gui": "#7da6ff", "cterm": "110" }
-let s:diff_blue = { "gui": "#3e5380", "cterm": "17" }
-let s:red = { "gui": "#F7768E", "cterm": "203" }
-let s:orange = { "gui": "#FF9E64", "cterm": "215" }
-let s:yellow = { "gui": "#E0AF68", "cterm": "179" }
-let s:green= { "gui": "#9ECE6A", "cterm": "107" }
-let s:blue = { "gui": "#7AA2F7", "cterm": "110" }
-let s:purple = { "gui": "#ad8ee6", "cterm": "176" }
-let s:gray = { "gui": "#444B6A", "cterm": "246" }
+" Dark Background Tones
+let s:base03 = { "gui": "#002b36", "cterm": "234" }
+let s:base02 = { "gui": "#073642", "cterm": "235" }
+" Content Tones
+let s:base01 = { "gui": "#586e75", "cterm": "240" }
+let s:base00 = { "gui": "#657b83", "cterm": "241" }
+let s:base0 = { "gui": "#839496", "cterm": "244" }
+let s:base1 = { "gui": "#93a1a1", "cterm": "245" }
+" Light Background Tones
+let s:base2 = { "gui": "#eee8d5", "cterm": "254" }
+let s:base3 = { "gui": "#fdf6e3", "cterm": "230" }
+" Accent Tones
+let s:yellow = { "gui": "#b58900", "cterm": "136" }
+let s:orange = { "gui": "#cb4b16", "cterm": "166" }
+let s:red = { "gui": "#dc322f", "cterm": "160" }
+let s:magenta = { "gui": "#d33682", "cterm": "125" }
+let s:violet = { "gui": "#6c71c4", "cterm": "61" }
+let s:blue = { "gui": "#6c71c4", "cterm": "33" }
+let s:cyan = { "gui": "#268bd2", "cterm": "37" }
+let s:green = { "gui": "#268bd2", "cterm": "64" }
 
-let s:fg = s:white
-let s:bg = s:darkgray2
-let s:non_text = s:bg
-let s:cursor_line = s:darkgray3
-let s:selection = s:darkgray4
-let s:comment_fg = s:purple
+" Base Colors
+let s:bg = s:base03
+let s:bg2 = s:base02
+let s:fg = s:base3
+let s:fg2 = s:base2
+" Accent Colors
+let s:warmaccent = s:red
+let s:warmaccent2 = s:yellow
+let s:warmaccent3 = s:orange
+let s:warmaccent4 = s:magenta
+let s:coldaccent = s:blue
+let s:coldaccent2 = s:violet
+let s:coldaccent3 = s:green
+let s:coldaccent4 = s:cyan
 " }}}
 
 " Color Function: {{{
@@ -66,96 +74,96 @@ endfun
 " User Interface Colors: {{{
 call s:hl("Normal", s:fg, s:bg, "")
 
-call s:hl("Cursor", s:bg, s:blue, "")
-call s:hl("CursorColumn", "", s:cursor_line, "")
-call s:hl("CursorLine", "", s:cursor_line, "")
+call s:hl("Cursor", s:bg, s:coldaccent, "")
+call s:hl("CursorColumn", "", s:bg2, "")
+call s:hl("CursorLine", "", s:bg2, "")
 
-call s:hl("LineNr", s:fg, s:bg, "")
-call s:hl("CursorLineNr", s:fg, "", "")
+call s:hl("LineNr", s:fg2, s:bg2, "")
+call s:hl("CursorLineNr", s:fg2, "", "")
 
-call s:hl("IncSearch", s:bg, s:bg_red, "")
-call s:hl("Search", s:bg, s:bg_green, "")
+call s:hl("IncSearch", s:bg, s:warmaccent, "")
+call s:hl("Search", s:bg, s:coldaccent3, "")
 
 call s:hl("ErrorMsg", s:fg, "", "bold,underline")
 call s:hl("ModeMsg", s:fg, "", "")
 call s:hl("MoreMsg", s:fg, "", "")
-call s:hl("WarningMsg", s:red, "", "")
-call s:hl("Question", s:purple, "", "")
+call s:hl("WarningMsg", s:warmaccent, "", "")
+call s:hl("Question", s:coldaccent2, "", "")
 
-call s:hl("Pmenu", s:fg, s:black, "")
-call s:hl("PmenuSel", s:black, s:blue, "")
-call s:hl("PmenuSbar", "", s:selection, "")
-call s:hl("PmenuThumb", "", s:fg, "")
+call s:hl("Pmenu", s:fg, s:bg, "")
+call s:hl("PmenuSel", s:bg2, s:coldaccent2, "")
+call s:hl("PmenuSbar", s:bg2, s:fg2, "")
+call s:hl("PmenuThumb", s:bg, s:fg, "")
 
-call s:hl("SpellBad", s:red, "", "")
-call s:hl("SpellCap", s:yellow, "", "")
-call s:hl("SpellLocal", s:yellow, "", "")
-call s:hl("SpellRare", s:yellow, "", "")
+call s:hl("SpellBad", s:warmaccent, "", "")
+call s:hl("SpellCap", s:warmaccent2, "", "")
+call s:hl("SpellLocal", s:warmaccent2, "", "")
+call s:hl("SpellRare", s:warmaccent2, "", "")
 
-call s:hl("StatusLine", s:fg, s:bg, "")
-call s:hl("StatusLineNC", s:comment_fg, s:cursor_line, "")
-call s:hl("TabLine", s:comment_fg, s:cursor_line, "")
-call s:hl("TabLineFill", s:comment_fg, s:cursor_line, "")
+call s:hl("StatusLine", s:fg2, s:bg2, "")
+call s:hl("StatusLineNC", s:fg, s:bg, "")
+call s:hl("TabLine", s:fg2, s:bg2, "")
+call s:hl("TabLineFill", s:fg2, s:bg2, "")
 call s:hl("TabLineSel", s:fg, s:bg, "")
 
-call s:hl("Visual", "", s:selection, "")
-call s:hl("VisualNOS", "", s:selection, "")
+call s:hl("Visual", s:bg2, s:fg2, "")
+call s:hl("VisualNOS", s:bg2, s:fg2, "")
 
-call s:hl("ColorColumn", "", s:darkgray3, "")
+call s:hl("ColorColumn", "", s:bg2, "")
 call s:hl("Conceal", s:fg, "", "")
-call s:hl("Directory", s:blue, "", "")
-call s:hl("VertSplit", s:darkgray4, s:darkgray4, "")
+call s:hl("Directory", s:coldaccent, "", "")
+call s:hl("VertSplit", s:bg2, s:bg2, "")
 call s:hl("Folded", s:fg, "", "")
 call s:hl("FoldColumn", s:fg, "", "")
 call s:hl("SignColumn", s:fg, "", "")
 
-call s:hl("MatchParen", s:blue, "", "underline")
+call s:hl("MatchParen", s:coldaccent, "", "underline")
 call s:hl("SpecialKey", s:fg, "", "")
-call s:hl("Title", s:green, "", "")
+call s:hl("Title", s:coldaccent3, "", "")
 call s:hl("WildMenu", s:fg, "", "")
 
-call s:hl("DiffAdd", s:green, "", "")
-call s:hl("DiffChange", s:yellow, "", "")
-call s:hl("DiffDelete", s:red, "", "")
-call s:hl("DiffText", s:blue, "", "")
+call s:hl("DiffAdd", s:coldaccent3, "", "")
+call s:hl("DiffChange", s:warmaccent2, "", "")
+call s:hl("DiffDelete", s:warmaccent, "", "")
+call s:hl("DiffText", s:coldaccent, "", "")
 " }}}
 
 " Syntax Colors: {{{
 " Whitespace is defined in Neovim, not Vim.
 " See :help hl-Whitespace and :help hl-SpecialKey
-call s:hl("Whitespae", s:non_text, "", "")
-call s:hl("NonText", s:non_text, "", "")
-call s:hl("Comment", s:comment_fg, "", "italic")
-call s:hl("Constant", s:blue, "", "")
-call s:hl("String", s:green, "", "")
-call s:hl("Character", s:green, "", "")
-call s:hl("Number", s:yellow, "", "")
-call s:hl("Boolean", s:yellow, "", "")
-call s:hl("Float", s:yellow, "", "")
+call s:hl("Whitespae", s:bg, "", "")
+call s:hl("NonText", s:base00, "", "")
+call s:hl("Comment", s:coldaccent2, "", "italic")
+call s:hl("Constant", s:coldaccent, "", "")
+call s:hl("String", s:coldaccent3, "", "")
+call s:hl("Character", s:coldaccent3, "", "")
+call s:hl("Number", s:warmaccent2, "", "")
+call s:hl("Boolean", s:warmaccent2, "", "")
+call s:hl("Float", s:warmaccent2, "", "")
 
-call s:hl("Identifier", s:red, "", "")
-call s:hl("Function", s:blue, "", "")
-call s:hl("Statement", s:purple, "", "")
+call s:hl("Identifier", s:warmaccent, "", "")
+call s:hl("Function", s:coldaccent, "", "")
+call s:hl("Statement", s:coldaccent2, "", "")
 
-call s:hl("Conditional", s:purple, "", "")
-call s:hl("Repeat", s:purple, "", "")
-call s:hl("Label", s:purple, "", "")
+call s:hl("Conditional", s:coldaccent2, "", "")
+call s:hl("Repeat", s:coldaccent2, "", "")
+call s:hl("Label", s:coldaccent2, "", "")
 call s:hl("Operator", s:fg, "", "")
-call s:hl("Keyword", s:red, "", "")
-call s:hl("Exception", s:purple, "", "")
+call s:hl("Keyword", s:warmaccent, "", "")
+call s:hl("Exception", s:coldaccent2, "", "")
 
-call s:hl("PreProc", s:yellow, "", "")
-call s:hl("Include", s:purple, "", "")
-call s:hl("Define", s:purple, "", "")
-call s:hl("Macro", s:purple, "", "")
-call s:hl("PreCondit", s:yellow, "", "")
+call s:hl("PreProc", s:warmaccent2, "", "")
+call s:hl("Include", s:coldaccent2, "", "")
+call s:hl("Define", s:coldaccent2, "", "")
+call s:hl("Macro", s:coldaccent2, "", "")
+call s:hl("PreCondit", s:warmaccent2, "", "")
 
-call s:hl("Type", s:yellow, "", "")
-call s:hl("StorageClass", s:yellow, "", "")
-call s:hl("Structure", s:yellow, "", "")
-call s:hl("Typedef", s:yellow, "", "")
+call s:hl("Type", s:warmaccent2, "", "")
+call s:hl("StorageClass", s:warmaccent2, "", "")
+call s:hl("Structure", s:warmaccent2, "", "")
+call s:hl("Typedef", s:warmaccent2, "", "")
 
-call s:hl("Special", s:blue, "", "")
+call s:hl("Special", s:coldaccent, "", "")
 call s:hl("SpecialChar", s:fg, "", "")
 call s:hl("Tag", s:fg, "", "")
 call s:hl("Delimiter", s:fg, "", "")
@@ -163,28 +171,28 @@ call s:hl("SpecialComment", s:fg, "", "")
 call s:hl("Debug", s:fg, "", "")
 call s:hl("Underlined", s:fg, "", "")
 call s:hl("Ignore", s:fg, "", "")
-call s:hl("Error", s:red, s:bg, "")
-call s:hl("Todo", s:purple, "", "")
+call s:hl("Error", s:warmaccent, s:bg, "")
+call s:hl("Todo", s:coldaccent2, "", "")
 " }}}
 
-" Fix colors in neovim terminal buffers {{{
+" Fix Colors In Neovim Terminal Buffers {{{
 if has('nvim')
-	let g:terminal_color_0 = s:black.gui
-	let g:terminal_color_1 = s:red.gui
-	let g:terminal_color_2 = s:green.gui
-	let g:terminal_color_3 = s:yellow.gui
-	let g:terminal_color_4 = s:blue.gui
-	let g:terminal_color_5 = s:purple.gui
-	let g:terminal_color_6 = s:blue.gui
-	let g:terminal_color_7 = s:white.gui
-	let g:terminal_color_8 = s:black.gui
-	let g:terminal_color_9 = s:red.gui
-	let g:terminal_color_10 = s:green.gui
-	let g:terminal_color_11 = s:yellow.gui
-	let g:terminal_color_12 = s:blue.gui
-	let g:terminal_color_13 = s:purple.gui
-	let g:terminal_color_14 = s:blue.gui
-	let g:terminal_color_15 = s:white.gui
+	let g:terminal_color_0 = s:bg2.gui
+	let g:terminal_color_1 = s:warmaccent.gui
+	let g:terminal_color_2 = s:coldaccent3.gui
+	let g:terminal_color_3 = s:warmaccent2.gui
+	let g:terminal_color_4 = s:coldaccent.gui
+	let g:terminal_color_5 = s:coldaccent2.gui
+	let g:terminal_color_6 = s:coldaccent.gui
+	let g:terminal_color_7 = s:fg.gui
+	let g:terminal_color_8 = s:bg.gui
+	let g:terminal_color_9 = s:warmaccent.gui
+	let g:terminal_color_10 = s:coldaccent3.gui
+	let g:terminal_color_11 = s:warmaccent2.gui
+	let g:terminal_color_12 = s:coldaccent.gui
+	let g:terminal_color_13 = s:coldaccent2.gui
+	let g:terminal_color_14 = s:coldaccent.gui
+	let g:terminal_color_15 = s:fg.gui
 	let g:terminal_color_background = s:bg.gui
 	let g:terminal_color_foreground = s:fg.gui
 endif

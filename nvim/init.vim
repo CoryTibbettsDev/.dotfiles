@@ -113,6 +113,7 @@ let mapleader = ' '
 command! W :w
 nnoremap <leader>w :w<CR>
 nnoremap <leader>s :w<CR>
+nnoremap <leader>q :qa<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
 nnoremap <leader>m :make<CR>
 nnoremap <leader>t :make test<CR>
