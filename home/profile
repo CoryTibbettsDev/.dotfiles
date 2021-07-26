@@ -10,6 +10,7 @@ export VISUAL=nvim
 
 # dotfiles dir so scripts can source library file
 export DOTFILES_DIR="$HOME/.dotfiles"
+export LIBRARY_FILE="$DOTFILES_DIR/lib.sh"
 
 # Shell rc file is not automatically sourced by login shells so we
 # source the appropriate rc file depending on the shell running

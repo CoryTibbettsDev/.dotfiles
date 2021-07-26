@@ -7,7 +7,7 @@ dir_name=".dotfiles"
 lib_name="lib.sh"
 deploy_dir="$HOME/$dir_name"
 library_file="$deploy_dir/$lib_name"
-if [ -d $deploy_dir ]; then
+if [ ! -d "${deploy_dir}" ]; then
 	git clone $remote_url $HOME/$dir_name ||
 	{ printf "%s git clone failed" "$dir_name"; exit 1; }
 fi
@@ -16,10 +16,9 @@ fi
 
 # Arg 1 is repo URL Arg2 is directory name
 # clone_repo https://example.com/repo directory_name
-clone_repo()
-{
+clone_repo() {
 	printf "Cloning %s\n" "$1"
-	git clone $1 "$repos_dir/$2" || warn "git clone failed"
+	git clone $1 "${repos_dir}/$2" || warn "git clone failed"
 }
 
 # Setup home directory
@@ -36,6 +35,8 @@ packages=(
 	# Xserver windowing
 	xorg
 	xorg-xinit
+	# Clipboard
+	xclip
 	# xorg-server-xephyr # Run nested xorg server for developement
 	# Window Manager
 	awesome

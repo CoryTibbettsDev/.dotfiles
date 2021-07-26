@@ -109,7 +109,7 @@ imap <C-c> <Esc>
 " Maps leader key to space
 let mapleader = ' '
 
-" I accidentally do :W instead of :w to save a lot
+" Still save if you do :W instead of :w
 command! W :w
 nnoremap <leader>w :w<CR>
 nnoremap <leader>s :w<CR>
@@ -154,7 +154,7 @@ vnoremap <leader>p "_dP
 
 " Strip whitespace
 " https://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
-autocmd BufWritePre *.c :%s/\s\+$//e
+" autocmd BufWritePre *.c :%s/\s\+$//e
 
 " Insert license header in file
 " https://www.gilesorr.com/blog/vimscript-insert.html

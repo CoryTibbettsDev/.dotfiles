@@ -4,11 +4,11 @@
 
 # Add -b or --backup flag to ln if you want to backup old files
 
-# Source library file
+# Make sure DOTFILES_DIR and LIBRARY_FILE are set
 [ -z ${DOTFILES_DIR} ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
-library_file=$DOTFILES_DIR/lib.sh
-[ -f $library_file ] || { printf "No library file: %s\n" "$library_file"; exit 1; }
-. $library_file
+# Source library file
+[ -f "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
+. "${LIBRARY_FILE}"
 
 config_dir="$HOME/.config"
 
@@ -19,7 +19,7 @@ mkdir -pv $config_dir $stuff_dir
 homefiles=$(ls ./home)
 for file in $homefiles; do
 	dotfile=$HOME/.$file
-	ln -sf $dotfiles_dir/home/$file $dotfile &&
+	ln -sf $DOTFILES_DIR/home/$file $dotfile &&
 	printf "%s links to %s\n" "${dotfile}" "home/${file}" ||
 	printf "%s not linked\n" "home/${file}"
 done
@@ -30,7 +30,7 @@ done
 configfiles=$(ls ./config)
 for file in $configfiles; do
 	configfile=$config_dir/$file
-	ln -sf $dotfiles_dir/config/$file $configfile &&
+	ln -sf $DOTFILES_DIR/config/$file $configfile &&
 	printf "%s links to %s\n" "${configfile}" "config/${file}" ||
 	printf "%s not linked\n" "config/${file}"
 done
@@ -39,8 +39,8 @@ done
 cp -vrn Wallpaper/ $stuff_dir
 
 link_config() {
-	ln -sf $dotfiles_dir/$1 $config_dir &&
-	printf "%s links to %s\n" "$1" "$dotfiles_dir/$1"
+	ln -sf $DOTFILES_DIR/$1 $config_dir &&
+	printf "%s links to %s\n" "$1" "$DOTFILES_DIR/$1"
 }
 link_config awesome
 link_config kitty
