@@ -1,10 +1,10 @@
 # .xinitrc
+
+# Make sure DOTFILES_DIR and LIBRARY_FILE are set
+[ -z "${DOTFILES_DIR}" ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
 # Source library file
-# Source library file
-[ -z ${DOTFILES_DIR} ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
-library_file=$DOTFILES_DIR/lib.sh
-[ -f $library_file ] || { printf "No library file: %s\n" "$library_file"; exit 1; }
-. $library_file
+[ -f "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
+. "${LIBRARY_FILE}"
 
 # Set Wallpaper
 feh --no-fehbg --bg-fill --recursive --randomize $wallpaper_dir &

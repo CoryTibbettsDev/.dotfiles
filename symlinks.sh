@@ -5,7 +5,7 @@
 # Add -b or --backup flag to ln if you want to backup old files
 
 # Make sure DOTFILES_DIR and LIBRARY_FILE are set
-[ -z ${DOTFILES_DIR} ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
+[ -z "${DOTFILES_DIR}" ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
 # Source library file
 [ -f "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
 . "${LIBRARY_FILE}"
