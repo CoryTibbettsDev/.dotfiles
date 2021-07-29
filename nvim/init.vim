@@ -97,6 +97,7 @@ set complete=.,w,b,u,t
 " {{{ Custom Mappings and Commands
 " Remap control+c to behave like escape so it triggers InsertLeave autocmd
 imap <C-c> <Esc>
+vmap <C-c> <Esc>
 
 " View mappings
 " :nmap - Display normal mode maps
@@ -115,6 +116,12 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>q :qa<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
+
+" Paste from system clipboard
+" For some reason leader key with this binding is slow but not with control
+nnoremap <leader>p "+p<CR>
+nnoremap <C-p> "+p<CR>
+
 nnoremap <leader>m :make<CR>
 nnoremap <leader>t :make test<CR>
 

@@ -31,6 +31,7 @@ packages=(
 	base
 	base-devel
 	# Text Editor
+	vi
 	neovim
 	# Xserver windowing
 	xorg
