@@ -84,7 +84,6 @@ cdl()
 }
 
 # Custom find command because it is annoying to type everytime
-# Is case sensitive
 mf() {
 	find . -iname "*$1*"
 }

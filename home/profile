@@ -1,16 +1,20 @@
 # .profile
-# This file is called by all the shell specific profiles
+# This file is sourced by all the shell specific profiles
 # such as (.bash_profile, .zprofile etc.) so I have a unified place
 # for all all my configuration
 # https://nanxiao.me/en/why-doesnt-profile-take-effect-in-arch-linux/
 
-# Set editor details for programs that look for them
-export EDITOR=nvim
-export VISUAL=nvim
-
-# dotfiles dir so scripts can source library file
 export DOTFILES_DIR="$HOME/.dotfiles"
-export LIBRARY_FILE="$DOTFILES_DIR/lib.sh"
+export LIBRARY_FILE="${DOTFILES_DIR}/lib.sh"
+# Make sure DOTFILES_DIR and LIBRARY_FILE are set
+[ -z "${DOTFILES_DIR}" ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
+# Source library file
+[ -f "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
+. "${LIBRARY_FILE}"
+
+# Set editor details for programs that look for them
+export EDITOR="${text_editor}"
+export VISUAL="${visual_editor}"
 
 # Shell rc file is not automatically sourced by login shells so we
 # source the appropriate rc file depending on the shell running

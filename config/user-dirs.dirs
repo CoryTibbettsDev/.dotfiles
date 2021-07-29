@@ -1,8 +1,10 @@
 # Set XDG DIRS
-# so programs stop fucking with my directories
+# so programs stop messing with my directories
+# https://unix.stackexchange.com/questions/21316/which-application-should-i-blame-for-compulsively-creating-a-directory-again-and
+# https://unix.stackexchange.com/questions/37922/how-to-prevent-the-auto-creation-of-the-desktop-folder
 XDG_DESKTOP_DIR="$HOME/Downloads"
 XDG_DOCUMENTS_DIR="$HOME/Downloads"
-XDG_DOWNLOAD_DIR="$HOME/Downloads/"
+XDG_DOWNLOAD_DIR="$HOME/Downloads"
 XDG_MUSIC_DIR="$HOME/Downloads"
 XDG_PICTURES_DIR="$HOME/Downloads"
 XDG_PUBLICHSARE_DIR="$HOME/Downloads"

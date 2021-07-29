@@ -9,7 +9,10 @@ stuff_dir="$HOME/Stuff"
 wallpaper_dir="$stuff_dir/Wallpaper"
 repos_dir="$HOME/Repositories"
 projects_dir="$HOME/Projects"
-window_manager=awesome
+su_cmd="sudo"
+window_manager="awesome"
+text_editor="nvim"
+visual_editor="${text_editor}"
 
 # Print error message "$1" to stderr and exit
 die() {
