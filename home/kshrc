@@ -1,0 +1,8 @@
+# .kshrc
+
+# Source library file
+[ -f "${LIBRARY_FILE}" ] &&
+	. "${LIBRARY_FILE}" ||
+	printf "LIBRARY_FILE is unset or null"
+
+source_file "${shellrc_file}"

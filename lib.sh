@@ -9,6 +9,11 @@ stuff_dir="$HOME/Stuff"
 wallpaper_dir="$stuff_dir/Wallpaper"
 repos_dir="$HOME/Repositories"
 projects_dir="$HOME/Projects"
+config_dir="$HOME/.config"
+shell_dir="${config_dir}/shell"
+shellrc_file="${shell_dir}/shellrc"
+aliasrc_file="${shell_dir}/aliasrc"
+
 su_cmd="sudo"
 window_manager="awesome"
 text_editor="nvim"
@@ -24,6 +29,13 @@ die() {
 warn() {
 	printf "Warning: %s\n" "$1" >&2
 	return 1
+}
+
+# Source file from argument 1
+source_file() {
+	[ -f "$1" ] &&
+		{ . "$1"; return 0; } ||
+		{ printf "%s is unset or null" "$1"; return 1; }
 }
 
 # Prompt for yes or no

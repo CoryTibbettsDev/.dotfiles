@@ -1,144 +1,21 @@
 # .bashrc
 
-# get current branch in git repo
-parse_git_branch() {
-	branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-	if [ ! "${branch}" == "" ]
-	then
-		stat=`parse_git_dirty`
-		echo " ${branch}${stat}"
-	else
-		echo ""
-	fi
+# Source library file
+[ -f "${LIBRARY_FILE}" ] &&
+	. "${LIBRARY_FILE}" ||
+	printf "LIBRARY_FILE is unset or null"
+
+source_file "${shellrc_file}"
+
+# https://www.computerhope.com/unix/bash/shopt.htm
+shopt -s autocd
+shopt -s cdspell
+shopt -s extglob
+shopt -s histappend
+
+# C-x C-h to open man page for currently typed command
+# Taken from: https://github.com/Jorengarenar/dotfiles/blob/master/bashrc
+bind -x '"\C-x\C-h":man_shortcut'
+man_shortcut() {
+	man $(echo $READLINE_LINE | awk '{print $1}');
 }
-# get current status of git repo
-parse_git_dirty() {
-	status=`git status 2>&1 | tee`
-	dirty=`echo -n "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?"`
-	untracked=`echo -n "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?"`
-	ahead=`echo -n "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?"`
-	newfile=`echo -n "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?"`
-	renamed=`echo -n "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?"`
-	deleted=`echo -n "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?"`
-	bits=''
-	if [ "${renamed}" == "0" ]; then
-		bits=">${bits}"
-	fi
-	if [ "${ahead}" == "0" ]; then
-		bits="*${bits}"
-	fi
-	if [ "${newfile}" == "0" ]; then
-		bits="+${bits}"
-	fi
-	if [ "${untracked}" == "0" ]; then
-		bits="?${bits}"
-	fi
-	if [ "${deleted}" == "0" ]; then
-		bits="x${bits}"
-	fi
-	if [ "${dirty}" == "0" ]; then
-		bits="!${bits}"
-	fi
-	if [ ! "${bits}" == "" ]; then
-		echo " ${bits}"
-	else
-		echo ""
-	fi
-}
-
-export PS1="\[\e[36m\][\u@\h \w\`parse_git_branch\`]\$\[\e[m\] "
-
-# History Settings
-HISTCONTROL=ignoreboth
-
-alias ls='ls --color=auto'
-alias ll='ls -la'
-
-alias cl='clear'
-
-alias cpv='cp -v'
-alias mvv='mv -v'
-alias rmv='rm -v'
-
-alias grep='grep --color'
-alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
-
-# Use fc instead of history as it is POSIX compliant
-alias hgrep="fc -l 1 | grep"
-alias hg="fc -l 1 | grep"
-
-# Wholesome Unix
-alias pls='sudo'
-alias please='sudo'
-
-# Alias for nvim editor
-# e is easy to reach and I remember with e for edit like in vim
-alias e='nvim'
-
-# Change directory clear screen and list
-cdl()
-{
-	cd $1
-	clear
-	ls
-}
-
-# Custom find command because it is annoying to type everytime
-mf() {
-	find . -iname "*$1*"
-}
-
-# ex - archive extractor
-# usage: ex <file>
-# Stolen from https://github.com/ChrisTitusTech/zsh
-ex ()
-{
-	if [ -f $1 ]; then
-		case $1 in
-			*.tar.bz2) tar xjf $1;;
-			*.tar.gz) tar xzf $1;;
-			*.tar.xz) tar xJf $1;;
-			*.bz2) bunzip2 $1;;
-			*.rar) unrar x $1;;
-			*.gz) gunzip $1;;
-			*.tar) tar xf $1;;
-			*.tbz2) tar xjf $1;;
-			*.tgz) tar xzf $1;;
-			*.zip) unzip $1;;
-			*.Z) uncompress $1;;
-			*.7z) 7z x $1;;
-			*) printf "%s cannot be extracted via ex()\n" "$1";;
-		esac
-	else
-		printf "%s is not a valid file" "$1"
-	fi
-}
-
-# Alias for YouTube command line search tool
-alias yt='ytfzf'
-
-alias youtube-dl='youtube-dl --no-call-home'
-alias dl='youtube-dl --no-call-home'
-
-# Cactus File Manager
-alias c='cfm'
-
-# https://old.reddit.com/r/archlinux/comments/5m2os3/mpv_is_it_possible_to_change_video_quality_while/
-alias mpv720='mpv --ytdl-format=22'
-alias mpv7='mpv --ytdl-format=22'
-alias mpv360='mpv --ytdl-format=18'
-alias mpv3='mpv --ytdl-format=18'
-
-# Search repo for packages based on keyword
-alias pacsearch='pacman -Ss'
-# List files installed by a package
-alias paclsfiles='pacman -Qlq'
-# List orphan packages
-alias paclsorphans='pacman -Qdt'
-# Remove orphans
-alias pacrmorphans='pacman -Rs $(pacman -Qtdq)'
-
-# Screen locker
-alias lock='i3lock'
-
-unset SSH_ASKPASS

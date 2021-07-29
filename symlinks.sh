@@ -10,8 +10,6 @@
 [ -f "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
 . "${LIBRARY_FILE}"
 
-config_dir="$HOME/.config"
-
 # Make the directories in case they do not exist
 mkdir -pv $config_dir $stuff_dir
 
@@ -42,6 +40,7 @@ link_config() {
 	ln -sf $DOTFILES_DIR/$1 $config_dir &&
 	printf "%s links to %s\n" "$1" "$DOTFILES_DIR/$1"
 }
+link_config shell
 link_config awesome
 link_config kitty
 link_config nvim
