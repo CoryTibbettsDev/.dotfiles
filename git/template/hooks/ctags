@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ctags -R --tag-relative -f "$(git rev-parse --git-dir)/tags"

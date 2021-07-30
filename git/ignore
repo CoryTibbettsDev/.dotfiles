@@ -1,0 +1,15 @@
+a.out
+tags
+node_modules
+__pycache__
+build/
+.cache
+.ccls-cache
+.clangd
+.exrc
+.miniSnip
+.vimrc
+.vimspector.json
+compile_commands.json
+errors.err
+Session.vim

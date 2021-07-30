@@ -1,0 +1,8 @@
+[user]
+	name = user
+	email = user@example.com
+[alias]
+	ctags = !.git/hooks/ctags
+	fast = !sh -c 'git add -A && git commit -m \"$1\" && git push' -
+	change-url = !sh -c 'git remote set-url origin \"$1\"' -
+	initial = !sh -c 'git init && git add -A && git commit -m \"Initial commit\" && git remote add origin \"$1\" && git push -u origin main' -
