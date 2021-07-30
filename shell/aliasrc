@@ -6,6 +6,10 @@
 . "${LIBRARY_FILE}" ||
 printf "LIBRARY_FILE is unset or null"
 
+# Wholesome Unix
+alias pls='$su_cmd'
+alias please='$su_cmd'
+
 alias ls='ls --color=auto'
 alias ll='ls -la'
 
@@ -26,16 +30,14 @@ alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 alias hgrep='fc -l 1 | grep'
 alias hg='fc -l 1 | grep'
 
-# Wholesome Unix
-alias pls='$su_cmd'
-alias please='$su_cmd'
-
 alias less='less -R'
 
 # Custom find command because it is annoying to type everytime
 mf() {
 	find . -iname "*$1*"
 }
+
+alias g='git'
 
 alias mt='make test'
 alias mc='make clean'

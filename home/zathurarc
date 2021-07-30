@@ -1,0 +1,13 @@
+# .zathurarc
+
+# Open document in fit-width mode by default
+set adjust-open "best-fit"
+
+# Normal
+map f toggle_fullscreen
+map <Return> navigate next
+
+# In fullscreen
+map [fullscreen] f toggle_fullscreen
+map [fullscreen] <Esc> toggle_fullscreen
+map [fullscreen] <Return> navigate next
