@@ -66,7 +66,8 @@ ending=""
 check_unicode_support &&
 	ending="${ending}$(print_uft_eight_unicode)"
 
-PS1="${first_prompt} \u@${second_prompt}\h \w\$(parse_git_branch)\$${reset_color}${ending} "
+# https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
+PS1="\[${first_prompt}\] \u@\[${second_prompt}\]\h \w\$(parse_git_branch)\$\[${reset_color}${ending}\] "
 
 # History Settings
 HISTCONTROL=ignoreboth
