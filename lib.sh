@@ -1,12 +1,5 @@
 #!/bin/sh
 
-# POSIX shell cheat sheet
-# https://steinbaugh.com/posts/posix.html
-# List of Escape sequences
-# https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm
-# Useful ways to detect commands failing
-# https://stackoverflow.com/questions/13793836/how-to-detect-if-a-git-clone-failed-in-a-bash-script
-
 dotfiles_dir="$HOME/.dotfiles"
 downloads_dir="$HOME/Downloads"
 stuff_dir="$HOME/Stuff"
@@ -23,11 +16,6 @@ window_manager="awesome"
 text_editor="nvim"
 visual_editor="${text_editor}"
 
-# Print Unicode Characters
-# https://stackoverflow.com/questions/602912/how-do-you-echo-a-4-digit-unicode-character-in-bash
-# Test Unicode Support
-# https://unix.stackexchange.com/questions/184345/detect-how-much-of-unicode-my-terminal-supports-even-through-screen
-
 check_unicode_support() {
 	printf "\xe2\x88\xb4\033[6n\033[1K\r"
 	read -d R response_string
@@ -43,12 +31,6 @@ right_pointing_triangle="\xee\x82\xb0"
 print_uft_eight_unicode() {
 	printf "\xee\x82\xb0"
 }
-
-# Colors
-# https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences
-# Test terminal color capabilities
-# https://github.com/termstandard/colors
-# https://unix.stackexchange.com/questions/450365/check-if-terminal-supports-24-bit-true-color
 
 check_color_support() {
 	[ "$COLORTERM" = truecolor -o "$COLORTERM" = 24bit ] &&
@@ -151,11 +133,6 @@ source_file() {
 		{ printf "%s is unset or null" "$1"; return 1; }
 }
 
-# Prompt for yes or no
-# https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script
-# https://stackoverflow.com/questions/29436275/how-to-prompt-for-yes-or-no-in-bash
-# Matching nothing in case statement
-# https://stackoverflow.com/questions/17575392/how-do-i-test-for-an-empty-string-in-a-bash-case-statement
 yes_or_no() {
 	while true; do
 		read -p "$*[y/n Default [y]es]: " yn
