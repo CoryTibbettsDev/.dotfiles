@@ -8,8 +8,8 @@ export DOTFILES_DIR="$HOME/.dotfiles"
 export LIBRARY_FILE="${DOTFILES_DIR}/lib.sh"
 # Make sure DOTFILES_DIR and LIBRARY_FILE are set
 [ -z "${DOTFILES_DIR}" ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
-# Source library file
 [ -f "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
+# Source library file
 . "${LIBRARY_FILE}"
 
 # Set editor details for programs that look for them

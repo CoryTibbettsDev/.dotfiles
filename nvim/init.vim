@@ -119,8 +119,7 @@ nnoremap <leader>r :source $MYVIMRC<CR>
 
 " Paste from system clipboard
 " For some reason leader key with this binding is slow but not with control
-nnoremap <leader>p "+p<CR>
-nnoremap <C-p> "+p<CR>
+nnoremap <C-p> "+p
 
 nnoremap <leader>m :make<CR>
 nnoremap <leader>t :make test<CR>

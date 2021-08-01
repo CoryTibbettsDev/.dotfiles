@@ -1,4 +1,4 @@
-# aliasrc
+# aliasrc.sh
 # Sourced by shellrc
 
 # Make sure LIBRARY_FILE is set and source it
@@ -32,6 +32,8 @@ alias hg='fc -l 1 | grep'
 
 alias less='less -R'
 
+alias free='free -mht'
+
 # Custom find command because it is annoying to type everytime
 mf() {
 	find . -iname "*$1*"
@@ -57,7 +59,7 @@ alias mpv360='mpv --ytdl-format=18'
 alias mpv3='mpv360'
 
 alias mnt='udisksctl mount -b'
-alias umnt='udisksctl umount -b'
+alias unmnt='udisksctl unmount -b'
 
 # PDF viewer
 alias z='zathura'
