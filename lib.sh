@@ -42,11 +42,23 @@ check_color_support() {
 esc_seq="\033"
 esc_bracket="${esc_seq}["
 esc_func() {
+	esc_start="${esc_bracket}"
 	case $1 in
-		K | J) end_char="$1";;
-		*) end_char="m";;
+		A | B | [Cc] | f | g | h | i | J | K | l | p | [Rr] | s | u)
+			end_char="$1"
+			esc_command="$2"
+			;;
+		\( | \) | D | H | M | 7 | 8)
+			esc_start="${esc_seq}"
+			end_char="$1"
+			esc_command="$2"
+			;;
+		*)
+			end_char="m"
+			esc_command="$1"
+			;;
 	esac
-	printf "${esc_bracket}${1}${end_char}"
+	printf "${esc_start}${esc_command}${end_char}"
 }
 
 text_effect_code() {

@@ -12,8 +12,8 @@ Collection of links and information for the shell scripting in this repo and in 
 ## POSIX Info
 [POSIX shell cheat sheet](https://steinbaugh.com/posts/posix.html)
 
-## Escape Sequences
-[List of Escape sequences](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm)
+## Escape and Terminal Control Sequences
+[List of Escape and Terminal Control Sequences](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm)
 
 ## Unicode
 [Print Unicode Characters](https://stackoverflow.com/questions/602912/how-do-you-echo-a-4-digit-unicode-character-in-bash)
