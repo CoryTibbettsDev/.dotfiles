@@ -1,10 +1,10 @@
 # aliasrc.sh
 # Sourced by shellrc
 
-# Make sure LIBRARY_FILE is set and source it
+# Make sure LIBRARY_FILE exists
 [ -f "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	printf "LIBRARY_FILE is unset or null"
+	printf "LIBRARY_FILE does not exist"
 
 # Wholesome Unix
 alias pls='${su_cmd}'
@@ -22,13 +22,13 @@ alias mkd='mkdir -pv'
 
 # Alias for editor
 # e is easy to reach and I remember with e for edit like in vim
-alias e='$EDITOR'
+alias e='${EDITOR}'
 
 alias grep='grep --color=auto'
 alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 # Use fc instead of history as it is POSIX compliant
 alias hgrep='fc -l 1 | grep'
-alias hg='fc -l 1 | grep'
+alias hg='hgrep'
 
 alias less='less -R'
 
@@ -90,7 +90,7 @@ ex () {
 			*) printf "$1 cannot be extracted via ex()\n";;
 		esac
 	else
-		printf "$1 is not a valid file"
+		printf "$1 is not a valid file\n"
 	fi
 }
 

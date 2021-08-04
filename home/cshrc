@@ -3,9 +3,9 @@
 # Source library file
 [ -f "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	printf "LIBRARY_FILE is unset or null"
+	printf "LIBRARY_FILE does not exist"
+
+source_file "${shellrc_file}"
 
 set autolist = ambiguous
 set complete = enhance
-
-source_file "${shellrc_file}"

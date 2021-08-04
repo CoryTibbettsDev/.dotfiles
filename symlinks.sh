@@ -7,41 +7,44 @@
 # Make sure DOTFILES_DIR and LIBRARY_FILE variables are set
 # then check if the directory and file actually exist
 [ -z "${DOTFILES_DIR}" ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
-[ -d "${DOTFILES_DIR}" ] || { printf "DOTFILES_DIR directory does not exist"; exit 1; }
-[ -z "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
+[ -d "${DOTFILES_DIR}" ] || { printf "DOTFILES_DIR does not exist"; exit 1; }
+[ -z "${LIBRARY_FILE}" ] && { printf "LIBRARY_FILE is unset or null"; exit 1; }
 [ -f "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	printf "LIBRARY_FILE file does not exist";
+	printf "LIBRARY_FILE does not exist";
 
 # Make the directories in case they do not exist
 mkdir -pv ${config_dir} ${stuff_dir}
 
 # link all files in home directory to user's home directory
-home_files=$(ls ./home)
-for file in ${home_files}; do
-	dotfile=$HOME/.${file}
-	ln -sf ${DOTFILES_DIR}/home/${file} ${dotfile} &&
-	printf "%s links to %s\n" "${dotfile}" "home/${file}" ||
-	printf "%s not linked\n" "home/${file}"
+# https://stackoverflow.com/questions/3362920/get-just-the-filename-from-a-path-in-a-bash-script
+# https://stackoverflow.com/questions/2437452/how-to-get-the-list-of-files-in-a-directory-in-a-shell-script
+for file in home/*; do
+	real_file="${DOTFILES_DIR}/${file}"
+	dot_file="$HOME/.$(basename ${file})"
+	ln -sf ${real_file} ${dot_file} &&
+		printf "${dot_file} links to ${real_file}\n" ||
+		printf "${dot_file} not linked to ${real_file}\n"
 done
 # Run xrdb to load .Xresources if file exists
 [ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
 
 # link all files in config directory to user's config directory
-config_files=$(ls ./config)
-for file in ${config_files}; do
-	configfile=${config_dir}/${file}
-	ln -sf ${DOTFILES_DIR}/config/${file} ${configfile} &&
-	printf "%s links to %s\n" "${configfile}" "config/${file}" ||
-	printf "%s not linked\n" "config/${file}"
+for file in config/*; do
+	config_file="${config_dir}/${file}"
+	ln -sf ${DOTFILES_DIR}/config/${file} ${config_file} &&
+		printf "${config_file} links to config/${file}\n" ||
+		printf "config/${file} not linked\n"
 done
 
 # Copy Wallpapers
 cp -vrn Wallpaper/ ${stuff_dir}
 
 link_config() {
-	ln -sf ${DOTFILES_DIR}/$1 ${config_dir} &&
-	printf "%s links to %s\n" "${config_dir}/$1" "${DOTFILES_DIR}/$1"
+	real_dir="${DOTFILES_DIR}/$1"
+	ln -sf ${real_dir} ${config_dir} &&
+		printf "${config_dir}/$1 links to ${real_dir}\n" ||
+		printf "${config_dir}/$1 not linked to ${real_dir}\n"
 }
 link_config shell
 link_config awesome

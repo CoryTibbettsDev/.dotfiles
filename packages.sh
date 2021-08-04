@@ -10,13 +10,14 @@ if [ ! -d "${deploy_dir}" ]; then
 	git clone ${remote_url} ${deploy_dir} ||
 	{ printf "%s git clone failed" "$deploy_dir"; exit 1; }
 fi
+[ -d ${deploy_dir} ] || { printf "No dotfiles directory: ${deploy_dir}\n" ; exit 1; }
 [ -f ${library_file} ] || { printf "No library file: ${library_file}\n" ; exit 1; }
 . ${library_file}
 
 # Arg 1 is repo URL Arg2 is directory name
 # clone_repo https://example.com/repo directory_name
 clone_repo() {
-	printf "Cloning %s\n" "$1"
+	printf "Cloning ${1}\n"
 	git clone $1 "${repos_dir}/$2" || warn "git clone failed"
 }
 

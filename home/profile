@@ -7,8 +7,10 @@
 export DOTFILES_DIR="$HOME/.dotfiles"
 export LIBRARY_FILE="${DOTFILES_DIR}/lib.sh"
 # Make sure DOTFILES_DIR and LIBRARY_FILE are set
-[ -z "${DOTFILES_DIR}" ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
-[ -f "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
+[ -z "${DOTFILES_DIR}" ] && printf "DOTFILES_DIR is unset or null"
+[ -z "${LIBRARY_FILE}" ] && printf "LIBRARY_FILE is unset or null"
+[ -d "${DOTFILES_DIR}" ] && printf "DOTFILES_DIR does not exist"
+[ -f "${LIBRARY_FILE}" ] && printf "LIBRARY_FILE does not exist"
 # Source library file
 . "${LIBRARY_FILE}"
 

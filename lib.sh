@@ -42,7 +42,11 @@ check_color_support() {
 esc_seq="\033"
 esc_bracket="${esc_seq}["
 esc_func() {
-	printf "${esc_bracket}${1}m"
+	case $1 in
+		K | J) end_char="$1";;
+		*) end_char="m";;
+	esac
+	printf "${esc_bracket}${1}${end_char}"
 }
 
 text_effect_code() {
