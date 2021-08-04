@@ -3,12 +3,12 @@
 
 # Make sure LIBRARY_FILE is set and source it
 [ -f "${LIBRARY_FILE}" ] &&
-. "${LIBRARY_FILE}" ||
-printf "LIBRARY_FILE is unset or null"
+	. "${LIBRARY_FILE}" ||
+	printf "LIBRARY_FILE is unset or null"
 
 # Wholesome Unix
-alias pls='$su_cmd'
-alias please='$su_cmd'
+alias pls='${su_cmd}'
+alias please='${su_cmd}'
 
 alias ls='ls --color=auto'
 alias ll='ls -la'
@@ -48,7 +48,7 @@ alias mc='make clean'
 alias yt='ytfzf'
 
 alias youtube-dl='youtube-dl --no-call-home'
-alias dl='youtube-dl --no-call-home'
+alias dl='youtube-dl'
 alias dla='youtube-dl -x -f bestaudio/best'
 alias dlmp3='youtube-dl --extract-audio --audio-format mp3'
 
@@ -61,11 +61,10 @@ alias mpv3='mpv360'
 alias mnt='udisksctl mount -b'
 alias unmnt='udisksctl unmount -b'
 
-# PDF viewer
 alias z='zathura'
 
 # Screen locker
-alias lock='i3lock'
+alias lock='${screen_locker}'
 
 # Cactus File Manager
 alias c='cfm'
@@ -73,8 +72,7 @@ alias c='cfm'
 # ex - archive extractor
 # usage: ex <file>
 # Stolen from https://github.com/ChrisTitusTech/zsh
-ex ()
-{
+ex () {
 	if [ -f $1 ]; then
 		case $1 in
 			*.tar.bz2) tar xjf $1;;
@@ -89,10 +87,10 @@ ex ()
 			*.zip) unzip $1;;
 			*.Z) uncompress $1;;
 			*.7z) 7z x $1;;
-			*) printf "%s cannot be extracted via ex()\n" "$1";;
+			*) printf "$1 cannot be extracted via ex()\n";;
 		esac
 	else
-		printf "%s is not a valid file" "$1"
+		printf "$1 is not a valid file"
 	fi
 }
 

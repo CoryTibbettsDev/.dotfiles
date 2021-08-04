@@ -3,16 +3,15 @@
 su_cmd="sudo"
 
 remote_url="https://github.com/CoryTibbettsDev/.dotfiles"
-dir_name=".dotfiles"
-lib_name="lib.sh"
-deploy_dir="$HOME/$dir_name"
-library_file="$deploy_dir/$lib_name"
+deploy_dir="$HOME/.dotfiles"
+library_file="${deploy_dir}/lib.sh"
+setup_file="${deploy_dir}/symlinks.sh"
 if [ ! -d "${deploy_dir}" ]; then
-	git clone $remote_url $HOME/$dir_name ||
-	{ printf "%s git clone failed" "$dir_name"; exit 1; }
+	git clone ${remote_url} ${deploy_dir} ||
+	{ printf "%s git clone failed" "$deploy_dir"; exit 1; }
 fi
-[ -f $library_file ] || { printf "No library file: %s\n" "$library_file"; exit 1; }
-. $library_file
+[ -f ${library_file} ] || { printf "No library file: ${library_file}\n" ; exit 1; }
+. ${library_file}
 
 # Arg 1 is repo URL Arg2 is directory name
 # clone_repo https://example.com/repo directory_name
@@ -22,7 +21,7 @@ clone_repo() {
 }
 
 # Setup home directory
-mkdir -pv $downloads_dir $stuff_dir $projects_dir $repos_dir
+mkdir -pv ${downloads_dir} ${stuff_dir} ${projects_dir} ${repos_dir}
 
 packages=(
 	# Documentation
@@ -99,7 +98,7 @@ yes_or_no "Install broadcom-wl?" && packages+=(broadcom-wl)
 printf "Installing Packages\n"
 for pkg in "${packages[@]}"; do
 	printf "Installing $pkg\n"
-	$su_cmd pacman -S "$pkg" --noconfirm
+	${su_cmd} pacman -S "$pkg" --noconfirm
 done
 
 # ytfzf
@@ -108,7 +107,7 @@ done
 # (optional for thumbnails) ueberzug
 # Source code: https://github.com/pystardust/ytfzf
 # Dependencies
-$su_cmd pacman -S mpv youtube-dl jq fzf --noconfirm
+${su_cmd} pacman -S mpv youtube-dl jq fzf --noconfirm
 clone_repo https://github.com/pystardust/ytfzf ytfzf
 
 # Cactus File Manager
@@ -116,12 +115,12 @@ clone_repo https://github.com/WillEccles/cfm cfm
 
 # Change swappiness to better value
 printf "Setting Swappiness\n"
-$su_cmd sysctl vm.swappiness=10
-echo "vm.swappiness=10" | $su_cmd tee -a /etc/sysctl.d/99-swappiness.conf
+${su_cmd} sysctl vm.swappiness=10
+echo "vm.swappiness=10" | ${su_cmd} tee -a /etc/sysctl.d/99-swappiness.conf
 
 # Firewall setup
-$su_cmd ufw default deny incoming
-$su_cmd ufw default allow outgoing
-$su_cmd ufw enable
+${su_cmd} ufw default deny incoming
+${su_cmd} ufw default allow outgoing
+${su_cmd} ufw enable
 
-. $dotfiles_dir/symlinks.sh
+sh ${setup_file} || printf "${setup_file} failed\n"

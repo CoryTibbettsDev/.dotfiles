@@ -47,27 +47,26 @@ parse_git_dirty() {
 	fi
 }
 
+seperator=""
+check_unicode_support &&
+	seperator="$(print_uft_eight_unicode)"
+
+rgb_white="255;255;255"
+rgb_blue="0;0;150"
 check_color_support &&
-	text_color="${rgb_fore}255;255;255m" \
-	background_color="${rgb_back}0;0;150m" \
-	text_color_two="${rgb_fore}0;0;150m" \
-	background_color_two="${rgb_back}255;255;255m" ||
+	text_color="$(esc_func ${rgb_fore}${rgb_white})" \
+	background_color="$(esc_func ${rgb_back}${rgb_blue})" \
+	text_color_two="$(esc_func ${rgb_fore}${rgb_blue})" \
+	background_color_two="$(esc_func ${rgb_back}${rgb_white})" ||
 	text_color="${four_bit_cyan_fore}" \
 	background_color="" \
 	text_color_two="${text_color}" \
 	background_color_two=""
 first_prompt="${text_color}${background_color}"
-second_prompt="${text_color_two}${background_color_two}"
-
-check_unicode_support &&
-	second_prompt="${second_prompt}$(print_uft_eight_unicode)"
-
-ending=""
-check_unicode_support &&
-	ending="${ending}$(print_uft_eight_unicode)"
+second_prompt="${background_color_two}${text_color_two}${seperator}"
 
 # https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
-PS1="\[${first_prompt}\] \u@\[${second_prompt}\]\h \w\$(parse_git_branch)\$\[${reset_color}${ending}\] "
+PS1="\[$(text_effect_code bold)${first_prompt}\] \u\[${second_prompt}\]\h \w\$(parse_git_branch) \$\[$(text_effect_code reset)${seperator}\] "
 
 # History Settings
 HISTCONTROL=ignoreboth
