@@ -158,18 +158,14 @@ vnoremap <Leader>d :s/^/\/\//<bar>nohlsearch<CR>
 " Delete visual selection and paste it above the line it was previously under
 vnoremap <leader>p "_dP
 
-" Strip whitespace
-" https://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
-" autocmd BufWritePre *.c :%s/\s\+$//e
-
 " Insert license header in file
 " https://www.gilesorr.com/blog/vimscript-insert.html
 command! License :call InsertLicense()
 function! InsertLicense()
-	let text = '/* See LICENSE for copyright and license details. */'
+	let l:text = '/* See LICENSE for copyright and license details. */'
 	" Append text to line 0 means insert on the first line
-	let failed = append(0, text)
-	if (failed)
+	let l:failed = append(0, l:text)
+	if (l:failed)
 		echo 'Unable to insert license text'
 	else
 		" Set buffer to modified

@@ -124,4 +124,4 @@ ${su_cmd} ufw default deny incoming
 ${su_cmd} ufw default allow outgoing
 ${su_cmd} ufw enable
 
-sh ${setup_file} || printf "${setup_file} failed\n"
+sh ${setup_file} || warn "${setup_file} failed"

@@ -12,32 +12,10 @@ shellrc_file="${shell_dir}/shellrc.sh"
 aliasrc_file="${shell_dir}/aliasrc.sh"
 
 su_cmd="sudo"
-window_manager="awesome"
 text_editor="nvim"
 visual_editor="${text_editor}"
+window_manager="awesome"
 screen_locker="i3lock"
-
-# TODO: check does not seem to be working on some terminals(xterm)
-check_unicode_support() {
-	printf "\xe2\x88\xb4\033[6n\033[1K\r"
-	read -d R response_string
-	printf "\033[1K\r"
-	printf "${response_string}" | cut -d \[ -f 2 | cut -d";" -f 2 | (
-		read unicode_support
-		[ $unicode_support -eq 2 ] && return 0 || return 1
-	)
-}
-
-right_pointing_triangle="\xee\x82\xb0"
-print_uft_eight_unicode() {
-	printf "${right_pointing_triangle}"
-}
-
-check_color_support() {
-	[ "$COLORTERM" = truecolor -o "$COLORTERM" = 24bit ] &&
-		return 0 ||
-		return 1
-}
 
 esc_seq="\033"
 esc_bracket="${esc_seq}["
@@ -121,23 +99,27 @@ four_bit_magenta_back="$(esc_func 45)"
 four_bit_cyan_back="$(esc_func 46)"
 four_bit_white_back="$(esc_func 47)"
 
+print_error_message() {
+	printf "${four_bit_red_fore}${1}$(text_effect_code reset)\n" >&2
+}
+
 # Print error message "$1" to stderr and exit
 die() {
-	printf "${four_bit_red_fore}Error: ${1}, exiting$(text_effect_code reset)\n" >&2
+	print_error_message "Error: ${1}, exiting."
 	exit 1
 }
 
 # Print warning message "$1" to stderr don't exit
 warn() {
-	printf "${four_bit_red_fore}Warning: ${1}$(text_effect_code reset)\n" >&2
+	print_error_message "Warning: ${1}"
 	return 1
 }
 
 # Source file from argument 1
 source_file() {
-	[ -f "$1" ] &&
-		{ . "$1"; return 0; } ||
-		{ printf "%s is unset or null" "$1"; return 1; }
+	[ -e "${1}" ] &&
+		{ . "${1}"; return 0; } ||
+		{ print_error_message "Fail to source file: ${1}, does not exist."; return 1; }
 }
 
 yes_or_no() {
@@ -151,4 +133,26 @@ yes_or_no() {
 			*) printf "Please answer [y]es or [n]o\n";;
 		esac
 	done
+}
+
+# TODO: check does not seem to be working on some terminals(xterm)
+check_unicode_support() {
+	printf "\xe2\x88\xb4\033[6n\033[1K\r"
+	read -d R response_string
+	printf "\033[1K\r"
+	printf "${response_string}" | cut -d \[ -f 2 | cut -d";" -f 2 | (
+		read unicode_support
+		[ $unicode_support -eq 2 ] && return 0 || return 1
+	)
+}
+
+right_pointing_triangle="\xee\x82\xb0"
+print_uft_eight_unicode() {
+	printf "${right_pointing_triangle}"
+}
+
+check_color_support() {
+	[ "$COLORTERM" = truecolor -o "$COLORTERM" = 24bit ] &&
+		return 0 ||
+		return 1
 }

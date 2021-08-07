@@ -6,7 +6,7 @@ enable_cur=0
 
 enable_noti=0
 
-video_pref="22"
+video_pref="18"
 
 video_player="mpv"
 
