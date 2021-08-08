@@ -1,8 +1,0 @@
-# .kshrc
-
-# Source library file
-[ -f "${LIBRARY_FILE}" ] &&
-	. "${LIBRARY_FILE}" ||
-	printf "LIBRARY_FILE does not exist"
-
-source_file "${shellrc_file}"

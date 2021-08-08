@@ -1,42 +1,26 @@
 # .profile
-# This file is sourced by all the shell specific profiles
+# This file is linked to by all the shell specific profiles
 # such as (.bash_profile, .zprofile etc.) so I have a unified place
 # for all all my configuration
-# https://nanxiao.me/en/why-doesnt-profile-take-effect-in-arch-linux/
 
 export DOTFILES_DIR="$HOME/.dotfiles"
-export LIBRARY_FILE="${DOTFILES_DIR}/lib.sh"
-# Make sure DOTFILES_DIR and LIBRARY_FILE are set
-[ -z "${DOTFILES_DIR}" ] && printf "DOTFILES_DIR is unset or null"
+export LIBRARY_FILE="$HOME/.dotfiles/lib.sh"
+# Make sure DOTFILES_DIR and LIBRARY_FILE are set and valid paths
 [ -z "${LIBRARY_FILE}" ] && printf "LIBRARY_FILE is unset or null"
-[ -d "${DOTFILES_DIR}" ] && printf "DOTFILES_DIR does not exist"
-[ -f "${LIBRARY_FILE}" ] && printf "LIBRARY_FILE does not exist"
+[ -e "${LIBRARY_FILE}" ] || printf "LIBRARY_FILE does not exist"
 # Source library file
 . "${LIBRARY_FILE}"
 
 # Set editor details for programs that look for them
+# Export just in case it is not exported already
 export EDITOR="${text_editor}"
 export VISUAL="${visual_editor}"
 
-# Shell rc file is not automatically sourced by login shells so we
-# source the appropriate rc file depending on the shell running
-# https://unix.stackexchange.com/questions/71121/determine-shell-in-script-during-runtime
-if [ -n "$BASH_VERSION" ]; then
-	if [ -f "$HOME/.bashrc" ]; then
-		. "$HOME/.bashrc"
-	fi
-elif [ -n "$ZSH_VERSION" ]; then
-	if [ -f "$HOME/.zshrc" ]; then
-		. "$HOME/.zshrc"
-	fi
-elif [ -n "$KSH_VERSION" -o -n "$FCEDIT" ]; then
-	if [ -f "$HOME/.kshrc" ]; then
-		. "$HOME/.kshrc"
-	fi
-fi
+# Shell rc file is not automatically sourced by login shells and we
+# need to source our own unique one anyway
+. "${shellrc_file}"
 
 # Automatically startx on login
-# https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
 	exec startx
 fi

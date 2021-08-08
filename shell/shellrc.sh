@@ -1,10 +1,54 @@
 # shellrc.sh
 # Sourced by all shell specific rc files
 
+# debug_shellrc="true"
+
+debug_print() {
+	[ -n "${debug_shellrc}" ] && printf "${1}\n"
+}
+
 # Make sure LIBRARY_FILE is set and source it
 [ -f "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
 	printf "LIBRARY_FILE is unset or null\n"
+
+if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
+	debug_print "bash"
+	# https://www.computerhope.com/unix/bash/shopt.htm
+	shopt -s autocd
+	shopt -s cdspell
+	shopt -s extglob
+	shopt -s histappend
+
+	# C-x C-h to open man page for currently typed command
+	# Taken from: https://github.com/Jorengarenar/dotfiles/blob/master/bashrc
+	bind -x '"\C-x\C-h":man_shortcut'
+	man_shortcut() {
+		man $(echo $READLINE_LINE | awk '{print $1}');
+	}
+elif [ -n "$ZSH_VERSION" -o -n "$ZSH_VERSION"]; then
+	debug_print "zsh"
+	# Vi mode
+	bindkey -v
+
+	bindkey '^P' up-history
+	bindkey '^N' down-history
+	bindkey '^?' backward-delete-char
+	bindkey '^h' backward-delete-char
+	bindkey '^w' backward-kill-word
+	bindkey '^r' history-incremental-search-backward
+elif [ -n "$KSH_VERSION" -o -n "$FCEDIT" ]; then
+	debug_print "ksh"
+elif [ -n "$shell" ]; then
+	debug_print "csh or tcsh"
+	if [ -n "$version" ]; then
+		debug_print "tcsh"
+	else
+		debug_print "csh"
+	fi
+else
+	debug_print "Could be the bourne shell"
+fi
 
 # get current branch in git repo
 parse_git_branch() {

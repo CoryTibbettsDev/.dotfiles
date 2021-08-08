@@ -1,9 +1,7 @@
 # .xinitrc
 
-# Make sure DOTFILES_DIR and LIBRARY_FILE are set
-[ -z "${DOTFILES_DIR}" ] && { printf "DOTFILES_DIR is unset or null"; exit 1; }
 # Source library file
-[ -f "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
+[ -e "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
 . "${LIBRARY_FILE}"
 
 # Set Wallpaper
@@ -15,4 +13,4 @@ feh --no-fehbg --bg-fill --recursive --randomize $wallpaper_dir &
 [ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
 
 # Start Window Manager
-exec $window_manager
+exec "${window_manager}"

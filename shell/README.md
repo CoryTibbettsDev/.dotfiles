@@ -3,7 +3,7 @@ Collection of links and information for the shell scripting in this repo and in 
 
 # Links
 
-## Secirty
+## Security
 [Secirty Implications of Forgetting to Quote Variables](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)
 [Interesting Article With Some Basic Exploits](https://www.linuxjournal.com/content/writing-secure-shell-scripts)
 [When In Doubt Quote It](https://stackoverflow.com/questions/10067266/when-to-wrap-quotes-around-a-shell-variable)
@@ -27,5 +27,10 @@ Collection of links and information for the shell scripting in this repo and in 
 ## General
 [Useful Ways to Detect Commands Failing](https://stackoverflow.com/questions/13793836/how-to-detect-if-a-git-clone-failed-in-a-bash-script)
 [Prompt for Yes or No](https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script)
-[Prompt for Yes or No](https://stackoverflow.com/questions/29436275/how-to-prompt-for-yes-or-no-in-bash)
+[Prompt for Yes or No 2](https://stackoverflow.com/questions/29436275/how-to-prompt-for-yes-or-no-in-bash)
 [Matching Nothing in Case Statement](https://stackoverflow.com/questions/17575392/how-do-i-test-for-an-empty-string-in-a-bash-case-statement)
+[IBM Example of .kshrc With Useful Debug and Command Examples](https://www.ibm.com/docs/en/aix/7.1?topic=files-kshrc-file)
+[Determine Active Shell](https://stackoverflow.com/questions/3327013/how-to-determine-the-current-shell-im-working-on)
+[Determine Active Shell 2](https://unix.stackexchange.com/questions/71121/determine-shell-in-script-during-runtime)
+[.profile Not Taking Effect Correctly](https://nanxiao.me/en/why-doesnt-profile-take-effect-in-arch-linux/)
+[Automatically startx on Login](https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login)
