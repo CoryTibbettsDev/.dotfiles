@@ -8,9 +8,9 @@ debug_print() {
 }
 
 # Make sure LIBRARY_FILE is set and source it
-[ -f "${LIBRARY_FILE}" ] &&
+[ -e "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	printf "LIBRARY_FILE is unset or null\n"
+	{ debug_shellrc="true"; debug_print "LIBRARY_FILE is unset or null"; }
 
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	debug_print "bash"

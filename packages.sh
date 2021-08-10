@@ -117,7 +117,7 @@ clone_repo https://github.com/WillEccles/cfm cfm
 # Change swappiness to better value
 printf "Setting Swappiness\n"
 ${su_cmd} sysctl vm.swappiness=10
-echo "vm.swappiness=10" | ${su_cmd} tee -a /etc/sysctl.d/99-swappiness.conf
+printf "vm.swappiness=10\n" | ${su_cmd} tee -a /etc/sysctl.d/99-swappiness.conf
 
 # Firewall setup
 ${su_cmd} ufw default deny incoming

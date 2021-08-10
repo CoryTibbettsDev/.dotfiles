@@ -32,7 +32,8 @@ done
 
 # Make sure dotfiles_dir and library_file variables are set
 # If they are not give them default values
-# Assume dotfiles_dir is the directory symlinks.sh is in
+# assume dotfiles_dir is the directory symlinks.sh is in
+# assume library_file is in the dotfiles_dir folder
 [ -z ${dotfiles_dir} ] && dotfiles_dir="$(pwd)"
 [ -z ${library_file} ] && library_file="${dotfiles_dir}/lib.sh"
 # Last check to make sure directory and file actually exist
@@ -54,7 +55,7 @@ for file in home/*; do
 		printf "${dot_file} not linked to ${real_file}\n"
 done
 # Run xrdb to load .Xresources if file exists
-[ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
+[ -f $HOME/.Xresources ] && xrdb -merge "$HOME/.Xresources"
 
 # Link all files in config directory to user's config directory
 for file in config/*; do

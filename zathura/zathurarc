@@ -3,9 +3,15 @@
 # Open document in fit-width mode by default
 set adjust-open "best-fit"
 
+set selection-clipboard clipboard
+
 # Normal
 map f toggle_fullscreen
 map <Return> navigate next
+map u scroll half-up
+# Maps d to scroll and D to what d is bound to by default
+map d scroll half-down
+map D toggle_page_mode
 
 # In fullscreen
 map [fullscreen] f toggle_fullscreen

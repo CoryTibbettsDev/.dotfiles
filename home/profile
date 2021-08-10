@@ -3,21 +3,22 @@
 # such as (.bash_profile, .zprofile etc.) so I have a unified place
 # for all all my configuration
 
-export DOTFILES_DIR="$HOME/.dotfiles"
-export LIBRARY_FILE="$HOME/.dotfiles/lib.sh"
-# Make sure DOTFILES_DIR and LIBRARY_FILE are set and valid paths
-[ -z "${LIBRARY_FILE}" ] && printf "LIBRARY_FILE is unset or null"
-[ -e "${LIBRARY_FILE}" ] || printf "LIBRARY_FILE does not exist"
-# Source library file
+LIBRARY_FILE="$HOME/.config/shell/lib.sh"
+# Check if the library file exists if not try and find it
+[ -e "${LIBRARY_FILE}" ] || LIBRARY_FILE="$(find $HOME -name lib.sh)"
+[ -z "${LIBRARY_FILE}" ] && printf "LIBRARY_FILE is unset or null" ||
+# Source the library file
 . "${LIBRARY_FILE}"
+# Export LIBRARY_FILE for other scripts to use
+export LIBRARY_FILE
 
 # Set editor details for programs that look for them
 # Export just in case it is not exported already
 export EDITOR="${text_editor}"
 export VISUAL="${visual_editor}"
 
-# Shell rc file is not automatically sourced by login shells and we
-# need to source our own unique one anyway
+# Shell rc file is not automatically sourced by login shells so we just
+# source our own unique one anyway
 . "${shellrc_file}"
 
 # Automatically startx on login

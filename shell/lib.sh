@@ -16,6 +16,7 @@ text_editor="nvim"
 visual_editor="${text_editor}"
 window_manager="awesome"
 screen_locker="i3lock"
+terminal_file_manager="cfm"
 
 esc_seq="\033"
 esc_bracket="${esc_seq}["

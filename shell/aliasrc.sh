@@ -39,6 +39,9 @@ mf() {
 	find . -iname "*$1*"
 }
 
+# Cactus File Manager
+alias f='${terminal_file_manager}'
+
 alias g='git'
 
 alias mt='make test'
@@ -65,9 +68,6 @@ alias z='zathura'
 
 # Screen locker
 alias lock='${screen_locker}'
-
-# Cactus File Manager
-alias c='cfm'
 
 # ex - archive extractor
 # usage: ex <file>
