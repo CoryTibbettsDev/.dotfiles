@@ -36,6 +36,9 @@ packages=(
 	# Xserver windowing
 	xorg
 	xorg-xinit
+	# Fonts
+	noto-fonts-cjk
+	noto-fonts-emoji
 	# Clipboard
 	xclip
 	# xorg-server-xephyr # Run nested xorg server for developement

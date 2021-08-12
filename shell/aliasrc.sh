@@ -1,8 +1,7 @@
 # aliasrc.sh
-# Sourced by shellrc
 
 # Make sure LIBRARY_FILE exists
-[ -f "${LIBRARY_FILE}" ] &&
+[ -e "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
 	printf "LIBRARY_FILE does not exist"
 

@@ -11,6 +11,7 @@ Collection of links and information for the shell scripting in this repo and in 
 ## POSIX Info
 [POSIX shell cheat sheet](https://steinbaugh.com/posts/posix.html)
 [printf With Variables](https://github.com/koalaman/shellcheck/wiki/SC2059)
+[Great Stackexchange Answer on Control Operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators/159514#159514)
 
 ## Escape and Terminal Control Sequences
 [List of Escape and Terminal Control Sequences](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm)
@@ -22,7 +23,7 @@ Collection of links and information for the shell scripting in this repo and in 
 ## Colors
 [List of ANSI Color Escape Sequences](https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences)
 [Test terminal color capabilities](https://github.com/termstandard/colors)
-[Test terminal color capabilities](https://unix.stackexchange.com/questions/450365/check-if-terminal-supports-24-bit-true-color)
+[Test terminal color capabilities 2](https://unix.stackexchange.com/questions/450365/check-if-terminal-supports-24-bit-true-color)
 
 ## General
 [Useful Ways to Detect Commands Failing](https://stackoverflow.com/questions/13793836/how-to-detect-if-a-git-clone-failed-in-a-bash-script)

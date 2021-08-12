@@ -1,5 +1,5 @@
 # shellrc.sh
-# Sourced by all shell specific rc files
+# Symlinked to all shell specific rc files
 
 # debug_shellrc="true"
 
@@ -50,44 +50,42 @@ else
 	debug_print "Could be the bourne shell"
 fi
 
-# get current branch in git repo
 parse_git_branch() {
-	branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
-	if [ ! "${branch}" == "" ]; then
-		stat=$(parse_git_dirty)
-		printf " ${branch}${stat}"
+	branch="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+	if [ ! "${branch}" = "" ]; then
+		stat="$(parse_git_dirty)"
+		printf "%s%s" "${branch}" "${stat}"
 	fi
 }
-# get current status of git repo
 parse_git_dirty() {
-	status=$(git status 2>&1 | tee)
-	dirty=$(printf "${status}" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?")
-	untracked=$(printf "${status}" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?")
-	ahead=$(printf "${status}" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?")
-	newfile=$(printf "${status}" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?")
-	renamed=$(printf "${status}" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?")
-	deleted=$(printf "${status}" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?")
-	bits=''
-	if [ "${renamed}" == "0" ]; then
+	status="$(git status 2>&1 | tee)"
+	dirty="$(printf "${status}" 2>&1 /dev/null | grep "modified:" > /dev/null; printf "$?")"
+	untracked="$(printf "${status}" 2>&1 /dev/null | grep "Untracked files" > /dev/null; printf "$?")"
+	ahead="$(printf "${status}" 2>&1 /dev/null | grep "Your branch is ahead of" > /dev/null; printf "$?")"
+	newfile="$(printf "${status}" 2>&1 /dev/null | grep "new file:" > /dev/null; printf "$?")"
+	renamed="$(printf "${status}" 2>&1 /dev/null | grep "renamed:" > /dev/null; printf "$?")"
+	deleted="$(printf "${status}" 2>&1 /dev/null | grep "deleted:" > /dev/null; printf "$?")"
+	bits=""
+	if [ "${renamed}" = "0" ]; then
 		bits=">${bits}"
 	fi
-	if [ "${ahead}" == "0" ]; then
+	if [ "${ahead}" = "0" ]; then
 		bits="*${bits}"
 	fi
-	if [ "${newfile}" == "0" ]; then
+	if [ "${newfile}" = "0" ]; then
 		bits="+${bits}"
 	fi
-	if [ "${untracked}" == "0" ]; then
+	if [ "${untracked}" = "0" ]; then
 		bits="?${bits}"
 	fi
-	if [ "${deleted}" == "0" ]; then
+	if [ "${deleted}" = "0" ]; then
 		bits="x${bits}"
 	fi
-	if [ "${dirty}" == "0" ]; then
+	if [ "${dirty}" = "0" ]; then
 		bits="!${bits}"
 	fi
-	if [ ! "${bits}" == "" ]; then
-		printf " ${bits}"
+	if [ ! "${bits}" = "" ]; then
+		printf " %s" "${bits}"
 	fi
 }
 
@@ -110,7 +108,7 @@ first_prompt="${text_color}${background_color}"
 second_prompt="${background_color_two}${text_color_two}${seperator}"
 
 # https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
-PS1="\[$(text_effect_code bold)${first_prompt}\] \u\[${second_prompt}\]\h \w\$(parse_git_branch) \$\[$(text_effect_code reset)${seperator}\] "
+PS1="\[$(text_effect_code bold)${first_prompt}\] \u\[${second_prompt}\]\h \w\$(parse_git_branch) \$\[${seperator}$(text_effect_code reset)\] "
 
 # History Settings
 HISTCONTROL=ignoreboth

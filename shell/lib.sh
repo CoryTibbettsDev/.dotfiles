@@ -11,6 +11,8 @@ shell_dir="${config_dir}/shell"
 shellrc_file="${shell_dir}/shellrc.sh"
 aliasrc_file="${shell_dir}/aliasrc.sh"
 
+dotfiles_log_file="$HOME/.local/share/dotfiles/dotfiles.log"
+
 su_cmd="sudo"
 text_editor="nvim"
 visual_editor="${text_editor}"
@@ -100,19 +102,20 @@ four_bit_magenta_back="$(esc_func 45)"
 four_bit_cyan_back="$(esc_func 46)"
 four_bit_white_back="$(esc_func 47)"
 
-print_error_message() {
-	printf "${four_bit_red_fore}${1}$(text_effect_code reset)\n" >&2
+# Append message with date to dotfiles_log_file
+print_log_message() {
+	printf "Date:%s %s\n" "$(date)" "$1" 2>> ${dotfiles_log_file} >&2
 }
 
 # Print error message "$1" to stderr and exit
 die() {
-	print_error_message "Error: ${1}, exiting."
+	print_log_message "Error: ${1}, exiting."
 	exit 1
 }
 
 # Print warning message "$1" to stderr don't exit
 warn() {
-	print_error_message "Warning: ${1}"
+	print_log_message "Warning: ${1}"
 	return 1
 }
 
@@ -120,7 +123,7 @@ warn() {
 source_file() {
 	[ -e "${1}" ] &&
 		{ . "${1}"; return 0; } ||
-		{ print_error_message "Fail to source file: ${1}, does not exist."; return 1; }
+		{ print_log_message "Fail to source file: ${1}, does not exist."; return 1; }
 }
 
 yes_or_no() {
