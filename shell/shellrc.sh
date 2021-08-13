@@ -10,7 +10,7 @@ debug_print() {
 # Make sure LIBRARY_FILE is set and source it
 [ -e "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	{ debug_shellrc="true"; debug_print "LIBRARY_FILE is unset or null"; }
+	{ debug_shellrc="true"; debug_print "LIBRARY_FILE failed -e check"; }
 
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	debug_print "bash"
@@ -26,7 +26,7 @@ if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	man_shortcut() {
 		man $(echo $READLINE_LINE | awk '{print $1}');
 	}
-elif [ -n "$ZSH_VERSION" -o -n "$ZSH_VERSION"]; then
+elif [ -n "$ZSH_VERSION" ]; then
 	debug_print "zsh"
 	# Vi mode
 	bindkey -v
@@ -54,7 +54,7 @@ parse_git_branch() {
 	branch="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
 	if [ ! "${branch}" = "" ]; then
 		stat="$(parse_git_dirty)"
-		printf "%s%s" "${branch}" "${stat}"
+		printf " %s%s" "${branch}" "${stat}"
 	fi
 }
 parse_git_dirty() {
@@ -99,16 +99,21 @@ check_color_support &&
 	text_color="$(esc_func ${rgb_fore}${rgb_white})" \
 	background_color="$(esc_func ${rgb_back}${rgb_blue})" \
 	text_color_two="$(esc_func ${rgb_fore}${rgb_blue})" \
-	background_color_two="$(esc_func ${rgb_back}${rgb_white})" ||
+	background_color_two="$(esc_func ${rgb_back}${rgb_white})" \
+	text_color_end="$(esc_func ${rbg_fore}${rbg_white})" \
+	background_color_end="$(esc_func ${rgb_back}${rbg_black})" ||
 	text_color="${four_bit_cyan_fore}" \
 	background_color="" \
 	text_color_two="${text_color}" \
 	background_color_two=""
+	text_color_end="${text_color}" \
+	background_color_end=""
 first_prompt="${text_color}${background_color}"
 second_prompt="${background_color_two}${text_color_two}${seperator}"
+end_prompt="$(text_effect_code reset)${text_color_end}${seperator}$(text_effect_code reset)"
 
 # https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
-PS1="\[$(text_effect_code bold)${first_prompt}\] \u\[${second_prompt}\]\h \w\$(parse_git_branch) \$\[${seperator}$(text_effect_code reset)\] "
+PS1="\[$(text_effect_code bold)${first_prompt}\] \u\[${second_prompt}\]\h \w\$(parse_git_branch) \$\[${end_prompt}\] "
 
 # History Settings
 HISTCONTROL=ignoreboth

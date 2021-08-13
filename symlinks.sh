@@ -35,10 +35,12 @@ done
 # assume dotfiles_dir is the directory symlinks.sh is in
 # assume library_file is in the dotfiles_dir folder
 [ -z ${dotfiles_dir} ] && dotfiles_dir="$(pwd)"
-[ -z ${library_file} ] && library_file="${dotfiles_dir}/lib.sh"
+if [ -z ${library_file} ]; then
+	[ -n ${LIBRARY_FILE} ] && library_file="${LIBRARY_FILE}"
+fi
 # Last check to make sure directory and file actually exist
-[ -d ${dotfiles_dir} ] || { printf "dotfiles_dir does not exist"; exit 1; }
-[ -e ${library_file} ] || { printf "library_file does not exist"; exit 1; }
+[ -d ${dotfiles_dir} ] || { printf "dotfiles_dir does not exist\n"; exit 1; }
+[ -e ${library_file} ] || { printf "library_file does not exist\n"; exit 1; }
 . "${library_file}"
 
 # Make the directories in case they do not exist
@@ -51,8 +53,8 @@ for file in home/*; do
 	real_file="${dotfiles_dir}/${file}"
 	dot_file="$HOME/.$(basename ${file})"
 	${file_operation_cmd} ${real_file} ${dot_file} &&
-		printf "${dot_file} links to ${real_file}\n" ||
-		printf "${dot_file} not linked to ${real_file}\n"
+		printf "${dot_file} to ${real_file}\n" ||
+		printf "${dot_file} not to ${real_file}\n"
 done
 # Run xrdb to load .Xresources if file exists
 [ -f $HOME/.Xresources ] && xrdb -merge "$HOME/.Xresources"
@@ -62,8 +64,8 @@ for file in config/*; do
 	real_file="${dotfiles_dir}/${file}"
 	config_file="${config_dir}/$(basename ${file})"
 	${file_operation_cmd} ${real_file} ${config_file} &&
-		printf "${config_file} links to ${real_file}\n" ||
-		printf "${config_file} not linked to ${real_file}\n"
+		printf "${config_file} to ${real_file}\n" ||
+		printf "${config_file} not to ${real_file}\n"
 done
 
 # Copy Wallpapers
@@ -72,8 +74,8 @@ cp -vrn Wallpaper/ ${stuff_dir}
 link_config() {
 	real_dir="${dotfiles_dir}/$1"
 	${file_operation_cmd} ${real_dir} ${config_dir} &&
-		printf "${config_dir}/$1 links to ${real_dir}\n" ||
-		printf "${config_dir}/$1 not linked to ${real_dir}\n"
+		printf "${config_dir}/$1 to ${real_dir}\n" ||
+		printf "${config_dir}/$1 not to ${real_dir}\n"
 }
 link_config shell
 link_config awesome
@@ -85,20 +87,25 @@ link_config mpv
 link_config "gtk-3.0"
 
 # Link shell agnostic rc and profile files to shell specific rc and profile files
+# dash does not seem to read .dashrc or an equivalent but appears to read .profile
 shell_specific_rc=(
 	bashrc
 	zshrc
 	kshrc
-	cshrc
-	tcshrc
 )
 for file in "${shell_specific_rc[@]}"; do
-	${file_operation_cmd} ${shellrc_file} "$HOME/.${file}"
+	link_file="$HOME/.${file}"
+	${file_operation_cmd} ${shellrc_file} "$HOME/.${file}" &&
+		printf "${link_file} to ${shellrc_file}\n" ||
+		printf "${link_file} not to ${shellrc_file}\n"
 done
 shell_specific_profile=(
 	bash_profile
 	zprofile
 )
 for file in "${shell_specific_profile[@]}"; do
-	${file_operation_cmd} "$HOME/.profile" "$HOME/.${file}"
+	link_file="$HOME/.${file}"
+	${file_operation_cmd} "$HOME/.profile" "${link_file}" &&
+		printf "${link_file} to $HOME/.profile\n" ||
+		printf "${link_file} not to $HOME/.profile\n"
 done

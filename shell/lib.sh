@@ -107,13 +107,11 @@ print_log_message() {
 	printf "Date:%s %s\n" "$(date)" "$1" 2>> ${dotfiles_log_file} >&2
 }
 
-# Print error message "$1" to stderr and exit
 die() {
 	print_log_message "Error: ${1}, exiting."
 	exit 1
 }
 
-# Print warning message "$1" to stderr don't exit
 warn() {
 	print_log_message "Warning: ${1}"
 	return 1

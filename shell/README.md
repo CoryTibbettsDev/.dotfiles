@@ -7,6 +7,7 @@ Collection of links and information for the shell scripting in this repo and in 
 [Secirty Implications of Forgetting to Quote Variables](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)
 [Interesting Article With Some Basic Exploits](https://www.linuxjournal.com/content/writing-secure-shell-scripts)
 [When In Doubt Quote It](https://stackoverflow.com/questions/10067266/when-to-wrap-quotes-around-a-shell-variable)
+[Stackoverflow Thread On When You Might Want to Not Quote Variables](https://stackoverflow.com/questions/32674809/is-there-any-reason-not-to-quote-variables)
 
 ## POSIX Info
 [POSIX shell cheat sheet](https://steinbaugh.com/posts/posix.html)
@@ -24,6 +25,9 @@ Collection of links and information for the shell scripting in this repo and in 
 [List of ANSI Color Escape Sequences](https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences)
 [Test terminal color capabilities](https://github.com/termstandard/colors)
 [Test terminal color capabilities 2](https://unix.stackexchange.com/questions/450365/check-if-terminal-supports-24-bit-true-color)
+
+## Debugging
+[Bash-Hackers Wiki On Debugging](https://wiki.bash-hackers.org/scripting/debuggingtips)
 
 ## General
 [Useful Ways to Detect Commands Failing](https://stackoverflow.com/questions/13793836/how-to-detect-if-a-git-clone-failed-in-a-bash-script)
