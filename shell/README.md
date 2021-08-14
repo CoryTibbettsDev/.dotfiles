@@ -14,6 +14,12 @@ Collection of links and information for the shell scripting in this repo and in 
 [printf With Variables](https://github.com/koalaman/shellcheck/wiki/SC2059)
 [Great Stackexchange Answer on Control Operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators/159514#159514)
 
+## PS1
+[Terminal Output Not Wrapping Properly Because of PS1](https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly)
+[Another Solution to Line Wrapping Problem](https://stackoverflow.com/questions/24839271/bash-ps1-line-wrap-issue-with-non-printing-characters-from-an-external-command)
+[zsh Command Substitution in PS1 and Other Variables](https://superuser.com/questions/142099/get-function-into-ps1-zsh)
+[Short But Nice Intro to zsh PS1 Prompt](https://voracious.dev/a-guide-to-customizing-the-zsh-shell-prompt)
+
 ## Escape and Terminal Control Sequences
 [List of Escape and Terminal Control Sequences](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm)
 
@@ -39,3 +45,4 @@ Collection of links and information for the shell scripting in this repo and in 
 [Determine Active Shell 2](https://unix.stackexchange.com/questions/71121/determine-shell-in-script-during-runtime)
 [.profile Not Taking Effect Correctly](https://nanxiao.me/en/why-doesnt-profile-take-effect-in-arch-linux/)
 [Automatically startx on Login](https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login)
+[Where to Find ash Source Code](https://unix.stackexchange.com/questions/276477/where-to-find-the-source-code-for-the-almquist-shell)

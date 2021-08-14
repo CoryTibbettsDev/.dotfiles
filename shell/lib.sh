@@ -11,7 +11,7 @@ shell_dir="${config_dir}/shell"
 shellrc_file="${shell_dir}/shellrc.sh"
 aliasrc_file="${shell_dir}/aliasrc.sh"
 
-dotfiles_log_file="$HOME/.local/share/dotfiles/dotfiles.log"
+dotfiles_log_file="$HOME/.local/log/dotfiles.log"
 
 su_cmd="sudo"
 text_editor="nvim"
@@ -103,30 +103,36 @@ four_bit_cyan_back="$(esc_func 46)"
 four_bit_white_back="$(esc_func 47)"
 
 # Append message with date to dotfiles_log_file
-print_log_message() {
-	printf "Date:%s %s\n" "$(date)" "$1" 2>> ${dotfiles_log_file} >&2
+dotfiles_log_message() {
+	mkdir $(dirname ${dotfiles_log_file}) && touch ${dotfiles_log_file}
+	printf "[%s] %s\n" "$(date)" "$1" 2>> ${dotfiles_log_file} >&2
 }
 
 die() {
-	print_log_message "Error: ${1}, exiting."
+	dotfiles_log_message "Error: ${1}, exiting"
 	exit 1
 }
 
 warn() {
-	print_log_message "Warning: ${1}"
+	dotfiles_log_message "Warning: ${1}"
 	return 1
 }
 
 # Source file from argument 1
 source_file() {
-	[ -e "${1}" ] &&
-		{ . "${1}"; return 0; } ||
-		{ print_log_message "Fail to source file: ${1}, does not exist."; return 1; }
+	if [ -e "${1}" ]; then
+		. "${1}" &&
+			return 0 ||
+			{ dotfiles_log_message "Found file %s, but couldn't source" "$1"; return 1; }
+	else
+		dotfiles_log_message "Fail to source file: %s, does not exist" "${1}"
+		return 1
+	fi
 }
 
 yes_or_no() {
 	while true; do
-		read -p "$*[y/n Default [y]es]: " yn
+		read -p "$*[yes/no Default [y]es]: " yn
 		case $yn in
 			# Case insensitive match: n no
 			[Nn] | [Nn][Oo]) return 1;;
@@ -135,22 +141,6 @@ yes_or_no() {
 			*) printf "Please answer [y]es or [n]o\n";;
 		esac
 	done
-}
-
-# TODO: check does not seem to be working on some terminals(xterm)
-check_unicode_support() {
-	printf "\xe2\x88\xb4\033[6n\033[1K\r"
-	read -d R response_string
-	printf "\033[1K\r"
-	printf "${response_string}" | cut -d \[ -f 2 | cut -d";" -f 2 | (
-		read unicode_support
-		[ $unicode_support -eq 2 ] && return 0 || return 1
-	)
-}
-
-right_pointing_triangle="\xee\x82\xb0"
-print_uft_eight_unicode() {
-	printf "${right_pointing_triangle}"
 }
 
 check_color_support() {

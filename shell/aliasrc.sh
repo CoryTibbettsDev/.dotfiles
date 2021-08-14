@@ -70,7 +70,6 @@ alias lock='${screen_locker}'
 
 # ex - archive extractor
 # usage: ex <file>
-# Stolen from https://github.com/ChrisTitusTech/zsh
 ex () {
 	if [ -f $1 ]; then
 		case $1 in
@@ -86,10 +85,10 @@ ex () {
 			*.zip) unzip $1;;
 			*.Z) uncompress $1;;
 			*.7z) 7z x $1;;
-			*) printf "$1 cannot be extracted via ex()\n";;
+			*) printf "%s cannot be extracted via ex()\n" "$1";;
 		esac
 	else
-		printf "$1 is not a valid file\n"
+		printf "%s is not a valid file\n" "$1"
 	fi
 }
 

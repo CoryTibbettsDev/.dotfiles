@@ -120,6 +120,8 @@ nnoremap <leader>r :source $MYVIMRC<CR>
 " Paste from system clipboard
 " For some reason leader key with this binding is slow but not with control
 nnoremap <C-p> "+p
+" Yank into system clipboard
+nnoremap <C-y> "+y
 
 nnoremap <leader>m :make<CR>
 nnoremap <leader>t :make test<CR>

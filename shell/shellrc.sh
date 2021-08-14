@@ -1,10 +1,10 @@
 # shellrc.sh
 # Symlinked to all shell specific rc files
 
-# debug_shellrc="true"
+# dotfiles_debug="true"
 
 debug_print() {
-	[ -n "${debug_shellrc}" ] && printf "${1}\n"
+	[ "${dotfiles_debug}" = true ] && printf "${1}\n"
 }
 
 # Make sure LIBRARY_FILE is set and source it
@@ -28,6 +28,10 @@ if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	}
 elif [ -n "$ZSH_VERSION" ]; then
 	debug_print "zsh"
+
+	# Needed for command substitution in PS1
+	setopt PROMPT_SUBST
+
 	# Vi mode
 	bindkey -v
 
@@ -49,6 +53,26 @@ elif [ -n "$shell" ]; then
 else
 	debug_print "Could be the bourne shell"
 fi
+
+# Stolen from: https://github.com/dylanaraps/pfetch
+# Username is retrieved by first checking '$USER' with a fallback
+# to the 'id -un' command.
+my_user="${USER:-$(id -un)}"
+[ "${my_user}" ] || my_user="UnknownUser"
+
+my_host="${HOSTNAME}"
+# If the hostname is still not found, fallback to the contents of the
+# /etc/hostname file.
+[ "${my_host}" ] || read -r my_host < /etc/hostname
+
+my_pwd() {
+	if [ "${PWD#$HOME}" != "$PWD" ]; then
+		printf "~%s" "${PWD#$HOME}"
+	else
+		printf "%s" "$PWD"
+	fi
+}
+directory_info='$(my_pwd)'
 
 parse_git_branch() {
 	branch="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
@@ -89,10 +113,6 @@ parse_git_dirty() {
 	fi
 }
 
-seperator=""
-check_unicode_support &&
-	seperator="$(print_uft_eight_unicode)"
-
 rgb_white="255;255;255"
 rgb_blue="0;0;150"
 check_color_support &&
@@ -108,12 +128,11 @@ check_color_support &&
 	background_color_two=""
 	text_color_end="${text_color}" \
 	background_color_end=""
-first_prompt="${text_color}${background_color}"
-second_prompt="${background_color_two}${text_color_two}${seperator}"
-end_prompt="$(text_effect_code reset)${text_color_end}${seperator}$(text_effect_code reset)"
+first_prompt="$(text_effect_code bold)${text_color}${background_color}"
+second_prompt="${background_color_two}${text_color_two}"
+end_prompt="$(text_effect_code reset)${text_color_end}$(text_effect_code reset)"
 
-# https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly
-PS1="\[$(text_effect_code bold)${first_prompt}\] \u\[${second_prompt}\]\h \w\$(parse_git_branch) \$\[${end_prompt}\] "
+PS1="${my_user}@${my_host} ${directory_info} \$ "
 
 # History Settings
 HISTCONTROL=ignoreboth
