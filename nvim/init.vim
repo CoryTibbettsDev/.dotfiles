@@ -117,6 +117,7 @@ nnoremap <leader>s :w<CR>
 nnoremap <leader>q :qa<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
 
+" xclip is needed for paste and yank with system clipboard
 " Paste from system clipboard
 " For some reason leader key with this binding is slow but not with control
 nnoremap <C-p> "+p

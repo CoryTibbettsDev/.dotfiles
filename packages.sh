@@ -17,7 +17,7 @@ fi
 # Arg 1 is repo URL Arg2 is directory name
 # clone_repo https://example.com/repo directory_name
 clone_repo() {
-	printf "Cloning ${1}\n"
+	printf "Cloning %s\n" "${1}"
 	git clone $1 "${repos_dir}/$2" || warn "git clone failed"
 }
 
@@ -79,9 +79,18 @@ packages=(
 	# gimp
 	# Vector Image Editor
 	# inkscape
-	# CD Utils
-	# xfburn # GUI Xfce burner
-	# brasero # GUI gnome burner
+
+	## KVM
+	## ebtables and dnsmasq for the default NAT/DHCP network
+	## bridge-utils can create bridge networks
+	## openbsd-netcat for remote SSH management.
+	qemu # Quick EMUlator
+	virt-manager # Manages the virtual machines
+	vde2 # VDEv2: Virtual Distributed Ethernet for virtual machine
+	ebtables # Ethernet bridge frame table administration
+	dnsmasq # DNS forwarder and DHCP server
+	bridge-utils # Utilities for configuring the Linux ethernet bridge
+	openbsd-netcat # Read write to TCP UDP connections from OpenBSD
 
 	## VirtualBox
 	# virtualbox
@@ -126,5 +135,10 @@ printf "vm.swappiness=10\n" | ${su_cmd} tee -a /etc/sysctl.d/99-swappiness.conf
 ${su_cmd} ufw default deny incoming
 ${su_cmd} ufw default allow outgoing
 ${su_cmd} ufw enable
+${su_cmd} systemctl enable ufw
+firewall_status="$(${su_cmd} ufw status)"
+[ "${firewall_status}" = "Status: inactive" ] &&
+	dotfiles_log_message "Firewall(ufw) not active"
+
 
 sh ${setup_file} || warn "${setup_file} failed"

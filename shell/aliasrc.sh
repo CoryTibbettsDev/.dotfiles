@@ -92,8 +92,6 @@ ex () {
 	fi
 }
 
-# Search repo for packages based on keyword
-alias pacsearch='pacman -Ss'
 # List files installed by a package
 alias paclsfiles='pacman -Qlq'
 # List orphan packages

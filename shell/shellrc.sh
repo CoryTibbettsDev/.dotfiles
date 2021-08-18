@@ -4,7 +4,7 @@
 # dotfiles_debug="true"
 
 debug_print() {
-	[ "${dotfiles_debug}" = true ] && printf "${1}\n"
+	[ "${dotfiles_debug}" = true ] && printf "%s\n" "${1}"
 }
 
 # Make sure LIBRARY_FILE is set and source it
@@ -19,39 +19,24 @@ if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	shopt -s cdspell
 	shopt -s extglob
 	shopt -s histappend
-
-	# C-x C-h to open man page for currently typed command
-	# Taken from: https://github.com/Jorengarenar/dotfiles/blob/master/bashrc
-	bind -x '"\C-x\C-h":man_shortcut'
-	man_shortcut() {
-		man $(echo $READLINE_LINE | awk '{print $1}');
-	}
 elif [ -n "$ZSH_VERSION" ]; then
 	debug_print "zsh"
-
-	# Needed for command substitution in PS1
+	# Needed for command substitution
 	setopt PROMPT_SUBST
-
-	# Vi mode
-	bindkey -v
-
-	bindkey '^P' up-history
-	bindkey '^N' down-history
-	bindkey '^?' backward-delete-char
-	bindkey '^h' backward-delete-char
-	bindkey '^w' backward-kill-word
-	bindkey '^r' history-incremental-search-backward
 elif [ -n "$KSH_VERSION" -o -n "$FCEDIT" ]; then
 	debug_print "ksh"
 elif [ -n "$shell" ]; then
 	debug_print "csh or tcsh"
 	if [ -n "$version" ]; then
 		debug_print "tcsh"
+		return
 	else
 		debug_print "csh"
+		return
 	fi
 else
 	debug_print "Could be the bourne shell"
+	return
 fi
 
 # Stolen from: https://github.com/dylanaraps/pfetch
@@ -66,10 +51,10 @@ my_host="${HOSTNAME}"
 [ "${my_host}" ] || read -r my_host < /etc/hostname
 
 my_pwd() {
-	if [ "${PWD#$HOME}" != "$PWD" ]; then
+	if [ "${PWD#$HOME}" != "${PWD}" ]; then
 		printf "~%s" "${PWD#$HOME}"
 	else
-		printf "%s" "$PWD"
+		printf "%s" "${PWD}"
 	fi
 }
 directory_info='$(my_pwd)'
@@ -132,7 +117,7 @@ first_prompt="$(text_effect_code bold)${text_color}${background_color}"
 second_prompt="${background_color_two}${text_color_two}"
 end_prompt="$(text_effect_code reset)${text_color_end}$(text_effect_code reset)"
 
-PS1="${my_user}@${my_host} ${directory_info} \$ "
+PS1="[${my_user}@${my_host} ${directory_info}]\$ "
 
 # History Settings
 HISTCONTROL=ignoreboth
