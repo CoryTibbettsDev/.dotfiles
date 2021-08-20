@@ -54,6 +54,7 @@ packages=(
 	ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
 	# Web browser
 	firefox
+	luakit
 	# Firewall
 	ufw
 	# Download videos
@@ -91,13 +92,6 @@ packages=(
 	dnsmasq # DNS forwarder and DHCP server
 	bridge-utils # Utilities for configuring the Linux ethernet bridge
 	openbsd-netcat # Read write to TCP UDP connections from OpenBSD
-
-	## VirtualBox
-	# virtualbox
-	## For normal arch kernel
-	# virtualbox-host-modules-arch
-	## For other kernels
-	# virtualbox-host-dkms
 
 	## Steam and drivers
 	# https://github.com/lutris/docs/blob/master/InstallingDrivers.md

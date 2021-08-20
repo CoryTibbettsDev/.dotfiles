@@ -29,6 +29,8 @@ alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 alias hgrep='fc -l 1 | grep'
 alias hg='hgrep'
 
+alias diff='diff --color=auto'
+
 alias less='less -R'
 
 alias free='free -mht'

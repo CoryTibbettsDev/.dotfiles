@@ -7,7 +7,7 @@ file_operation_cmd="ln -sf"
 verbose_link() {
 	${file_operation_cmd} ${1} ${2} &&
 		printf "${2} to ${1}\n" ||
-		printf "${2} not to ${1}\n"
+		printf "${2} failed to ${1}\n"
 }
 
 parse_opt() {
@@ -88,6 +88,27 @@ link_config ytfzf
 link_config mpv
 link_config "gtk-3.0"
 link_config zathura
+link_config luakit
+
+# Link firefox user.js
+firefox_user_js="${dotfiles_dir}/firefox/user.js"
+known_firefox_profile_dir_suffixes=(
+	release
+	esr
+)
+for suffix in "${known_firefox_profile_dir_suffixes[@]}"; do
+	# Check to make sure profile dir is not set already
+	[ -z ${firefox_profile_dir} ] &&
+		firefox_profile_dir="$(find $HOME/.mozilla/firefox/ -type d -path *.default-${suffix})"
+	# We found the directory break out of loop
+	[ -n ${firefox_profile_dir} ] && break
+done
+# If we found the right directory then do file_operation_cmd on user.js
+if [ -n ${firefox_profile_dir} ]; then
+	${file_operation_cmd} ${firefox_user_js} ${firefox_profile_dir} &&
+		printf "%s to %s\n" "${firefox_profile_dir}" "${firefox_user_js}" ||
+		printf "%s failed to %s\n" "${firefox_profile_dir}" "${firefox_user_js}"
+fi
 
 # Link shell agnostic rc and profile files to shell specific rc and profile files
 # dash does not seem to read .dashrc or an equivalent but appears to read .profile

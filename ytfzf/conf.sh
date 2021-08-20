@@ -7,7 +7,7 @@ enable_cur=0
 enable_noti=0
 
 # List of youtube-dl video quality numbers
-video_pref="22"
+# video_pref="22"
 
 video_player="mpv"
 
