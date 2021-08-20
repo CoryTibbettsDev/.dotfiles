@@ -57,10 +57,9 @@ my_pwd() {
 		printf "%s" "${PWD}"
 	fi
 }
-directory_info='$(my_pwd)'
 
 parse_git_branch() {
-	branch="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')"
+	branch="$(git branch 2> /dev/null | sed 's/^* //')"
 	if [ ! "${branch}" = "" ]; then
 		stat="$(parse_git_dirty)"
 		printf " %s%s" "${branch}" "${stat}"
@@ -97,6 +96,7 @@ parse_git_dirty() {
 		printf " %s" "${bits}"
 	fi
 }
+directory_info='$(my_pwd)$(parse_git_branch)'
 
 rgb_white="255;255;255"
 rgb_blue="0;0;150"
