@@ -26,7 +26,7 @@ alias e='${EDITOR}'
 alias grep='grep --color=auto'
 alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 # Use fc instead of history as it is POSIX compliant
-alias hgrep='fc -l 1 | grep'
+alias hgrep='fc -l -${HISTSIZE} | grep'
 alias hg='hgrep'
 
 alias diff='diff --color=auto'
@@ -44,6 +44,8 @@ mf() {
 alias f='${terminal_file_manager}'
 
 alias g='git'
+alias gc='git commit'
+alias gpo='git push origin'
 
 alias mt='make test'
 alias mc='make clean'
@@ -94,9 +96,37 @@ ex () {
 	fi
 }
 
-# List files installed by a package
-alias paclsfiles='pacman -Qlq'
-# List orphan packages
-alias paclsorphans='pacman -Qdt'
-# Remove orphans
-alias pacrmorphans='pacman -Rs $(pacman -Qtdq)'
+# Note-taking system
+# https://old.reddit.com/r/linux/comments/nypc56/the_most_simple_way_to_take_notes/
+init_notes() {
+	[ -d ${notes_dir} ] ||
+		printf "%s was never created. Creating now.\n" "${notes_dir}"
+	mkdir -pv ${notes_dir}
+}
+# note
+n() {
+	init_notes
+	$EDITOR "${notes_dir}/$*"
+}
+# notes list
+nls() {
+	init_notes
+	ls ${notes_dir}
+}
+# notes find
+nf() {
+	init_notes
+	find ${notes_dir} -iname *${1}*
+}
+# notes grep
+ng() {
+	init_notes
+	grep -C 5 "$*" ${notes_dir}/*
+}
+# note remove
+nr() {
+	init_notes
+	for i in "$@"; do
+		rm -v ${notes_dir}/${i}
+	done
+}
