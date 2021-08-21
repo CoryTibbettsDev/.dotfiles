@@ -22,8 +22,8 @@ export VISUAL="${visual_editor}"
 . "${shellrc_file}"
 
 # Set PATH so it includes private bin if it exists
-if [ -d "$HOME/.local/bin" ]; then
-	PATH="$HOME/.local/bin:$PATH"
+if [ -d "${home_bin_dir}" ]; then
+	export PATH="$PATH:${home_bin_dir}"
 fi
 
 # Automatically startx on login

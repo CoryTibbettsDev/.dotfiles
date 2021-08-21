@@ -10,9 +10,25 @@ Collection of links and information for the shell scripting in this repo and in 
 [Stackoverflow Thread On When You Might Want to Not Quote Variables](https://stackoverflow.com/questions/32674809/is-there-any-reason-not-to-quote-variables)
 
 ## POSIX Info
-[POSIX shell cheat sheet](https://steinbaugh.com/posts/posix.html)
+[POSIX Shell Cheat Sheet](https://steinbaugh.com/posts/posix.html)
 [printf With Variables](https://github.com/koalaman/shellcheck/wiki/SC2059)
 [Great Stackexchange Answer on Control Operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators/159514#159514)
+
+## ZSH
+[Basic zsh Configuration](https://thevaluable.dev/zsh-install-configure-mouseless/)
+[.zcompdump File Appearing In Home Folder](https://stackoverflow.com/questions/62931101/i-have-multiple-files-of-zcompdump-why-do-i-have-multiple-files-of-these)
+
+## BASH
+[shopt bash Builtin](https://www.computerhope.com/unix/bash/shopt.htm)
+
+## Colors
+[List of ANSI Color Escape Sequences](https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences)
+[Test Terminal Color Capabilities](https://github.com/termstandard/colors)
+[Test Terminal Color Capabilities 2](https://unix.stackexchange.com/questions/450365/check-if-terminal-supports-24-bit-true-color)
+
+## Escape and Terminal Control Sequences
+[List of Escape and Terminal Control Sequences](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm)
+[Vim Focused Page On Controlling Terminal Cursor](https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html)
 
 ## PS1
 [Terminal Output Not Wrapping Properly Because of PS1](https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly)
@@ -20,22 +36,15 @@ Collection of links and information for the shell scripting in this repo and in 
 [zsh Command Substitution in PS1 and Other Variables](https://superuser.com/questions/142099/get-function-into-ps1-zsh)
 [Short But Nice Intro to zsh PS1 Prompt](https://voracious.dev/a-guide-to-customizing-the-zsh-shell-prompt)
 
-## Escape and Terminal Control Sequences
-[List of Escape and Terminal Control Sequences](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm)
-
 ## Unicode
 [Print Unicode Characters](https://stackoverflow.com/questions/602912/how-do-you-echo-a-4-digit-unicode-character-in-bash)
 [Test Unicode Support](https://unix.stackexchange.com/questions/184345/detect-how-much-of-unicode-my-terminal-supports-even-through-screen)
-
-## Colors
-[List of ANSI Color Escape Sequences](https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences)
-[Test terminal color capabilities](https://github.com/termstandard/colors)
-[Test terminal color capabilities 2](https://unix.stackexchange.com/questions/450365/check-if-terminal-supports-24-bit-true-color)
 
 ## Debugging
 [Bash-Hackers Wiki On Debugging](https://wiki.bash-hackers.org/scripting/debuggingtips)
 
 ## General
+[Loop Through All Arguments](https://unix.stackexchange.com/questions/79343/how-to-loop-through-arguments-in-a-bash-script)
 [Useful Ways to Detect Commands Failing](https://stackoverflow.com/questions/13793836/how-to-detect-if-a-git-clone-failed-in-a-bash-script)
 [Prompt for Yes or No](https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script)
 [Prompt for Yes or No 2](https://stackoverflow.com/questions/29436275/how-to-prompt-for-yes-or-no-in-bash)

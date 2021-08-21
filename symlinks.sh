@@ -40,6 +40,7 @@ done
 # assume dotfiles_dir is the directory symlinks.sh is in
 # assume library_file is in the dotfiles_dir folder
 [ -z ${dotfiles_dir} ] && dotfiles_dir="$(pwd)"
+[ -e "${LIBRARY_FILE}" ] || LIBRARY_FILE="$(find $HOME -name lib.sh)"
 if [ -z ${library_file} ]; then
 	[ -n ${LIBRARY_FILE} ] && library_file="${LIBRARY_FILE}"
 fi
@@ -51,8 +52,16 @@ fi
 [ -z ${config_dir} ] && config_dir="$HOME/.config"
 [ -z ${stuff_dir} ] && stuff_dir="$HOME/Stuff"
 
-# Make the directories in case they do not exist
-mkdir -pv ${config_dir} ${stuff_dir}
+# Make directories and files incase they do not exist
+mkdir -pv ${downloads_dir} \
+	${repos_dir} \
+	${projects_dir} \
+	${stuff_dir} \
+	${config_dir} \
+	${home_bin_dir} \
+	${shell_cache_dir} \
+[ -f "${shell_history_file}" ] || touch "${shell_history_file}"
+[ -f "${dotfiles_log_file}" ] || touch "${dotfiles_log_file}"
 
 # Link all files in home directory to user's home directory
 # https://stackoverflow.com/questions/3362920/get-just-the-filename-from-a-path-in-a-bash-script

@@ -14,15 +14,20 @@ debug_print() {
 
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	debug_print "bash"
-	# https://www.computerhope.com/unix/bash/shopt.htm
 	shopt -s autocd
 	shopt -s cdspell
 	shopt -s extglob
 	shopt -s histappend
 elif [ -n "$ZSH_VERSION" ]; then
 	debug_print "zsh"
-	# Needed for command substitution
+	# Do not write a duplicate event to the history file
+	setopt HIST_SAVE_NO_DUPS
+	# Needed for PS1 command substitution
 	setopt PROMPT_SUBST
+	# Enable autocompletion
+	autoload -U compinit; compinit -D
+	# Complete hidden files
+	_comp_options+=(globdots)
 elif [ -n "$KSH_VERSION" -o -n "$FCEDIT" ]; then
 	debug_print "ksh"
 elif [ -n "$shell" ]; then
@@ -43,12 +48,12 @@ fi
 # Username is retrieved by first checking '$USER' with a fallback
 # to the 'id -un' command.
 my_user="${USER:-$(id -un)}"
-[ "${my_user}" ] || my_user="UnknownUser"
+[ -z "${my_user}" ] && my_user="UnknownUser"
 
 my_host="${HOSTNAME}"
 # If the hostname is still not found, fallback to the contents of the
 # /etc/hostname file.
-[ "${my_host}" ] || read -r my_host < /etc/hostname
+[ -z "${my_host}" ] && read -r my_host < /etc/hostname
 
 my_pwd() {
 	if [ "${PWD#$HOME}" != "${PWD}" ]; then
@@ -98,31 +103,15 @@ parse_git_dirty() {
 }
 directory_info='$(my_pwd)$(parse_git_branch)'
 
-rgb_white="255;255;255"
-rgb_blue="0;0;150"
-check_color_support &&
-	text_color="$(esc_func ${rgb_fore}${rgb_white})" \
-	background_color="$(esc_func ${rgb_back}${rgb_blue})" \
-	text_color_two="$(esc_func ${rgb_fore}${rgb_blue})" \
-	background_color_two="$(esc_func ${rgb_back}${rgb_white})" \
-	text_color_end="$(esc_func ${rbg_fore}${rbg_white})" \
-	background_color_end="$(esc_func ${rgb_back}${rbg_black})" ||
-	text_color="${four_bit_cyan_fore}" \
-	background_color="" \
-	text_color_two="${text_color}" \
-	background_color_two=""
-	text_color_end="${text_color}" \
-	background_color_end=""
-first_prompt="$(text_effect_code bold)${text_color}${background_color}"
-second_prompt="${background_color_two}${text_color_two}"
-end_prompt="$(text_effect_code reset)${text_color_end}$(text_effect_code reset)"
-
 PS1="[${my_user}@${my_host} ${directory_info}]\$ "
 
 # History Settings
 HISTCONTROL=ignoreboth
+HISTFILE="${shell_history_file}"
+HISTSIZE=1000 # Maximum events for internal history
+SAVEHIST=1000 # Maximum events in history file
 
-# Source aliasrc file
+# Source alias file
 source_file "${aliasrc_file}"
 
 unset SSH_ASKPASS

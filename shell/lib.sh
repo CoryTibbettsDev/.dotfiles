@@ -1,17 +1,29 @@
 #!/bin/sh
 
-dotfiles_dir="$HOME/.dotfiles"
+# Standard directories
 downloads_dir="$HOME/Downloads"
+config_dir="$HOME/.config"
+cache_dir="$HOME/.cache"
+
+# My custom directories
+dotfiles_dir="$HOME/.dotfiles"
 stuff_dir="$HOME/Stuff"
 wallpaper_dir="$stuff_dir/Wallpaper"
 repos_dir="$HOME/Repositories"
 projects_dir="$HOME/Projects"
-config_dir="$HOME/.config"
+
+home_bin_dir="$HOME/.local/bin"
+
 shell_dir="${config_dir}/shell"
+shell_cache_dir="${cache_dir}/shell"
 shellrc_file="${shell_dir}/shellrc.sh"
 aliasrc_file="${shell_dir}/aliasrc.sh"
+shell_history_file="${shell_cache_dir}/history"
 
-dotfiles_log_file="$HOME/.local/log/dotfiles.log"
+dotfiles_cache_dir="${cache_dir}/dotfiles"
+dotfiles_log_file="${dotfiles_cache_dir}/dotfiles.log"
+
+notes_dir="${stuff_dir}/notes"
 
 su_cmd="sudo"
 text_editor="nvim"
@@ -104,7 +116,7 @@ four_bit_white_back="$(esc_func 47)"
 
 # Append message with date to dotfiles_log_file
 dotfiles_log_message() {
-	mkdir $(dirname ${dotfiles_log_file}) && touch ${dotfiles_log_file}
+	mkdir -p $(dirname ${dotfiles_log_file}) && touch ${dotfiles_log_file}
 	printf "[%s] %s\n" "$(date)" "$1" 2>> ${dotfiles_log_file} >&2
 }
 
