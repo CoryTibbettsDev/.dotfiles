@@ -104,8 +104,8 @@ yes_or_no "Install acpi?" && packages+=(acpi)
 yes_or_no "Install broadcom-wl?" && packages+=(broadcom-wl)
 printf "Installing Packages\n"
 for pkg in "${packages[@]}"; do
-	printf "Installing $pkg\n"
-	${su_cmd} pacman -S "$pkg" --noconfirm
+	printf "Installing %s\n" "${pkg}"
+	${su_cmd} pacman -S "${pkg}" --noconfirm
 done
 
 # ytfzf

@@ -64,7 +64,7 @@ my_pwd() {
 }
 
 parse_git_branch() {
-	branch="$(git branch 2> /dev/null | sed 's/^* //')"
+	branch="$(git branch --show-current 2> /dev/null | sed 's/^* //')"
 	if [ ! "${branch}" = "" ]; then
 		stat="$(parse_git_dirty)"
 		printf " %s%s" "${branch}" "${stat}"

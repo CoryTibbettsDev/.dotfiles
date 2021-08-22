@@ -13,6 +13,7 @@ Collection of links and information for the shell scripting in this repo and in 
 [POSIX Shell Cheat Sheet](https://steinbaugh.com/posts/posix.html)
 [printf With Variables](https://github.com/koalaman/shellcheck/wiki/SC2059)
 [Great Stackexchange Answer on Control Operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators/159514#159514)
+[POSIX Shell Tricks](https://www.etalabs.net/sh_tricks.html)
 
 ## ZSH
 [Basic zsh Configuration](https://thevaluable.dev/zsh-install-configure-mouseless/)
