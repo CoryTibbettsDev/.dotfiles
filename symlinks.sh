@@ -59,34 +59,27 @@ mkdir -pv ${downloads_dir} \
 	${stuff_dir} \
 	${config_dir} \
 	${home_bin_dir} \
-	${shell_cache_dir} \
+	${shell_cache_dir}
 [ -f "${shell_history_file}" ] || touch "${shell_history_file}"
 [ -f "${dotfiles_log_file}" ] || touch "${dotfiles_log_file}"
 
 # Link all files in home directory to user's home directory
-# https://stackoverflow.com/questions/3362920/get-just-the-filename-from-a-path-in-a-bash-script
-# https://stackoverflow.com/questions/2437452/how-to-get-the-list-of-files-in-a-directory-in-a-shell-script
 for file in home/*; do
-	real_file="${dotfiles_dir}/${file}"
-	dot_file="$HOME/.$(basename ${file})"
-	verbose_link "${real_file}" "${dot_file}"
+	verbose_link "${dotfiles_dir}/${file}" "$HOME/.$(basename ${file})"
 done
 # Run xrdb to load .Xresources if file exists
 [ -f $HOME/.Xresources ] && xrdb -merge "$HOME/.Xresources"
 
 # Link all files in config directory to user's config directory
 for file in config/*; do
-	real_file="${dotfiles_dir}/${file}"
-	config_file="${config_dir}/$(basename ${file})"
-	verbose_link "${real_file}" "${config_file}"
+	verbose_link "${dotfiles_dir}/${file}" "${config_dir}/$(basename ${file})"
 done
 
 # Copy Wallpapers
-cp -vrn Wallpaper/ ${stuff_dir}
+cp -vrn ${dotfiles_dir}/Wallpaper/ ${stuff_dir}
 
 link_config() {
-	real_dir="${dotfiles_dir}/$1"
-	verbose_link "${real_dir}" "${config_dir}"
+	verbose_link "${dotfiles_dir}/$1" "${config_dir}"
 }
 link_config shell
 link_config awesome
@@ -100,41 +93,25 @@ link_config zathura
 link_config luakit
 
 # Link firefox user.js
-firefox_user_js="${dotfiles_dir}/firefox/user.js"
-known_firefox_profile_dir_suffixes=(
-	release
-	esr
-)
-for suffix in "${known_firefox_profile_dir_suffixes[@]}"; do
+# Find firefox profile directory with suffix from argument 1
+firefox_profile_dir=
+get_firefox_profile_dir() {
 	# Check to make sure profile dir is not set already
 	[ -z ${firefox_profile_dir} ] &&
-		firefox_profile_dir="$(find $HOME/.mozilla/firefox/ -type d -path *.default-${suffix})"
-	# We found the directory break out of loop
-	[ -n ${firefox_profile_dir} ] && break
-done
+		firefox_profile_dir="$(find $HOME/.mozilla/firefox/ -type d -path *.default-${1})"
+}
+# Try all the firefox profile directory suffixes I know
+get_firefox_profile_dir release
+get_firefox_profile_dir esr
 # If we found the right directory then do file_operation_cmd on user.js
-if [ -n ${firefox_profile_dir} ]; then
-	${file_operation_cmd} ${firefox_user_js} ${firefox_profile_dir} &&
-		printf "%s to %s\n" "${firefox_profile_dir}" "${firefox_user_js}" ||
-		printf "%s failed to %s\n" "${firefox_profile_dir}" "${firefox_user_js}"
-fi
+[ -n ${firefox_profile_dir} ] &&
+	verbose_link ${firefox_user_js} ${firefox_profile_dir} ||
+	printf "Could not find firefox profile directory\n"
 
 # Link shell agnostic rc and profile files to shell specific rc and profile files
 # dash does not seem to read .dashrc or an equivalent but appears to read .profile
-shell_specific_rc=(
-	bashrc
-	zshrc
-	kshrc
-)
-for file in "${shell_specific_rc[@]}"; do
-	link_file="$HOME/.${file}"
-	verbose_link "${shellrc_file}" "${link_file}"
-done
-shell_specific_profile=(
-	bash_profile
-	zprofile
-)
-for file in "${shell_specific_profile[@]}"; do
-	link_file="$HOME/.${file}"
-	verbose_link "$HOME/.profile" "${link_file}"
-done
+verbose_link "${shellrc_file}" "$HOME/.bashrc"
+verbose_link "${shellrc_file}" "$HOME/.zshrc"
+verbose_link "${shellrc_file}" "$HOME/.kshrc"
+verbose_link "$HOME/.profile" "$HOME/.bash_profile"
+verbose_link "$HOME/.profile" "$HOME/.zprofile"

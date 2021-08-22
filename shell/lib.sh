@@ -23,6 +23,8 @@ shell_history_file="${shell_cache_dir}/history"
 dotfiles_cache_dir="${cache_dir}/dotfiles"
 dotfiles_log_file="${dotfiles_cache_dir}/dotfiles.log"
 
+firefox_user_js="${dotfiles_dir}/firefox/user.js"
+
 notes_dir="${stuff_dir}/notes"
 
 su_cmd="sudo"

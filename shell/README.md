@@ -45,6 +45,8 @@ Collection of links and information for the shell scripting in this repo and in 
 [Bash-Hackers Wiki On Debugging](https://wiki.bash-hackers.org/scripting/debuggingtips)
 
 ## General
+[Get Filename From Path](https://stackoverflow.com/questions/3362920/get-just-the-filename-from-a-path-in-a-bash-script)
+[Get List of Files in Directory](https://stackoverflow.com/questions/2437452/how-to-get-the-list-of-files-in-a-directory-in-a-shell-script)
 [Loop Through All Arguments](https://unix.stackexchange.com/questions/79343/how-to-loop-through-arguments-in-a-bash-script)
 [Useful Ways to Detect Commands Failing](https://stackoverflow.com/questions/13793836/how-to-detect-if-a-git-clone-failed-in-a-bash-script)
 [Prompt for Yes or No](https://stackoverflow.com/questions/226703/how-do-i-prompt-for-yes-no-cancel-input-in-a-linux-shell-script)

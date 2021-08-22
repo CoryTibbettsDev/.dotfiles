@@ -52,6 +52,7 @@ alias mc='make clean'
 
 # Alias for YouTube command line search tool
 alias yt='ytfzf'
+alias yt='ytfzf -S --subs=5'
 
 alias youtube-dl='youtube-dl --no-call-home'
 alias dl='youtube-dl'
