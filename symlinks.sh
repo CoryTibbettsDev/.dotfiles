@@ -91,6 +91,7 @@ link_config mpv
 link_config "gtk-3.0"
 link_config zathura
 link_config luakit
+link_config feh
 
 # Link firefox user.js
 # Find firefox profile directory with suffix from argument 1

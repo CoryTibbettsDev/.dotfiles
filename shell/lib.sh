@@ -1,5 +1,7 @@
 #!/bin/sh
 
+current_shell=
+
 # Standard directories
 downloads_dir="$HOME/Downloads"
 config_dir="$HOME/.config"
@@ -30,6 +32,7 @@ notes_dir="${stuff_dir}/notes"
 su_cmd="sudo"
 text_editor="nvim"
 visual_editor="${text_editor}"
+wallpaper_set_cmd="feh --no-fehbg --bg-fill --recursive --randomize ${wallpaper_dir}"
 window_manager="awesome"
 screen_locker="i3lock"
 terminal_file_manager="cfm"

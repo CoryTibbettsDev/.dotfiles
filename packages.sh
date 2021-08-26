@@ -29,6 +29,8 @@ int() {
 	printf "Installing %s\n" "${1}"
 	${su_cmd} pacman -S "${1}" --noconfirm
 }
+# Previously had and array that I looped through to install packages but
+# arrays are not POSIX compliant and break some shells so this is my solution
 printf "Installing Packages\n"
 # Documentation
 int man-pages
@@ -62,6 +64,8 @@ int firefox
 int luakit
 # Firewall
 int ufw
+# Password-store
+int pass
 # Download videos
 int youtube-dl
 # Video player
@@ -133,6 +137,5 @@ ${su_cmd} systemctl enable ufw
 firewall_status="$(${su_cmd} ufw status)"
 [ "${firewall_status}" = "Status: inactive" ] &&
 	dotfiles_log_message "Firewall(ufw) not active"
-
 
 sh ${setup_file} || warn "${setup_file} failed"

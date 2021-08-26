@@ -25,6 +25,9 @@ alias e='${EDITOR}'
 
 alias grep='grep --color=auto'
 alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
+
+# Delete shell history(not cleared for current shell)
+alias clean=': > ${HISTFILE}'
 # Use fc instead of history as it is POSIX compliant
 alias hgrep='fc -l -${HISTSIZE} | grep'
 alias hg='hgrep'
@@ -73,6 +76,9 @@ alias z='zathura'
 # Screen locker
 alias lock='${screen_locker}'
 
+# Change wallpaper
+alias cw='${wallpaper_set_cmd}'
+
 # ex - archive extractor
 # usage: ex <file>
 ex () {
@@ -100,14 +106,15 @@ ex () {
 # Note-taking system
 # https://old.reddit.com/r/linux/comments/nypc56/the_most_simple_way_to_take_notes/
 init_notes() {
-	[ -d ${notes_dir} ] ||
+	if [ ! -d ${notes_dir} ]; then
 		printf "%s was never created. Creating now.\n" "${notes_dir}"
-	mkdir -pv ${notes_dir}
+		mkdir -pv ${notes_dir}
+	fi
 }
 # note
 n() {
 	init_notes
-	$EDITOR "${notes_dir}/$*"
+	$EDITOR "${notes_dir}/$1"
 }
 # notes list
 nls() {
@@ -122,12 +129,12 @@ nf() {
 # notes grep
 ng() {
 	init_notes
-	grep -C 5 "$*" ${notes_dir}/*
+	grep --color=auto -R -n -C 5 "$*" ${notes_dir}/*
 }
 # note remove
 nr() {
 	init_notes
-	for i in "$@"; do
-		rm -v ${notes_dir}/${i}
+	for file in "$@"; do
+		rm -vi ${notes_dir}/${file}
 	done
 }

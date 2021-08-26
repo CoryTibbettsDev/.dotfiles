@@ -1,0 +1,6 @@
+# keys
+# This preserves the original binding of the arrow keys and enables hjkl
+zoom_in Up j
+zoom_out Down k
+next_img Left h
+prev_img Right l

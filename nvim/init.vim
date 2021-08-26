@@ -124,6 +124,10 @@ nnoremap <C-p> "+p
 " Yank into system clipboard
 nnoremap <C-y> "+y
 
+" Insert a single character from normal mode
+nnoremap <C-i> i_<Esc>r
+nnoremap <C-a> a_<Esc>r
+
 nnoremap <leader>m :make<CR>
 nnoremap <leader>t :make test<CR>
 
@@ -138,16 +142,6 @@ noremap tk :tabnext<CR>
 noremap tj :tabprev<CR>
 noremap th :tabfirst<CR>
 noremap tl :tablast<CR>
-" Remaps for managing windows
-noremap <leader>h :wincmd h<CR>
-noremap <leader>j :wincmd j<CR>
-noremap <leader>k :wincmd k<CR>
-noremap <leader>l :wincmd l<CR>
-noremap <leader>c :wincmd c<CR>
-noremap <leader>+ :vertical resize +5<CR>
-noremap <leader>- :vertical resize -5<CR>
-noremap <leader>pv :wincmd v<CR>
-noremap <leader>pn :wincmd n<CR>
 " Open Netrw and resize window
 noremap <leader>f :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 
@@ -184,15 +178,6 @@ function! WritingMode()
 	" set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
 	" complete+=s makes autocompletion search the thesaurus
 	" set complete+=s
-endfunction
-
-" Get highlight group of the word under cursor
-nmap <leader>hi :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-    if !exists("*synstack")
-        return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
 " }}}
 

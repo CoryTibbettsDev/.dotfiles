@@ -1,6 +1,10 @@
 # Shell README.ms
 Collection of links and information for the shell scripting in this repo and in general
 
+All shell scripts in this repo attempt to be POSIX compliant.
+They are tested using dash: the Debian Almquist Shell.
+There may be still be errors or bashisms in them however so be careful.
+
 # Links
 
 ## Security

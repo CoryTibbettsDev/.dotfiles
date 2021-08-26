@@ -5,7 +5,7 @@
 . "${LIBRARY_FILE}"
 
 # Set Wallpaper
-feh --no-fehbg --bg-fill --recursive --randomize $wallpaper_dir &
+${wallpaper_set_cmd} &
 
 # Set Xmodmap if file exists
 [ -f $HOME/.Xmodmap ] && xmodmap $HOME/.Xmodmap
