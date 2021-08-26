@@ -6,51 +6,37 @@
 file_operation_cmd="ln -sf"
 verbose_link() {
 	${file_operation_cmd} ${1} ${2} &&
-		printf "${2} to ${1}\n" ||
-		printf "${2} failed to ${1}\n"
+		printf "%s to %s\n" "${2}" "${1}" ||
+		printf "%s failed to %s\n" "${2}" "${1}"
 }
 
-parse_opt() {
-	# The first arg is the option
-	opt="$1"
-	# Second arg is the optarg
-	optarg="$2"
+while getopts "hd:l:" opt; do
 	case ${opt} in
-		h|help|?)
-			printf "%s: Usage: [--library-file=<file>] [--dotfiles=dir=<directory>]\n" "$0"
+		h)
+			printf "%s: Usage: [-l <file>] [-d <directory>]\n" "$0"
 			exit 0
 			;;
-		library-file) library_file="${optarg}";;
-		dotfiles-dir) dotfiles_dir="${optarg}";;
+		l) library_file="${OPTARG}" ;;
+		d) dotfiles_dir="${OPTARG}" ;;
 	esac
-}
-
-while getopts ":-:h" OPT; do
-	# when there is no = in OPTARG and it's a longopt, OPTARG will = OPT
-		if [ "$OPT" = "-" ]; then
-			OPT="${OPTARG%%=*}"
-			OPTARG="${OPTARG#*=}"
-			[ "$OPTARG" = "$OPT" ] && OPTARG=""
-		fi
-	parse_opt "$OPT" "$OPTARG"
 done
 
 # Make sure dotfiles_dir and library_file variables are set
 # If they are not give them default values
 # assume dotfiles_dir is the directory symlinks.sh is in
-# assume library_file is in the dotfiles_dir folder
-[ -z ${dotfiles_dir} ] && dotfiles_dir="$(pwd)"
+# Try and fine library_file
+[ -z "${dotfiles_dir}" ] && dotfiles_dir="$(pwd)"
 [ -e "${LIBRARY_FILE}" ] || LIBRARY_FILE="$(find $HOME -name lib.sh)"
-if [ -z ${library_file} ]; then
-	[ -n ${LIBRARY_FILE} ] && library_file="${LIBRARY_FILE}"
-fi
+[ -z "${library_file}" ] &&
+	[ -n "${LIBRARY_FILE}" ] && library_file="${LIBRARY_FILE}"
+
 # Last check to make sure directory and file actually exist
-[ -d ${dotfiles_dir} ] || { printf "dotfiles_dir does not exist\n"; exit 1; }
-[ -e ${library_file} ] || { printf "library_file does not exist\n"; exit 1; }
+[ -d "${dotfiles_dir}" ] || { printf "dotfiles_dir does not exist\n"; exit 1; }
+[ -e "${library_file}" ] || { printf "library_file does not exist\n"; exit 1; }
 . "${library_file}"
 
-[ -z ${config_dir} ] && config_dir="$HOME/.config"
-[ -z ${stuff_dir} ] && stuff_dir="$HOME/Stuff"
+[ -z "${config_dir}" ] && config_dir="$HOME/.config"
+[ -z "${stuff_dir}" ] && stuff_dir="$HOME/Stuff"
 
 # Make directories and files incase they do not exist
 mkdir -pv ${downloads_dir} \
