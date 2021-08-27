@@ -2,7 +2,6 @@
 Collection of links and information for the shell scripting in this repo and in general
 
 All shell scripts in this repo attempt to be POSIX compliant.
-They are tested using dash: the Debian Almquist Shell.
 There may be still be errors or bashisms in them however so be careful.
 
 # Links
@@ -14,10 +13,15 @@ There may be still be errors or bashisms in them however so be careful.
 [Stackoverflow Thread On When You Might Want to Not Quote Variables](https://stackoverflow.com/questions/32674809/is-there-any-reason-not-to-quote-variables)
 
 ## POSIX Info
+[Pure sh Bible](https://github.com/dylanaraps/pure-sh-bible/blob/master/README.md)
 [POSIX Shell Cheat Sheet](https://steinbaugh.com/posts/posix.html)
 [printf With Variables](https://github.com/koalaman/shellcheck/wiki/SC2059)
 [Great Stackexchange Answer on Control Operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators/159514#159514)
 [POSIX Shell Tricks](https://www.etalabs.net/sh_tricks.html)
+
+## I/O Redirection
+[tldp.org Chapter 20. I/O Redirection](https://tldp.org/LDP/abs/html/io-redirection.html)
+[bash-hackers.org Redirection Tutorial](https://wiki.bash-hackers.org/howto/redirection_tutorial)
 
 ## ZSH
 [Basic zsh Configuration](https://thevaluable.dev/zsh-install-configure-mouseless/)
@@ -26,14 +30,14 @@ There may be still be errors or bashisms in them however so be careful.
 ## BASH
 [shopt bash Builtin](https://www.computerhope.com/unix/bash/shopt.htm)
 
+## Escape and Terminal Control Sequences
+[List of Escape and Terminal Control Sequences](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm)
+[Vim Focused Page On Controlling Terminal Cursor](https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html)
+
 ## Colors
 [List of ANSI Color Escape Sequences](https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences)
 [Test Terminal Color Capabilities](https://github.com/termstandard/colors)
 [Test Terminal Color Capabilities 2](https://unix.stackexchange.com/questions/450365/check-if-terminal-supports-24-bit-true-color)
-
-## Escape and Terminal Control Sequences
-[List of Escape and Terminal Control Sequences](https://www2.ccs.neu.edu/research/gpc/VonaUtils/vona/terminal/vtansi.htm)
-[Vim Focused Page On Controlling Terminal Cursor](https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html)
 
 ## PS1
 [Terminal Output Not Wrapping Properly Because of PS1](https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly)
@@ -49,6 +53,8 @@ There may be still be errors or bashisms in them however so be careful.
 [Bash-Hackers Wiki On Debugging](https://wiki.bash-hackers.org/scripting/debuggingtips)
 
 ## General
+[cyberciti.biz Handling Filenames With Spaces Works With Special Characters Too](https://www.cyberciti.biz/tips/handling-filenames-with-spaces-in-bash.html)
+[How to do Arithmatic Operations](https://bash.cyberciti.biz/guide/Perform_arithmetic_operations)
 [Get Filename From Path](https://stackoverflow.com/questions/3362920/get-just-the-filename-from-a-path-in-a-bash-script)
 [Get List of Files in Directory](https://stackoverflow.com/questions/2437452/how-to-get-the-list-of-files-in-a-directory-in-a-shell-script)
 [Loop Through All Arguments](https://unix.stackexchange.com/questions/79343/how-to-loop-through-arguments-in-a-bash-script)

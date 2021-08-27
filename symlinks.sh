@@ -46,15 +46,15 @@ mkdir -pv ${downloads_dir} \
 	${config_dir} \
 	${home_bin_dir} \
 	${shell_cache_dir}
-[ -f "${shell_history_file}" ] || touch "${shell_history_file}"
-[ -f "${dotfiles_log_file}" ] || touch "${dotfiles_log_file}"
+[ -e "${shell_history_file}" ] || touch "${shell_history_file}"
+[ -e "${dotfiles_log_file}" ] || touch "${dotfiles_log_file}"
 
 # Link all files in home directory to user's home directory
 for file in home/*; do
 	verbose_link "${dotfiles_dir}/${file}" "$HOME/.$(basename ${file})"
 done
 # Run xrdb to load .Xresources if file exists
-[ -f $HOME/.Xresources ] && xrdb -merge "$HOME/.Xresources"
+[ -e $HOME/.Xresources ] && xrdb -merge "$HOME/.Xresources"
 
 # Link all files in config directory to user's config directory
 for file in config/*; do

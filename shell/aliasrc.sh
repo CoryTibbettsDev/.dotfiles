@@ -23,11 +23,15 @@ alias mkd='mkdir -pv'
 # e is easy to reach and I remember with e for edit like in vim
 alias e='${EDITOR}'
 
-alias grep='grep --color=auto'
-alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
-
+# : > is a dummy input that does not actually get placed into the file
 # Delete shell history(not cleared for current shell)
 alias clean=': > ${HISTFILE}'
+# Delete log file history
+alias clean-log=': > ${dotfiles_log_file}'
+
+alias grep='grep --color=auto'
+# source grep
+alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 # Use fc instead of history as it is POSIX compliant
 alias hgrep='fc -l -${HISTSIZE} | grep'
 alias hg='hgrep'
@@ -36,14 +40,34 @@ alias diff='diff --color=auto'
 
 alias less='less -R'
 
-alias free='free -mht'
+# human readable free
+alias hfree='free -mht'
 
+# my find
 # Custom find command because it is annoying to type everytime
 mf() {
 	find . -iname "*$1*"
 }
 
-# Cactus File Manager
+# source lin count
+# Line count of all files in directory
+slc() {
+	SAVEIFS="$IFS"
+	IFS="$(printf "\n\b")"
+	[ -n "${1}" ] && dir="${1}" || dir="./"
+	# Need to set to 0 or otherwise there is an error when adding
+	total_line_count="0"
+	for file in $(find ${dir} -type d \( -name .git -o -name .svn -o -name CVS \) -prune -false -o -type f); do
+		word_count_cmd="$(wc -l "${file}")"
+		# Remove everything after the first space so we have just the number
+		line_count="$(printf "%s" "${word_count_cmd}" | sed 's/ .*$//')"
+		total_line_count="$((  ${total_line_count} + ${line_count} ))"
+		printf "Line count: %s\n" "${word_count_cmd}"
+	done
+	printf "Total line count in %s: %s\n" "${dir}" "${total_line_count}"
+	IFS="$SAVEIFS"
+}
+
 alias f='${terminal_file_manager}'
 
 alias g='git'

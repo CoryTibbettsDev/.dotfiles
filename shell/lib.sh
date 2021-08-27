@@ -140,9 +140,9 @@ source_file() {
 	if [ -e "${1}" ]; then
 		. "${1}" &&
 			return 0 ||
-			{ dotfiles_log_message "Found file %s, but couldn't source" "$1"; return 1; }
+			{ dotfiles_log_message "Found file ${1}, but couldn't source"; return 1; }
 	else
-		dotfiles_log_message "Fail to source file: %s, does not exist" "${1}"
+		dotfiles_log_message "Fail to source file: ${1}, does not exist" "${1}"
 		return 1
 	fi
 }

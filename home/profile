@@ -21,11 +21,6 @@ export VISUAL="${visual_editor}"
 # source our own unique one anyway
 . "${shellrc_file}"
 
-# Set PATH so it includes private bin if it exists
-if [ -d "${home_bin_dir}" ]; then
-	export PATH="$PATH:${home_bin_dir}"
-fi
-
 # Automatically startx on login
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
 	exec startx
