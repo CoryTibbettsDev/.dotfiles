@@ -43,12 +43,12 @@ int neovim
 # Xserver windowing
 int xorg
 int xorg-xinit
+# xorg-server-xephyr # Run nested xorg server for developement
 # Fonts
 int noto-fonts-cjk
 int noto-fonts-emoji
 # Clipboard
 int xclip
-# xorg-server-xephyr # Run nested xorg server for developement
 # Window Manager
 int awesome
 # Version Control
@@ -81,8 +81,6 @@ int zathura # https://wiki.archlinux.org/index.php/Zathura
 int zathura-pdf-mupdf # PDF EPUB XPS support
 # Mount External Devices
 int udisks2
-# Update XDG Dirs annoying af
-# xdg-user-dirs
 # GTK Theme
 int arc-solid-gtk-theme
 # Raster Image Editor
@@ -90,17 +88,12 @@ int arc-solid-gtk-theme
 # Vector Image Editor
 # int inkscape
 
-int ## KVM
-int ## ebtables and dnsmasq for the default NAT/DHCP network
-int ## bridge-utils can create bridge networks
-int ## openbsd-netcat for remote SSH management.
+## KVM
 int qemu # Quick EMUlator
-int virt-manager # Manages the virtual machines
-int vde2 # VDEv2: Virtual Distributed Ethernet for virtual machine
-int ebtables # Ethernet bridge frame table administration
+int openbsd-netcat # Read write to TCP UDP connections made by OpenBSD
 int dnsmasq # DNS forwarder and DHCP server
 int bridge-utils # Utilities for configuring the Linux ethernet bridge
-int openbsd-netcat # Read write to TCP UDP connections from OpenBSD
+int virt-manager # Manages the virtual machines
 
 ## Steam and drivers
 # https://github.com/lutris/docs/blob/master/InstallingDrivers.md

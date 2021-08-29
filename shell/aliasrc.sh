@@ -30,7 +30,6 @@ alias clean=': > ${HISTFILE}'
 alias clean-log=': > ${dotfiles_log_file}'
 
 alias grep='grep --color=auto'
-# source grep
 alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 # Use fc instead of history as it is POSIX compliant
 alias hgrep='fc -l -${HISTSIZE} | grep'
@@ -46,18 +45,18 @@ alias hfree='free -mht'
 # my find
 # Custom find command because it is annoying to type everytime
 mf() {
-	find . -iname "*$1*"
+	find . -iname "*${1}*"
 }
 
-# source lin count
+# source line count
 # Line count of all files in directory
 slc() {
 	SAVEIFS="$IFS"
 	IFS="$(printf "\n\b")"
-	[ -n "${1}" ] && dir="${1}" || dir="./"
+	[ -n "${1}" ] && dir="${1}" || dir="."
 	# Need to set to 0 or otherwise there is an error when adding
 	total_line_count="0"
-	for file in $(find ${dir} -type d \( -name .git -o -name .svn -o -name CVS \) -prune -false -o -type f); do
+	for file in $(find ${dir} -type d \( -name .git -o -name git -o -name .svn -o -name CVS \) -prune -false -o -type f \! -iname *.jpg \! -iname *.png); do
 		word_count_cmd="$(wc -l "${file}")"
 		# Remove everything after the first space so we have just the number
 		line_count="$(printf "%s" "${word_count_cmd}" | sed 's/ .*$//')"
@@ -86,7 +85,6 @@ alias dl='youtube-dl'
 alias dla='youtube-dl -x -f bestaudio/best'
 alias dlmp3='youtube-dl --extract-audio --audio-format mp3'
 
-# https://old.reddit.com/r/archlinux/comments/5m2os3/mpv_is_it_possible_to_change_video_quality_while/
 alias mpv720='mpv --ytdl-format=22'
 alias mpv7='mpv720'
 alias mpv360='mpv --ytdl-format=18'
@@ -105,7 +103,7 @@ alias cw='${wallpaper_set_cmd}'
 
 # ex - archive extractor
 # usage: ex <file>
-ex () {
+ex() {
 	if [ -f $1 ]; then
 		case $1 in
 			*.tar.bz2) tar xjf $1;;
