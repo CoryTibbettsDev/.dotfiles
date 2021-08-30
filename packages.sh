@@ -58,7 +58,7 @@ int git
 int alsa
 int alsa-utils
 # For naviagting source code with vim
-ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
+int ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
 # Web browser
 int firefox
 int luakit

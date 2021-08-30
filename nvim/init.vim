@@ -4,7 +4,8 @@
 " These settings are on by default in nvim
 if !has('nvim')
 	set nocompatible
-	set backspace=indent,eol,start
+	set encoding=utf-8
+	set backspace=indent
 	set visualbell
 	set mouse=a
 	set autoread
@@ -15,8 +16,6 @@ endif
 " }}}
 
 " {{{ Basic Settings
-set encoding=utf-8
-
 " Remember unloaded buffers
 set hidden
 
@@ -55,8 +54,7 @@ set noswapfile
 set nobackup
 set nowrap
 set viminfo=
-" Modelines have historically been a source of security vulnerabilities.
-" As such, it may be a good idea to disable them.
+" Modelines have historically been a source of security vulnerabilities
 set nomodeline
 
 " How tabs are displayed and inserted
@@ -136,24 +134,18 @@ nnoremap <leader>t :make test<CR>
 nnoremap <C-L> :nohl<CR><C-L>
 
 " Remaps for managing tabs
-noremap tn :tabnew<Space>
-noremap tc :tabclose<CR>
-noremap tk :tabnext<CR>
-noremap tj :tabprev<CR>
-noremap th :tabfirst<CR>
-noremap tl :tablast<CR>
-" Open Netrw and resize window
-noremap <leader>f :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+noremap <leader>n :tabnew<Space>
+noremap <leader>c :tabclose<CR>
+noremap <leader>k :tabnext<CR>
+noremap <leader>j :tabprev<CR>
+noremap <leader>h :tabfirst<CR>
+noremap <leader>l :tablast<CR>
 
 " Insert c multiline comment like /* */
 " Insert comment into normal mode move left 2 spaces into insert mode
 inoremap <C-d> /*  */<ESC>2hi
-
 " Comment all selected lines in visual mode with //
 vnoremap <Leader>d :s/^/\/\//<bar>nohlsearch<CR>
-
-" Delete visual selection and paste it above the line it was previously under
-vnoremap <leader>p "_dP
 
 " Insert license header in file
 " https://www.gilesorr.com/blog/vimscript-insert.html
@@ -179,13 +171,6 @@ function! WritingMode()
 	" complete+=s makes autocompletion search the thesaurus
 	" set complete+=s
 endfunction
-" }}}
-
-" {{{ Netrw File Browser(Default Plugin)
-" Disable netrw history
-let g:netrw_dirhistmax = 0
-" Tree like listing
-let g:netrw_liststyle = 3
 " }}}
 
 " {{{ Status Line
@@ -218,6 +203,32 @@ set statusline+=\ [%b][0x%B] " ASCII and byte code under cursor
 set statusline+=Line:%l/%L[%p%%] " line X of Y [percent of file]
 set statusline+=\ Col:%c " current column
 set statusline+=\ Buf:%n " Buffer number
+" }}}
+
+" {{{ Filetype Specific Settings
+" https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width
+autocmd FileType c,python,haskell,sh,bash,zsh,tcsh,csh setlocal colorcolumn=80
+
+" https://lisp-lang.org/style-guide/
+" https://google.github.io/styleguide/lispguide.xml
+autocmd FileType lisp setlocal colorcolumn=100
+
+" PEP 8, the style guide for python, specifies the use of
+" spaces aka softtabs this is because they are morons
+" Haskell compiler (GHC) is picky about whitespace
+" using four spaces as a tab aka softtabs is generally safer and easier
+" Settings for softtabs
+autocmd FileType python,haskell set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+
+" Settings for hardtabs
+autocmd FileType c,sh,bash,zsh,tcsh,csh set tabstop=4 shiftwidth=4
+" }}}
+
+" {{{ Plugins
+" Disable netrw history (cuz it's really annoying)
+let g:netrw_dirhistmax = 0
+" Tree like listing
+let g:netrw_liststyle = 3
 " }}}
 
 " {{{ My Custom Plugins

@@ -1,26 +1,18 @@
 # shellrc.sh
 # Symlinked to all shell specific rc files
 
-# dotfiles_debug="true"
-
-debug_print() {
-	[ "${dotfiles_debug}" = true ] && printf "%s\n" "${1}"
-}
-
 # Make sure LIBRARY_FILE is there and source it
 [ -e "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	{ debug_shellrc="true"; debug_print "LIBRARY_FILE failed -e check"; }
+	{ printf "LIBRARY_FILE failed -e check"; return; }
 
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
-	debug_print "bash"
 	current_shell="bash"
 	shopt -s autocd
 	shopt -s cdspell
 	shopt -s extglob
 	shopt -s histappend
 elif [ -n "$ZSH_VERSION" ]; then
-	debug_print "zsh"
 	current_shell="zsh"
 	# Do not write a duplicate event to the history file
 	setopt HIST_SAVE_NO_DUPS
@@ -31,21 +23,16 @@ elif [ -n "$ZSH_VERSION" ]; then
 	# Complete hidden files
 	_comp_options+=(globdots)
 elif [ -n "$KSH_VERSION" -o -n "$FCEDIT" ]; then
-	debug_print "ksh"
 	current_shell="ksh"
 elif [ -n "$shell" ]; then
-	debug_print "csh or tcsh"
 	if [ -n "$version" ]; then
-		debug_print "tcsh"
 		current_shell="tcsh"
 		return
 	else
-		debug_print "csh"
 		current_shell="csh"
 		return
 	fi
 else
-	debug_print "Could be the bourne shell"
 	current_shell="sh"
 	return
 fi

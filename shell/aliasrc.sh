@@ -23,12 +23,6 @@ alias mkd='mkdir -pv'
 # e is easy to reach and I remember with e for edit like in vim
 alias e='${EDITOR}'
 
-# : > is a dummy input that does not actually get placed into the file
-# Delete shell history(not cleared for current shell)
-alias clean=': > ${HISTFILE}'
-# Delete log file history
-alias clean-log=': > ${dotfiles_log_file}'
-
 alias grep='grep --color=auto'
 alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 # Use fc instead of history as it is POSIX compliant
@@ -48,15 +42,27 @@ mf() {
 	find . -iname "*${1}*"
 }
 
+# : > is a dummy input that does not actually get placed into the file
+# Delete shell history(not cleared for current shell)
+alias clean=': > ${HISTFILE}'
+# Delete log file history
+alias clean-log=': > ${dotfiles_log_file}'
+
 # source line count
 # Line count of all files in directory
 slc() {
+	# Adding \b to IFS is necessary so files found with the find command that
+	# contain spaces or other special characters are not cut off by said special
+	# characters. For example a file named hello\ world.txt would be read as
+	# wc -l hello instead of wc -l hello\ world.txt
 	SAVEIFS="$IFS"
 	IFS="$(printf "\n\b")"
 	[ -n "${1}" ] && dir="${1}" || dir="."
 	# Need to set to 0 or otherwise there is an error when adding
 	total_line_count="0"
-	for file in $(find ${dir} -type d \( -name .git -o -name git -o -name .svn -o -name CVS \) -prune -false -o -type f \! -iname *.jpg \! -iname *.png); do
+	# -false is necessary after -prune so the directories themselves are ignored
+	# as well as the files inside of them
+	for file in $(find ${dir} -type d \( -name .git -o -name git -o -name .svn -o -name CVS \) -prune -false -o -type f \! -name tags \! -iname *.jpg \! -iname *.png); do
 		word_count_cmd="$(wc -l "${file}")"
 		# Remove everything after the first space so we have just the number
 		line_count="$(printf "%s" "${word_count_cmd}" | sed 's/ .*$//')"
