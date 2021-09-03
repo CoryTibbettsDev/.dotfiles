@@ -19,6 +19,10 @@ There may be still be errors or bashisms in them however so be careful.
 [Great Stackexchange Answer on Control Operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators/159514#159514)
 [POSIX Shell Tricks](https://www.etalabs.net/sh_tricks.html)
 
+## echo and printf
+[printf vs echo With Notes On Portability](https://askubuntu.com/questions/467747/which-is-better-printf-or-echo/467756#467756)
+[while read Loop Different Outcomes With echo and printf](https://askubuntu.com/questions/938594/using-while-read-echo-and-printf-get-different-outcomes)
+
 ## I/O Redirection
 [tldp.org Chapter 20. I/O Redirection](https://tldp.org/LDP/abs/html/io-redirection.html)
 [bash-hackers.org Redirection Tutorial](https://wiki.bash-hackers.org/howto/redirection_tutorial)

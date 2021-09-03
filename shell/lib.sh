@@ -11,7 +11,7 @@ cache_dir="$HOME/.cache"
 dotfiles_dir="$HOME/.dotfiles"
 stuff_dir="$HOME/Stuff"
 wallpaper_dir="$stuff_dir/Wallpaper"
-repos_dir="$HOME/Repositories"
+repos_dir="$HOME/Repos"
 projects_dir="$HOME/Projects"
 
 home_bin_dir="$HOME/.local/bin"
@@ -125,11 +125,6 @@ dotfiles_log_message() {
 	printf "[%s] %s\n" "$(date)" "$1" 2>> ${dotfiles_log_file} >&2
 }
 
-die() {
-	dotfiles_log_message "Error: ${1}, exiting"
-	exit 1
-}
-
 warn() {
 	dotfiles_log_message "Warning: ${1}"
 	return 1
@@ -142,15 +137,15 @@ source_file() {
 			return 0 ||
 			{ dotfiles_log_message "Found file ${1}, but couldn't source"; return 1; }
 	else
-		dotfiles_log_message "Fail to source file: ${1}, does not exist" "${1}"
+		dotfiles_log_message "Fail to source file: ${1}, does not exist"
 		return 1
 	fi
 }
 
 yes_or_no() {
 	while true; do
-		read -p "$*[yes/no Default [y]es]: " yn
-		case $yn in
+		read -p "$* [Y/n]: " answer
+		case $answer in
 			# Case insensitive match: n no
 			[Nn] | [Nn][Oo]) return 1;;
 			# Case insensitive match: y yes blank/nothing

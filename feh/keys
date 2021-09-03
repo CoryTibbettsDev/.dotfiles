@@ -1,6 +1,27 @@
 # keys
+
+# Unbind keys so there is no undefined behavior
+# h
+toggle_pause
+# k
+toggle_keep_vp
+
 # This preserves the original binding of the arrow keys and enables hjkl
-zoom_in Up j
-zoom_out Down k
+zoom_out Down j
+zoom_in Up k
 next_img Left h
 prev_img Right l
+
+# w
+size_to_image
+# a
+toggle_actions
+# s
+save_image
+# d
+toggle_filenames
+
+scroll_up w
+scroll_down s
+scroll_left a
+scroll_right d

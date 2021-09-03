@@ -6,12 +6,20 @@ remote_url="https://github.com/CoryTibbettsDev/.dotfiles"
 deploy_dir="$HOME/.dotfiles"
 library_file="${deploy_dir}/lib.sh"
 setup_file="${deploy_dir}/symlinks.sh"
+# Clone repo if not in the place we expect
 if [ ! -d "${deploy_dir}" ]; then
 	git clone ${remote_url} ${deploy_dir} ||
 	{ printf "%s git clone failed" "$deploy_dir"; exit 1; }
 fi
-[ -d ${deploy_dir} ] || { printf "No dotfiles directory: %s\n" "${deploy_dir}" ; exit 1; }
-[ -f ${library_file} ] || { printf "No library file: %s\n" "${library_file}" ; exit 1; }
+# Check to make sure we have everything where it is supposed to be
+if [ ! -d ${deploy_dir} ]; then
+	printf "No dotfiles directory: %s\n" "${deploy_dir}"
+	exit 1
+fi
+if [ ! -f ${library_file} ]; then
+	printf "No library file: %s\n" "${library_file}"
+	exit 1
+fi
 . ${library_file}
 
 # Arg 1 is repo URL Arg2 is directory name
@@ -22,7 +30,7 @@ clone_repo() {
 }
 
 # Setup home directory
-mkdir -pv ${downloads_dir} ${stuff_dir} ${projects_dir} ${repos_dir}
+mkdir -pv ${downloads_dir} ${stuff_dir} ${projects_dir} ${repos_dir} $HOME/Misc
 
 # int = Install Package
 int() {
@@ -40,32 +48,33 @@ int base-devel
 # Text Editor
 int vi
 int neovim
-# Xserver windowing
-int xorg
-int xorg-xinit
-# xorg-server-xephyr # Run nested xorg server for developement
-# Fonts
-int noto-fonts-cjk
-int noto-fonts-emoji
-# Clipboard
-int xclip
-# Window Manager
-int awesome
 # Version Control
 int git
-# cvs
-# Audio control
-int alsa
-int alsa-utils
+# int cvs
 # For naviagting source code with vim
 int ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
-# Web browser
-int firefox
-int luakit
 # Firewall
 int ufw
 # Password-store
 int pass
+# File copying/mirroring tool
+int rsync
+# Xserver windowing
+int xorg
+int xorg-xinit
+# xorg-server-xephyr # Run nested xorg server for developement
+# Clipboard
+int xclip
+# Fonts
+int noto-fonts-cjk
+# Window Manager
+int awesome
+# Audio control
+int alsa
+int alsa-utils
+# Web browser
+int firefox
+int luakit
 # Download videos
 int youtube-dl
 # Video player
@@ -87,13 +96,12 @@ int arc-solid-gtk-theme
 # int gimp
 # Vector Image Editor
 # int inkscape
-
 ## KVM
 int qemu # Quick EMUlator
-int openbsd-netcat # Read write to TCP UDP connections made by OpenBSD
-int dnsmasq # DNS forwarder and DHCP server
-int bridge-utils # Utilities for configuring the Linux ethernet bridge
-int virt-manager # Manages the virtual machines
+# int openbsd-netcat # Read write to TCP UDP connections made by OpenBSD
+# int dnsmasq # DNS forwarder and DHCP server
+# int bridge-utils # Utilities for configuring the Linux ethernet bridge
+# int virt-manager # GUI and CLI to manage VMs
 
 ## Steam and drivers
 # https://github.com/lutris/docs/blob/master/InstallingDrivers.md

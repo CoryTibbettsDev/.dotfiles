@@ -1363,6 +1363,7 @@ user_pref("browser.startup.homepage_override.mstone", "ignore"); // master switc
    // user_pref("browser.download.autohideButton", false); // [FF57+]
    // user_pref("ui.systemUsesDarkTheme", 1); // [FF67+] [HIDDEN PREF]
       // 0=light, 1=dark: with RFP this only affects chrome
+user_pref("devtools.theme", "dark");
    // user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); // [FF68+] allow userChrome/userContent
    // user_pref("ui.prefersReducedMotion", 1); // disable chrome animations [FF77+] [RESTART] [HIDDEN PREF]
       // 0=no-preference, 1=reduce: with RFP this only affects chrome

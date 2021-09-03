@@ -11,6 +11,7 @@ alias please='${su_cmd}'
 
 alias ls='ls --color=auto'
 alias ll='ls -la'
+alias l='ls -la'
 
 alias cl='clear'
 
@@ -59,7 +60,7 @@ slc() {
 	IFS="$(printf "\n\b")"
 	[ -n "${1}" ] && dir="${1}" || dir="."
 	# Need to set to 0 or otherwise there is an error when adding
-	total_line_count="0"
+	total_line_count=0
 	# -false is necessary after -prune so the directories themselves are ignored
 	# as well as the files inside of them
 	for file in $(find ${dir} -type d \( -name .git -o -name git -o -name .svn -o -name CVS \) -prune -false -o -type f \! -name tags \! -iname *.jpg \! -iname *.png); do
@@ -77,6 +78,7 @@ alias f='${terminal_file_manager}'
 
 alias g='git'
 alias gc='git commit'
+alias gd='git diff'
 alias gpo='git push origin'
 
 alias mt='make test'

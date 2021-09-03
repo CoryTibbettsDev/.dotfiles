@@ -1,0 +1,4 @@
+# .inputrc
+# The bell is so annoying
+set bell-style none
+set completion-ignore-case on
