@@ -77,6 +77,7 @@ slc() {
 alias f='${terminal_file_manager}'
 
 alias g='git'
+alias gs='git status'
 alias gc='git commit'
 alias gd='git diff'
 alias gpo='git push origin'
