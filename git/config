@@ -1,6 +1,8 @@
 [user]
 	name = user
 	email = user@example.com
+[init]
+	defaultBranch = main
 [alias]
 	ctags = !.git/hooks/ctags
 	fast = !sh -c 'git add -A && git commit -m \"$1\" && git push' -

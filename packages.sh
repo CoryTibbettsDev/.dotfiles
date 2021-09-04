@@ -137,6 +137,6 @@ ${su_cmd} ufw enable
 ${su_cmd} systemctl enable ufw
 firewall_status="$(${su_cmd} ufw status)"
 [ "${firewall_status}" = "Status: inactive" ] &&
-	dotfiles_log_message "Firewall(ufw) not active"
+	log_func "Firewall(ufw) not active"
 
 sh ${setup_file} || warn "${setup_file} failed"

@@ -47,7 +47,14 @@ mkdir -pv ${downloads_dir} \
 	${home_bin_dir} \
 	${shell_cache_dir}
 [ -e "${shell_history_file}" ] || touch "${shell_history_file}"
-[ -e "${dotfiles_log_file}" ] || touch "${dotfiles_log_file}"
+
+# Link shell agnostic rc and profile files to shell specific rc and profile
+# files dash does not seem to read any rc or config files
+verbose_link "${shellrc_file}" "$HOME/.bashrc"
+verbose_link "${shellrc_file}" "$HOME/.zshrc"
+verbose_link "${shellrc_file}" "$HOME/.kshrc"
+verbose_link "$HOME/.profile" "$HOME/.bash_profile"
+verbose_link "$HOME/.profile" "$HOME/.zprofile"
 
 # Link all files in home directory to user's home directory
 for file in home/*; do
@@ -60,9 +67,6 @@ done
 for file in config/*; do
 	verbose_link "${dotfiles_dir}/${file}" "${config_dir}/$(basename ${file})"
 done
-
-# Copy Wallpapers
-cp -vrn ${dotfiles_dir}/Wallpaper/ ${stuff_dir}
 
 link_config() {
 	verbose_link "${dotfiles_dir}/$1" "${config_dir}"
@@ -79,26 +83,9 @@ link_config zathura
 link_config luakit
 link_config feh
 
-# Link firefox user.js
-# Find firefox profile directory with suffix from argument 1
-firefox_profile_dir=
-get_firefox_profile_dir() {
-	# Check to make sure profile dir is not set already
-	[ -z ${firefox_profile_dir} ] &&
-		firefox_profile_dir="$(find $HOME/.mozilla/firefox/ -type d -path *.default-${1})"
-}
-# Try all the firefox profile directory suffixes I know
-get_firefox_profile_dir release
-get_firefox_profile_dir esr
-# If we found the right directory then do file_operation_cmd on user.js
-[ -n ${firefox_profile_dir} ] &&
-	verbose_link ${firefox_user_js} ${firefox_profile_dir} ||
-	printf "Could not find firefox profile directory\n"
+# Copy Wallpapers
+cp -vrn ${dotfiles_dir}/Wallpaper/ ${stuff_dir}
 
-# Link shell agnostic rc and profile files to shell specific rc and profile files
-# dash does not seem to read .dashrc or an equivalent but appears to read .profile
-verbose_link "${shellrc_file}" "$HOME/.bashrc"
-verbose_link "${shellrc_file}" "$HOME/.zshrc"
-verbose_link "${shellrc_file}" "$HOME/.kshrc"
-verbose_link "$HOME/.profile" "$HOME/.bash_profile"
-verbose_link "$HOME/.profile" "$HOME/.zprofile"
+# Run link.sh script from browser config submodules
+sh ${dotfiles_dir}/firefox-config/link.sh || printf "link.sh returns error\n"
+sh ${dotfiles_dir}/chromium-config/link.sh || printf "link.sh returns error\n"

@@ -47,7 +47,7 @@ mf() {
 # Delete shell history(not cleared for current shell)
 alias clean=': > ${HISTFILE}'
 # Delete log file history
-alias clean-log=': > ${dotfiles_log_file}'
+alias clean-log=': > ${log_file}'
 
 # source line count
 # Line count of all files in directory

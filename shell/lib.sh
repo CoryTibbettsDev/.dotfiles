@@ -21,11 +21,7 @@ shell_cache_dir="${cache_dir}/shell"
 shellrc_file="${shell_dir}/shellrc.sh"
 aliasrc_file="${shell_dir}/aliasrc.sh"
 shell_history_file="${shell_cache_dir}/history"
-
-dotfiles_cache_dir="${cache_dir}/dotfiles"
-dotfiles_log_file="${dotfiles_cache_dir}/dotfiles.log"
-
-firefox_user_js="${dotfiles_dir}/firefox/user.js"
+log_file="${cache_dir}/dotfiles/dotfiles.log"
 
 notes_dir="${stuff_dir}/notes"
 
@@ -119,14 +115,18 @@ four_bit_magenta_back="$(esc_func 45)"
 four_bit_cyan_back="$(esc_func 46)"
 four_bit_white_back="$(esc_func 47)"
 
-# Append message with date to dotfiles_log_file
-dotfiles_log_message() {
-	mkdir -p $(dirname ${dotfiles_log_file}) && touch ${dotfiles_log_file}
-	printf "[%s] %s\n" "$(date)" "$1" 2>> ${dotfiles_log_file} >&2
+# Append message with date to ${log_file}
+log_func() {
+	[ -z ${log_file} ] && log_file="$HOME/error.log"
+	log_dir="$(dirname ${log_file})"
+	if [ ! -d ${log_dir} ]; then
+		mkdir -p ${log_dir} && touch ${log_file}
+	fi
+	printf "[%s] %s\n" "$(date)" "${1}" | tee -a "${log_file}"
 }
 
 warn() {
-	dotfiles_log_message "Warning: ${1}"
+	log_func "Warning: ${1}"
 	return 1
 }
 
@@ -135,9 +135,10 @@ source_file() {
 	if [ -e "${1}" ]; then
 		. "${1}" &&
 			return 0 ||
-			{ dotfiles_log_message "Found file ${1}, but couldn't source"; return 1; }
+			log_func "Found file ${1}, but couldn't source" \
+			return 1
 	else
-		dotfiles_log_message "Fail to source file: ${1}, does not exist"
+		log_func "Fail to source file: ${1}, does not exist"
 		return 1
 	fi
 }
@@ -147,10 +148,10 @@ yes_or_no() {
 		read -p "$* [Y/n]: " answer
 		case $answer in
 			# Case insensitive match: n no
-			[Nn] | [Nn][Oo]) return 1;;
-			# Case insensitive match: y yes blank/nothing
-			[Yy] | [Yy][Ee][Ss] | "") return 0;;
-			*) printf "Please answer [y]es or [n]o\n";;
+			[Nn]|[Nn][Oo]) return 1 ;;
+			# Case insensitive match: y yes <nothing>
+			[Yy]|[Yy][Ee][Ss]|"") return 0 ;;
+			*) printf "Please answer [y]es or [n]o\n" ;;
 		esac
 	done
 }

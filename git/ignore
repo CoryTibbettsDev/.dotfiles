@@ -1,5 +1,21 @@
+# Compiled/Binary Files
 a.out
+*.o
+*.so
+*.com
+*.class
+*.dll
+*.exe
+
+# Editor Files
 tags
+.vimrc
+.vimspector.json
+compile_commands.json
+Session.vim
+.vscode
+
+# Cache Files
 node_modules
 __pycache__
 build/
@@ -8,8 +24,23 @@ build/
 .clangd
 .exrc
 .miniSnip
-.vimrc
-.vimspector.json
-compile_commands.json
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Archives and Disk Image Files
+*.7z
+*.dmg
+*.gz
+*.jar
+*.rar
+*.tar
+*.zip
+*.iso
+*.qcow*
+
+# Logs
+*.log
 errors.err
-Session.vim
