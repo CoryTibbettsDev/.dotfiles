@@ -4,7 +4,8 @@
 # Make sure LIBRARY_FILE is there and source it
 [ -e "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	{ printf "LIBRARY_FILE failed -e check"; return; }
+	printf "LIBRARY_FILE failed -e check" \
+	return
 
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	current_shell="bash"
@@ -14,6 +15,8 @@ if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	shopt -s histappend
 elif [ -n "$ZSH_VERSION" ]; then
 	current_shell="zsh"
+	# Enable emacs like keybindings
+	bindkey -e
 	# Do not write a duplicate event to the history file
 	setopt HIST_SAVE_NO_DUPS
 	# Needed for PS1 command substitution
@@ -24,6 +27,7 @@ elif [ -n "$ZSH_VERSION" ]; then
 	_comp_options+=(globdots)
 elif [ -n "$KSH_VERSION" -o -n "$FCEDIT" ]; then
 	current_shell="ksh"
+	set -o emacs
 elif [ -n "$shell" ]; then
 	if [ -n "$version" ]; then
 		current_shell="tcsh"
@@ -37,16 +41,10 @@ else
 	return
 fi
 
-# Stolen from: https://github.com/dylanaraps/pfetch
-# Username is retrieved by first checking '$USER' with a fallback
-# to the 'id -un' command.
 my_user="${USER:-$(id -un)}"
 [ -z "${my_user}" ] && my_user="UnknownUser"
-
-my_host="${HOSTNAME}"
-# If the hostname is still not found, fallback to the contents of the
-# /etc/hostname file.
-[ -z "${my_host}" ] && read -r my_host < /etc/hostname
+my_host="${HOSTNAME:-$(uname -n)}"
+[ -z "${my_host}" ] && my_host="UnknownHost"
 
 my_pwd() {
 	if [ "${PWD#$HOME}" != "${PWD}" ]; then
@@ -94,9 +92,9 @@ parse_git_dirty() {
 		printf " %s" "${bits}"
 	fi
 }
-directory_info='$(my_pwd)$(parse_git_branch)'
+my_directory='$(my_pwd)$(parse_git_branch)'
 
-PS1="[${my_user}@${my_host} ${directory_info}]\$ "
+PS1="[${my_user}@${my_host} ${my_directory}]\$ "
 
 # History Settings
 HISTCONTROL=ignoreboth

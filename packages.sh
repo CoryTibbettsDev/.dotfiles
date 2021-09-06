@@ -9,7 +9,8 @@ setup_file="${deploy_dir}/symlinks.sh"
 # Clone repo if not in the place we expect
 if [ ! -d "${deploy_dir}" ]; then
 	git clone ${remote_url} ${deploy_dir} ||
-	{ printf "%s git clone failed" "$deploy_dir"; exit 1; }
+	printf "%s git clone failed" "$deploy_dir" \
+	exit 1
 fi
 # Check to make sure we have everything where it is supposed to be
 if [ ! -d ${deploy_dir} ]; then

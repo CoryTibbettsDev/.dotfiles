@@ -31,8 +31,12 @@ done
 	[ -n "${LIBRARY_FILE}" ] && library_file="${LIBRARY_FILE}"
 
 # Last check to make sure directory and file actually exist
-[ -d "${dotfiles_dir}" ] || { printf "dotfiles_dir does not exist\n"; exit 1; }
-[ -e "${library_file}" ] || { printf "library_file does not exist\n"; exit 1; }
+[ -d "${dotfiles_dir}" ] ||
+	printf "dotfiles_dir does not exist\n" \
+	exit 1
+[ -e "${library_file}" ] ||
+	printf "library_file does not exist\n" \
+	exit 1
 . "${library_file}"
 
 [ -z "${config_dir}" ] && config_dir="$HOME/.config"
