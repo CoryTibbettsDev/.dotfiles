@@ -78,8 +78,9 @@ alias f='${terminal_file_manager}'
 
 alias g='git'
 alias gs='git status'
-alias gc='git commit'
 alias gd='git diff'
+alias ga='git add'
+alias gc='git commit'
 alias gpo='git push origin'
 
 alias mt='make test'
@@ -94,6 +95,7 @@ alias dl='youtube-dl'
 alias dla='youtube-dl -x -f bestaudio/best'
 alias dlmp3='youtube-dl --extract-audio --audio-format mp3'
 
+alias m='mpv'
 alias mpv720='mpv --ytdl-format=22'
 alias mpv7='mpv720'
 alias mpv360='mpv --ytdl-format=18'
