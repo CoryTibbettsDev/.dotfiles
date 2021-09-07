@@ -1,6 +1,3 @@
-[submodule "firefox-config"]
-	path = firefox-config
-	url = https://github.com/CoryTibbettsDev/firefox-config
-[submodule "chromium-config"]
-	path = chromium-config
-	url = https://github.com/CoryTibbettsDev/chromium-config
+[submodule "browser-config"]
+	path = browser-config
+	url = https://github.com/CoryTibbettsDev/browser-config

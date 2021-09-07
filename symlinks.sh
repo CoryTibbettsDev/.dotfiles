@@ -89,3 +89,6 @@ link_config feh
 
 # Copy Wallpapers
 cp -vrn ${dotfiles_dir}/Wallpaper/ ${stuff_dir}
+
+browser_config_dir="${dotfiles_dir}/browser-config"
+sh "${browser_config_dir}/link.sh" "${browser_config_dir}"
