@@ -89,7 +89,3 @@ link_config feh
 
 # Copy Wallpapers
 cp -vrn ${dotfiles_dir}/Wallpaper/ ${stuff_dir}
-
-# Run link.sh script from browser config submodules
-sh ${dotfiles_dir}/firefox-config/link.sh || printf "link.sh returns error\n"
-sh ${dotfiles_dir}/chromium-config/link.sh || printf "link.sh returns error\n"

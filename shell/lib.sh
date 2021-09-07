@@ -55,30 +55,30 @@ esc_func() {
 	printf "${esc_start}${esc_command}${end_char}"
 }
 
-text_effect_code() {
+text_effect() {
 	case $1 in
 		reset)
-			output_var="0";;
+			output_var="0" ;;
 		bold)
-			output_var="1";;
+			output_var="1" ;;
 		bright)
-			output_var="1";;
+			output_var="1" ;;
 		dim)
-			output_var="2";;
+			output_var="2" ;;
 		underline)
-			output_var="4";;
+			output_var="4" ;;
 		blink)
-			output_var="5";;
+			output_var="5" ;;
 		reverse)
-			output_var="7";;
+			output_var="7" ;;
 		hidden)
-			output_var="8";;
+			output_var="8" ;;
 		strikeout)
-			output_var="9";;
+			output_var="9" ;;
 		*)
-			output_var="0";;
+			output_var="0" ;;
 		esac
-	printf "$(esc_func ${output_var})"
+	printf "$(esc_func "${output_var}")"
 }
 
 # 256 and Truecolor(RGB) escape sequences
@@ -117,10 +117,10 @@ four_bit_white_back="$(esc_func 47)"
 
 # Append message with date to ${log_file}
 log_func() {
-	[ -z ${log_file} ] && log_file="$HOME/error.log"
+	[ -z "${log_file}" ] && log_file="$HOME/error.log"
 	log_dir="$(dirname ${log_file})"
-	if [ ! -d ${log_dir} ]; then
-		mkdir -p ${log_dir} && touch ${log_file}
+	if [ ! -d "${log_dir}" ]; then
+		mkdir -p "${log_dir}" && touch "${log_file}"
 	fi
 	printf "[%s] %s\n" "$(date)" "${1}" | tee -a "${log_file}"
 }
@@ -135,10 +135,23 @@ source_file() {
 	if [ -e "${1}" ]; then
 		. "${1}" &&
 			return 0 ||
-			log_func "Found file ${1}, but couldn't source" \
+			log_func "Found file ${1}, but could not source" \
 			return 1
 	else
-		log_func "Fail to source file: ${1}, does not exist"
+		log_func "Failed to source file: ${1}, does not exist"
+		return 1
+	fi
+}
+
+# Run a shell script
+run_script() {
+	if [ -e "${1}" ]; then
+		sh "${1}" &&
+			return 0 ||
+			log_func "Script ${1}, returned error" \
+			return 1
+	else
+		log_func "Script ${1}, does not exist"
 		return 1
 	fi
 }
