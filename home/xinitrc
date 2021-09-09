@@ -1,16 +1,24 @@
 # .xinitrc
 
 # Source library file
-[ -e "${LIBRARY_FILE}" ] || { printf "LIBRARY_FILE is unset or null"; exit 1; }
+if [ ! -f "${LIBRARY_FILE}" ]; then
+	printf "LIBRARY_FILE[%s] does not exist\n" "${LIBRARY_FILE}"
+	exit 1
+fi
 . "${LIBRARY_FILE}"
 
 # Set Wallpaper
 ${wallpaper_set_cmd} &
 
 # Set Xmodmap if file exists
-[ -f $HOME/.Xmodmap ] && xmodmap $HOME/.Xmodmap
+if [ -f "$HOME/.Xmodmap" ]; then
+	xmodmap "$HOME/.Xmodmap" || log_func "Error xmodmap ~/.Xmodmap"
+fi
 # Run xrdb to load .Xresources if file exists
-[ -f $HOME/.Xresources ] && xrdb -merge $HOME/.Xresources
+if [ -f "$HOME/.Xresources" ]; then
+	xrdb -merge "$HOME/.Xresources" ||
+		log_func "Error xrdb -merge ~/.Xresources"
+fi
 
 # Start Window Manager
 exec "${window_manager}"

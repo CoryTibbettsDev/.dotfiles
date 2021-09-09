@@ -5,8 +5,7 @@
 
 LIBRARY_FILE="$HOME/.config/shell/lib.sh"
 # Check if the library file exists if not try and find it
-[ -e "${LIBRARY_FILE}" ] || LIBRARY_FILE="$(find $HOME -name lib.sh)"
-[ -z "${LIBRARY_FILE}" ] && printf "LIBRARY_FILE is unset or null"
+[ -f "${LIBRARY_FILE}" ] || printf "LIBRARY_FILE is unset or null\n"
 # Source the library file
 . "${LIBRARY_FILE}"
 # Export LIBRARY_FILE for other scripts to use

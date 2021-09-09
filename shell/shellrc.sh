@@ -2,9 +2,9 @@
 # Symlinked to all shell specific rc files
 
 # Make sure LIBRARY_FILE is there and source it
-[ -e "${LIBRARY_FILE}" ] &&
+[ -f "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	printf "LIBRARY_FILE failed -e check" \
+	printf "LIBRARY_FILE failed -f check" \
 	return
 
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then

@@ -14,8 +14,6 @@ wallpaper_dir="$stuff_dir/Wallpaper"
 repos_dir="$HOME/Repos"
 projects_dir="$HOME/Projects"
 
-home_bin_dir="$HOME/.local/bin"
-
 shell_dir="${config_dir}/shell"
 shell_cache_dir="${cache_dir}/shell"
 shellrc_file="${shell_dir}/shellrc.sh"
@@ -132,28 +130,14 @@ warn() {
 
 # Source file from argument 1
 source_file() {
-	if [ -e "${1}" ]; then
+	if [ -f "${1}" ]; then
 		. "${1}" &&
 			return 0 ||
-			log_func "Found file ${1}, but could not source" \
-			return 1
+			log_func "Found file ${1}, but could not source"
 	else
 		log_func "Failed to source file: ${1}, does not exist"
-		return 1
 	fi
-}
-
-# Run a shell script
-run_script() {
-	if [ -e "${1}" ]; then
-		sh "${1}" &&
-			return 0 ||
-			log_func "Script ${1}, returned error" \
-			return 1
-	else
-		log_func "Script ${1}, does not exist"
-		return 1
-	fi
+	return 1
 }
 
 yes_or_no() {
