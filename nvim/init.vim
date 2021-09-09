@@ -213,6 +213,9 @@ autocmd FileType c,python,haskell,sh,bash,zsh,tcsh,csh setlocal colorcolumn=80
 " https://google.github.io/styleguide/lispguide.xml
 autocmd FileType lisp setlocal colorcolumn=100
 
+" Settings for hardtabs
+autocmd FileType c,sh,bash,zsh,tcsh,csh set tabstop=4 shiftwidth=4
+
 " PEP 8, the style guide for python, specifies the use of
 " spaces aka softtabs this is because they are morons
 " Haskell compiler (GHC) is picky about whitespace
@@ -220,8 +223,8 @@ autocmd FileType lisp setlocal colorcolumn=100
 " Settings for softtabs
 autocmd FileType python,haskell set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
-" Settings for hardtabs
-autocmd FileType c,sh,bash,zsh,tcsh,csh set tabstop=4 shiftwidth=4
+" Softtabs two spaces wide
+autocmd FileType json set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " }}}
 
 " {{{ Plugins
