@@ -1,11 +1,11 @@
 # shellrc.sh
+
 # Symlinked to all shell specific rc files
 
 # Make sure LIBRARY_FILE is there and source it
 [ -f "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	printf "LIBRARY_FILE failed -f check" \
-	return
+	{ printf "LIBRARY_FILE failed -f check\n"; return; }
 
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	current_shell="bash"
@@ -42,9 +42,10 @@ else
 fi
 
 my_user="${USER:-$(id -un)}"
-[ -z "${my_user}" ] && my_user="UnknownUser"
+my_user="${my_user:-UnknownUser}"
+
 my_host="${HOSTNAME:-$(uname -n)}"
-[ -z "${my_host}" ] && my_host="UnknownHost"
+my_host="${my_host:-UnknownHost}"
 
 my_pwd() {
 	if [ "${PWD#$HOME}" != "${PWD}" ]; then
@@ -104,5 +105,3 @@ SAVEHIST=1000 # Maximum events in history file
 
 # Source alias file
 source_file "${aliasrc_file}"
-
-unset SSH_ASKPASS
