@@ -207,7 +207,8 @@ set statusline+=\ Buf:%n " Buffer number
 
 " {{{ Filetype Specific Settings
 " https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width
-autocmd FileType c,python,haskell,sh,bash,zsh,tcsh,csh setlocal colorcolumn=80
+autocmd FileType c,haskell,sh,bash,zsh,tcsh,csh setlocal colorcolumn=81
+autocmd FileType python setlocal colorcolumn=80
 
 " https://lisp-lang.org/style-guide/
 " https://google.github.io/styleguide/lispguide.xml
@@ -224,7 +225,7 @@ autocmd FileType c,sh,bash,zsh,tcsh,csh set tabstop=4 shiftwidth=4
 autocmd FileType python,haskell set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " Softtabs two spaces wide
-autocmd FileType json set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType json,lisp set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " }}}
 
 " {{{ Plugins

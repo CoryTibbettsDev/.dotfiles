@@ -83,4 +83,5 @@ link_config emacs
 cp -vrn "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
 
 browser_config_dir="${dotfiles_dir}/browser-config"
-sh "${browser_config_dir}/link.sh" "${browser_config_dir}"
+sh "${browser_config_dir}/link.sh" "${browser_config_dir}" ||
+	printf "Error linking browser config\n"

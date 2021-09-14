@@ -8,20 +8,19 @@ library_file="${deploy_dir}/lib.sh"
 setup_file="${deploy_dir}/symlinks.sh"
 # Clone repo if not in the place we expect
 if [ ! -d "${deploy_dir}" ]; then
-	git clone ${remote_url} ${deploy_dir} ||
-	printf "%s git clone failed" "$deploy_dir" \
-	exit 1
+	git clone "${remote_url}" "${deploy_dir}" ||
+		{ printf "%s git clone failed" "$deploy_dir"; exit 1; }
 fi
 # Check to make sure we have everything where it is supposed to be
-if [ ! -d ${deploy_dir} ]; then
+if [ ! -d "${deploy_dir}" ]; then
 	printf "No dotfiles directory: %s\n" "${deploy_dir}"
 	exit 1
 fi
-if [ ! -f ${library_file} ]; then
+if [ ! -f "${library_file}" ]; then
 	printf "No library file: %s\n" "${library_file}"
 	exit 1
 fi
-. ${library_file}
+. "${library_file}"
 
 # Arg 1 is repo URL Arg2 is directory name
 # clone_repo https://example.com/repo directory_name
@@ -31,7 +30,7 @@ clone_repo() {
 }
 
 # Setup home directory
-mkdir -pv ${downloads_dir} ${stuff_dir} ${projects_dir} ${repos_dir} $HOME/Misc
+mkdir -pv "${downloads_dir}" "${stuff_dir}" "${projects_dir}" "${repos_dir}"
 
 # int = Install Package
 int() {
@@ -49,6 +48,8 @@ int base-devel
 # Text Editor
 int vi
 int neovim
+# Terminal multiplexer
+int tmux
 # Version Control
 int git
 # int cvs
@@ -75,7 +76,6 @@ int alsa
 int alsa-utils
 # Web browser
 int firefox
-int luakit
 # Download videos
 int youtube-dl
 # Video player
@@ -130,14 +130,5 @@ clone_repo https://github.com/WillEccles/cfm cfm
 printf "Setting Swappiness\n"
 ${su_cmd} sysctl vm.swappiness=10
 printf "vm.swappiness=10\n" | ${su_cmd} tee -a /etc/sysctl.d/99-swappiness.conf
-
-# Firewall setup
-${su_cmd} ufw default deny incoming
-${su_cmd} ufw default allow outgoing
-${su_cmd} ufw enable
-${su_cmd} systemctl enable ufw
-firewall_status="$(${su_cmd} ufw status)"
-[ "${firewall_status}" = "Status: inactive" ] &&
-	log_func "Firewall(ufw) not active"
 
 sh ${setup_file} || warn "${setup_file} failed"

@@ -7,11 +7,11 @@
 
 # Wholesome Unix
 alias pls='${su_cmd}'
-alias please='${su_cmd}'
 
 alias ls='ls --color=auto'
 alias ll='ls -la'
 alias l='ls -la'
+alias lsr='ls -R'
 
 alias cl='clear'
 
@@ -20,12 +20,19 @@ alias mvv='mv -v'
 alias rmv='rm -v'
 alias mkd='mkdir -pv'
 
+alias m='man'
+# Search man pages
+alias s='apropos'
+
 # Alias for editor
 # e is easy to reach and I remember with e for edit like in vim
 alias e='${EDITOR}'
 
 alias grep='grep --color=auto'
-alias sgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
+# Recursive grep
+alias rgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
+alias rg='rgrep'
+# History grep
 # Use fc instead of history as it is POSIX compliant
 alias hgrep='fc -l -${HISTSIZE} | grep'
 alias hg='hgrep'
@@ -95,7 +102,7 @@ alias dl='youtube-dl'
 alias dla='youtube-dl -x -f bestaudio/best'
 alias dlmp3='youtube-dl --extract-audio --audio-format mp3'
 
-alias m='mpv'
+alias p='mpv'
 alias mpv720='mpv --ytdl-format=22'
 alias mpv7='mpv720'
 alias mpv360='mpv --ytdl-format=18'
@@ -115,20 +122,20 @@ alias cw='${wallpaper_set_cmd}'
 # ex - archive extractor
 # usage: ex <file>
 ex() {
-	if [ -f $1 ]; then
-		case $1 in
-			*.tar.bz2) tar xjf $1;;
-			*.tar.gz) tar xzf $1;;
-			*.tar.xz) tar xJf $1;;
-			*.bz2) bunzip2 $1;;
-			*.rar) unrar x $1;;
-			*.gz) gunzip $1;;
-			*.tar) tar xf $1;;
-			*.tbz2) tar xjf $1;;
-			*.tgz) tar xzf $1;;
-			*.zip) unzip $1;;
-			*.Z) uncompress $1;;
-			*.7z) 7z x $1;;
+	if [ -f "$1" ]; then
+		case "$1" in
+			*.tar.bz2) tar xjf "$1";;
+			*.tar.gz) tar xzf "$1";;
+			*.tar.xz) tar xJf "$1";;
+			*.bz2) bunzip2 "$1";;
+			*.rar) unrar x "$1";;
+			*.gz) gunzip "$1";;
+			*.tar) tar xf "$1";;
+			*.tbz2) tar xjf "$1";;
+			*.tgz) tar xzf "$1";;
+			*.zip) unzip "$1";;
+			*.Z) uncompress "$1";;
+			*.7z) 7z x "$1";;
 			*) printf "%s cannot be extracted via ex()\n" "$1";;
 		esac
 	else
@@ -139,35 +146,12 @@ ex() {
 # Note-taking system
 # https://old.reddit.com/r/linux/comments/nypc56/the_most_simple_way_to_take_notes/
 init_notes() {
-	if [ ! -d ${notes_dir} ]; then
-		printf "%s was never created. Creating now.\n" "${notes_dir}"
-		mkdir -pv ${notes_dir}
+	if [ ! -d "${notes_dir}" ]; then
+		printf "notes_dir(%s) was never created. Creating now.\n" "${notes_dir}"
+		mkdir -pv "${notes_dir}"
 	fi
 }
-# note
 n() {
 	init_notes
-	$EDITOR "${notes_dir}/$1"
-}
-# notes list
-nls() {
-	init_notes
-	ls ${notes_dir}
-}
-# notes find
-nf() {
-	init_notes
-	find ${notes_dir} -iname *${1}*
-}
-# notes grep
-ng() {
-	init_notes
-	grep --color=auto -R -n -C 5 "$*" ${notes_dir}/*
-}
-# note remove
-nr() {
-	init_notes
-	for file in "$@"; do
-		rm -vi ${notes_dir}/${file}
-	done
+	cd "${notes_dir}"
 }

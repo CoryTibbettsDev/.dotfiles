@@ -8,6 +8,7 @@
 ; Set font size
 ; https://stackoverflow.com/questions/294664/how-to-set-the-font-size-in-emacs
 (set-face-attribute 'default nil :height 180)
+(load-theme 'tango-dark t)
 
 (defun efs/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
@@ -25,6 +26,16 @@
   (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
+
+;; Put backup and auto-save files in a seperate directory
+(setq temporary-file-directory "~/.local/share/emacs")
+(setq backup-directory-alist
+  `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+  `((".*" ,temporary-file-directory t)))
+;; Disable them altogether
+(savehist-mode -1)
+(auto-save-mode -1)
 
 ; Disable startup screen
 (setq inhibit-startup-screen t)
@@ -53,10 +64,6 @@
 (delete-selection-mode 1)
 ; Lockfiles unfortunately cause more pain than benefit
 (setq create-lockfiles nil)
-; Disable saving history mode
-(savehist-mode -1)
-; Set the temporary-file-directory as the backup directory
-(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
 
 ;;; Keybindings
 ; Make ESC quit prompts
@@ -72,7 +79,7 @@
 
 ;;; START TABS CONFIG
 ;; Create a variable for our preferred tab width
-(setq custom-tab-width 2)
+(setq custom-tab-width 4)
 
 ;; Two callable functions for enabling/disabling tabs in Emacs
 (defun disable-tabs () (setq indent-tabs-mode nil))
