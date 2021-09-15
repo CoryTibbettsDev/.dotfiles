@@ -26,7 +26,7 @@ alias s='apropos'
 
 # Alias for editor
 # e is easy to reach and I remember with e for edit like in vim
-alias e='${EDITOR}'
+alias e='eval "${EDITOR}"'
 
 alias grep='grep --color=auto'
 # Recursive grep
@@ -81,7 +81,7 @@ slc() {
 	IFS="$SAVEIFS"
 }
 
-alias f='${terminal_file_manager}'
+alias f='eval "${terminal_file_manager}"'
 
 alias g='git'
 alias gs='git status'
@@ -95,7 +95,6 @@ alias mc='make clean'
 
 # Alias for YouTube command line search tool
 alias yt='ytfzf'
-alias yts='ytfzf -S --subs=5'
 
 alias youtube-dl='youtube-dl --no-call-home'
 alias dl='youtube-dl'
@@ -114,10 +113,13 @@ alias unmnt='udisksctl unmount -b'
 alias z='zathura'
 
 # Screen locker
-alias lock='${screen_locker}'
+alias lock='eval "${screen_locker}"'
 
 # Change wallpaper
 alias cw='eval "${wallpaper_set_cmd}"'
+
+# Edit notes file
+alias n='eval "$EDITOR" "${notes_file}"'
 
 # ex - archive extractor
 # usage: ex <file>
@@ -141,17 +143,4 @@ ex() {
 	else
 		printf "%s is not a valid file\n" "$1"
 	fi
-}
-
-# Note-taking system
-# https://old.reddit.com/r/linux/comments/nypc56/the_most_simple_way_to_take_notes/
-init_notes() {
-	if [ ! -d "${notes_dir}" ]; then
-		printf "notes_dir(%s) was never created. Creating now.\n" "${notes_dir}"
-		mkdir -pv "${notes_dir}"
-	fi
-}
-n() {
-	init_notes
-	cd "${notes_dir}"
 }

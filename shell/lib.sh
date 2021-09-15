@@ -19,7 +19,7 @@ aliasrc_file="${shell_dir}/aliasrc.sh"
 shell_history_file="${shell_cache_dir}/history"
 log_file="${cache_dir}/dotfiles/dotfiles.log"
 
-notes_dir="${stuff_dir}/notes"
+notes_file="${stuff_dir}/notes/notes.txt"
 
 su_cmd="sudo"
 text_editor="nvim"

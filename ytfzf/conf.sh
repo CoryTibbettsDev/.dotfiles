@@ -17,4 +17,4 @@ audio_player="mpv --no-video"
 
 #the amount of links to get from each subscription
 #same as --subs=
-sub_link_count=10
+sub_link_count=5
