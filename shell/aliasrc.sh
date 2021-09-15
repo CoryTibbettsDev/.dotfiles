@@ -3,10 +3,10 @@
 # Make sure LIBRARY_FILE exists
 [ -e "${LIBRARY_FILE}" ] &&
 	. "${LIBRARY_FILE}" ||
-	printf "LIBRARY_FILE does not exist"
+	printf "LIBRARY_FILE does not exist\n"
 
 # Wholesome Unix
-alias pls='${su_cmd}'
+alias pls='eval "${su_cmd}"'
 
 alias ls='ls --color=auto'
 alias ll='ls -la'
