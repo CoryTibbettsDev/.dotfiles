@@ -1,9 +1,19 @@
 ! .Xresources
-! Use a truetype font and size.
-xterm*faceName: Monospace
-xterm*faceSize: 18
 
-! Special
+! Xterm font settings
+xterm*faceName: Monospace
+xterm*faceSize: 22
+
+! URxvt
+URxvt.font: xft:monospace:size=22
+! Disable perl extensions for speed and security
+URxvt.perl-ext:
+URxvt.perl-ext-common:
+! Some programs like alsamixer do not perform well with some graphics
+! drivers and redraw very slowly, enabling skipBuiltinGlyphs can solve this
+URxvt*skipBuiltinGlyphs: true
+
+! Theme colors
 *.foreground: #a9b1d6
 *.background: #1a1b26
 *.cursorColor: #a9b1d6

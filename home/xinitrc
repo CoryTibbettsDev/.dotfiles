@@ -8,7 +8,7 @@ fi
 . "${LIBRARY_FILE}"
 
 # Set Wallpaper
-${wallpaper_set_cmd} &
+eval "${wallpaper_set_cmd}" &
 
 # Set Xmodmap if file exists
 if [ -f "$HOME/.Xmodmap" ]; then
@@ -16,8 +16,7 @@ if [ -f "$HOME/.Xmodmap" ]; then
 fi
 # Run xrdb to load .Xresources if file exists
 if [ -f "$HOME/.Xresources" ]; then
-	xrdb -merge "$HOME/.Xresources" ||
-		log_func "Error xrdb -merge ~/.Xresources"
+	xrdb "$HOME/.Xresources" || log_func "Error xrdb ~/.Xresources"
 fi
 
 # Start Window Manager

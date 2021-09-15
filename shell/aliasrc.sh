@@ -71,11 +71,11 @@ slc() {
 	# -false is necessary after -prune so the directories themselves are ignored
 	# as well as the files inside of them
 	for file in $(find ${dir} -type d \( -name .git -o -name git -o -name .svn -o -name CVS \) -prune -false -o -type f \! -name tags \! -iname *.jpg \! -iname *.png); do
-		word_count_cmd="$(wc -l "${file}")"
+		word_count_result="$(wc -l "${file}")"
+		printf "Line count: %s\n" "${word_count_result}"
 		# Remove everything after the first space so we have just the number
-		line_count="$(printf "%s" "${word_count_cmd}" | sed 's/ .*$//')"
+		line_count="$(printf "%s" "${word_count_result}" | sed 's/ .*$//')"
 		total_line_count="$((  ${total_line_count} + ${line_count} ))"
-		printf "Line count: %s\n" "${word_count_cmd}"
 	done
 	printf "Total line count in %s: %s\n" "${dir}" "${total_line_count}"
 	IFS="$SAVEIFS"
@@ -117,7 +117,7 @@ alias z='zathura'
 alias lock='${screen_locker}'
 
 # Change wallpaper
-alias cw='${wallpaper_set_cmd}'
+alias cw='eval "${wallpaper_set_cmd}"'
 
 # ex - archive extractor
 # usage: ex <file>
