@@ -9,25 +9,13 @@
 
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	current_shell="bash"
-	shopt -s autocd
-	shopt -s cdspell
-	shopt -s extglob
-	shopt -s histappend
+	source_file "${bashrc_file}"
 elif [ -n "$ZSH_VERSION" ]; then
 	current_shell="zsh"
-	# Enable emacs like keybindings
-	bindkey -e
-	# Do not write a duplicate event to the history file
-	setopt HIST_SAVE_NO_DUPS
-	# Needed for PS1 command substitution
-	setopt PROMPT_SUBST
-	# Enable autocompletion
-	autoload -U compinit; compinit -D
-	# Complete hidden files
-	_comp_options+=(globdots)
+	source_file "${zshrc_file}"
 elif [ -n "$KSH_VERSION" -o -n "$FCEDIT" ]; then
 	current_shell="ksh"
-	set -o emacs
+	source_file "${kshrc_file}"
 elif [ -n "$shell" ]; then
 	if [ -n "$version" ]; then
 		current_shell="tcsh"

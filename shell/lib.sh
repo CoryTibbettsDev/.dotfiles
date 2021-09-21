@@ -16,7 +16,11 @@ shell_dir="${config_dir}/shell"
 shell_cache_dir="${cache_dir}/shell"
 shellrc_file="${shell_dir}/shellrc.sh"
 aliasrc_file="${shell_dir}/aliasrc.sh"
-shell_history_file="${shell_cache_dir}/history"
+bashrc_file="${shell_dir}/bashrc.sh"
+zshrc_file="${shell_dir}/zshrc.sh"
+kshrc_file="${shell_dir}/kshrc.sh"
+
+shell_history_file="${shell_cache_dir}/history.txt"
 log_file="${cache_dir}/dotfiles/dotfiles.log"
 
 notes_file="${stuff_dir}/notes/notes.txt"
@@ -33,7 +37,7 @@ esc_seq="\033"
 esc_bracket="${esc_seq}["
 esc_func() {
 	esc_start="${esc_bracket}"
-	case $1 in
+	case "$1" in
 		A | B | [Cc] | f | g | h | i | J | K | l | p | [Rr] | s | u)
 			end_char="$1"
 			esc_command="$2"
@@ -52,7 +56,7 @@ esc_func() {
 }
 
 text_effect() {
-	case $1 in
+	case "$1" in
 		reset)
 			output_var=0;;
 		bold)
