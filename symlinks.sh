@@ -14,7 +14,7 @@ while getopts "hl:" opt; do
 			printf "%s: Usage: [-l <library_file>]\n" "$0"
 			exit 0
 			;;
-		l) library_file="${OPTARG}" ;;
+		l) library_file="${OPTARG}";;
 	esac
 done
 

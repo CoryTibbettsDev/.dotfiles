@@ -85,7 +85,8 @@ set foldenable
 set foldmethod=marker
 
 " Indicate tabs and trailing spaces
-set list " listchars=tab:>-,trail:.,extends:>
+" listchars var defines the characters that indicate whitespace
+set list
 
 " Completion Menu Settings
 set completeopt=menu,menuone,noselect
@@ -182,12 +183,14 @@ set laststatus=2 showcmd showmode
 
 " Functions for getting git branch
 function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+	return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
+
 function! StatuslineGit()
-  let l:branchname = GitBranch()
-  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+	let l:branchname = GitBranch()
+	return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
+
 " Formats the statusline
 set statusline=
 set statusline+=%{StatuslineGit()} " Calls function to get git branch

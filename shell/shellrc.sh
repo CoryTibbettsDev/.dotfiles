@@ -95,7 +95,7 @@ parse_git_dirty() {
 }
 my_directory='$(my_pwd)$(parse_git_branch)'
 
-PS1="[${my_user}@${my_host} ${my_directory}]\$ "
+PS1="["${my_user}"@"${my_host}" "${my_directory}"]\$ "
 
 # History Settings
 HISTCONTROL=ignoreboth

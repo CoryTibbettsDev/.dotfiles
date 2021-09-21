@@ -54,25 +54,25 @@ esc_func() {
 text_effect() {
 	case $1 in
 		reset)
-			output_var=0 ;;
+			output_var=0;;
 		bold)
-			output_var=1 ;;
+			output_var=1;;
 		bright)
-			output_var=1 ;;
+			output_var=1;;
 		dim)
-			output_var=2 ;;
+			output_var=2;;
 		underline)
-			output_var=4 ;;
+			output_var=4;;
 		blink)
-			output_var=5 ;;
+			output_var=5;;
 		reverse)
-			output_var=7 ;;
+			output_var=7;;
 		hidden)
-			output_var=8 ;;
+			output_var=8;;
 		strikeout)
-			output_var=9 ;;
+			output_var=9;;
 		*)
-			output_var=0 ;;
+			output_var=0;;
 		esac
 	printf "$(esc_func "${output_var}")"
 }
@@ -141,12 +141,12 @@ source_file() {
 yes_or_no() {
 	while true; do
 		read -p "$* [Y/n]: " answer
-		case $answer in
+		case "$answer" in
 			# Case insensitive match: n no
-			[Nn]|[Nn][Oo]) return 1 ;;
+			[Nn]|[Nn][Oo]) return 1;;
 			# Case insensitive match: y yes <nothing>
-			[Yy]|[Yy][Ee][Ss]|"") return 0 ;;
-			*) printf "Please answer [y]es or [n]o\n" ;;
+			[Yy]|[Yy][Ee][Ss]|"") return 0;;
+			*) printf "Please answer [y]es or [n]o\n";;
 		esac
 	done
 }

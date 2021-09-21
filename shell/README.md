@@ -17,6 +17,7 @@ There may be still be errors or bashisms in them however so be careful.
 [printf With Variables](https://github.com/koalaman/shellcheck/wiki/SC2059)<br  />
 [Great Stackexchange Answer on Control Operators](https://unix.stackexchange.com/questions/159513/what-are-the-shells-control-and-redirection-operators/159514#159514)<br  />
 [POSIX Shell Tricks](https://www.etalabs.net/sh_tricks.html)<br  />
+[Interesting Way to Impliment POSIX Local Variables](https://stackoverflow.com/questions/18597697/posix-compliant-way-to-scope-variables-to-a-function-in-a-shell-script)<br  />
 
 ## echo and printf
 [printf vs echo With Notes On Portability](https://askubuntu.com/questions/467747/which-is-better-printf-or-echo/467756#467756)<br  />

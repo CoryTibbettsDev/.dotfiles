@@ -25,22 +25,27 @@ fi
 # Arg 1 is repo URL Arg2 is directory name
 # clone_repo https://example.com/repo directory_name
 clone_repo() {
-	printf "Cloning %s\n" "${1}"
-	git clone $1 "${repos_dir}/$2" || warn "git clone failed"
+	git clone "$1" "${repos_dir}/$2" ||
+		{ warn "git clone of $1 failed"; return 1; }
+}
+clone_install() {
+	clone_repo "$1" "$2" || return 1
+	eval "${su_cmd}" make install -C "${repos_dir}/$2" ||
+		{ warn "make install failed for $2"; return 1; }
 }
 
 # int = Install Package
 int() {
 	eval "${su_cmd}" pacman -S "${1}" --noconfirm
 }
-# Previously had and array that I looped through to install packages but
+# Previously had an array that I looped through to install packages but
 # arrays are not POSIX compliant and break some shells so this is my solution
 printf "Installing Packages\n"
-# Documentation
-int man-pages
 # Base System
 int base
 int base-devel
+# Documentation
+int man-pages
 # Text Editor
 int vi
 int neovim
@@ -51,8 +56,6 @@ int git
 # int cvs
 # For naviagting source code with vim
 int ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
-# Firewall
-int ufw
 # Password-store
 int pass
 # File copying/mirroring tool
@@ -110,10 +113,8 @@ yes_or_no "Install broadcom-wl?" && int broadcom-wl
 # Command line tool for searching and watching YouTube Videos
 # Dependencies are youtube-dl, mpv, jq, fzf
 # (optional for thumbnails) ueberzug
-# Source code: https://github.com/pystardust/ytfzf
-# Dependencies
 eval "${su_cmd}" pacman -S mpv youtube-dl jq fzf --noconfirm
-clone_repo https://github.com/pystardust/ytfzf ytfzf
+clone_install https://github.com/pystardust/ytfzf ytfzf
 
 # Cactus File Manager
 clone_repo https://github.com/WillEccles/cfm cfm

@@ -50,11 +50,12 @@ mf() {
 	find . -iname "*${1}*"
 }
 
-# : > is a dummy input that does not actually get placed into the file
+# : is a placeholder command that is always true so the file gets overwritten
 # Delete shell history(not cleared for current shell)
-alias clean=': > ${HISTFILE}'
+alias clean=': > "${HISTFILE}"'
 # Delete log file history
-alias clean-log=': > ${log_file}'
+alias clean-log=': > "${log_file}"'
+alias log='less "${log_file}"'
 
 # source line count
 # Line count of all files in directory
@@ -70,18 +71,29 @@ slc() {
 	total_line_count=0
 	# -false is necessary after -prune so the directories themselves are ignored
 	# as well as the files inside of them
-	for file in $(find ${dir} -type d \( -name .git -o -name git -o -name .svn -o -name CVS \) -prune -false -o -type f \! -name tags \! -iname *.jpg \! -iname *.png); do
+	for file in $(find "${dir}" \
+		-type d \( -name .git -o -name .svn -o -name CVS \) -prune -false \
+		-o -type f \! -name tags \! -iname *.jpg \! -iname *.png); do
 		word_count_result="$(wc -l "${file}")"
 		printf "Line count: %s\n" "${word_count_result}"
 		# Remove everything after the first space so we have just the number
 		line_count="$(printf "%s" "${word_count_result}" | sed 's/ .*$//')"
-		total_line_count="$((  ${total_line_count} + ${line_count} ))"
+		total_line_count=$(( "${total_line_count}" + "${line_count}" ))
 	done
 	printf "Total line count in %s: %s\n" "${dir}" "${total_line_count}"
 	IFS="$SAVEIFS"
 }
 
+# Edit notes file
+alias n='eval "$EDITOR" "${notes_file}"'
+
 alias f='eval "${terminal_file_manager}"'
+
+# Change wallpaper
+alias cw='eval "${wallpaper_set_cmd}"'
+
+# Screen locker
+alias lock='eval "${screen_locker}"'
 
 alias g='git'
 alias gs='git status'
@@ -111,15 +123,6 @@ alias mnt='udisksctl mount -b'
 alias unmnt='udisksctl unmount -b'
 
 alias z='zathura'
-
-# Screen locker
-alias lock='eval "${screen_locker}"'
-
-# Change wallpaper
-alias cw='eval "${wallpaper_set_cmd}"'
-
-# Edit notes file
-alias n='eval "$EDITOR" "${notes_file}"'
 
 # ex - archive extractor
 # usage: ex <file>
