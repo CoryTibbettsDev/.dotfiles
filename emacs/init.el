@@ -37,6 +37,13 @@
 (savehist-mode -1)
 (auto-save-mode -1)
 
+(setq backup-inhibited t
+  make-backup-files nil
+  auto-save-default nil)
+; Disable creation of auto-save-list folder(s)
+; https://emacs.stackexchange.com/questions/18677/prevent-auto-save-list-directory-to-be-created
+(setq auto-save-list-file-prefix nil)
+
 ; Disable startup screen
 (setq inhibit-startup-screen t)
 
