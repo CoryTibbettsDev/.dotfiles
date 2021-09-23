@@ -1,17 +1,18 @@
 # aliasrc.sh
 
 # Make sure LIBRARY_FILE exists
-[ -e "${LIBRARY_FILE}" ] &&
-	. "${LIBRARY_FILE}" ||
+if [ -f "${LIBRARY_FILE}" ]; then
+	. "${LIBRARY_FILE}"
+else
 	printf "LIBRARY_FILE does not exist\n"
+	return
+fi
 
 # Wholesome Unix
 alias pls='eval "${su_cmd}"'
 
-alias ls='ls --color=auto'
-alias ll='ls -la'
-alias l='ls -la'
-alias lsr='ls -R'
+alias ls='ls -F'
+alias l='ls -alh'
 
 alias cl='clear'
 
@@ -64,7 +65,7 @@ slc() {
 	# contain spaces or other special characters are not cut off by said special
 	# characters. For example a file named hello\ world.txt would be read as
 	# wc -l hello instead of wc -l hello\ world.txt
-	SAVEIFS="$IFS"
+	saveifs="$IFS"
 	IFS="$(printf "\n\b")"
 	[ -n "${1}" ] && dir="${1}" || dir="."
 	# Need to set to 0 or otherwise there is an error when adding
@@ -81,7 +82,7 @@ slc() {
 		total_line_count=$(( "${total_line_count}" + "${line_count}" ))
 	done
 	printf "Total line count in %s: %s\n" "${dir}" "${total_line_count}"
-	IFS="$SAVEIFS"
+	IFS="$saveifs"
 }
 
 # Edit notes file

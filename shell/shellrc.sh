@@ -3,15 +3,22 @@
 # Symlinked to all shell specific rc files
 
 # Make sure LIBRARY_FILE is there and source it
-[ -f "${LIBRARY_FILE}" ] &&
-	. "${LIBRARY_FILE}" ||
-	{ printf "LIBRARY_FILE failed -f check\n"; return; }
+if [ -f "${LIBRARY_FILE}" ]; then
+	. "${LIBRARY_FILE}"
+else
+	printf "LIBRARY_FILE failed -f check\n"
+	return
+fi
 
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	current_shell="bash"
+	non_printable_open="\["
+	non_printable_close="\]"
 	source_file "${bashrc_file}"
 elif [ -n "$ZSH_VERSION" ]; then
 	current_shell="zsh"
+	non_printable_open="%{"
+	non_printable_close="%}"
 	source_file "${zshrc_file}"
 elif [ -n "$KSH_VERSION" -o -n "$FCEDIT" ]; then
 	current_shell="ksh"
@@ -83,7 +90,19 @@ parse_git_dirty() {
 }
 my_directory='$(my_pwd)$(parse_git_branch)'
 
-PS1="["${my_user}"@"${my_host}" "${my_directory}"]\$ "
+if [ "${current_shell}" = "bash" ] || [ "${current_shell}" = "zsh" ]; then
+	check_color_support &&
+		colors="$(text_effect bold)$(esc_func "${rgb_fore}150;150;255")" ||
+		colors="$(text_effect bold)${four_bit_blue_fore}"
+
+	start_ps1="${non_printable_open}${colors}${non_printable_close}"
+	end_ps1=" \$${non_printable_open}$(text_effect reset)${non_printable_close}"
+else
+	start_ps1="["
+	end_ps1="]\$"
+fi
+
+PS1="${start_ps1}${my_user}@${my_host} ${my_directory}${end_ps1} "
 
 # History Settings
 HISTCONTROL=ignoreboth

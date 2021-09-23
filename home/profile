@@ -16,7 +16,25 @@ export LIBRARY_FILE
 export EDITOR="${text_editor}"
 export VISUAL="${visual_editor}"
 
-# Shell rc file is not automatically sourced by login shells so we just
+# Some programs look for XDG dirs from exported shell variables and not from
+# the $XDG_CONFIG_DIR/user-dirs.dirs or $HOME/.config/user-dirs.dirs file
+# so export these in case so they can find config files and not mess with
+# our other directories
+export XDG_CONFIG_HOME="${config_dir}"
+export XDG_DESKTOP_DIR="${downloads_dir}"
+export XDG_DOCUMENTS_DIR="${downloads_dir}"
+export XDG_DOWNLOAD_DIR="${downloads_dir}"
+export XDG_MUSIC_DIR="${downloads_dir}"
+export XDG_PICTURES_DIR="${downloads_dir}"
+export XDG_PUBLICSHARE_DIR="${downloads_dir}"
+export XDG_TEMPLATES_DIR="${downloads_dir}"
+export XDG_VIDEOS_DIR="${downloads_dir}"
+
+if [ -f "$HOME/.dir_colors" ]; then
+	eval "$(dircolors $HOME/.dir_colors)" || log_func "Error: dircolors $HOME/.dir_colors"
+fi
+
+# Shell specific rc file is not automatically sourced by login shells so we just
 # source our own unique one anyway
 . "${shellrc_file}"
 

@@ -38,7 +38,7 @@ esc_bracket="${esc_seq}["
 esc_func() {
 	esc_start="${esc_bracket}"
 	case "$1" in
-		A | B | [Cc] | f | g | h | i | J | K | l | p | [Rr] | s | u)
+		A | B | [Cc] | f | g | h | i | J | K | l | m | p | [Rr] | s | u)
 			end_char="$1"
 			esc_command="$2"
 			;;
@@ -83,7 +83,8 @@ text_effect() {
 
 # 256 and Truecolor(RGB) escape sequences
 # Foreground \033[38;5;<FG COLOR>m or \033[38;2;<r>;<g>;<b>m
-# Background \033[48;5;<bG COLOR>m or \033[48;2;<r>;<g>;<b>m
+# Background \033[48;5;<BG COLOR>m or \033[48;2;<r>;<g>;<b>m
+# Set color example: "$(esc_func m "${rgb_fore}255;255;255;")"
 color_fore="38;"
 color_back="48;"
 

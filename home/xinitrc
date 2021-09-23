@@ -3,7 +3,7 @@
 # Source library file
 if [ ! -f "${LIBRARY_FILE}" ]; then
 	printf "LIBRARY_FILE[%s] does not exist\n" "${LIBRARY_FILE}"
-	exit 1
+	return
 fi
 . "${LIBRARY_FILE}"
 

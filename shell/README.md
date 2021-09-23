@@ -5,11 +5,14 @@ There may be still be errors or bashisms in them however so be careful.
 
 # Links
 
-## Security
+## Security, Bugs, and Common Mistakes
 [Secirty Implications of Forgetting to Quote Variables](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)<br  />
 [Interesting Article With Some Basic Exploits](https://www.linuxjournal.com/content/writing-secure-shell-scripts)<br  />
 [When In Doubt Quote It](https://stackoverflow.com/questions/10067266/when-to-wrap-quotes-around-a-shell-variable)<br  />
 [Stackoverflow Thread On When You Might Want to Not Quote Variables](https://stackoverflow.com/questions/32674809/is-there-any-reason-not-to-quote-variables)<br  />
+[Bash Common Mistakes and Pitfalls](https://mywiki.wooledge.org/BashPitfalls)<br  />
+[wooledge.org Quotes](https://mywiki.wooledge.org/Quotes)<br  />
+[wooledge.org Word Splitting](https://mywiki.wooledge.org/WordSplitting)<br  />
 
 ## POSIX Info
 [Pure sh Bible](https://github.com/dylanaraps/pure-sh-bible/blob/master/README.md)<br  />
@@ -46,6 +49,7 @@ There may be still be errors or bashisms in them however so be careful.
 ## PS1
 [Terminal Output Not Wrapping Properly Because of PS1](https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly)<br  />
 [Another Solution to Line Wrapping Problem](https://stackoverflow.com/questions/24839271/bash-ps1-line-wrap-issue-with-non-printing-characters-from-an-external-command)<br  />
+[Change Color In zsh and How To Enclose Non-printable characters](https://stackoverflow.com/questions/689765/how-can-i-change-the-color-of-my-prompt-in-zsh-different-from-normal-text)<br  />
 [zsh Command Substitution in PS1 and Other Variables](https://superuser.com/questions/142099/get-function-into-ps1-zsh)<br  />
 [Short But Nice Intro to zsh PS1 Prompt](https://voracious.dev/a-guide-to-customizing-the-zsh-shell-prompt)<br  />
 

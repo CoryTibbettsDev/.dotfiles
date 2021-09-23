@@ -231,6 +231,14 @@ autocmd FileType python,haskell set tabstop=4 softtabstop=4 shiftwidth=4 expandt
 autocmd FileType json,lisp set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " }}}
 
+" {{{ Terminal Settings
+" Terminal feature is currently only available in neovim as far as I know
+if has('nvim')
+	" Remap <Esc> to exit terminal-mode
+	tnoremap <Esc> <C-\><C-n>
+endif
+" }}}
+
 " {{{ Plugins
 " Disable netrw history (cuz it's really annoying)
 let g:netrw_dirhistmax = 0
