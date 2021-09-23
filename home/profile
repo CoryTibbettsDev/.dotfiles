@@ -15,6 +15,9 @@ export LIBRARY_FILE
 # Export just in case it is not exported already
 export EDITOR="${text_editor}"
 export VISUAL="${visual_editor}"
+export TERMINAL="${terminal_emulator}"
+export BROWSER="${web_browser}"
+export READER="${document_viewer}"
 
 # Some programs look for XDG dirs from exported shell variables and not from
 # the $XDG_CONFIG_DIR/user-dirs.dirs or $HOME/.config/user-dirs.dirs file
