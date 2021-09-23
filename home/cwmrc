@@ -15,6 +15,7 @@ bind-key MS-c window-close
 bind-key M-r menu-cmd
 
 bind-key MS-Return xterm
+bind-key MS-f firefox
 
 bind-key M-1 group-only-1
 bind-key M-2 group-only-2

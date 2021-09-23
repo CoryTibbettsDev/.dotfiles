@@ -4,7 +4,7 @@
 
 # Add -b or --backup flag to ln if you want to backup old files
 verbose_link() {
-	ln -sfv "${1}" "${2}" ||
+	ln -sf "${1}" "${2}" ||
 		printf "failed to link %s to %s\n" "${2}" "${1}"
 }
 
@@ -36,7 +36,7 @@ if [ ! -d "${dotfiles_dir}" ]; then
 fi
 
 # Make directories and files in case they do not exist
-mkdir -pv "${downloads_dir}" \
+mkdir -p "${downloads_dir}" \
 	"${config_dir}" \
 	"${cache_dir}" \
 	"${repos_dir}" \
@@ -46,20 +46,13 @@ mkdir -pv "${downloads_dir}" \
 
 [ -f "${shell_history_file}" ] || touch "${shell_history_file}"
 
-# Link shell agnostic rc and profile files to shell specific rc and profile files
-verbose_link "${shellrc_file}" "$HOME/.bashrc"
-verbose_link "${shellrc_file}" "$HOME/.zshrc"
-verbose_link "${shellrc_file}" "$HOME/.kshrc"
-verbose_link "$HOME/.profile" "$HOME/.bash_profile"
-verbose_link "$HOME/.profile" "$HOME/.zprofile"
-
 # Link all files in home directory to user's home directory
-for file in ${dotfiles_dir}/home/*; do
+for file in "${dotfiles_dir}"/home/*; do
 	verbose_link "${file}" "$HOME/.$(basename "${file}")"
 done
 
 # Link all files in config directory to user's config directory
-for file in ${dotfiles_dir}/config/*; do
+for file in "${dotfiles_dir}"/config/*; do
 	verbose_link "${file}" "${config_dir}/$(basename "${file}")"
 done
 
@@ -79,8 +72,16 @@ link_config luakit
 link_config feh
 link_config emacs
 
+# Link shell agnostic rc and profile files to shell specific rc and profile files
+# Need to be linked after home dotfiles and shell config dir is linked
+verbose_link "${shellrc_file}" "$HOME/.bashrc"
+verbose_link "${shellrc_file}" "$HOME/.zshrc"
+verbose_link "${shellrc_file}" "$HOME/.kshrc"
+verbose_link "$HOME/.profile" "$HOME/.bash_profile"
+verbose_link "$HOME/.profile" "$HOME/.zprofile"
+
 # Copy Wallpapers
-cp -vrn "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
+cp -vr "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
 
 browser_config_dir="${dotfiles_dir}/browser-config"
 sh "${browser_config_dir}/link.sh" "${browser_config_dir}" ||

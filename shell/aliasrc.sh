@@ -8,8 +8,15 @@ else
 	return
 fi
 
+alias m='man'
+alias s='apropos'
+
 # Wholesome Unix
 alias pls='eval "${su_cmd}"'
+
+# Alias for editor
+# e is easy to reach and I remember with e for edit like in vim
+alias e='eval "${EDITOR}"'
 
 alias ls='ls -F'
 alias l='ls -alh'
@@ -19,17 +26,8 @@ alias cl='clear'
 alias cpv='cp -v'
 alias mvv='mv -v'
 alias rmv='rm -v'
-alias mkd='mkdir -pv'
+alias mkd='mkdir -p'
 
-alias m='man'
-# Search man pages
-alias s='apropos'
-
-# Alias for editor
-# e is easy to reach and I remember with e for edit like in vim
-alias e='eval "${EDITOR}"'
-
-alias grep='grep --color=auto'
 # Recursive grep
 alias rgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 alias rg='rgrep'
@@ -38,9 +36,12 @@ alias rg='rgrep'
 alias hgrep='fc -l -${HISTSIZE} | grep'
 alias hg='hgrep'
 
-alias diff='diff --color=auto'
-
 alias less='less -R'
+
+alias du='du -k'
+alias df='df -k'
+
+alias j='jobs -l'
 
 # human readable free
 alias hfree='free -mht'
@@ -122,8 +123,6 @@ alias mpv3='mpv360'
 
 alias mnt='udisksctl mount -b'
 alias unmnt='udisksctl unmount -b'
-
-alias z='zathura'
 
 # ex - archive extractor
 # usage: ex <file>
