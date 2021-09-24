@@ -9,7 +9,7 @@ setup_file="${deploy_dir}/symlinks.sh"
 # Clone repo if not in the place we expect
 if [ ! -d "${deploy_dir}" ]; then
 	git clone "${remote_url}" "${deploy_dir}" ||
-		{ printf "%s git clone failed" "$deploy_dir"; exit 1; }
+		{ printf "%s git clone failed" "${deploy_dir}"; exit 1; }
 fi
 # Check to make sure we have everything where it is supposed to be
 if [ ! -d "${deploy_dir}" ]; then
@@ -95,6 +95,7 @@ int udisks2
 int arc-solid-gtk-theme
 # Quick EMUlator
 int qemu
+int spice-gtk
 
 # Raster Image Editor
 # int gimp
@@ -122,6 +123,6 @@ clone_repo https://github.com/WillEccles/cfm cfm
 # Change swappiness to better value
 printf "Setting Swappiness\n"
 eval "${su_cmd}" sysctl vm.swappiness=10
-printf "vm.swappiness=10\n" | eval "${su_cmd}" tee -a /etc/sysctl.d/99-swappiness.conf
+printf "vm.swappiness=10\n" | eval "${su_cmd}" tee /etc/sysctl.d/99-swappiness.conf
 
 sh "${setup_file}" || warn "${setup_file} failed"

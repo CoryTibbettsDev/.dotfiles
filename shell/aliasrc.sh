@@ -41,8 +41,6 @@ alias less='less -R'
 alias du='du -k'
 alias df='df -k'
 
-alias j='jobs -l'
-
 # human readable free
 alias hfree='free -mht'
 
@@ -92,7 +90,7 @@ alias n='eval "$EDITOR" "${notes_file}"'
 alias f='eval "${terminal_file_manager}"'
 
 # Change wallpaper
-alias cw='eval "${wallpaper_set_cmd}"'
+alias cw='eval "${set_wallpaper_cmd}"'
 
 # Screen locker
 alias lock='eval "${screen_locker}"'

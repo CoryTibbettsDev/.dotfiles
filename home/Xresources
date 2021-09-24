@@ -2,10 +2,10 @@
 
 ! Xterm font settings
 xterm*faceName: Monospace
-xterm*faceSize: 22
+xterm*faceSize: 20
 
 ! URxvt
-URxvt.font: xft:monospace:size=22
+URxvt.font: xft:monospace:size=20
 ! Disable perl extensions for speed and security
 URxvt.perl-ext:
 URxvt.perl-ext-common:

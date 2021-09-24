@@ -16,7 +16,7 @@ local menubar = require("menubar")
 beautiful.init(gears.filesystem.get_configuration_dir() .. "mytheme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "kitty" or "xterm"
+terminal = os.getenv("TERMINAL") or "xterm"
 editor = os.getenv("EDITOR") or "vi"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -199,7 +199,9 @@ globalkeys = gears.table.join(
         end,
         {description = "go back", group = "client"}),
     -- Standard program
-    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(terminal) end,
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(terminal.." -e tmux") end,
+              {description = "open a tmux terminal", group = "launcher"}),
+    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
