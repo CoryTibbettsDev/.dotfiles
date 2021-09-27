@@ -42,7 +42,8 @@ mkdir -p "${downloads_dir}" \
 	"${repos_dir}" \
 	"${projects_dir}" \
 	"${stuff_dir}" \
-	"${shell_cache_dir}"
+	"${shell_cache_dir}" \
+	"${HOME}/Misc"
 
 [ -f "${shell_history_file}" ] || touch "${shell_history_file}"
 

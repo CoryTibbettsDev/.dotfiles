@@ -13,6 +13,7 @@ There may be still be errors or bashisms in them however so be careful.
 [Bash Common Mistakes and Pitfalls](https://mywiki.wooledge.org/BashPitfalls)<br  />
 [wooledge.org Quotes](https://mywiki.wooledge.org/Quotes)<br  />
 [wooledge.org Word Splitting](https://mywiki.wooledge.org/WordSplitting)<br  />
+[Running shell Commands From Variables Does Not Always Work](https://stackoverflow.com/questions/28580226/run-a-shell-command-from-a-variable-in-a-shell-script)<br  />
 
 ## POSIX Info
 [Pure sh Bible](https://github.com/dylanaraps/pure-sh-bible/blob/master/README.md)<br  />

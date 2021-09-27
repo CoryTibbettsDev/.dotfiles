@@ -1,8 +1,10 @@
 ! .Xresources
 
-! Xterm font settings
+! Xterm
 xterm*faceName: Monospace
 xterm*faceSize: 20
+
+xterm*ScrollBar: false
 
 ! URxvt
 URxvt.font: xft:monospace:size=20

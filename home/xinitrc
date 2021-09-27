@@ -16,7 +16,7 @@ if [ -f "$HOME/.Xmodmap" ]; then
 fi
 # Run xrdb to load .Xresources if file exists
 if [ -f "$HOME/.Xresources" ]; then
-	xrdb "$HOME/.Xresources" || log_func "Error xrdb ~/.Xresources in /xinitrc"
+	xrdb -merge "$HOME/.Xresources" || log_func "Error xrdb ~/.Xresources in /xinitrc"
 fi
 
 # Start Window Manager

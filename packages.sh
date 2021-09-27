@@ -107,8 +107,8 @@ int spice-gtk
 # Edit /etc/pacman.conf and uncomment the multilib mirror list
 # multilib is needed for steam and 32-bit programs and libraries
 
-yes_or_no "Install acpi?" && int acpi
-yes_or_no "Install broadcom-wl?" && int broadcom-wl
+yes_no "Install acpi?" && int acpi
+yes_no "Install broadcom-wl?" && int broadcom-wl
 
 # ytfzf
 # Command line tool for searching and watching YouTube Videos

@@ -125,7 +125,6 @@ nnoremap <C-y> "+y
 
 " Insert a single character from normal mode
 nnoremap <C-i> i_<Esc>r
-nnoremap <C-a> a_<Esc>r
 
 nnoremap <leader>m :make<CR>
 nnoremap <leader>t :make test<CR>

@@ -33,10 +33,6 @@ export XDG_PUBLICSHARE_DIR="${downloads_dir}"
 export XDG_TEMPLATES_DIR="${downloads_dir}"
 export XDG_VIDEOS_DIR="${downloads_dir}"
 
-if [ -f "$HOME/.dir_colors" ]; then
-	eval "$(dircolors $HOME/.dir_colors)" || log_func "Error: dircolors $HOME/.dir_colors"
-fi
-
 # Shell specific rc file is not automatically sourced by login shells so we just
 # source our own unique one anyway
 . "${shellrc_file}"

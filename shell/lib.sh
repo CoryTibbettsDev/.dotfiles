@@ -35,7 +35,7 @@ terminal_emulator="xterm"
 document_viewer="zathura"
 terminal_file_manager="cfm"
 
-set_wallpaper_cmd="feh --no-fehbg --bg-max --recursive --randomize "${wallpaper_dir}""
+set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""
 
 esc_seq="\033"
 esc_bracket="${esc_seq}["
@@ -147,7 +147,7 @@ source_file() {
 	return 1
 }
 
-yes_or_no() {
+yes_no() {
 	while true; do
 		read -p "$* [Y/n]: " answer
 		case "$answer" in

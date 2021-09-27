@@ -11,7 +11,7 @@ fi
 alias m='man'
 alias s='apropos'
 
-# Wholesome Unix
+# Wholesome
 alias pls='eval "${su_cmd}"'
 
 # Alias for editor
@@ -29,17 +29,12 @@ alias rmv='rm -v'
 alias mkd='mkdir -p'
 
 # Recursive grep
-alias rgrep='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
-alias rg='rgrep'
+alias rg='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 # History grep
 # Use fc instead of history as it is POSIX compliant
-alias hgrep='fc -l -${HISTSIZE} | grep'
-alias hg='hgrep'
+alias hg='fc -l -${HISTSIZE} | grep'
 
 alias less='less -R'
-
-alias du='du -k'
-alias df='df -k'
 
 # human readable free
 alias hfree='free -mht'
@@ -49,51 +44,6 @@ alias hfree='free -mht'
 mf() {
 	find . -iname "*${1}*"
 }
-
-# : is a placeholder command that is always true so the file gets overwritten
-# Delete shell history(not cleared for current shell)
-alias clean=': > "${HISTFILE}"'
-# Delete log file history
-alias clean-log=': > "${log_file}"'
-alias log='less "${log_file}"'
-
-# source line count
-# Line count of all files in directory
-slc() {
-	# Adding \b to IFS is necessary so files found with the find command that
-	# contain spaces or other special characters are not cut off by said special
-	# characters. For example a file named hello\ world.txt would be read as
-	# wc -l hello instead of wc -l hello\ world.txt
-	saveifs="$IFS"
-	IFS="$(printf "\n\b")"
-	[ -n "${1}" ] && dir="${1}" || dir="."
-	# Need to set to 0 or otherwise there is an error when adding
-	total_line_count=0
-	# -false is necessary after -prune so the directories themselves are ignored
-	# as well as the files inside of them
-	for file in $(find "${dir}" \
-		-type d \( -name .git -o -name .svn -o -name CVS \) -prune -false \
-		-o -type f \! -name tags \! -iname *.jpg \! -iname *.png); do
-		word_count_result="$(wc -l "${file}")"
-		printf "Line count: %s\n" "${word_count_result}"
-		# Remove everything after the first space so we have just the number
-		line_count="$(printf "%s" "${word_count_result}" | sed 's/ .*$//')"
-		total_line_count=$(( "${total_line_count}" + "${line_count}" ))
-	done
-	printf "Total line count in %s: %s\n" "${dir}" "${total_line_count}"
-	IFS="$saveifs"
-}
-
-# Edit notes file
-alias n='eval "$EDITOR" "${notes_file}"'
-
-alias f='eval "${terminal_file_manager}"'
-
-# Change wallpaper
-alias cw='eval "${set_wallpaper_cmd}"'
-
-# Screen locker
-alias lock='eval "${screen_locker}"'
 
 alias g='git'
 alias gs='git status'
@@ -105,6 +55,53 @@ alias gpo='git push origin'
 alias mt='make test'
 alias mc='make clean'
 
+# Copy clipboard over ssh
+clipssh() {
+	if [ -z "$1" ]; then
+		printf "No arg 1 for target user\n"
+		return 1
+	fi
+	# Need to specify display not sure why
+	# https://unix.stackexchange.com/questions/16694/copy-input-to-clipboard-over-ssh
+	forward_port=2222
+	# For testing
+	# xclip -out -selection clipboard | ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${forward_port}" "$1"@127.0.0.1 'DISPLAY=:0 xclip -in -selection clipboard'
+	xclip -out -selection clipboard | ssh -p "${forward_port}" "$1"@127.0.0.1 'DISPLAY=:0 xclip -in -selection clipboard'
+}
+
+# Delete clipboard
+dclip() {
+	# xclip defaults to the value of display so there is no need to specify it
+	# but check to make sure it is not null just in case
+	if [ -z "${DISPLAY}" ]; then
+		log_func "DISPLAY in unset returning from dclip"
+		return 1
+	fi
+	# May be a better way to clear them all at once
+	printf "" | xclip -selection clipboard
+	printf "" | xclip -selection primary
+	printf "" | xclip -selection secondary
+	return 0
+}
+
+# : is a placeholder command that is always true so the file gets overwritten
+# Delete shell history(not cleared for current shell)
+alias clean=': > "${HISTFILE}"'
+# Delete log file history
+alias clean-log=': > "${log_file}"'
+alias log='less "${log_file}"'
+
+# Edit notes file
+alias n='eval "$EDITOR" "${notes_file}"'
+
+# Change wallpaper
+alias cw='eval "${set_wallpaper_cmd}"'
+
+# Screen locker
+alias lock='eval "${screen_locker}"'
+
+alias f='eval "${terminal_file_manager}"'
+
 # Alias for YouTube command line search tool
 alias yt='ytfzf'
 
@@ -114,6 +111,7 @@ alias dla='youtube-dl -x -f bestaudio/best'
 alias dlmp3='youtube-dl --extract-audio --audio-format mp3'
 
 alias p='mpv'
+alias play='mpv "$(xclip -out -selection clipboard)"'
 alias mpv720='mpv --ytdl-format=22'
 alias mpv7='mpv720'
 alias mpv360='mpv --ytdl-format=18'
