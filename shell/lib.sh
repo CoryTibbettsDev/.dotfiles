@@ -123,17 +123,32 @@ four_bit_white_back="$(esc_func 47)"
 # Append message with date to ${log_file}
 log_func() {
 	[ -z "${log_file}" ] && log_file="$HOME/error.log"
-	log_dir="$(dirname ${log_file})"
+	log_dir="$(dirname "${log_file}")"
 	if [ ! -d "${log_dir}" ]; then
 		mkdir -p "${log_dir}" && touch "${log_file}"
 	fi
 	printf "[%s] %s\n" "$(date)" "${1}" | tee -a "${log_file}"
 }
 
-warn() {
-	log_func "Warning: ${1}"
-	return 1
-}
+# Detect init system
+if type "rc-update" > /dev/null 2>&1; then
+	init_system="openrc"
+elif type "sv" > /dev/null 2>&1; then
+	init_system="runit"
+elif type "s6-rc" > /dev/null 2>&1; then
+	init_system="s6"
+elif type "66-tree" > /dev/null 2>&1; then
+	init_system="suite66"
+elif type "rcctl" > /dev/null 2>&1; then
+	init_system="openbsd"
+elif type "service" > /dev/null 2>&1; then
+	init_system="freebsd"
+elif type "systemctl" > /dev/null 2>&1; then
+	init_system="systemd"
+else
+	init_system="unknown"
+	log_func "Unknown init system\n"
+fi
 
 # Source file from argument 1
 source_file() {

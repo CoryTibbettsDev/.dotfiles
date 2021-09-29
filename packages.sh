@@ -26,12 +26,12 @@ fi
 # clone_repo https://example.com/repo directory_name
 clone_repo() {
 	git clone "$1" "${repos_dir}/$2" ||
-		{ warn "git clone of $1 failed"; return 1; }
+		{ log_func "git clone of $1 failed"; return 1; }
 }
 clone_install() {
 	clone_repo "$1" "$2" || return 1
 	eval "${su_cmd}" make install -C "${repos_dir}/$2" ||
-		{ warn "make install failed for $2"; return 1; }
+		{ log_func "make install failed for $2"; return 1; }
 }
 
 # int = Install Package

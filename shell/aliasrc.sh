@@ -66,7 +66,7 @@ clipssh() {
 	forward_port=2222
 	# For testing
 	# xclip -out -selection clipboard | ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${forward_port}" "$1"@127.0.0.1 'DISPLAY=:0 xclip -in -selection clipboard'
-	xclip -out -selection clipboard | ssh -p "${forward_port}" "$1"@127.0.0.1 'DISPLAY=:0 xclip -in -selection clipboard'
+	xclip -out -selection clipboard | ssh -p "${forward_port}" "$1"@127.0.0.1 'DISPLAY=:0 xclip -in -selection clipboard && printf "Copied\n" || printf "Not Copied\n"'
 }
 
 # Delete clipboard
@@ -106,7 +106,7 @@ alias f='eval "${terminal_file_manager}"'
 alias yt='ytfzf'
 
 alias youtube-dl='youtube-dl --no-call-home'
-alias dl='youtube-dl'
+alias dl='youtube-dl "$(xclip -out -selection clipboard)"'
 alias dla='youtube-dl -x -f bestaudio/best'
 alias dlmp3='youtube-dl --extract-audio --audio-format mp3'
 
@@ -116,6 +116,9 @@ alias mpv720='mpv --ytdl-format=22'
 alias mpv7='mpv720'
 alias mpv360='mpv --ytdl-format=18'
 alias mpv3='mpv360'
+
+# Requires netcat
+alias firewall-test='nc -z -n -v 127.0.0.1 1-1024 2>&1 | grep succeeded'
 
 alias mnt='udisksctl mount -b'
 alias unmnt='udisksctl unmount -b'

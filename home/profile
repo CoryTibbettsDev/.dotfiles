@@ -11,11 +11,11 @@ LIBRARY_FILE="$HOME/.config/shell/lib.sh"
 # Export LIBRARY_FILE for other scripts to use
 export LIBRARY_FILE
 
-# Set editor details for programs that look for them
+# Set global variables for programs that look for them
 # Export just in case it is not exported already
-export EDITOR="${text_editor}"
-export VISUAL="${visual_editor}"
-export TERMINAL="${terminal_emulator}"
+export EDITOR="${text_editor:-vi}"
+export VISUAL="${visual_editor:-$EDITOR}"
+export TERMINAL="${terminal_emulator:-xterm}"
 export BROWSER="${web_browser}"
 export READER="${document_viewer}"
 
