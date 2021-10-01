@@ -126,6 +126,9 @@ nnoremap <C-y> "+y
 " Insert a single character from normal mode
 nnoremap <C-i> i_<Esc>r
 
+" Insert <br  /> for markdown line breaks
+nnoremap <leader>b a<br  /><Esc>
+
 nnoremap <leader>m :make<CR>
 nnoremap <leader>t :make test<CR>
 
