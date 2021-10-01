@@ -78,4 +78,5 @@ There may be still be errors or bashisms in them however so be careful.
 [Determine Active Shell 2](https://unix.stackexchange.com/questions/71121/determine-shell-in-script-during-runtime)<br  />
 [.profile Not Taking Effect Correctly](https://nanxiao.me/en/why-doesnt-profile-take-effect-in-arch-linux/)
 [Automatically startx on Login](https://wiki.archlinux.org/title/Xinit#Autostart_X_at_login)<br  />
+[Loop Through Each Line of a File](https://stackoverflow.com/questions/1521462/looping-through-the-content-of-a-file-in-bash)<br  />
 [Where to Find ash Source Code](https://unix.stackexchange.com/questions/276477/where-to-find-the-source-code-for-the-almquist-shell)<br  />

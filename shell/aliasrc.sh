@@ -31,7 +31,6 @@ alias mkd='mkdir -p'
 # Recursive grep
 alias rg='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
 # History grep
-# Use fc instead of history as it is POSIX compliant
 alias hg='fc -l -${HISTSIZE} | grep'
 
 alias less='less -R'
@@ -58,14 +57,12 @@ alias mc='make clean'
 # Copy clipboard over ssh
 clipssh() {
 	if [ -z "$1" ]; then
-		printf "No arg 1 for target user\n"
+		printf "No arg 1 for target user\n" 1>&2
 		return 1
 	fi
 	# Need to specify display not sure why
 	# https://unix.stackexchange.com/questions/16694/copy-input-to-clipboard-over-ssh
 	forward_port=2222
-	# For testing
-	# xclip -out -selection clipboard | ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${forward_port}" "$1"@127.0.0.1 'DISPLAY=:0 xclip -in -selection clipboard'
 	xclip -out -selection clipboard | ssh -p "${forward_port}" "$1"@127.0.0.1 'DISPLAY=:0 xclip -in -selection clipboard && printf "Copied\n" || printf "Not Copied\n"'
 }
 
@@ -74,10 +71,10 @@ dclip() {
 	# xclip defaults to the value of display so there is no need to specify it
 	# but check to make sure it is not null just in case
 	if [ -z "${DISPLAY}" ]; then
-		log_func "DISPLAY in unset returning from dclip"
+		log_func "DISPLAY is unset returning from dclip"
 		return 1
 	fi
-	# May be a better way to clear them all at once
+	# May be a better way to clear them all at once idk
 	printf "" | xclip -selection clipboard
 	printf "" | xclip -selection primary
 	printf "" | xclip -selection secondary

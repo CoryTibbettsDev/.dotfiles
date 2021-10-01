@@ -1,128 +1,78 @@
 #!/bin/sh
 
-su_cmd="sudo"
+while getopts "hl:" opt; do
+	case "${opt}" in
+		h)
+			printf "%s: Usage: [-l <library_file>]\n" "$0"
+			exit 0
+			;;
+		l) library_file="${OPTARG}";;
+	esac
+done
 
-remote_url="https://github.com/CoryTibbettsDev/.dotfiles"
-deploy_dir="$HOME/.dotfiles"
-library_file="${deploy_dir}/lib.sh"
-setup_file="${deploy_dir}/symlinks.sh"
-# Clone repo if not in the place we expect
-if [ ! -d "${deploy_dir}" ]; then
-	git clone "${remote_url}" "${deploy_dir}" ||
-		{ printf "%s git clone failed" "${deploy_dir}"; exit 1; }
-fi
-# Check to make sure we have everything where it is supposed to be
-if [ ! -d "${deploy_dir}" ]; then
-	printf "No dotfiles directory: %s\n" "${deploy_dir}"
+library_file="${library_file:-$LIBRARY_FILE}"
+
+if [ -z "${library_file}" ]; then
+	printf "library_file is null\n"
 	exit 1
-fi
-if [ ! -f "${library_file}" ]; then
-	printf "No library file: %s\n" "${library_file}"
+elif [ ! -f "${library_file}" ]; then
+	printf "library_file: '%s' does not exist\n" "${library_file}"
 	exit 1
 fi
 . "${library_file}"
 
+# Make sure dotfiles_dir exists, should have been defined in the library_file
+if [ ! -d "${dotfiles_dir}" ]; then
+	printf "dotfiles_dir: '%s' does not exist\n" "${dotfiles_dir}"
+	exit 1
+fi
+
 # Arg 1 is repo URL Arg2 is directory name
 # clone_repo https://example.com/repo directory_name
 clone_repo() {
-	git clone "$1" "${repos_dir}/$2" ||
-		{ log_func "git clone of $1 failed"; return 1; }
+	if ! git clone "$1" "${repos_dir}/$2"; then
+		log_func "git clone of $1 failed"
+		return 1
+	fi
 }
+
 clone_install() {
 	clone_repo "$1" "$2" || return 1
-	eval "${su_cmd}" make install -C "${repos_dir}/$2" ||
-		{ log_func "make install failed for $2"; return 1; }
+	if ! eval "${su_cmd}" make install -C "${repos_dir}/$2"; then
+		log_func "make install failed for $2"
+		return 1
+	fi
+	return 0
 }
 
-# int = Install Package
-int() {
-	eval "${su_cmd}" pacman -S "${1}" --noconfirm
-}
-# Previously had an array that I looped through to install packages but
-# arrays are not POSIX compliant and break some shells so this is my solution
-printf "Installing Packages\n"
-# Base System
-int base
-int base-devel
-# Documentation
-int man-pages
-# Text Editor
-int vi
-int neovim
-# Terminal multiplexer
-int tmux
-# Version Control
-int git
-# int cvs
-# For naviagting source code with vim
-int ctags # In vim jump to definition with Ctrl-] jump back with Ctrl-o
-# Password-store
-int pass
-# File copying/mirroring tool
-int rsync
-# Xserver windowing
-int xorg
-int xorg-xinit
-int xterm
-# xorg-server-xephyr # Run nested xorg server for developement
-# Clipboard
-int xclip
-# Fonts
-int noto-fonts-cjk
-# Window Manager
-int awesome
-# Audio control
-int alsa
-int alsa-utils
-# Web browser
-int firefox
-# Download videos
-int youtube-dl
-# Video player
-int mpv
-# Image viewer
-int feh # Also use for setting wallpaper
-# GUI file browser
-int pcmanfm
-# Screen locker
-int i3lock
-# Document viewer
-int zathura
-int zathura-pdf-mupdf # PDF EPUB XPS support
-# Mount External Devices
-int udisks2
-# GTK Theme
-int arc-solid-gtk-theme
-# Quick EMUlator
-int qemu
-int spice-gtk
+pkg_file="${dotfiles_dir}/pkgs/${operating_system}.txt"
 
-# Raster Image Editor
-# int gimp
-# Vector Image Editor
-# int inkscape
-
-## Steam and drivers
-# https://github.com/lutris/docs/blob/master/InstallingDrivers.md
-# Edit /etc/pacman.conf and uncomment the multilib mirror list
-# multilib is needed for steam and 32-bit programs and libraries
-
-yes_no "Install acpi?" && int acpi
-yes_no "Install broadcom-wl?" && int broadcom-wl
+if [ "${package_manager}" = pacman ]; then
+	# Update database
+	eval "${su_cmd}" pacman -Sy
+	# Loop through package file and install each package
+	while IFS="" read -r package || [ -n "${package}" ]; do
+		eval "${su_cmd}" pacman -S "${package}" --noconfirm
+	done < "${pkg_file}"
+if [ "${package_manager}" = openbsd ]; then
+	pkg_add -l "${pkg_file}"
+else
+	printf "pkg_file: '%s' os: '%s' and package manager: '%s' not supported\n" \
+		"${operating_system}" "${package_manager}" 1>&2
+fi
 
 # ytfzf
 # Command line tool for searching and watching YouTube Videos
 # Dependencies are youtube-dl, mpv, jq, fzf
 # (optional for thumbnails) ueberzug
-eval "${su_cmd}" pacman -S mpv youtube-dl jq fzf --noconfirm
 clone_install https://github.com/pystardust/ytfzf ytfzf
 
 # Cactus File Manager
 clone_repo https://github.com/WillEccles/cfm cfm
 
 # Change swappiness to better value
-printf "Setting Swappiness\n"
-eval "${su_cmd}" sysctl vm.swappiness=10
-printf "vm.swappiness=10\n" | eval "${su_cmd}" tee /etc/sysctl.d/99-swappiness.conf
-
-sh "${setup_file}" || warn "${setup_file} failed"
+if [ "$(uname)" = Linux ]; then
+	swappiness=10
+	eval "${su_cmd}" sysctl vm.swappiness="${swappiness}"
+	printf "vm.swappiness = ${swappiness}\n" | eval "${su_cmd}" tee "/etc/sysctl.d/local.conf"
+fi

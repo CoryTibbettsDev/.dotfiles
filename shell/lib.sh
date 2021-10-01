@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# lib.sh
+
 # Standard directories
 downloads_dir="$HOME/Downloads"
 config_dir="$HOME/.config"
@@ -24,8 +26,6 @@ shell_history_file="${shell_cache_dir}/history.txt"
 log_file="${cache_dir}/dotfiles/dotfiles.log"
 
 notes_file="${stuff_dir}/notes/notes.txt"
-
-su_cmd="sudo"
 text_editor="nvim"
 visual_editor="${text_editor}"
 window_manager="awesome"
@@ -36,6 +36,88 @@ document_viewer="zathura"
 terminal_file_manager="cfm"
 
 set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""
+
+# Append message with date to ${log_file}
+log_func() {
+	[ -z "${log_file}" ] && log_file="$HOME/error.log"
+	log_dir="$(dirname "${log_file}")"
+	if [ ! -d "${log_dir}" ]; then
+		mkdir -p "${log_dir}" && touch "${log_file}"
+	fi
+	printf "[%s] %s\n" "$(date)" "${1}" | tee -a "${log_file}"
+}
+
+# Detect the super user command
+if type "doas" > /dev/null 2>&1; then
+	su_cmd="doas"
+elif type "sudo" > /dev/null 2>&1; then
+	su_cmd="sudo"
+else
+	su_cmd=
+	log_func "Could not find a valid su_cmd"
+fi
+
+# Detect package manager
+if type "pacman" > /dev/null 2>&1; then
+	package_manager="pacman"
+elif type "pkg_add" > /dev/null 2>&1; then
+	package_manager="openbsd"
+elif type "pkg" > /dev/null 2>&1; then
+	package_manager="pkg"
+elif type "xbps-install" > /dev/null 2>&1; then
+	package_manager="xbps"
+elif type "emerge" > /dev/null 2>&1; then
+	package_manager="emerge"
+elif type "apt" > /dev/null 2>&1; then
+	package_manager="apt"
+elif type "dnf" > /dev/null 2>&1; then
+	package_manager="dnf"
+else
+	package_manager=
+	log_func "Could not find a valid package manager"
+fi
+
+# Detect init system
+if type "rc-update" > /dev/null 2>&1; then
+	init_system="openrc"
+elif type "sv" > /dev/null 2>&1; then
+	init_system="runit"
+elif type "s6-rc" > /dev/null 2>&1; then
+	init_system="s6"
+elif type "66-tree" > /dev/null 2>&1; then
+	init_system="suite66"
+elif type "rcctl" > /dev/null 2>&1; then
+	init_system="openbsd"
+elif type "service" > /dev/null 2>&1; then
+	init_system="freebsd"
+elif type "systemctl" > /dev/null 2>&1; then
+	init_system="systemd"
+else
+	init_system=
+	log_func "Unknown init system"
+fi
+
+# Detect operating system
+if [ "$(uname)" = Linux ]; then
+	if [ "${package_manager}" = pacman ]; then
+		if [ "${init_system}" = systemd ]; then
+			operating_system="arch"
+		else
+			operating_system="artix"
+		fi
+	elif [ "${package_manager}" = dnf ]; then
+		operating_system="fedora"
+	elif [ "${package_manager}" = apt ]; then
+		operating_system="debian"
+	fi
+elif [ "$(uname)" = OpenBSD ]; then
+	operating_system="openbsd"
+elif [ "$(uname)" = FreeBSD ]; then
+	operating_system="freebsd"
+else
+	operating_system=
+	log_func "Unknown operating system"
+fi
 
 esc_seq="\033"
 esc_bracket="${esc_seq}["
@@ -120,36 +202,6 @@ four_bit_magenta_back="$(esc_func 45)"
 four_bit_cyan_back="$(esc_func 46)"
 four_bit_white_back="$(esc_func 47)"
 
-# Append message with date to ${log_file}
-log_func() {
-	[ -z "${log_file}" ] && log_file="$HOME/error.log"
-	log_dir="$(dirname "${log_file}")"
-	if [ ! -d "${log_dir}" ]; then
-		mkdir -p "${log_dir}" && touch "${log_file}"
-	fi
-	printf "[%s] %s\n" "$(date)" "${1}" | tee -a "${log_file}"
-}
-
-# Detect init system
-if type "rc-update" > /dev/null 2>&1; then
-	init_system="openrc"
-elif type "sv" > /dev/null 2>&1; then
-	init_system="runit"
-elif type "s6-rc" > /dev/null 2>&1; then
-	init_system="s6"
-elif type "66-tree" > /dev/null 2>&1; then
-	init_system="suite66"
-elif type "rcctl" > /dev/null 2>&1; then
-	init_system="openbsd"
-elif type "service" > /dev/null 2>&1; then
-	init_system="freebsd"
-elif type "systemctl" > /dev/null 2>&1; then
-	init_system="systemd"
-else
-	init_system="unknown"
-	log_func "Unknown init system\n"
-fi
-
 # Source file from argument 1
 source_file() {
 	if [ -f "${1}" ]; then
@@ -163,9 +215,11 @@ source_file() {
 }
 
 yes_no() {
-	while true; do
-		read -p "$* [Y/n]: " answer
-		case "$answer" in
+	while :; do
+		printf "$* [Y/n]: "
+		read -r answer
+		printf "\n"
+		case "${answer}" in
 			# Case insensitive match: n no
 			[Nn]|[Nn][Oo]) return 1;;
 			# Case insensitive match: y yes <nothing>
@@ -176,7 +230,9 @@ yes_no() {
 }
 
 check_color_support() {
-	[ "$COLORTERM" = truecolor -o "$COLORTERM" = 24bit ] &&
-		return 0 ||
+	if [ "$COLORTERM" = truecolor ] || [ "$COLORTERM" = 24bit ]; then
+		return 0
+	else
 		return 1
+	fi
 }

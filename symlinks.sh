@@ -24,14 +24,14 @@ if [ -z "${library_file}" ]; then
 	printf "library_file is null\n"
 	exit 1
 elif [ ! -f "${library_file}" ]; then
-	printf "library_file: %s: does not exist\n" "${library_file}"
+	printf "library_file: '%s' does not exist\n" "${library_file}"
 	exit 1
 fi
 . "${library_file}"
 
 # Make sure dotfiles_dir exists, should have been defined in the library_file
 if [ ! -d "${dotfiles_dir}" ]; then
-	printf "dotfiles_dir: %s: does not exist\n" "${dotfiles_dir}"
+	printf "dotfiles_dir: '%s' does not exist\n" "${dotfiles_dir}"
 	exit 1
 fi
 
@@ -69,7 +69,6 @@ link_config ytfzf
 link_config mpv
 link_config "gtk-3.0"
 link_config zathura
-link_config luakit
 link_config feh
 link_config emacs
 
