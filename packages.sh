@@ -15,7 +15,8 @@ library_file="${library_file:-$LIBRARY_FILE}"
 if [ -z "${library_file}" ]; then
 	printf "library_file is null\n"
 	exit 1
-elif [ ! -f "${library_file}" ]; then
+if
+if [ ! -f "${library_file}" ]; then
 	printf "library_file: '%s' does not exist\n" "${library_file}"
 	exit 1
 fi
@@ -50,11 +51,8 @@ pkg_file="${dotfiles_dir}/pkgs/${operating_system}.txt"
 if [ "${package_manager}" = pacman ]; then
 	# Update database
 	eval "${su_cmd}" pacman -Sy
-	# Loop through package file and install each package
-	while IFS="" read -r package || [ -n "${package}" ]; do
-		eval "${su_cmd}" pacman -S "${package}" --noconfirm
-	done < "${pkg_file}"
-if [ "${package_manager}" = openbsd ]; then
+	eval "${su_cmd}" pacman -S "$(awk '{print $1}' "${pkg_file}")"
+elif [ "${package_manager}" = openbsd ]; then
 	pkg_add -l "${pkg_file}"
 else
 	printf "pkg_file: '%s' os: '%s' and package manager: '%s' not supported\n" \
@@ -76,3 +74,5 @@ if [ "$(uname)" = Linux ]; then
 	eval "${su_cmd}" sysctl vm.swappiness="${swappiness}"
 	printf "vm.swappiness = ${swappiness}\n" | eval "${su_cmd}" tee "/etc/sysctl.d/local.conf"
 fi
+
+sh "${dotfiles_dir}/symlinks.sh" -l "${library_file}"

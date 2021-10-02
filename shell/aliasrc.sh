@@ -14,6 +14,19 @@ alias s='apropos'
 # Wholesome
 alias pls='eval "${su_cmd}"'
 
+shut() {
+	if [ "${init_system}" = openrc ]; then
+		eval "${su_cmd}" openrc-shutdown -p now
+	elif [ "${init_system}" = openbsd ]; then
+		eval "${su_cmd}" shutdown -p now
+	elif [ "${init_system}" = systemd ]; then
+		shutdown now
+	else
+		log_func "ERROR: No shutdown command for init: '${init_system}'"
+		return 1
+	fi
+}
+
 # Alias for editor
 # e is easy to reach and I remember with e for edit like in vim
 alias e='eval "${EDITOR}"'
@@ -83,9 +96,9 @@ dclip() {
 
 # : is a placeholder command that is always true so the file gets overwritten
 # Delete shell history(not cleared for current shell)
-alias clean=': > "${HISTFILE}"'
+alias cleanhist=': > "${HISTFILE}"'
 # Delete log file history
-alias clean-log=': > "${log_file}"'
+alias cleanlog=': > "${log_file}"'
 alias log='less "${log_file}"'
 
 # Edit notes file

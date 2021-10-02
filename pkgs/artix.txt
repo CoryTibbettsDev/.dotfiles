@@ -13,7 +13,6 @@ tmux
 acpi
 alsa-utils
 ctags
-openbsd-netcat
 pass
 rsync
 udisks2
@@ -29,10 +28,7 @@ noto-fonts-cjk
 noto-fonts-emoji
 pcmanfm
 i3lock
-firefox
 feh
-zathura
-zathura-pdf-mupdf
 mpv
 youtube-dl
 jq
