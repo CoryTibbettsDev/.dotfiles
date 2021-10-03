@@ -15,7 +15,7 @@ library_file="${library_file:-$LIBRARY_FILE}"
 if [ -z "${library_file}" ]; then
 	printf "library_file is null\n"
 	exit 1
-if
+fi
 if [ ! -f "${library_file}" ]; then
 	printf "library_file: '%s' does not exist\n" "${library_file}"
 	exit 1
@@ -51,7 +51,9 @@ pkg_file="${dotfiles_dir}/pkgs/${operating_system}.txt"
 if [ "${package_manager}" = pacman ]; then
 	# Update database
 	eval "${su_cmd}" pacman -Sy
-	eval "${su_cmd}" pacman -S "$(awk '{print $1}' "${pkg_file}")"
+	while read -r package; do
+		eval "${su_cmd}" pacman -S "${package}" --noconfirm
+	done < "${pkg_file}"
 elif [ "${package_manager}" = openbsd ]; then
 	pkg_add -l "${pkg_file}"
 else
