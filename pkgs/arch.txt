@@ -1,12 +1,5 @@
-linux
-linux-firmware
-base
-pacman
-sudo
-vi
 neovim
 iptables
-networkmanager
 man-pages
 git
 tmux

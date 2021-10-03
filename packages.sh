@@ -39,7 +39,7 @@ clone_repo() {
 
 clone_install() {
 	clone_repo "$1" "$2" || return 1
-	if ! eval "${su_cmd}" make install -C "${repos_dir}/$2"; then
+	if ! eval "${su_cmd}" make install PREFIX=/usr/local -C "${repos_dir}/$2"; then
 		log_func "make install failed for $2"
 		return 1
 	fi
@@ -50,7 +50,7 @@ pkg_file="${dotfiles_dir}/pkgs/${operating_system}.txt"
 
 if [ "${package_manager}" = pacman ]; then
 	# Update database
-	eval "${su_cmd}" pacman -Sy
+	eval "${su_cmd}" pacman -Sy --noconfirm
 	while read -r package; do
 		eval "${su_cmd}" pacman -S "${package}" --noconfirm
 	done < "${pkg_file}"
