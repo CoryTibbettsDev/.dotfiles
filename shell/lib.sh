@@ -218,7 +218,6 @@ yes_no() {
 	while :; do
 		printf "$* [Y/n]: "
 		read -r answer
-		printf "\n"
 		case "${answer}" in
 			# Case insensitive match: n no
 			[Nn]|[Nn][Oo]) return 1;;

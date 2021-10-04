@@ -39,7 +39,7 @@ clone_repo() {
 
 clone_install() {
 	clone_repo "$1" "$2" || return 1
-	if ! eval "${su_cmd}" make install PREFIX=/usr/local -C "${repos_dir}/$2"; then
+	if ! eval "${su_cmd}" make install -C "${repos_dir}/$2"; then
 		log_func "make install failed for $2"
 		return 1
 	fi
