@@ -74,11 +74,13 @@ link_config emacs
 
 # Link shell agnostic rc and profile files to shell specific rc and profile files
 # Need to be linked after home dotfiles and shell config dir is linked
+# Profile files
+verbose_link "${profile_file}" "$HOME/.bash_profile"
+verbose_link "${profile_file}" "$HOME/.zprofile"
+# Shellrc files
 verbose_link "${shellrc_file}" "$HOME/.bashrc"
 verbose_link "${shellrc_file}" "$HOME/.zshrc"
 verbose_link "${shellrc_file}" "$HOME/.kshrc"
-verbose_link "$HOME/.profile" "$HOME/.bash_profile"
-verbose_link "$HOME/.profile" "$HOME/.zprofile"
 
 # Copy Wallpapers
 cp -vr "${dotfiles_dir}/Wallpaper" "${stuff_dir}"

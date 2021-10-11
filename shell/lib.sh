@@ -16,6 +16,7 @@ projects_dir="$HOME/Projects"
 
 shell_dir="${config_dir}/shell"
 shell_cache_dir="${cache_dir}/shell"
+profile_file="${HOME}/.profile"
 shellrc_file="${shell_dir}/shellrc.sh"
 aliasrc_file="${shell_dir}/aliasrc.sh"
 bashrc_file="${shell_dir}/bashrc.sh"
@@ -26,14 +27,16 @@ shell_history_file="${shell_cache_dir}/history.txt"
 log_file="${cache_dir}/dotfiles/dotfiles.log"
 
 notes_file="${stuff_dir}/notes/notes.txt"
+
+# Programs
 text_editor="nvim"
 visual_editor="${text_editor}"
 window_manager="awesome"
-screen_locker="i3lock"
-web_browser="firefox"
 terminal_emulator="xterm"
+web_browser="firefox"
 document_viewer="zathura"
 terminal_file_manager="cfm"
+screen_locker="i3lock"
 
 set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""
 
@@ -98,6 +101,7 @@ else
 fi
 
 # Detect operating system
+# The operating_system variable should not be 100% reliable
 if [ "$(uname)" = Linux ]; then
 	if [ "${package_manager}" = pacman ]; then
 		if [ "${init_system}" = systemd ]; then
