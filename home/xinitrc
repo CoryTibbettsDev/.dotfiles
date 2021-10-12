@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # .xinitrc
 
 # Source library file
@@ -7,17 +9,19 @@ if [ ! -f "${LIBRARY_FILE}" ]; then
 fi
 . "${LIBRARY_FILE}"
 
-# Set Wallpaper
-eval "${set_wallpaper_cmd}" || log_func "Error setting wallpaper in .xinitrc"
-
 # Set Xmodmap if file exists
 if [ -f "$HOME/.Xmodmap" ]; then
-	xmodmap "$HOME/.Xmodmap" || log_func "Error xmodmap ~/.Xmodmap in .xinitrc"
+	xmodmap "$HOME/.Xmodmap" || log_func "ERROR: xmodmap ~/.Xmodmap in .xinitrc"
 fi
 # Run xrdb to load .Xresources if file exists
 if [ -f "$HOME/.Xresources" ]; then
-	xrdb -merge "$HOME/.Xresources" || log_func "Error xrdb ~/.Xresources in /xinitrc"
+	xrdb -merge "$HOME/.Xresources" ||
+		log_func "ERROR: xrdb -merge ~/.Xresources in .xinitrc"
 fi
+
+# Set Wallpaper
+eval "${set_wallpaper_cmd}" ||
+	log_func "ERROR: setting wallpaper in .xinitrc command '${set_wallpaper_cmd}'"
 
 # Start Window Manager
 exec "${window_manager}"

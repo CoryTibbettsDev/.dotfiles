@@ -1,11 +1,14 @@
 # .profile
-# This file is linked to by all the shell specific profiles
-# such as (.bash_profile, .zprofile etc.) so I have a unified place
-# for all all my configuration
+
+# This file is symlinked to all the shell specific profiles
+# such as .bash_profile, .zprofile etc.
 
 LIBRARY_FILE="$HOME/.config/shell/lib.sh"
 # Check if the library file exists if not try and find it
-[ -f "${LIBRARY_FILE}" ] || printf "LIBRARY_FILE is unset or null\n"
+if [ ! -f "${LIBRARY_FILE}" ]; then
+	printf "LIBRARY_FILE is unset or null\n"
+	return
+fi
 # Source the library file
 . "${LIBRARY_FILE}"
 # Export LIBRARY_FILE for other scripts to use
@@ -14,7 +17,7 @@ export LIBRARY_FILE
 # Set global variables for programs that look for them
 # Export just in case it is not exported already
 export EDITOR="${text_editor:-vi}"
-export VISUAL="${visual_editor:-$EDITOR}"
+export VISUAL="${visual_editor:-"$EDITOR"}"
 export TERMINAL="${terminal_emulator:-xterm}"
 export BROWSER="${web_browser}"
 export READER="${document_viewer}"
