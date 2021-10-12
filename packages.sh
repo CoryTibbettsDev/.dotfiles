@@ -48,18 +48,19 @@ clone_install() {
 
 pkg_file="${dotfiles_dir}/pkgs/${operating_system}.txt"
 
-if [ "${package_manager}" = pacman ]; then
-	# Update database
-	eval "${su_cmd}" pacman -Sy --noconfirm
-	while read -r package; do
-		eval "${su_cmd}" pacman -S "${package}" --noconfirm
-	done < "${pkg_file}"
-elif [ "${package_manager}" = openbsd ]; then
-	pkg_add -l "${pkg_file}"
-else
-	printf "pkg_file: '%s' os: '%s' and package manager: '%s' not supported\n" \
-		"${operating_system}" "${package_manager}" 1>&2
-fi
+case "${package_manager}" in
+	pacman)
+		# Update database
+		eval "${su_cmd}" pacman -Sy --noconfirm
+		while read -r package; do
+			eval "${su_cmd}" pacman -S "${package}" --noconfirm
+		done < "${pkg_file}"
+		;;
+	openbsd) eval "${su_cmd}" pkg_add -l "${pkg_file}";;
+	*)
+		log_func "ERROR: pkg_file: '${pkg_file}' os: '${operating_system}' package manager: '${package_manager}' not supported\n"
+		;;
+esac
 
 # ytfzf
 # Command line tool for searching and watching YouTube Videos

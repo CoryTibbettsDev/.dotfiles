@@ -15,16 +15,55 @@ alias s='apropos'
 alias pls='eval "${su_cmd}"'
 
 shut() {
-	if [ "${init_system}" = openrc ]; then
-		eval "${su_cmd}" openrc-shutdown -p now
-	elif [ "${init_system}" = openbsd ]; then
-		eval "${su_cmd}" shutdown -p now
-	elif [ "${init_system}" = systemd ]; then
-		shutdown now
-	else
-		log_func "ERROR: No shutdown command for init: '${init_system}'"
-		return 1
-	fi
+	case "${init_system}" in
+		openrc) eval "${su_cmd}" openrc-shutdown -p now;;
+		openbsd) eval "${su_cmd}" shutdown -p now;;
+		systemd) shutdown now;;
+		*)
+			log_func "ERROR: No shutdown command for init: '${init_system}'"
+			return 1
+			;;
+	esac
+}
+
+reb() {
+	case "${init_system}" in
+		systemd) reboot;;
+		*) eval "${su_cmd}" reboot;;
+	esac
+}
+
+print_pmh() {
+cat <<EOF
+Install: "${1}"
+Remove: "${2}"
+Search: "${3}"
+Update: "${4}"
+EOF
+}
+
+# Package manager help
+pmh() {
+cat <<EOF
+Detected package manager: "${package_manager}"
+EOF
+	case "${package_manager}" in
+		pacman)
+			print_pmh "pacman -S" "pacman -R" "pacman -Ss" "pacman -Syu"
+			;;
+		openbsd)
+			print_pmh "pkg_add" "pkg_remove" "pkg_info -E" "pkg_add -u"
+			;;
+		xbps)
+			print_pmh "xbps-install" "xbps-remove" "xbps-query -Rs" "xbps-install -Su"
+			;;
+		apt)
+			print_pmh "apt install" "apt remove" "apt search" "apt update"
+			;;
+		*)
+			printf "Unknown, null or unsupported package manager.\n"
+			;;
+	esac
 }
 
 # Alias for editor
@@ -42,7 +81,7 @@ alias rmv='rm -v'
 alias mkd='mkdir -p'
 
 # Recursive grep
-alias rg='grep -R -I -n -C 3 --exclude=tags --exclude-dir={.git,.svn,CVS}'
+alias rg='grep -R -I -n'
 # History grep
 alias hg='fc -l -${HISTSIZE} | grep'
 

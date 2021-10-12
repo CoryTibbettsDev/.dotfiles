@@ -73,6 +73,8 @@ elif type "emerge" > /dev/null 2>&1; then
 	package_manager="emerge"
 elif type "apt" > /dev/null 2>&1; then
 	package_manager="apt"
+elif type "apt-get" > /dev/null 2>&1; then
+	package_manager="apt-get"
 elif type "dnf" > /dev/null 2>&1; then
 	package_manager="dnf"
 else
