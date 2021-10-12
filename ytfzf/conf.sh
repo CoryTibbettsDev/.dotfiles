@@ -11,6 +11,14 @@ enable_noti=0
 
 video_player="mpv"
 
+#the format of the video (1080p, 720p, etc)
+#uses the youtube-dl preference system
+#must be a number eg: 22 is 720p
+#(YTFZF_PREF)
+# mpv and youtube-dl slow stream work around
+# https://bbs.archlinux.org/viewtopic.php?id=204978
+video_pref="best"
+
 video_player_format="mpv --ytdl-format="
 
 audio_player="mpv --no-video"
