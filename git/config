@@ -6,5 +6,3 @@
 [alias]
 	ctags = !.git/hooks/ctags
 	url = !sh -c 'git remote set-url origin \"$1\"' -
-[url "ssh://git@"]
-	insteadOf = https://

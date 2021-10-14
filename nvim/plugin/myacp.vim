@@ -38,7 +38,7 @@ function! s:meets_keyword(context)
 endfunc
 
 function! s:check_back_space() abort
-	  return col('.') < 2 || getline('.')[col('.') - 2]  =~# '\s'
+	return col('.') < 2 || getline('.')[col('.') - 2]  =~# '\s'
 endfunc
 
 function! s:on_backspace()
@@ -112,7 +112,7 @@ function! s:myacp_enable()
 		let b:myacp_init_tab = 1
 	endif
 	if get(g:, 'myacp_cr_confirm', 0) == 0
-		inoremap <silent><buffer><expr> <cr> 
+		inoremap <silent><buffer><expr> <cr>
 					\ pumvisible()? "\<c-y>\<cr>" : "\<cr>"
 	else
 		inoremap <silent><buffer><expr> <cr> 
@@ -130,7 +130,7 @@ endfunc
 function! s:myacp_disable()
 	if get(b:, 'myacp_init_autocmd', 0)
 		augroup myacpEventGroup
-			au! 
+			au!
 		augroup END
 	endif
 	if get(b:, 'myacp_init_tab', 0)

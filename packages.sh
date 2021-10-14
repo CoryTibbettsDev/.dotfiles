@@ -53,7 +53,7 @@ case "${package_manager}" in
 		# Update database
 		eval "${su_cmd}" pacman -Sy --noconfirm
 		while read -r package; do
-			eval "${su_cmd}" pacman -S "${package}" --noconfirm
+			eval "${su_cmd}" pacman -S "${package}" --noconfirm --needed
 		done < "${pkg_file}"
 		;;
 	openbsd) eval "${su_cmd}" pkg_add -l "${pkg_file}";;
@@ -69,13 +69,14 @@ esac
 clone_install https://github.com/pystardust/ytfzf ytfzf
 
 # Cactus File Manager
-clone_repo https://github.com/WillEccles/cfm cfm
+clone_install https://github.com/WillEccles/cfm cfm
 
 # Change swappiness to better value
 if [ "$(uname)" = Linux ]; then
 	swappiness=10
 	eval "${su_cmd}" sysctl vm.swappiness="${swappiness}"
-	printf "vm.swappiness = ${swappiness}\n" | eval "${su_cmd}" tee "/etc/sysctl.d/local.conf"
+	printf "vm.swappiness = ${swappiness}\n" |
+		eval "${su_cmd}" tee "/etc/sysctl.d/local.conf"
 fi
 
 sh "${dotfiles_dir}/symlinks.sh" -l "${library_file}"

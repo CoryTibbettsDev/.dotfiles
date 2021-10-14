@@ -106,6 +106,15 @@ alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
 alias gpo='git push origin'
+setremote(){
+	remote_name="origin"
+	if [ -n "${2}" ]; then
+		remote_name="${2}"
+	fi
+	repo="${remote_git}/${1}.git"
+	printf "New Remote: '%s' at '%s'\n" "${repo}" "${remote_name}"
+	git remote set-url "${remote_name}" "${repo}"
+}
 
 alias mt='make test'
 alias mc='make clean'

@@ -2,6 +2,11 @@
 
 # lib.sh
 
+remote_username="CoryTibbettsDev"
+remote_addr="github.com"
+remote_url="https://${remote_addr}"
+remote_git="git@${remote_addr}:${remote_username}"
+
 # Standard directories
 downloads_dir="$HOME/Downloads"
 config_dir="$HOME/.config"
@@ -10,7 +15,7 @@ cache_dir="$HOME/.cache"
 # My custom directories
 dotfiles_dir="$HOME/.dotfiles"
 stuff_dir="$HOME/Stuff"
-wallpaper_dir="$stuff_dir/Wallpaper"
+wallpaper_dir="${stuff_dir}/Wallpaper"
 repos_dir="$HOME/Repos"
 projects_dir="$HOME/Projects"
 

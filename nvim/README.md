@@ -14,6 +14,10 @@ Outline mode for edting text documents with text folding and jumping to headers.
 [Vim Outline and Org Modes](https://github.com/axvr/org.vim)<br  />
 [Vim Markdown Header Folding](https://gist.github.com/sjl/1038710)<br  />
 ## Status Line
-Status line that changes color based on the current mode.
+Status line that changes color based on the current mode.<br  />
 [lightline.vim](https://github.com/itchyny/lightline.vim)<br  />
+## Scratchpad
+Scratchpad to quickly run code especially shell scripts.<br  />
 [Running Python In Vim Buffer](https://izziswift.com/running-python-code-in-vim/)<br  />
+[Show Output of Shell Command](https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window)<br  />
+[codi.vim](https://github.com/metakirby5/codi.vim)<br  />
