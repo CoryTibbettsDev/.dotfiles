@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # aliasrc.sh
 
 # Make sure LIBRARY_FILE exists
@@ -13,6 +15,8 @@ alias s='apropos'
 
 # Wholesome
 alias pls='eval "${su_cmd}"'
+
+alias reload='. "${shellrc_file}"'
 
 shut() {
 	case "${init_system}" in
@@ -112,10 +116,15 @@ clipssh() {
 		printf "No arg 1 for target user\n" 1>&2
 		return 1
 	fi
+	forward_port=2222
+	if [ -n "$2" ]; then
+		forward_port="$2"
+	fi
 	# Need to specify display not sure why
 	# https://unix.stackexchange.com/questions/16694/copy-input-to-clipboard-over-ssh
-	forward_port=2222
-	xclip -out -selection clipboard | ssh -p "${forward_port}" "$1"@127.0.0.1 'DISPLAY=:0 xclip -in -selection clipboard && printf "Copied\n" || printf "Not Copied\n"'
+	xclip -out -selection clipboard |
+		ssh -p "${forward_port}" "$1"@127.0.0.1 \
+		'DISPLAY=":0" xclip -in -selection clipboard && printf "Copied\n" || printf "Not Copied\n"'
 }
 
 # Delete clipboard
@@ -127,9 +136,19 @@ dclip() {
 		return 1
 	fi
 	# May be a better way to clear them all at once idk
-	printf "" | xclip -selection clipboard
-	printf "" | xclip -selection primary
-	printf "" | xclip -selection secondary
+	# Xorg
+	if type "xclip" > /dev/null 2>&1; then
+		printf "Clearing xclip\n"
+		printf "" | xclip -in -selection clipboard
+		printf "" | xclip -in -selection primary
+		printf "" | xclip -in -selection secondary
+	fi
+	# Wayland
+	if type "wl-clipboard" > /dev/null 2>&1; then
+		printf "Clearing wl-clipboard\n"
+		wl-clipboard --clear
+		wl-clipboard --clear --primary
+	fi
 	return 0
 }
 
@@ -160,14 +179,11 @@ alias dla='youtube-dl -x -f bestaudio/best'
 alias dlmp3='youtube-dl --extract-audio --audio-format mp3'
 
 alias p='mpv'
-alias play='mpv "$(xclip -out -selection clipboard)"'
+alias play='mpv --ytdl-format=best "$(xclip -out -selection clipboard)"'
 alias mpv720='mpv --ytdl-format=22'
 alias mpv7='mpv720'
 alias mpv360='mpv --ytdl-format=18'
 alias mpv3='mpv360'
-
-# Requires netcat
-alias firewall-test='nc -z -n -v 127.0.0.1 1-1024 2>&1 | grep succeeded'
 
 alias mnt='udisksctl mount -b'
 alias unmnt='udisksctl unmount -b'
