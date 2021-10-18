@@ -6,7 +6,7 @@
 if [ -f "${LIBRARY_FILE}" ]; then
 	. "${LIBRARY_FILE}"
 else
-	printf "LIBRARY_FILE does not exist\n"
+	printf "aliasrc.sh: LIBRARY_FILE[%s] does not exist\n" "${LIBRARY_FILE}"
 	return
 fi
 
@@ -141,7 +141,7 @@ dclip() {
 	# xclip defaults to the value of display so there is no need to specify it
 	# but check to make sure it is not null just in case
 	if [ -z "${DISPLAY}" ]; then
-		log_func "DISPLAY is unset returning from dclip"
+		log_func "WARNING: DISPLAY is unset returning from dclip"
 		return 1
 	fi
 	# May be a better way to clear them all at once idk
@@ -169,7 +169,7 @@ alias cleanlog=': > "${log_file}"'
 alias log='less "${log_file}"'
 
 # Edit notes file
-alias n='eval "$EDITOR" "${notes_file}"'
+alias n='eval "${EDITOR}" "${notes_file}"'
 
 # Change wallpaper
 alias cw='eval "${set_wallpaper_cmd}"'
@@ -182,17 +182,14 @@ alias f='eval "${terminal_file_manager}"'
 # Alias for YouTube command line search tool
 alias yt='ytfzf'
 
-alias youtube-dl='youtube-dl --no-call-home'
-alias dl='youtube-dl "$(xclip -out -selection clipboard)"'
-alias dla='youtube-dl -x -f bestaudio/best'
-alias dlmp3='youtube-dl --extract-audio --audio-format mp3'
+alias ytdl='eval "${ytdl_cmd}" --no-call-home'
+alias youtube-dl='ytdl'
+alias dl='ytdl "$(xclip -out -selection clipboard)"'
+alias dla='ytdl -x -f bestaudio/best'
+alias dlmp3='ytdl --extract-audio --audio-format mp3'
 
 alias p='mpv'
-alias play='mpv --ytdl-format=best "$(xclip -out -selection clipboard)"'
-alias mpv720='mpv --ytdl-format=22'
-alias mpv7='mpv720'
-alias mpv360='mpv --ytdl-format=18'
-alias mpv3='mpv360'
+alias play='mpv --script-opts=ytdl_hook-ytdl_path="${ytdl_path}" "$(xclip -out -selection clipboard)"'
 
 alias mnt='udisksctl mount -b'
 alias unmnt='udisksctl unmount -b'

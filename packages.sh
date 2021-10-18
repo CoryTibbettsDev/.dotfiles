@@ -12,19 +12,15 @@ done
 
 library_file="${library_file:-$LIBRARY_FILE}"
 
-if [ -z "${library_file}" ]; then
-	printf "library_file is null\n"
-	exit 1
-fi
 if [ ! -f "${library_file}" ]; then
-	printf "library_file: '%s' does not exist\n" "${library_file}"
+	printf "packages.sh: library_file[%s] does not exist\n" "${library_file}"
 	exit 1
 fi
 . "${library_file}"
 
 # Make sure dotfiles_dir exists, should have been defined in the library_file
 if [ ! -d "${dotfiles_dir}" ]; then
-	printf "dotfiles_dir: '%s' does not exist\n" "${dotfiles_dir}"
+	printf "packages.sh: dotfiles_dir: '%s' does not exist\n" "${dotfiles_dir}"
 	exit 1
 fi
 

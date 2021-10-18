@@ -3,16 +3,12 @@
 # This file is symlinked to all the shell specific profiles
 # such as .bash_profile, .zprofile etc.
 
-LIBRARY_FILE="$HOME/.config/shell/lib.sh"
-# Check if the library file exists if not try and find it
+export LIBRARY_FILE="${HOME}/.config/shell/lib.sh"
 if [ ! -f "${LIBRARY_FILE}" ]; then
-	printf "LIBRARY_FILE is unset or null\n"
+	printf ".profile: LIBRARY_FILE[%s] does not exist.\n" "${LIBRARY_FILE}"
 	return
 fi
-# Source the library file
 . "${LIBRARY_FILE}"
-# Export LIBRARY_FILE for other scripts to use
-export LIBRARY_FILE
 
 # Set global variables for programs that look for them
 # Export just in case it is not exported already
@@ -27,6 +23,10 @@ export READER="${document_viewer}"
 # so export these in case so they can find config files and not mess with
 # our other directories
 export XDG_CONFIG_HOME="${config_dir}"
+export XDG_CACHE_HOME="${cache_dir}"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+
 export XDG_DESKTOP_DIR="${downloads_dir}"
 export XDG_DOCUMENTS_DIR="${downloads_dir}"
 export XDG_DOWNLOAD_DIR="${downloads_dir}"
@@ -35,6 +35,45 @@ export XDG_PICTURES_DIR="${downloads_dir}"
 export XDG_PUBLICSHARE_DIR="${downloads_dir}"
 export XDG_TEMPLATES_DIR="${downloads_dir}"
 export XDG_VIDEOS_DIR="${downloads_dir}"
+
+# Export command for ytfzf
+export STREAM_CMD="mpv --script-opts=ytdl_hook-ytdl_path="${ytdl_path}""
+
+# Workarounds for programs annoyingly creating directories in $HOME
+export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass"
+export GTK_RC_FILES="${XDG_CONFIG_HOME}/gtk-1.0/gtkrc"
+export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc"
+export BASH_COMPLETION_USER_FILE="${XDG_CONFIG_HOME}/bash-completion/bash_completion"
+export STACK_ROOT="${XDG_DATA_HOME}/stack"
+export CABAL_DIR="${XDG_CACHE_HOME}/cabal"
+export CABAL_CONFIG="${XDG_CONFIG_HOME}/cabal/config"
+export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
+export GOPATH="${XDG_DATA_HOME}/go"
+export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
+export ELINKS_CONFDIR="${XDG_CONFIG_HOME}/elinks"
+export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java"
+export KDEHOME="${XDG_CONFIG_HOME}/kde"
+export MPLAYER_HOME="${XDG_CONFIG_HOME}/mplayer"
+export MYSQL_HISTFILE="${XDG_DATA_HOME}/mysql_history"
+export NODE_REPL_HISTORY="${XDG_DATA_HOME}/node_repl_history"
+export NVM_DIR="${XDG_DATA_HOME}/nvm"
+
+# Opt-out of telemetry where possible
+# https://consoledonottrack.com
+export DO_NOT_TRACK=1
+# https://docs.microsoft.com/en-us/cli/azure/azure-cli-configuration#cli-configuration-values-and-environment-variables
+export AZURE_CORE_COLLECT_TELEMETRY=false
+# https://docs.microsoft.com/en-us/dotnet/core/tools/telemetry#how-to-opt-out
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+# https://www.gatsbyjs.com/docs/telemetry/
+export GATSBY_TELEMETRY_DISABLED=1
+# https://docs.brew.sh/Analytics
+export HOMEBREW_NO_ANALYTICS=1
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-telemetry.html
+export SAM_CLI_TELEMETRY=0
+# https://github.com/returntocorp/semgrep/blob/develop/PRIVACY.md
+export SEMGREP_SEND_METRICS=off
 
 # Shell specific rc file is not automatically sourced by login shells so we just
 # source our own unique one anyway

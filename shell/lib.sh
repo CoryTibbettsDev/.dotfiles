@@ -42,7 +42,8 @@ web_browser="firefox"
 document_viewer="zathura"
 terminal_file_manager="cfm"
 screen_locker="i3lock"
-
+ytdl_cmd="yt-dlp"
+ytdl_path="/usr/local/bin/yt-dlp"
 set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""
 
 # Append message with date to ${log_file}
