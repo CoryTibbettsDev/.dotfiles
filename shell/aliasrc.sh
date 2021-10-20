@@ -65,7 +65,47 @@ EOF
 			print_pmh "apt install" "apt remove" "apt search" "apt update"
 			;;
 		*)
-			printf "Unknown, null or unsupported package manager.\n"
+			printf "Unknown, null or unsupported package manager[%s].\n" "${package_manager}"
+			;;
+	esac
+}
+
+print_ish() {
+cat <<EOF
+Init System: "${init_system}"
+Status: "${1}"
+Start: "${2}"
+Stop: "${3}"
+Restart: "${4}"
+Enable: "${5}"
+Disable: "${6}"
+Show All Enabled: "${7}"
+All Commands: "${8}"
+EOF
+}
+
+# Init system help
+ish() {
+	case "${init_system}" in
+		openrc)
+			print_ish "rc-service <service> status OR /etc/init.d/<service> status " \
+				"rc-service <service> start OR /etc/init.d/<service> start" \
+				"rc-service <service> stop OR /etc/init.d/<service> stop" \
+				"rc-service <service> restart OR /etc/init.d/<service> restart" \
+				"rc-update add <service> <runlevel>" \
+				"rc-update del <service> <runlevel>" \
+				"rc-status" \
+				"rc-service rc-status rc-update openrc-run"
+			;;
+		systemd)
+			print_ish "systemctl status <service>" \
+				"systemctl start <service>" "systemctl stop <service>" \
+				"systemctl restart <service>" \
+				"systemctl enable <service>" "systemctl disable <service>" \
+				"systemctl list-units" "systemctl"
+			;;
+		*)
+			printf "Unknown, null or unsupported init system[%s].\n" "${init_system}"
 			;;
 	esac
 }
@@ -183,9 +223,8 @@ alias f='eval "${terminal_file_manager}"'
 alias yt='ytfzf'
 
 alias ytdl='eval "${ytdl_cmd}" --no-call-home'
-alias youtube-dl='ytdl'
 alias dl='ytdl "$(xclip -out -selection clipboard)"'
-alias dla='ytdl -x -f bestaudio/best'
+alias dla='ytdl --extract-audio "$(xclip -out -selection clipboard)"'
 alias dlmp3='ytdl --extract-audio --audio-format mp3'
 
 alias p='mpv'
