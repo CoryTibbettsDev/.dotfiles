@@ -145,6 +145,7 @@ alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
 alias gc='git commit'
+alias gp='git push'
 alias gpo='git push origin'
 setremote(){
 	remote_name="origin"
@@ -222,13 +223,19 @@ alias f='eval "${terminal_file_manager}"'
 # Alias for YouTube command line search tool
 alias yt='ytfzf'
 
-alias ytdl='eval "${ytdl_cmd}" --no-call-home'
+alias youtube-dl='youtube-dl --no-call-home'
+if [ "${ytdl_cmd}" = "youtube-dl" ]; then
+	alias ytdl='eval "${ytdl_cmd}" --no-call-home'
+else
+	alias ytdl='eval "${ytdl_cmd}"'
+fi
 alias dl='ytdl "$(xclip -out -selection clipboard)"'
 alias dla='ytdl --extract-audio "$(xclip -out -selection clipboard)"'
 alias dlmp3='ytdl --extract-audio --audio-format mp3'
 
 alias p='mpv'
 alias play='mpv --script-opts=ytdl_hook-ytdl_path="${ytdl_path}" "$(xclip -out -selection clipboard)"'
+alias shuffle='mpv --shuffle'
 
 alias mnt='udisksctl mount -b'
 alias unmnt='udisksctl unmount -b'
@@ -250,9 +257,9 @@ ex() {
 			*.rar) unrar x "$1";;
 			*.Z) uncompress "$1";;
 			*.7z) 7z x "$1";;
-			*) printf "%s cannot be extracted via ex()\n" "$1";;
+			*) printf "'%s' cannot be extracted via ex()\n" "$1";;
 		esac
 	else
-		printf "%s is not a valid file\n" "$1"
+		printf "'%s' is not a valid file\n" "$1"
 	fi
 }

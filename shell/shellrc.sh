@@ -36,10 +36,10 @@ else
 	return
 fi
 
-my_user="${USER:-$(id -un)}"
+my_user="${USER:-"$(id -un)"}"
 my_user="${my_user:-UnknownUser}"
 
-my_host="${HOSTNAME:-$(uname -n)}"
+my_host="${HOSTNAME:-"$(uname -n)"}"
 my_host="${my_host:-UnknownHost}"
 
 my_pwd() {

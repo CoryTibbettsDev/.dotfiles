@@ -43,7 +43,7 @@ document_viewer="zathura"
 terminal_file_manager="cfm"
 screen_locker="i3lock"
 ytdl_cmd="yt-dlp"
-ytdl_path="/usr/local/bin/yt-dlp"
+ytdl_path="/usr/local/bin/${ytdl_cmd}"
 set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""
 
 # Append message with date to ${log_file}
@@ -56,10 +56,18 @@ log_func() {
 	printf "[%s] %s\n" "$(date)" "${1}" | tee -a "${log_file}"
 }
 
+command_exists() {
+	command -v "${1}" > /dev/null 2>&1
+}
+
+function_exists() {
+	type "${1}" > /dev/null 2>&1
+}
+
 # Detect the super user command
-if type "doas" > /dev/null 2>&1; then
+if command_exists "doas"; then
 	su_cmd="doas"
-elif type "sudo" > /dev/null 2>&1; then
+elif command_exists "sudo"; then
 	su_cmd="sudo"
 else
 	su_cmd=
@@ -67,21 +75,21 @@ else
 fi
 
 # Detect package manager
-if type "pacman" > /dev/null 2>&1; then
+if command_exists "pacman"; then
 	package_manager="pacman"
-elif type "pkg_add" > /dev/null 2>&1; then
+elif command_exists "pkg_add"; then
 	package_manager="openbsd"
-elif type "pkg" > /dev/null 2>&1; then
+elif command_exists "pkg"; then
 	package_manager="pkg"
-elif type "xbps-install" > /dev/null 2>&1; then
+elif command_exists "xbps-install"; then
 	package_manager="xbps"
-elif type "emerge" > /dev/null 2>&1; then
+elif command_exists "emerge"; then
 	package_manager="emerge"
-elif type "apt" > /dev/null 2>&1; then
+elif command_exists "apt"; then
 	package_manager="apt"
-elif type "apt-get" > /dev/null 2>&1; then
+elif command_exists "apt-get"; then
 	package_manager="apt-get"
-elif type "dnf" > /dev/null 2>&1; then
+elif command_exists "dnf"; then
 	package_manager="dnf"
 else
 	package_manager=
@@ -89,19 +97,19 @@ else
 fi
 
 # Detect init system
-if type "rc-update" > /dev/null 2>&1; then
+if command_exists "rc-update"; then
 	init_system="openrc"
-elif type "sv" > /dev/null 2>&1; then
+elif command_exists "sv"; then
 	init_system="runit"
-elif type "s6-rc" > /dev/null 2>&1; then
+elif command_exists "s6-rc"; then
 	init_system="s6"
-elif type "66-tree" > /dev/null 2>&1; then
+elif command_exists "66-tree"; then
 	init_system="suite66"
-elif type "rcctl" > /dev/null 2>&1; then
+elif command_exists "rcctl"; then
 	init_system="openbsd"
-elif type "service" > /dev/null 2>&1; then
+elif command_exists "service"; then
 	init_system="freebsd"
-elif type "systemctl" > /dev/null 2>&1; then
+elif command_exists "systemctl"; then
 	init_system="systemd"
 else
 	init_system=
@@ -110,26 +118,31 @@ fi
 
 # Detect operating system
 # The operating_system variable should not be 100% reliable
-if [ "$(uname)" = Linux ]; then
-	if [ "${package_manager}" = pacman ]; then
-		if [ "${init_system}" = systemd ]; then
-			operating_system="arch"
-		else
-			operating_system="artix"
-		fi
-	elif [ "${package_manager}" = dnf ]; then
-		operating_system="fedora"
-	elif [ "${package_manager}" = apt ]; then
-		operating_system="debian"
-	fi
-elif [ "$(uname)" = OpenBSD ]; then
-	operating_system="openbsd"
-elif [ "$(uname)" = FreeBSD ]; then
-	operating_system="freebsd"
-else
-	operating_system=
-	log_func "Unknown operating system"
-fi
+case "$(uname)" in
+	Linux)
+		case "${package_manager}" in
+			pacman)
+				if [ "${init_system}" = systemd ]; then
+					operating_system="arch"
+				else
+					operating_system="artix"
+				fi
+				;;
+			dnf) operating_system="fedora";;
+			apt) operating_system="debian";;
+			*)
+				operating_system="linux"
+				log_func "Unknown Linux operating system"
+				;;
+		esac
+		;;
+	OpenBSD) operating_system="openbsd";;
+	FreeBSD) operating_system="freebsd";;
+	*)
+		operating_system=
+		log_func "Completely unknown operating system"
+		;;
+esac
 
 esc_seq="\033"
 esc_bracket="${esc_seq}["
@@ -155,26 +168,16 @@ esc_func() {
 
 text_effect() {
 	case "$1" in
-		reset)
-			output_var=0;;
-		bold)
-			output_var=1;;
-		bright)
-			output_var=1;;
-		dim)
-			output_var=2;;
-		underline)
-			output_var=4;;
-		blink)
-			output_var=5;;
-		reverse)
-			output_var=7;;
-		hidden)
-			output_var=8;;
-		strikeout)
-			output_var=9;;
-		*)
-			output_var=0;;
+		reset) output_var=0;;
+		bold) output_var=1;;
+		bright) output_var=1;;
+		dim) output_var=2;;
+		underline) output_var=4;;
+		blink) output_var=5;;
+		reverse) output_var=7;;
+		hidden) output_var=8;;
+		strikeout) output_var=9;;
+		*) output_var=0;;
 		esac
 	printf "$(esc_func "${output_var}")"
 }
@@ -224,6 +227,13 @@ source_file() {
 		log_func "Failed to source file: ${1}, does not exist"
 	fi
 	return 1
+}
+
+# Some non-GNU versions of ln do not have the verbose option with -v
+verbose_ln() {
+	ln -sf "${1}" "${2}" &&
+		printf "'%s' -> '%s'\n" "${1}" "${2}" ||
+		printf "failed to link '%s' -> '%s'\n" "${1}" "${2}" 1>&2
 }
 
 yes_no() {

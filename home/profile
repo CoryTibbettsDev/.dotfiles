@@ -5,7 +5,7 @@
 
 export LIBRARY_FILE="${HOME}/.config/shell/lib.sh"
 if [ ! -f "${LIBRARY_FILE}" ]; then
-	printf ".profile: LIBRARY_FILE[%s] does not exist.\n" "${LIBRARY_FILE}"
+	printf ".profile: LIBRARY_FILE '%s' does not exist.\n" "${LIBRARY_FILE}" 1>&2
 	return
 fi
 . "${LIBRARY_FILE}"

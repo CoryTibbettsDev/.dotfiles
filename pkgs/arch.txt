@@ -1,5 +1,4 @@
 neovim
-iptables
 man-pages
 git
 tmux

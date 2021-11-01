@@ -32,7 +32,8 @@ awful.layout.layouts = {
 	awful.layout.suit.tile.bottom,
 	awful.layout.suit.floating,
 	awful.layout.suit.tile,
-	-- All Possible Layouts
+	awful.layout.suit.max,
+	-- Start All Possible Layouts
 	-- awful.layout.suit.tile,
 	-- awful.layout.suit.floating,
 	-- awful.layout.suit.tile.left,
@@ -49,6 +50,7 @@ awful.layout.layouts = {
 	-- awful.layout.suit.corner.ne,
 	-- awful.layout.suit.corner.sw,
 	-- awful.layout.suit.corner.se,
+	-- End All Possible Layouts
 }
 -- }}}
 
