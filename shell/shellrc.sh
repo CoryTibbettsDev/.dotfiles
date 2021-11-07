@@ -6,7 +6,7 @@
 if [ -f "${LIBRARY_FILE}" ]; then
 	. "${LIBRARY_FILE}"
 else
-	printf "shellrc.sh: LIBRARY_FILE[%s] does not exist\n" "${LIBRARY_FILE}"
+	printf "shellrc.sh: LIBRARY_FILE '%s' does not exist\n" "${LIBRARY_FILE}" 1>&2
 	return
 fi
 

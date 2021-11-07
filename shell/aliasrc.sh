@@ -6,7 +6,7 @@
 if [ -f "${LIBRARY_FILE}" ]; then
 	. "${LIBRARY_FILE}"
 else
-	printf "aliasrc.sh: LIBRARY_FILE[%s] does not exist\n" "${LIBRARY_FILE}"
+	printf "aliasrc.sh: LIBRARY_FILE '%s' does not exist\n" "${LIBRARY_FILE}" 1>&2
 	return
 fi
 
@@ -18,7 +18,7 @@ alias pls='eval "${su_cmd}"'
 
 alias reload='. "${shellrc_file}"'
 
-shut() {
+myshutdown() {
 	case "${init_system}" in
 		openrc) eval "${su_cmd}" openrc-shutdown -p now;;
 		openbsd) eval "${su_cmd}" shutdown -p now;;
@@ -29,13 +29,15 @@ shut() {
 			;;
 	esac
 }
+alias shut='myshutdown'
 
-reb() {
+myreboot() {
 	case "${init_system}" in
 		systemd) reboot;;
 		*) eval "${su_cmd}" reboot;;
 	esac
 }
+alias reb='myreboot'
 
 print_pmh() {
 cat <<EOF
@@ -46,11 +48,8 @@ Update: "${4}"
 EOF
 }
 
-# Package manager help
-pmh() {
-cat <<EOF
-Detected package manager: "${package_manager}"
-EOF
+package_manager_help() {
+	printf "Detected package manager: '%s'\n" "${package_manager}"
 	case "${package_manager}" in
 		pacman)
 			print_pmh "pacman -S" "pacman -R" "pacman -Ss" "pacman -Syu"
@@ -65,7 +64,7 @@ EOF
 			print_pmh "apt install" "apt remove" "apt search" "apt update"
 			;;
 		*)
-			printf "Unknown, null or unsupported package manager[%s].\n" "${package_manager}"
+			printf "Unknown or null package manager '%s'.\n" "${package_manager}" 1>&2
 			;;
 	esac
 }
@@ -79,13 +78,12 @@ Stop: "${3}"
 Restart: "${4}"
 Enable: "${5}"
 Disable: "${6}"
-Show All Enabled: "${7}"
+Show Satus of All Services: "${7}"
 All Commands: "${8}"
 EOF
 }
 
-# Init system help
-ish() {
+init_system_help() {
 	case "${init_system}" in
 		openrc)
 			print_ish "rc-service <service> status OR /etc/init.d/<service> status " \
@@ -94,7 +92,7 @@ ish() {
 				"rc-service <service> restart OR /etc/init.d/<service> restart" \
 				"rc-update add <service> <runlevel>" \
 				"rc-update del <service> <runlevel>" \
-				"rc-status" \
+				"rc-status OR rc-update OR rc-update -v show" \
 				"rc-service rc-status rc-update openrc-run"
 			;;
 		systemd)
@@ -110,9 +108,27 @@ ish() {
 	esac
 }
 
+myhelp() {
+	case "$1" in
+		p*) package_manager_help;;
+		i*) init_system_help;;
+		"")
+			init_system_help
+			package_manager_help
+			;;
+		*) printf "Unknown argument to myhelp\n" 1>&2
+	esac
+}
+alias mh='myhelp'
+
 # Alias for editor
 # e is easy to reach and I remember with e for edit like in vim
 alias e='eval "${EDITOR}"'
+
+mycd() {
+	builtin cd "$1" && ls -F
+}
+alias c='mycd'
 
 alias ls='ls -F'
 alias l='ls -alh'
@@ -134,11 +150,11 @@ alias less='less -R'
 # human readable free
 alias hfree='free -mht'
 
-# my find
 # Custom find command because it is annoying to type everytime
-mf() {
+myfind() {
 	find . -iname "*${1}*"
 }
+alias mf='myfind'
 
 alias g='git'
 alias gs='git status'
@@ -147,7 +163,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
 alias gpo='git push origin'
-setremote(){
+seturl() {
 	remote_name="origin"
 	if [ -n "${2}" ]; then
 		remote_name="${2}"
@@ -166,15 +182,12 @@ clipssh() {
 		printf "No arg 1 for target user\n" 1>&2
 		return 1
 	fi
-	forward_port=2222
-	if [ -n "$2" ]; then
-		forward_port="$2"
-	fi
+	forward_port=${2:-2222}
 	# Need to specify display not sure why
 	# https://unix.stackexchange.com/questions/16694/copy-input-to-clipboard-over-ssh
 	xclip -out -selection clipboard |
 		ssh -p "${forward_port}" "$1"@127.0.0.1 \
-		'DISPLAY=":0" xclip -in -selection clipboard && printf "Copied\n" || printf "Not Copied\n"'
+			'DISPLAY=":0" xclip -in -selection clipboard && printf "Copied\n" || printf "Not Copied\n"'
 }
 
 # Delete clipboard
@@ -187,14 +200,14 @@ dclip() {
 	fi
 	# May be a better way to clear them all at once idk
 	# Xorg
-	if type "xclip" > /dev/null 2>&1; then
+	if command_exists "xclip"; then
 		printf "Clearing xclip\n"
 		printf "" | xclip -in -selection clipboard
 		printf "" | xclip -in -selection primary
 		printf "" | xclip -in -selection secondary
 	fi
 	# Wayland
-	if type "wl-clipboard" > /dev/null 2>&1; then
+	if command_exists "wl-clipboard"; then
 		printf "Clearing wl-clipboard\n"
 		wl-clipboard --clear
 		wl-clipboard --clear --primary

@@ -10,17 +10,17 @@ while getopts "hl:" opt; do
 	esac
 done
 
-library_file="${library_file:-$LIBRARY_FILE}"
+library_file="${library_file:-"$LIBRARY_FILE"}"
 
 if [ ! -f "${library_file}" ]; then
-	printf "packages.sh: library_file[%s] does not exist\n" "${library_file}"
+	printf "%s: library_file '%s' does not exist\n" "$0" "${library_file}" 1>&2
 	exit 1
 fi
 . "${library_file}"
 
 # Make sure dotfiles_dir exists, should have been defined in the library_file
 if [ ! -d "${dotfiles_dir}" ]; then
-	printf "packages.sh: dotfiles_dir: '%s' does not exist\n" "${dotfiles_dir}"
+	printf "%s: dotfiles_dir: '%s' does not exist\n" "$0" "${dotfiles_dir}" 1>&2
 	exit 1
 fi
 
@@ -31,6 +31,7 @@ clone_repo() {
 		log_func "git clone of $1 failed"
 		return 1
 	fi
+	return 0
 }
 
 clone_install() {
@@ -46,11 +47,9 @@ pkg_file="${dotfiles_dir}/pkgs/${operating_system}.txt"
 
 case "${package_manager}" in
 	pacman)
-		# Update database
-		eval "${su_cmd}" pacman -Sy --noconfirm
-		while read -r package; do
-			eval "${su_cmd}" pacman -S "${package}" --noconfirm --needed
-		done < "${pkg_file}"
+		# https://wiki.archlinux.org/title/Pacman/Tips_and_tricks#Install_packages_from_a_list
+		eval "${su_cmd}" pacman -Syy --noconfirm
+		eval "${su_cmd}" pacman -S --noconfirm --needed - < "${pkg_file}"
 		;;
 	openbsd) eval "${su_cmd}" pkg_add -l "${pkg_file}";;
 	*)

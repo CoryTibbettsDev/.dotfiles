@@ -6,13 +6,13 @@ There may be still be errors or bashisms in them however so be careful.
 # Links
 
 ## Security, Bugs, and Common Mistakes
+[wooledge.org Quotes Would Recommend Reading This](https://mywiki.wooledge.org/Quotes)<br  />
+[wooledge.org Word Splitting](https://mywiki.wooledge.org/WordSplitting)<br  />
 [Secirty Implications of Forgetting to Quote Variables](https://unix.stackexchange.com/questions/171346/security-implications-of-forgetting-to-quote-a-variable-in-bash-posix-shells)<br  />
 [Interesting Article With Some Basic Exploits](https://www.linuxjournal.com/content/writing-secure-shell-scripts)<br  />
 [When In Doubt Quote It](https://stackoverflow.com/questions/10067266/when-to-wrap-quotes-around-a-shell-variable)<br  />
 [Stackoverflow Thread On When You Might Want to Not Quote Variables](https://stackoverflow.com/questions/32674809/is-there-any-reason-not-to-quote-variables)<br  />
 [Bash Common Mistakes and Pitfalls](https://mywiki.wooledge.org/BashPitfalls)<br  />
-[wooledge.org Quotes](https://mywiki.wooledge.org/Quotes)<br  />
-[wooledge.org Word Splitting](https://mywiki.wooledge.org/WordSplitting)<br  />
 [Running shell Commands From Variables Does Not Always Work](https://stackoverflow.com/questions/28580226/run-a-shell-command-from-a-variable-in-a-shell-script)<br  />
 
 ## POSIX Info

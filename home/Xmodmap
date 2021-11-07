@@ -15,11 +15,11 @@ keysym Alt_R = Mode_switch
 
 ! Example format for rebinding
 ! keysym Key = Key Shift+Key Mode_switch+Key Mode_switch+Shift+Key ISO_Level3_Shift+Key ISO_Level3_Shift+Shift+Key
-keysym  a = a A aacute Aacute ae AE
-keysym  e = e E eacute Eacute EuroSign cent
-keysym  u = u U uacute Uacute downarrow uparrow
-keysym  i = i I iacute Iacute rightarrow idotless
-keysym  o = o O oacute Oacute oslash Oslash
-keysym  n = n N ntilde Ntilde n N
-keysym  question = slash question questiondown dead_acute dead_doubleacute dead_acute
-keysym  exclam = 1 exclam 1 exclamdown 1 exclam
+keysym a = a A aacute Aacute ae AE
+keysym e = e E eacute Eacute EuroSign cent
+keysym u = u U uacute Uacute downarrow uparrow
+keysym i = i I iacute Iacute rightarrow idotless
+keysym o = o O oacute Oacute oslash Oslash
+keysym n = n N ntilde Ntilde n N
+keysym question = slash question questiondown dead_acute dead_doubleacute dead_acute
+keysym exclam = 1 exclam 1 exclamdown 1 exclam

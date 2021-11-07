@@ -119,7 +119,7 @@ fi
 # Detect operating system
 # The operating_system variable should not be 100% reliable
 case "$(uname)" in
-	Linux)
+	Linux*)
 		case "${package_manager}" in
 			pacman)
 				if [ "${init_system}" = systemd ]; then
@@ -136,8 +136,9 @@ case "$(uname)" in
 				;;
 		esac
 		;;
-	OpenBSD) operating_system="openbsd";;
-	FreeBSD) operating_system="freebsd";;
+	OpenBSD*) operating_system="openbsd";;
+	FreeBSD*) operating_system="freebsd";;
+	NetBSD*) operating_system="netbsd";;
 	*)
 		operating_system=
 		log_func "Completely unknown operating system"
