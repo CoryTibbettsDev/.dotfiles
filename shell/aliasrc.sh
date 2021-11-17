@@ -103,7 +103,7 @@ init_system_help() {
 				"systemctl list-units" "systemctl"
 			;;
 		*)
-			printf "Unknown, null or unsupported init system[%s].\n" "${init_system}"
+			printf "Unknown, null or unsupported init system[%s].\n" "${init_system}" 1>&2
 			;;
 	esac
 }
@@ -140,6 +140,7 @@ alias mvv='mv -v'
 alias rmv='rm -v'
 alias mkd='mkdir -p'
 
+alias g='grep'
 # Recursive grep
 alias rg='grep -R -I -n'
 # History grep
@@ -156,7 +157,6 @@ myfind() {
 }
 alias mf='myfind'
 
-alias g='git'
 alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
@@ -246,9 +246,11 @@ alias dl='ytdl "$(xclip -out -selection clipboard)"'
 alias dla='ytdl --extract-audio "$(xclip -out -selection clipboard)"'
 alias dlmp3='ytdl --extract-audio --audio-format mp3'
 
+# No longer need to user workaround with mpv --script-opts=ytdl_hook-ytdl_path=
+# https://github.com/mpv-player/mpv/issues/9208
 alias p='mpv'
-alias play='mpv --script-opts=ytdl_hook-ytdl_path="${ytdl_path}" "$(xclip -out -selection clipboard)"'
-alias shuffle='mpv --shuffle'
+alias play='mpv "$(xclip -out -selection clipboard)"'
+alias r='mpv --shuffle'
 
 alias mnt='udisksctl mount -b'
 alias unmnt='udisksctl unmount -b'
@@ -273,6 +275,6 @@ ex() {
 			*) printf "'%s' cannot be extracted via ex()\n" "$1";;
 		esac
 	else
-		printf "'%s' is not a valid file\n" "$1"
+		printf "'%s' is not a valid file\n" "$1" 1>&2
 	fi
 }

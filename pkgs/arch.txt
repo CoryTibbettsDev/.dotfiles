@@ -26,7 +26,7 @@ feh
 zathura
 zathura-pdf-mupdf
 mpv
-youtube-dl
+yt-dlp
 jq
 fzf
 qemu

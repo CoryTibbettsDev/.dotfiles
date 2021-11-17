@@ -22,7 +22,6 @@ pcmanfm
 i3lock
 feh
 mpv
-youtube-dl
 jq
 fzf
 qemu

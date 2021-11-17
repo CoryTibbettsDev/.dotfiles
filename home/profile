@@ -36,9 +36,6 @@ export XDG_PUBLICSHARE_DIR="${downloads_dir}"
 export XDG_TEMPLATES_DIR="${downloads_dir}"
 export XDG_VIDEOS_DIR="${downloads_dir}"
 
-# Export command for ytfzf
-export STREAM_CMD="mpv --script-opts=ytdl_hook-ytdl_path="${ytdl_path}""
-
 # Workarounds for programs annoyingly creating directories in $HOME
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass"
 export GTK_RC_FILES="${XDG_CONFIG_HOME}/gtk-1.0/gtkrc"

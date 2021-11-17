@@ -239,13 +239,14 @@ verbose_ln() {
 
 yes_no() {
 	while :; do
-		printf "$* [Y/n]: "
+		[ "$2" = no ] && printf "%s [y/N]: " "${1}" || printf "%s [Y/n]: " "${1}"
 		read -r answer
 		case "${answer}" in
 			# Case insensitive match: n no
 			[Nn]|[Nn][Oo]) return 1;;
-			# Case insensitive match: y yes <nothing>
-			[Yy]|[Yy][Ee][Ss]|"") return 0;;
+			# Case insensitive match: y yes
+			[Yy]|[Yy][Ee][Ss]) return 0;;
+			"") [ "$2" = no ] && return 1 || return 0;;
 			*) printf "Please answer [y]es or [n]o\n";;
 		esac
 	done
