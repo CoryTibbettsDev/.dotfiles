@@ -40,7 +40,7 @@ myreboot() {
 alias reb='myreboot'
 
 print_pmh() {
-cat <<EOF
+	cat <<EOF
 Install: "${1}"
 Remove: "${2}"
 Search: "${3}"
@@ -49,7 +49,7 @@ EOF
 }
 
 package_manager_help() {
-	printf "Detected package manager: '%s'\n" "${package_manager}"
+	printf "Detected package manager: \"%s\"\n" "${package_manager}"
 	case "${package_manager}" in
 		pacman)
 			print_pmh "pacman -S" "pacman -R" "pacman -Ss" "pacman -Syu"
@@ -64,13 +64,13 @@ package_manager_help() {
 			print_pmh "apt install" "apt remove" "apt search" "apt update"
 			;;
 		*)
-			printf "Unknown or null package manager '%s'.\n" "${package_manager}" 1>&2
+			printf "Unknown or null package manager [%s]\n" "${package_manager}" 1>&2
 			;;
 	esac
 }
 
 print_ish() {
-cat <<EOF
+	cat <<EOF
 Init System: "${init_system}"
 Status: "${1}"
 Start: "${2}"
@@ -86,7 +86,7 @@ EOF
 init_system_help() {
 	case "${init_system}" in
 		openrc)
-			print_ish "rc-service <service> status OR /etc/init.d/<service> status " \
+			print_ish "rc-service <service> status OR /etc/init.d/<service> status" \
 				"rc-service <service> start OR /etc/init.d/<service> start" \
 				"rc-service <service> stop OR /etc/init.d/<service> stop" \
 				"rc-service <service> restart OR /etc/init.d/<service> restart" \
@@ -103,7 +103,7 @@ init_system_help() {
 				"systemctl list-units" "systemctl"
 			;;
 		*)
-			printf "Unknown, null or unsupported init system[%s].\n" "${init_system}" 1>&2
+			printf "Unknown, null or unsupported init system [%s]\n" "${init_system}" 1>&2
 			;;
 	esac
 }
@@ -169,12 +169,24 @@ seturl() {
 		remote_name="${2}"
 	fi
 	repo="${remote_git}/${1}.git"
-	printf "New Remote: '%s' at '%s'\n" "${repo}" "${remote_name}"
+	printf "New Remote: [%s] at [%s]\n" "${repo}" "${remote_name}"
 	git remote set-url "${remote_name}" "${repo}"
 }
 
 alias mt='make test'
 alias mc='make clean'
+
+myclip() {
+	if command_exists "xclip"; then
+		printf "%s" "$(xclip -out -selection clipboard)"
+	elif command_exists "wl-paste"; then
+		printf "%s" "$(wl-paste)"
+	else
+		printf "ERROR: No clipboard utility found\n" 1>&2
+		return 1
+	fi
+	return 0
+}
 
 # Copy clipboard over ssh
 clipssh() {
@@ -183,11 +195,13 @@ clipssh() {
 		return 1
 	fi
 	forward_port=${2:-2222}
+	clipboard="$(myclip)"
 	# Need to specify display not sure why
 	# https://unix.stackexchange.com/questions/16694/copy-input-to-clipboard-over-ssh
-	xclip -out -selection clipboard |
+	printf "%s" "${clipboard}" |
 		ssh -p "${forward_port}" "$1"@127.0.0.1 \
 			'DISPLAY=":0" xclip -in -selection clipboard && printf "Copied\n" || printf "Not Copied\n"'
+	clipboard=
 }
 
 # Delete clipboard
@@ -233,23 +247,23 @@ alias lock='eval "${screen_locker}"'
 
 alias f='eval "${terminal_file_manager}"'
 
-# Alias for YouTube command line search tool
-alias yt='ytfzf'
-
 alias youtube-dl='youtube-dl --no-call-home'
 if [ "${ytdl_cmd}" = "youtube-dl" ]; then
 	alias ytdl='eval "${ytdl_cmd}" --no-call-home'
 else
 	alias ytdl='eval "${ytdl_cmd}"'
 fi
-alias dl='ytdl "$(xclip -out -selection clipboard)"'
-alias dla='ytdl --extract-audio "$(xclip -out -selection clipboard)"'
+alias dl='ytdl "$(myclip)"'
+alias dla='ytdl --extract-audio "$(myclip)"'
 alias dlmp3='ytdl --extract-audio --audio-format mp3'
+
+# Alias for YouTube command line search tool
+alias yt='ytfzf'
 
 # No longer need to user workaround with mpv --script-opts=ytdl_hook-ytdl_path=
 # https://github.com/mpv-player/mpv/issues/9208
 alias p='mpv'
-alias play='mpv "$(xclip -out -selection clipboard)"'
+alias play='mpv "$(myclip)"'
 alias r='mpv --shuffle'
 
 alias mnt='udisksctl mount -b'
@@ -272,7 +286,7 @@ ex() {
 			*.rar) unrar x "$1";;
 			*.Z) uncompress "$1";;
 			*.7z) 7z x "$1";;
-			*) printf "'%s' cannot be extracted via ex()\n" "$1";;
+			*) printf "'%s' cannot be extracted via ex()\n" "$1" 1>&2;;
 		esac
 	else
 		printf "'%s' is not a valid file\n" "$1" 1>&2

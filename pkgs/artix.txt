@@ -26,3 +26,4 @@ jq
 fzf
 qemu
 usbutils
+falkon

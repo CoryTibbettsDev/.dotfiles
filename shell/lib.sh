@@ -48,7 +48,7 @@ set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper
 
 # Append message with date to ${log_file}
 log_func() {
-	[ -z "${log_file}" ] && log_file="$HOME/error.log"
+	: "${log_file:="$HOME/error.log"}"
 	log_dir="$(dirname "${log_file}")"
 	if [ ! -d "${log_dir}" ]; then
 		mkdir -p "${log_dir}" && touch "${log_file}"
@@ -239,7 +239,8 @@ verbose_ln() {
 
 yes_no() {
 	while :; do
-		[ "$2" = no ] && printf "%s [y/N]: " "${1}" || printf "%s [Y/n]: " "${1}"
+		printf "%s " "${1}"
+		[ "$2" = no ] && printf "[y/N]: " || printf "[Y/n]: "
 		read -r answer
 		case "${answer}" in
 			# Case insensitive match: n no

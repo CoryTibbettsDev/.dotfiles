@@ -64,6 +64,7 @@ There may be still be errors or bashisms in them however so be careful.
 ## General
 [colon/:/no-op builtin command](https://stackoverflow.com/questions/12404661/what-is-the-use-case-of-noop-in-bash)
 [What Purpose Does the : colon Builtin Serve](https://unix.stackexchange.com/questions/31673/what-purpose-does-the-colon-builtin-serve)
+[IFS aka Internal Field Seperator and the read Command](https://unix.stackexchange.com/questions/209123/understanding-ifs-read-r-line)<br  />
 [cyberciti.biz Handling Filenames With Spaces Works With Special Characters Too](https://www.cyberciti.biz/tips/handling-filenames-with-spaces-in-bash.html)<br  />
 [How to do Arithmatic Operations](https://bash.cyberciti.biz/guide/Perform_arithmetic_operations)<br  />
 [Get Filename From Path](https://stackoverflow.com/questions/3362920/get-just-the-filename-from-a-path-in-a-bash-script)<br  />

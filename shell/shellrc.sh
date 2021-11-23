@@ -37,10 +37,10 @@ else
 fi
 
 my_user="${USER:-"$(id -un)"}"
-my_user="${my_user:-UnknownUser}"
+: "${my_user:=UnknownUser}"
 
 my_host="${HOSTNAME:-"$(uname -n)"}"
-my_host="${my_host:-UnknownHost}"
+: "${my_host:=UnknownHost}"
 
 my_pwd() {
 	if [ "${PWD#$HOME}" != "${PWD}" ]; then
@@ -52,7 +52,7 @@ my_pwd() {
 
 parse_git_branch() {
 	branch="$(git branch --show-current 2> /dev/null | sed 's/^* //')"
-	if [ ! "${branch}" = "" ]; then
+	if [ -n "${branch}" ]; then
 		stat="$(parse_git_dirty)"
 		printf " %s%s" "${branch}" "${stat}"
 	fi
@@ -84,7 +84,7 @@ parse_git_dirty() {
 	if [ "${dirty}" = "0" ]; then
 		bits="!${bits}"
 	fi
-	if [ ! "${bits}" = "" ]; then
+	if [ -n "${bits}" ]; then
 		printf " %s" "${bits}"
 	fi
 }
@@ -110,5 +110,4 @@ HISTFILE="${shell_history_file}"
 HISTSIZE=1000 # Maximum events for internal history
 SAVEHIST=1000 # Maximum events in history file
 
-# Source alias file
 source_file "${aliasrc_file}"

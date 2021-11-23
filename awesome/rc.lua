@@ -240,18 +240,16 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "awesome run prompt", group = "launcher"}),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
+	awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
+		{description = "awesome run prompt", group = "launcher"}),
+	-- Menubar
+	awful.key({ modkey }, "p", function() menubar.show() end,
+		{description = "show the menubar", group = "launcher"}),
 	-- Launch Programs
-    awful.key({ modkey, "Shift"      }, "f", function () awful.spawn("firefox") end,
-              {description = "open firefox browser", group = "launcher"}),
-    awful.key({ modkey, "Shift"      }, "l", function () awful.spawn("luakit") end,
-              {description = "open luakit browser", group = "launcher"}),
-    awful.key({ modkey, "Shift"      }, "m", function () awful.spawn("virt-manager") end,
-              {description = "open virt-manager", group = "launcher"})
+	awful.key({ modkey, "Shift" }, "f", function () awful.spawn("firefox") end,
+		{description = "open firefox browser", group = "launcher"}),
+	awful.key({ modkey, "Shift" }, "n", function () awful.spawn("falkon") end,
+		{description = "open falkon browser", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
