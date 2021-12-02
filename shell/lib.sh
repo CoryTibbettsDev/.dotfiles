@@ -18,6 +18,7 @@ stuff_dir="$HOME/Stuff"
 wallpaper_dir="${stuff_dir}/Wallpaper"
 repos_dir="$HOME/Repos"
 projects_dir="$HOME/Projects"
+misc_dir="${HOME}/Misc"
 
 shell_dir="${config_dir}/shell"
 shell_cache_dir="${cache_dir}/shell"
@@ -117,7 +118,7 @@ else
 fi
 
 # Detect operating system
-# The operating_system variable should not be 100% reliable
+# The operating_system variable should not be considered 100% reliable
 case "$(uname)" in
 	Linux*)
 		case "${package_manager}" in

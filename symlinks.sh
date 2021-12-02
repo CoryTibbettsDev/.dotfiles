@@ -32,7 +32,7 @@ mkdir -p "${downloads_dir}" \
 	"${projects_dir}" \
 	"${stuff_dir}" \
 	"${shell_cache_dir}" \
-	"${HOME}/Misc"
+	"${misc_dir}"
 
 [ -f "${shell_history_file}" ] || touch "${shell_history_file}"
 

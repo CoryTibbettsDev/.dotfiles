@@ -195,12 +195,13 @@ clipssh() {
 		return 1
 	fi
 	forward_port=${2:-2222}
+	display_num=${3:-0}
 	clipboard="$(myclip)"
 	# Need to specify display not sure why
 	# https://unix.stackexchange.com/questions/16694/copy-input-to-clipboard-over-ssh
 	printf "%s" "${clipboard}" |
 		ssh -p "${forward_port}" "$1"@127.0.0.1 \
-			'DISPLAY=":0" xclip -in -selection clipboard && printf "Copied\n" || printf "Not Copied\n"'
+			"DISPLAY=:${display_num} xclip -in -selection clipboard && printf 'Copied\n' || printf 'Not Copied\n'"
 	clipboard=
 }
 
