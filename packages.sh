@@ -63,9 +63,6 @@ esac
 # (optional for thumbnails) ueberzug
 clone_install https://github.com/pystardust/ytfzf ytfzf
 
-# Cactus File Manager
-clone_install https://github.com/WillEccles/cfm cfm
-
 # Change swappiness to better value
 if [ "$(uname)" = Linux ]; then
 	swappiness=10

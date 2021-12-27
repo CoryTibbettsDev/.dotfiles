@@ -41,7 +41,6 @@ window_manager="awesome"
 terminal_emulator="xterm"
 web_browser="firefox"
 document_viewer="zathura"
-terminal_file_manager="cfm"
 screen_locker="i3lock"
 ytdl_cmd="yt-dlp"
 ytdl_path="/usr/local/bin/${ytdl_cmd}"
@@ -140,6 +139,7 @@ case "$(uname)" in
 	OpenBSD*) operating_system="openbsd";;
 	FreeBSD*) operating_system="freebsd";;
 	NetBSD*) operating_system="netbsd";;
+	DragonFly*) operating_system="dragonflybsd";;
 	*)
 		operating_system=
 		log_func "Completely unknown operating system"

@@ -151,6 +151,7 @@ alias less='less -R'
 # human readable free
 alias hfree='free -mht'
 
+alias f='find'
 # Custom find command because it is annoying to type everytime
 myfind() {
 	find . -iname "*${1}*"
@@ -245,8 +246,6 @@ alias cw='eval "${set_wallpaper_cmd}"'
 
 # Screen locker
 alias lock='eval "${screen_locker}"'
-
-alias f='eval "${terminal_file_manager}"'
 
 alias youtube-dl='youtube-dl --no-call-home'
 if [ "${ytdl_cmd}" = "youtube-dl" ]; then
