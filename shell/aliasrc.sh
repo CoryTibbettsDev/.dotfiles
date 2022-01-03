@@ -39,6 +39,20 @@ myreboot() {
 }
 alias reb='myreboot'
 
+# We love systemd
+# https://gist.github.com/ProNoob13/39b792e4d212c22b32b8ce5d14bc7b46
+service() {
+	if [ "$2" = "restart" ]; then
+		systemctl stop "$1" &&
+			systemctl status "$1" &&
+			systemctl start "$1" &&
+			systemctl status "$1"
+	else
+		systemctl "$2" "$1" &&
+			systemctl status "$1"
+	fi
+}
+
 print_pmh() {
 	cat <<EOF
 Install: "${1}"
