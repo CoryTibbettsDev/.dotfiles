@@ -3,6 +3,5 @@
 	email = user@example.com
 [init]
 	defaultBranch = main
-[alias]
-	ctags = !.git/hooks/ctags
-	url = !sh -c 'git remote set-url origin \"$1\"' -
+[push]
+	followTags = true

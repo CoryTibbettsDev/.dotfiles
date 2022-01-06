@@ -18,6 +18,8 @@ alias pls='eval "${su_cmd}"'
 
 alias reload='. "${shellrc_file}"'
 
+alias r='fc -s'
+
 myshutdown() {
 	case "${init_system}" in
 		openrc) eval "${su_cmd}" openrc-shutdown -p now;;
@@ -85,35 +87,27 @@ package_manager_help() {
 
 print_ish() {
 	cat <<EOF
-Init System: "${init_system}"
-Status: "${1}"
-Start: "${2}"
-Stop: "${3}"
-Restart: "${4}"
-Enable: "${5}"
-Disable: "${6}"
-Show Satus of All Services: "${7}"
-All Commands: "${8}"
+Init System: ${init_system}
+Service Action: ${1}
+Actions: ${2}
+Enable/Disable: ${3}
+Show Satus of All Services: ${4}
+All Commands: ${5}
 EOF
 }
 
 init_system_help() {
 	case "${init_system}" in
 		openrc)
-			print_ish "rc-service <service> status OR /etc/init.d/<service> status" \
-				"rc-service <service> start OR /etc/init.d/<service> start" \
-				"rc-service <service> stop OR /etc/init.d/<service> stop" \
-				"rc-service <service> restart OR /etc/init.d/<service> restart" \
-				"rc-update add <service> <runlevel>" \
-				"rc-update del <service> <runlevel>" \
+			print_ish "rc-service <service> <action> OR /etc/init.d/<service> <action>" \
+				"start, stop, restart" "rc-update add/del <service> <runlevel>" \
 				"rc-status OR rc-update OR rc-update -v show" \
 				"rc-service rc-status rc-update openrc-run"
 			;;
 		systemd)
-			print_ish "systemctl status <service>" \
-				"systemctl start <service>" "systemctl stop <service>" \
-				"systemctl restart <service>" \
-				"systemctl enable <service>" "systemctl disable <service>" \
+			print_ish "systemctl <action> <service>" \
+				"start, stop, restart" "systemctl restart <service>" \
+				"systemctl enable/disable <service>" \
 				"systemctl list-units" "systemctl"
 			;;
 		*)
@@ -130,10 +124,10 @@ myhelp() {
 			init_system_help
 			package_manager_help
 			;;
-		*) printf "Unknown argument to myhelp\n" 1>&2
+		*) printf "Unknown argument to myhelp\n" 1>&2;;
 	esac
 }
-alias mh='myhelp'
+alias h='myhelp'
 
 # Alias for editor
 # e is easy to reach and I remember with e for edit like in vim
@@ -278,7 +272,7 @@ alias yt='ytfzf'
 # https://github.com/mpv-player/mpv/issues/9208
 alias p='mpv'
 alias play='mpv "$(myclip)"'
-alias r='mpv --shuffle'
+alias ran='mpv --shuffle'
 
 alias mnt='udisksctl mount -b'
 alias unmnt='udisksctl unmount -b'

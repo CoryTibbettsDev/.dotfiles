@@ -1,3 +1,6 @@
+# Sensitive files
+.env
+
 # Compiled/Binary Files
 a.out
 *.o
@@ -10,10 +13,12 @@ a.out
 # Editor Files
 tags
 .vimrc
+.nvimlog
 .vimspector.json
 compile_commands.json
 Session.vim
 .vscode
+.exrc
 
 # Cache Files
 node_modules
@@ -22,7 +27,6 @@ build/
 .cache
 .ccls-cache
 .clangd
-.exrc
 .miniSnip
 
 # Temporary files
@@ -44,3 +48,6 @@ build/
 # Logs
 *.log
 errors.err
+
+# Random other files and folders
+watch_later/

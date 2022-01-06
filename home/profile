@@ -10,6 +10,9 @@ if [ ! -f "${LIBRARY_FILE}" ]; then
 fi
 . "${LIBRARY_FILE}"
 
+# ksh looks for ENV to source it's rc file
+export ENV="$HOME/.kshrc"
+
 # Set global variables for programs that look for them
 # Export just in case it is not exported already
 export EDITOR="${text_editor:-vi}"
