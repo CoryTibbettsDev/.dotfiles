@@ -220,17 +220,17 @@ autocmd FileType python setlocal colorcolumn=80
 autocmd FileType lisp setlocal colorcolumn=100
 
 " Settings for hardtabs
-autocmd FileType c,sh,bash,zsh,tcsh,csh set tabstop=4 shiftwidth=4
+autocmd FileType c,sh,bash,zsh,tcsh,csh setlocal tabstop=4 shiftwidth=4
 
 " PEP 8, the style guide for python, specifies the use of
 " spaces aka softtabs this is because they are morons
 " Haskell compiler (GHC) is picky about whitespace
 " using four spaces as a tab aka softtabs is generally safer and easier
 " Settings for softtabs
-autocmd FileType python,haskell set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+autocmd FileType python,haskell setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " Softtabs two spaces wide
-autocmd FileType json,lisp set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType json,lisp setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " }}}
 
 " {{{ Terminal Settings

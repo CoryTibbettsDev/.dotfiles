@@ -5,7 +5,6 @@ tmux
 acpi
 alsa-utils
 ctags
-openbsd-netcat
 pass
 rsync
 udisks2
@@ -17,8 +16,6 @@ awesome
 xterm
 xclip
 arc-solid-gtk-theme
-noto-fonts-cjk
-noto-fonts-emoji
 pcmanfm
 i3lock
 firefox

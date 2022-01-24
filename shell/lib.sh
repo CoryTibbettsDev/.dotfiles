@@ -32,7 +32,7 @@ kshrc_file="${shell_dir}/kshrc.sh"
 shell_history_file="${shell_cache_dir}/history.txt"
 log_file="${cache_dir}/dotfiles/dotfiles.log"
 
-notes_file="${stuff_dir}/notes/notes.txt"
+notes_file="${stuff_dir}/notes/notes.md"
 
 # Programs
 text_editor="nvim"

@@ -16,8 +16,6 @@ awesome
 xterm
 xclip
 arc-solid-gtk-theme
-noto-fonts-cjk
-noto-fonts-emoji
 pcmanfm
 i3lock
 feh
@@ -26,4 +24,3 @@ jq
 fzf
 qemu
 usbutils
-falkon

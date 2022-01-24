@@ -267,6 +267,7 @@ alias dlmp3='ytdl --extract-audio --audio-format mp3'
 
 # Alias for YouTube command line search tool
 alias yt='ytfzf'
+alias yts='ytfzf --scrape=youtube-subscriptions'
 
 # No longer need to user workaround with mpv --script-opts=ytdl_hook-ytdl_path=
 # https://github.com/mpv-player/mpv/issues/9208

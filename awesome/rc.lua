@@ -207,7 +207,7 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+    awful.key({ modkey, "Control" }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
@@ -248,8 +248,10 @@ globalkeys = gears.table.join(
 	-- Launch Programs
 	awful.key({ modkey, "Shift" }, "f", function () awful.spawn("firefox") end,
 		{description = "open firefox browser", group = "launcher"}),
-	awful.key({ modkey, "Shift" }, "n", function () awful.spawn("falkon") end,
-		{description = "open falkon browser", group = "launcher"})
+	awful.key({ modkey, "Shift" }, "b", function () awful.spawn("chromium") end,
+		{description = "open chromium browser", group = "launcher"}),
+	awful.key({ modkey, "Shift" }, "n", function () awful.spawn("chrome --enable-unveil") end,
+		{description = "open chrome --enable-unveil(chromium on OpenBSD)", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
