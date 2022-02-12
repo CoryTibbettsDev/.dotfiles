@@ -4,7 +4,7 @@
 
 remote_username="CoryTibbettsDev"
 remote_addr="github.com"
-remote_url="https://${remote_addr}"
+remote_url="https://${remote_addr}/${remote_username}"
 remote_git="git@${remote_addr}:${remote_username}"
 
 # Standard directories
@@ -43,7 +43,7 @@ web_browser="firefox"
 document_viewer="zathura"
 screen_locker="i3lock"
 ytdl_cmd="yt-dlp"
-ytdl_path="/usr/local/bin/${ytdl_cmd}"
+ytdl_path="$(which ${ytdl_cmd})"
 set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""
 
 # Append message with date to ${log_file}

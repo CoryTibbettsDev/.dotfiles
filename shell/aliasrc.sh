@@ -23,8 +23,9 @@ alias r='fc -s'
 myshutdown() {
 	case "${init_system}" in
 		openrc) eval "${su_cmd}" openrc-shutdown -p now;;
-		openbsd) eval "${su_cmd}" shutdown -p now;;
+		openbsd|s6) eval "${su_cmd}" shutdown -p now;;
 		systemd) shutdown now;;
+		dinit) eval "${su_cmd}" shutdown -p;;
 		*)
 			log_func "ERROR: No shutdown command for init: '${init_system}'"
 			return 1
@@ -172,7 +173,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
 alias gpo='git push origin'
-seturl() {
+setremote() {
 	remote_name="origin"
 	if [ -n "${2}" ]; then
 		remote_name="${2}"
@@ -266,8 +267,10 @@ alias dla='ytdl --extract-audio "$(myclip)"'
 alias dlmp3='ytdl --extract-audio --audio-format mp3'
 
 # Alias for YouTube command line search tool
-alias yt='ytfzf'
+alias yt='ytfzf -l'
 alias yts='ytfzf --scrape=youtube-subscriptions'
+# Get youtube link
+alias ytl='ytfzf -I l --force-youtube'
 
 # No longer need to user workaround with mpv --script-opts=ytdl_hook-ytdl_path=
 # https://github.com/mpv-player/mpv/issues/9208

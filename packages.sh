@@ -27,7 +27,7 @@ fi
 # Arg 1 is repo URL Arg2 is directory name
 # clone_repo https://example.com/repo directory_name
 clone_repo() {
-	if ! git clone "$1" "${repos_dir}/$2"; then
+	if ! git clone "$1" "$2"; then
 		log_func "git clone of $1 failed"
 		return 1
 	fi
@@ -61,7 +61,14 @@ esac
 # Command line tool for searching and watching YouTube Videos
 # Dependencies are youtube-dl, mpv, jq, fzf
 # (optional for thumbnails) ueberzug
-clone_install https://github.com/pystardust/ytfzf ytfzf
+clone_install https://github.com/pystardust/ytfzf "${repos_dir}/ytfzf"
+
+# My projects
+clone_install "${remote_url}/simpleqemu" "${projects_dir}/simpleqemu"
+
+clone_repo "${remote_url}/IUseArchBTW" "${projects_dir}/IUseArchBTW"
+clone_repo "${remote_url}/barisbloat" "${projects_dir}/barisbloat"
+clone_repo "${remote_url}/xcbutilisbloat" "${projects_dir}/xcbutilisbloat"
 
 # Change swappiness to better value
 if [ "$(uname)" = Linux ]; then

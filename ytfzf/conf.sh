@@ -1,5 +1,7 @@
 # ytfzf conf.sh
 
+ytdl_path="${YTDL_PATH}"
+
 enable_hist=1
 
 cache_dir="${XDG_CACHE_HOME}/ytfzf"

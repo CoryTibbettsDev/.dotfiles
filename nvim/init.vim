@@ -147,8 +147,13 @@ noremap <leader>l :tablast<CR>
 " Insert c multiline comment like /* */
 " Insert comment into normal mode move left 2 spaces into insert mode
 inoremap <C-d> /*  */<ESC>2hi
-" Comment all selected lines in visual mode with //
-vnoremap <Leader>d :s/^/\/\//<bar>nohlsearch<CR>
+" Insert c multiline block style comment
+" Trailing space is necessary don't delete
+noremap <Leader>d i/*<CR><CR>/<ESC>ka 
+
+" https://stackoverflow.com/questions/235839/indent-multiple-lines-quickly-in-vi
+" Re-indent code block
+" noremap <Leader>v :call Reindent()
 
 " Insert license header in file
 " https://www.gilesorr.com/blog/vimscript-insert.html

@@ -28,3 +28,4 @@ jq
 fzf
 qemu
 usbutils
+lowdown
