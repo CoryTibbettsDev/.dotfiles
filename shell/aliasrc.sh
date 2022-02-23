@@ -22,9 +22,9 @@ alias r='fc -s'
 
 myshutdown() {
 	case "${init_system}" in
-		openrc) eval "${su_cmd}" openrc-shutdown -p now;;
+		rc-service) eval "${su_cmd}" openrc-shutdown -p now;;
 		openbsd|s6) eval "${su_cmd}" shutdown -p now;;
-		systemd) shutdown now;;
+		systemctl) shutdown now;;
 		dinit) eval "${su_cmd}" shutdown -p;;
 		*)
 			log_func "ERROR: No shutdown command for init: '${init_system}'"
@@ -36,25 +36,11 @@ alias shut='myshutdown'
 
 myreboot() {
 	case "${init_system}" in
-		systemd) reboot;;
+		systemctl) reboot;;
 		*) eval "${su_cmd}" reboot;;
 	esac
 }
 alias reb='myreboot'
-
-# We love systemd
-# https://gist.github.com/ProNoob13/39b792e4d212c22b32b8ce5d14bc7b46
-service() {
-	if [ "$2" = "restart" ]; then
-		systemctl stop "$1" &&
-			systemctl status "$1" &&
-			systemctl start "$1" &&
-			systemctl status "$1"
-	else
-		systemctl "$2" "$1" &&
-			systemctl status "$1"
-	fi
-}
 
 print_pmh() {
 	cat <<EOF
@@ -71,10 +57,10 @@ package_manager_help() {
 		pacman)
 			print_pmh "pacman -S" "pacman -R" "pacman -Ss" "pacman -Syu"
 			;;
-		openbsd)
+		pkg_add)
 			print_pmh "pkg_add" "pkg_remove" "pkg_info -E" "pkg_add -u"
 			;;
-		xbps)
+		xbps-install)
 			print_pmh "xbps-install" "xbps-remove" "xbps-query -Rs" "xbps-install -Su"
 			;;
 		apt)
@@ -99,13 +85,13 @@ EOF
 
 init_system_help() {
 	case "${init_system}" in
-		openrc)
+		rc-service)
 			print_ish "rc-service <service> <action> OR /etc/init.d/<service> <action>" \
 				"start, stop, restart" "rc-update add/del <service> <runlevel>" \
 				"rc-status OR rc-update OR rc-update -v show" \
 				"rc-service rc-status rc-update openrc-run"
 			;;
-		systemd)
+		systemctl)
 			print_ish "systemctl <action> <service>" \
 				"start, stop, restart" "systemctl restart <service>" \
 				"systemctl enable/disable <service>" \
@@ -133,6 +119,8 @@ alias h='myhelp'
 # Alias for editor
 # e is easy to reach and I remember with e for edit like in vim
 alias e='eval "${EDITOR}"'
+alias v='"${VISUAL}"'
+alias o='xdg-open'
 
 mycd() {
 	builtin cd "$1" && ls -F
@@ -157,7 +145,7 @@ alias hg='fc -l -${HISTSIZE} | grep'
 
 alias less='less -R'
 
-# human readable free
+# Human readable free
 alias hfree='free -mht'
 
 alias f='find'
@@ -187,14 +175,14 @@ alias mt='make test'
 alias mc='make clean'
 
 myclip() {
-	if command_exists "xclip"; then
-		printf "%s" "$(xclip -out -selection clipboard)"
-	elif command_exists "wl-paste"; then
-		printf "%s" "$(wl-paste)"
-	else
-		printf "ERROR: No clipboard utility found\n" 1>&2
-		return 1
-	fi
+	case "${clipboard_cmd}" in
+		xclip) xclip -out -selection clipboard;;
+		wl-paste) wl-paste;;
+		*)
+			printf "ERROR: No clipboard utility found\n" 1>&2
+			return 1
+		;;
+	esac
 	return 0
 }
 
@@ -213,31 +201,6 @@ clipssh() {
 		ssh -p "${forward_port}" "$1"@127.0.0.1 \
 			"DISPLAY=:${display_num} xclip -in -selection clipboard && printf 'Copied\n' || printf 'Not Copied\n'"
 	clipboard=
-}
-
-# Delete clipboard
-dclip() {
-	# xclip defaults to the value of display so there is no need to specify it
-	# but check to make sure it is not null just in case
-	if [ -z "${DISPLAY}" ]; then
-		log_func "WARNING: DISPLAY is unset returning from dclip"
-		return 1
-	fi
-	# May be a better way to clear them all at once idk
-	# Xorg
-	if command_exists "xclip"; then
-		printf "Clearing xclip\n"
-		printf "" | xclip -in -selection clipboard
-		printf "" | xclip -in -selection primary
-		printf "" | xclip -in -selection secondary
-	fi
-	# Wayland
-	if command_exists "wl-clipboard"; then
-		printf "Clearing wl-clipboard\n"
-		wl-clipboard --clear
-		wl-clipboard --clear --primary
-	fi
-	return 0
 }
 
 # : is a placeholder command that is always true so the file gets overwritten

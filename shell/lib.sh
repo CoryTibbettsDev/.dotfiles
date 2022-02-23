@@ -2,6 +2,38 @@
 
 # lib.sh
 
+log_file="${cache_dir}/dotfiles/dotfiles.log"
+
+# Append message with date to ${log_file}
+log_func() {
+	: "${log_file:="$HOME/error.log"}"
+	log_dir="$(dirname "${log_file}")"
+	if [ ! -d "${log_dir}" ]; then
+		mkdir -p "${log_dir}" && touch "${log_file}"
+	fi
+	printf "[%s] %s\n" "$(date)" "${1}" | tee -a "${log_file}"
+}
+
+command_exists() {
+	command -v "${1}" > /dev/null 2>&1
+}
+
+function_exists() {
+	type "${1}" > /dev/null 2>&1
+}
+
+# Sets $cmd to the first valid command
+detect_cmd() {
+	for i in "$@"; do
+		if command -v "${i}" > /dev/null 2>&1; then
+			cmd="${i}"
+			return 0
+		fi
+	done
+	log_func "Could not find a valid command $@"
+	return 1
+}
+
 remote_username="CoryTibbettsDev"
 remote_addr="github.com"
 remote_url="https://${remote_addr}/${remote_username}"
@@ -30,7 +62,6 @@ zshrc_file="${shell_dir}/zshrc.sh"
 kshrc_file="${shell_dir}/kshrc.sh"
 
 shell_history_file="${shell_cache_dir}/history.txt"
-log_file="${cache_dir}/dotfiles/dotfiles.log"
 
 notes_file="${stuff_dir}/notes/notes.md"
 
@@ -46,75 +77,20 @@ ytdl_cmd="yt-dlp"
 ytdl_path="$(which ${ytdl_cmd})"
 set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""
 
-# Append message with date to ${log_file}
-log_func() {
-	: "${log_file:="$HOME/error.log"}"
-	log_dir="$(dirname "${log_file}")"
-	if [ ! -d "${log_dir}" ]; then
-		mkdir -p "${log_dir}" && touch "${log_file}"
-	fi
-	printf "[%s] %s\n" "$(date)" "${1}" | tee -a "${log_file}"
-}
-
-command_exists() {
-	command -v "${1}" > /dev/null 2>&1
-}
-
-function_exists() {
-	type "${1}" > /dev/null 2>&1
-}
+detect_cmd "xclip" "wl-paste"
+clipboard_cmd="${cmd}"
 
 # Detect the super user command
-if command_exists "doas"; then
-	su_cmd="doas"
-elif command_exists "sudo"; then
-	su_cmd="sudo"
-else
-	su_cmd=
-	log_func "Could not find a valid su_cmd"
-fi
+detect_cmd "doas" "sudo"
+su_cmd="${cmd}"
 
 # Detect package manager
-if command_exists "pacman"; then
-	package_manager="pacman"
-elif command_exists "pkg_add"; then
-	package_manager="openbsd"
-elif command_exists "pkg"; then
-	package_manager="pkg"
-elif command_exists "xbps-install"; then
-	package_manager="xbps"
-elif command_exists "emerge"; then
-	package_manager="emerge"
-elif command_exists "apt"; then
-	package_manager="apt"
-elif command_exists "apt-get"; then
-	package_manager="apt-get"
-elif command_exists "dnf"; then
-	package_manager="dnf"
-else
-	package_manager=
-	log_func "Could not find a valid package manager"
-fi
+detect_cmd "pacman" "pkg_add" "pkg" "xbps-install" "emerge" "apt" "apt-get" "dnf"
+package_manager="${cmd}"
 
 # Detect init system
-if command_exists "rc-update"; then
-	init_system="openrc"
-elif command_exists "sv"; then
-	init_system="runit"
-elif command_exists "s6-rc"; then
-	init_system="s6"
-elif command_exists "66-tree"; then
-	init_system="suite66"
-elif command_exists "rcctl"; then
-	init_system="openbsd"
-elif command_exists "service"; then
-	init_system="freebsd"
-elif command_exists "systemctl"; then
-	init_system="systemd"
-else
-	init_system=
-	log_func "Unknown init system"
-fi
+detect_cmd "rcctl" "rc-service" "sv" "s6-rc" "66-tree" "service" "systemctl"
+init_system="${cmd}"
 
 # Detect operating system
 # The operating_system variable should not be considered 100% reliable
@@ -122,7 +98,7 @@ case "$(uname)" in
 	Linux*)
 		case "${package_manager}" in
 			pacman)
-				if [ "${init_system}" = systemd ]; then
+				if [ "${init_system}" = systemctl ]; then
 					operating_system="arch"
 				else
 					operating_system="artix"
