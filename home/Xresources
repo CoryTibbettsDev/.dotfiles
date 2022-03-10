@@ -1,13 +1,16 @@
 ! .Xresources
 
 ! Xterm
+xterm*saveLines: 0
 xterm*faceName: Monospace
 xterm*faceSize: 20
-
 xterm*ScrollBar: false
 
 ! URxvt
+URxvt*saveline: 0
 URxvt.font: xft:monospace:size=20
+URxvt*scrollBar: false
+URxvt*scrollBar_right: false
 ! Disable perl extensions for speed and security
 URxvt.perl-ext:
 URxvt.perl-ext-common:
@@ -15,31 +18,42 @@ URxvt.perl-ext-common:
 ! drivers and redraw very slowly, enabling skipBuiltinGlyphs can solve this
 URxvt*skipBuiltinGlyphs: true
 
-! Theme colors
-*.foreground: #a9b1d6
-*.background: #1a1b26
-*.cursorColor: #a9b1d6
+! Colors
+#define red #E06C75
+#define green #98C379
+#define yellow #E5C07B
+#define blue #61AFEF
+#define magenta #C678DD
+#define cyan #56B6C2
 
-*.color0: #1a1b26
-*.color8: #4e5173
+! special
+*.foreground: #ABB2BF
+! *.background: #282C34
+*.background: #141419
+*.cursorColor: #ABB2BF
 
-*.color1: #F7768E
-*.color9: #F7768E
+! black
+*.color0: #2C323C
+*.color8: #3E4452
 
-*.color2: #9ECE6A
-*.color10: #9ECE6A
+*.color1: red
+*.color9: red
 
-*.color3: #E0AF68
-*.color11: #E0AF68
+*.color2: green
+*.color10: green
 
-*.color4: #7AA2F7
-*.color12: #7AA2F7
+*.color3: yellow
+*.color11: yellow
 
-*.color5: #9a7ecc
-*.color13: #9a7ecc
+*.color4: blue
+*.color12: blue
 
-*.color6: #4abaaf
-*.color14: #4abaaf
+*.color5: magenta
+*.color13: magenta
 
-*.color7: #acb0d0
-*.color15: #acb0d0
+*.color6: cyan
+*.color14: cyan
+
+! white
+*.color7: #5C6370
+*.color15: #ABB2BF

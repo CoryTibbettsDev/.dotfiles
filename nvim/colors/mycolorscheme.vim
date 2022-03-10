@@ -1,8 +1,5 @@
-" =================================
-" mycolorscheme.vim
 " Color function based on onehalf
 " https://github.com/sonph/onehalf
-" =================================
 
 " Setup: {{{
 set background=dark
@@ -14,32 +11,26 @@ let g:colors_name="mycolorscheme"
 " }}}
 
 " Palette: {{{
-" Dark Background Tones
-let s:base03 = { "gui": "#002b36", "cterm": "234" }
-let s:base02 = { "gui": "#073642", "cterm": "235" }
-" Content Tones
-let s:base01 = { "gui": "#586e75", "cterm": "240" }
-let s:base00 = { "gui": "#657b83", "cterm": "241" }
-let s:base0 = { "gui": "#839496", "cterm": "244" }
-let s:base1 = { "gui": "#93a1a1", "cterm": "245" }
-" Light Background Tones
-let s:base2 = { "gui": "#eee8d5", "cterm": "254" }
-let s:base3 = { "gui": "#fdf6e3", "cterm": "230" }
+" Base tones
+let s:black = { "gui": "#000000", "cterm": "0" }
+let s:darkgray = { "gui": "#323232", "cterm": "8" }
+let s:white = { "gui": "#ffffff", "cterm": "15" }
+let s:lightgray = { "gui": "#afafaf", "cterm": "7" }
 " Accent Tones
-let s:yellow = { "gui": "#b58900", "cterm": "136" }
+let s:blue = { "gui": "#7AA3F7", "cterm": "33" }
+let s:green = { "gui": "#9ECE6A", "cterm": "64" }
+let s:red = { "gui": "#F7768E", "cterm": "160" }
+let s:yellow = { "gui": "#E0AF68", "cterm": "136" }
 let s:orange = { "gui": "#cb4b16", "cterm": "166" }
-let s:red = { "gui": "#dc322f", "cterm": "160" }
-let s:magenta = { "gui": "#d33682", "cterm": "125" }
+let s:magenta = { "gui": "#9a7ecc", "cterm": "125" }
 let s:violet = { "gui": "#6c71c4", "cterm": "61" }
-let s:blue = { "gui": "#6c71c4", "cterm": "33" }
-let s:cyan = { "gui": "#268bd2", "cterm": "37" }
-let s:green = { "gui": "#268bd2", "cterm": "64" }
+let s:cyan = { "gui": "#4abaaf", "cterm": "37" }
 
 " Base Colors
-let s:bg = s:base03
-let s:bg2 = s:base02
-let s:fg = s:base3
-let s:fg2 = s:base2
+let s:bg = s:black
+let s:bg2 = s:darkgray
+let s:fg = s:white
+let s:fg2 = s:lightgray
 " Accent Colors
 let s:warmaccent = s:red
 let s:warmaccent2 = s:yellow
@@ -58,11 +49,13 @@ function! s:hl(group, fg, bg, attr)
 	else
 		exec "hi " . a:group . " guifg=NONE cterm=NONE"
 	endif
+
 	if type(a:bg) == type({})
 		exec "hi " . a:group . " guibg=" . a:bg.gui . " ctermbg=" . a:bg.cterm
 	else
 		exec "hi " . a:group . " guibg=NONE ctermbg=NONE"
 	endif
+
 	if a:attr != ""
 		exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
 	else
@@ -132,7 +125,7 @@ call s:hl("DiffText", s:coldaccent, "", "")
 " Whitespace is defined in Neovim, not Vim.
 " See :help hl-Whitespace and :help hl-SpecialKey
 call s:hl("Whitespae", s:bg, "", "")
-call s:hl("NonText", s:base00, "", "")
+call s:hl("NonText", s:bg2, "", "")
 call s:hl("Comment", s:coldaccent2, "", "italic")
 call s:hl("Constant", s:coldaccent, "", "")
 call s:hl("String", s:coldaccent3, "", "")

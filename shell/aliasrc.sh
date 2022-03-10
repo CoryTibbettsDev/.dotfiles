@@ -161,6 +161,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
 alias gpo='git push origin'
+alias clone='git clone "$(myclip)"'
 setremote() {
 	remote_name="origin"
 	if [ -n "${2}" ]; then

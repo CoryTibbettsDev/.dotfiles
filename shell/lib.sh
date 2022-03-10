@@ -2,7 +2,36 @@
 
 # lib.sh
 
+# Standard directories
+downloads_dir="$HOME/Downloads"
+config_dir="$HOME/.config"
+cache_dir="$HOME/.cache"
 log_file="${cache_dir}/dotfiles/dotfiles.log"
+
+# My custom directories
+dotfiles_dir="$HOME/.dotfiles"
+stuff_dir="$HOME/Stuff"
+wallpaper_dir="${stuff_dir}/Wallpaper"
+repos_dir="$HOME/Repos"
+projects_dir="$HOME/Projects"
+misc_dir="${HOME}/Misc"
+
+shell_dir="${config_dir}/shell"
+shell_cache_dir="${cache_dir}/shell"
+shell_history_file="${shell_cache_dir}/history.txt"
+profile_file="${HOME}/.profile"
+shellrc_file="${shell_dir}/shellrc.sh"
+aliasrc_file="${shell_dir}/aliasrc.sh"
+bashrc_file="${shell_dir}/bashrc.sh"
+zshrc_file="${shell_dir}/zshrc.sh"
+kshrc_file="${shell_dir}/kshrc.sh"
+
+remote_username="CoryTibbettsDev"
+remote_addr="github.com"
+remote_url="https://${remote_addr}/${remote_username}"
+remote_git="git@${remote_addr}:${remote_username}"
+
+notes_file="${stuff_dir}/notes/notes.md"
 
 # Append message with date to ${log_file}
 log_func() {
@@ -33,37 +62,6 @@ detect_cmd() {
 	log_func "Could not find a valid command $@"
 	return 1
 }
-
-remote_username="CoryTibbettsDev"
-remote_addr="github.com"
-remote_url="https://${remote_addr}/${remote_username}"
-remote_git="git@${remote_addr}:${remote_username}"
-
-# Standard directories
-downloads_dir="$HOME/Downloads"
-config_dir="$HOME/.config"
-cache_dir="$HOME/.cache"
-
-# My custom directories
-dotfiles_dir="$HOME/.dotfiles"
-stuff_dir="$HOME/Stuff"
-wallpaper_dir="${stuff_dir}/Wallpaper"
-repos_dir="$HOME/Repos"
-projects_dir="$HOME/Projects"
-misc_dir="${HOME}/Misc"
-
-shell_dir="${config_dir}/shell"
-shell_cache_dir="${cache_dir}/shell"
-profile_file="${HOME}/.profile"
-shellrc_file="${shell_dir}/shellrc.sh"
-aliasrc_file="${shell_dir}/aliasrc.sh"
-bashrc_file="${shell_dir}/bashrc.sh"
-zshrc_file="${shell_dir}/zshrc.sh"
-kshrc_file="${shell_dir}/kshrc.sh"
-
-shell_history_file="${shell_cache_dir}/history.txt"
-
-notes_file="${stuff_dir}/notes/notes.md"
 
 # Programs
 text_editor="nvim"

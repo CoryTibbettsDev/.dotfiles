@@ -41,6 +41,7 @@ if has('termguicolors')
 	set termguicolors
 endif
 " Set Colorscheme if available
+" colorscheme default
 try
 	colorscheme mycolorscheme
 catch /^Vim\%((\a\+)\)\=:E185/
@@ -56,12 +57,6 @@ set nowrap
 set viminfo=
 " Modelines have historically been a source of security vulnerabilities
 set nomodeline
-
-" How tabs are displayed and inserted
-" Settings for hardtabs
-set tabstop=4 shiftwidth=4
-" Automatically indents lines when you insert a new line :h smartindent
-set smartindent
 
 " Case insensitive search and highlight
 set incsearch ignorecase smartcase hlsearch
@@ -111,9 +106,8 @@ let mapleader = ' '
 
 " Still save if you do :W instead of :w
 command! W :w
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :w<CR>:make<CR>
 nnoremap <leader>s :w<CR>
-nnoremap <leader>q :qa<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
 
 " xclip is needed for paste and yank with system clipboard
@@ -151,34 +145,12 @@ inoremap <C-d> /*  */<ESC>2hi
 " Trailing space is necessary don't delete
 noremap <Leader>d i/*<CR><CR>/<ESC>ka 
 
+" Insert groff defined string(variable) \*[name]
+inoremap <C-g> \*[
+
 " https://stackoverflow.com/questions/235839/indent-multiple-lines-quickly-in-vi
 " Re-indent code block
 " noremap <Leader>v :call Reindent()
-
-" Insert license header in file
-" https://www.gilesorr.com/blog/vimscript-insert.html
-command! License :call InsertLicense()
-function! InsertLicense()
-	let l:text = '/* See LICENSE for copyright and license details. */'
-	" Append text to line 0 means insert on the first line
-	let l:failed = append(0, l:text)
-	if (l:failed)
-		echo 'Unable to insert license text'
-	else
-		" Set buffer to modified
-		let &modified = 1
-	endif
-endfunction
-
-" :h formatoptions and :h fo-table
-command! WM call WritingMode()
-function! WritingMode()
-	" spelling and thesaurus
-	setlocal spell spelllang=en_us
-	" set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
-	" complete+=s makes autocompletion search the thesaurus
-	" set complete+=s
-endfunction
 " }}}
 
 " {{{ Status Line
@@ -206,26 +178,35 @@ set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
 set statusline+=%{&ff}] " file format
 set statusline+=%y " filetype
 set statusline+=%h " help file flag
-set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] " modified flag
+" set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] " modified flag
 set statusline+=%r " read only flag
 set statusline+=\ %= " align left
-set statusline+=\ [%b][0x%B] " ASCII and byte code under cursor
-set statusline+=Line:%l/%L[%p%%] " line X of Y [percent of file]
-set statusline+=\ Col:%c " current column
-set statusline+=\ Buf:%n " Buffer number
+" set statusline+=\ [%b][0x%B] " ASCII and byte code under cursor
+set statusline+=Col:%c " current column
+set statusline+=\ Line:%l/%L[%p%%] " line X of Y [percent of file]
+" set statusline+=\ Buf:%n " Buffer number
 " }}}
 
-" {{{ Filetype Specific Settings
+" {{{ Formatting Options
+" How tabs are displayed and inserted
+" Settings for hardtabs
+set tabstop=4 shiftwidth=4 noexpandtab
+" Automatically indents lines when you insert a new line :h smartindent
+set smartindent
 " https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width
-autocmd FileType c,haskell,sh,bash,zsh,tcsh,csh setlocal colorcolumn=81
+set colorcolumn=81
+" }}}
+
+" {{{ Filetype Specific Formatting Options
+" Python does not want lines to exceed 79 characters instead of the normal 80
 autocmd FileType python setlocal colorcolumn=80
 
 " https://lisp-lang.org/style-guide/
 " https://google.github.io/styleguide/lispguide.xml
 autocmd FileType lisp setlocal colorcolumn=100
 
-" Settings for hardtabs
-autocmd FileType c,sh,bash,zsh,tcsh,csh setlocal tabstop=4 shiftwidth=4
+" Makefiles require tab characters/hardtabs to be used
+autocmd FileType make setlocal tabstop=4 shiftwidth=4 noexpandtab
 
 " PEP 8, the style guide for python, specifies the use of
 " spaces aka softtabs this is because they are morons
@@ -244,6 +225,58 @@ if has('nvim')
 	" Remap <Esc> to exit terminal-mode
 	tnoremap <Esc> <C-\><C-n>
 endif
+" }}}
+
+" {{{ Writing
+" https://gist.github.com/sjl/1038710
+" https://gist.github.com/vim-voom/1035030
+func! Foldexpr_markdown(lnum)
+	let l1 = getline(a:lnum)
+
+	if l1 =~ '^\s*$'
+		" ignore empty lines
+		return '='
+	endif
+
+	let l2 = getline(a:lnum+1)
+
+	if l2 =~ '^==\+\s*'
+		" next line is underlined (level 1)
+		return '>1'
+	elseif l2 =~ '^--\+\s*'
+		" next line is underlined (level 2)
+		return '>2'
+	elseif l1 =~ '^#'
+		" current line starts with hashes
+		return '>'.matchend(l1, '^#\+')
+	elseif a:lnum == 1
+		" fold any 'preamble'
+		return '>1'
+	else
+		" keep previous foldlevel
+		return '='
+	endif
+endfunc
+
+" :h formatoptions and :h fo-table
+command! WM call WritingMode()
+function! WritingMode()
+	setlocal spell spelllang=en_us
+	" set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
+	" complete+=s makes autocompletion search the thesaurus
+	" set complete+=s
+
+	if &filetype == "markdown"
+		setlocal foldexpr=Foldexpr_markdown(v:lnum)
+		setlocal foldmethod=expr
+	endif
+	" see ':help fold-options' for more
+	setlocal foldenable
+	setlocal foldlevel=0
+	setlocal foldcolumn=0
+	" Shows the first line as is, plus fold level and the number of hidden lines
+	" setlocal foldtext=getline(v:foldstart).'\ Level:\ '.v:foldlevel.'\ Lines:\ '.(v:foldend-v:foldstart)
+endfunction
 " }}}
 
 " {{{ Plugins

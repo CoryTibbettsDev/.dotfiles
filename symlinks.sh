@@ -73,7 +73,7 @@ verbose_ln "${shellrc_file}" "$HOME/.zshrc"
 verbose_ln "${shellrc_file}" "$HOME/.kshrc"
 
 # Copy Wallpapers
-cp -vr "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
+cp -r "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
 
 browser_config_dir="${dotfiles_dir}/browser-config"
 sh "${browser_config_dir}/link.sh" "${browser_config_dir}" ||
