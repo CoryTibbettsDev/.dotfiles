@@ -54,7 +54,7 @@ function_exists() {
 # Sets $cmd to the first valid command
 detect_cmd() {
 	for i in "$@"; do
-		if command -v "${i}" > /dev/null 2>&1; then
+		if command_exists "${i}"; then
 			cmd="${i}"
 			return 0
 		fi
@@ -71,7 +71,8 @@ terminal_emulator="xterm"
 web_browser="firefox"
 document_viewer="zathura"
 screen_locker="i3lock"
-ytdl_cmd="yt-dlp"
+detect_cmd "yt-dlp" "youtube-dl"
+ytdl_cmd="${cmd}"
 ytdl_path="$(which ${ytdl_cmd})"
 set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""
 

@@ -12,13 +12,28 @@ if !has('nvim')
 	set smarttab
 	" Better command-line completion
 	set wildmenu
+	" Remember unloaded buffers
+	set hidden
+endif
+" }}}
+
+" {{{ Disable Annoying Features
+set nowrap
+" Modelines have historically been a source of security vulnerabilities
+set nomodeline
+" Disable creation of various data files
+set noswapfile
+set nobackup
+if has('nvim')
+	set shada=
+	set shadafile=
+else
+	set viminfo=
+	set viminfofile=
 endif
 " }}}
 
 " {{{ Basic Settings
-" Remember unloaded buffers
-set hidden
-
 " Title of terminal window is name of file being edited
 set title
 
@@ -48,15 +63,6 @@ catch /^Vim\%((\a\+)\)\=:E185/
 	colorscheme default
 	set background=dark
 endtry
-
-" Disable Annoying Features
-" Disable creation of swap files
-set noswapfile
-set nobackup
-set nowrap
-set viminfo=
-" Modelines have historically been a source of security vulnerabilities
-set nomodeline
 
 " Case insensitive search and highlight
 set incsearch ignorecase smartcase hlsearch
@@ -117,9 +123,6 @@ nnoremap <C-p> "+p
 " Yank into system clipboard
 nnoremap <C-y> "+y
 
-" Insert a single character from normal mode
-nnoremap <C-i> i_<Esc>r
-
 " Insert <br  /> for markdown line breaks
 nnoremap <leader>b a<br  /><Esc>
 
@@ -147,10 +150,6 @@ noremap <Leader>d i/*<CR><CR>/<ESC>ka
 
 " Insert groff defined string(variable) \*[name]
 inoremap <C-g> \*[
-
-" https://stackoverflow.com/questions/235839/indent-multiple-lines-quickly-in-vi
-" Re-indent code block
-" noremap <Leader>v :call Reindent()
 " }}}
 
 " {{{ Status Line

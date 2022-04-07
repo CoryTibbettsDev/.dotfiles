@@ -22,10 +22,9 @@ alias r='fc -s'
 
 myshutdown() {
 	case "${init_system}" in
-		rc-service) eval "${su_cmd}" openrc-shutdown -p now;;
-		openbsd|s6) eval "${su_cmd}" shutdown -p now;;
+		rc-service|sv|s6-rc) eval "${su_cmd}" poweroff;;
+		rcctl) eval "${su_cmd}" shutdown -p now;;
 		systemctl) shutdown now;;
-		dinit) eval "${su_cmd}" shutdown -p;;
 		*)
 			log_func "ERROR: No shutdown command for init: '${init_system}'"
 			return 1
@@ -130,8 +129,6 @@ alias c='mycd'
 alias ls='ls -F'
 alias l='ls -alh'
 
-alias cl='clear'
-
 alias cpv='cp -v'
 alias mvv='mv -v'
 alias rmv='rm -v'
@@ -232,7 +229,7 @@ alias dlmp3='ytdl --extract-audio --audio-format mp3'
 
 # Alias for YouTube command line search tool
 alias yt='ytfzf -l'
-alias yts='ytfzf --scrape=youtube-subscriptions'
+alias yts='ytfzf -l --scrape=youtube-subscriptions'
 # Get youtube link
 alias ytl='ytfzf -I l --force-youtube'
 

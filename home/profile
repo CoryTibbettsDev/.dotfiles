@@ -17,7 +17,6 @@ export ENV="$HOME/.kshrc"
 # Export just in case it is not exported already
 export EDITOR="${text_editor:-vi}"
 export VISUAL="${visual_editor:-"$EDITOR"}"
-export TERMINAL="${terminal_emulator:-xterm}"
 export BROWSER="${web_browser}"
 export READER="${document_viewer}"
 

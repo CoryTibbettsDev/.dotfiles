@@ -3,3 +3,4 @@ tags
 *.o
 auto-save-list/
 watch_later/
+gtkfilechooser.ini

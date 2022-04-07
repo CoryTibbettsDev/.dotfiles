@@ -7,6 +7,7 @@
 [Insert a Single Character From Normal Mode](https://superuser.com/questions/581572/insert-single-character-in-vim)<br  />
 [Save Marks](https://stackoverflow.com/questions/8958047/in-vim-is-there-a-way-to-save-bookmarks-between-sessions)<br  />
 [Vim Plugin Directory Structure](https://gist.github.com/nelstrom/1056049/784e252c3de653e204e9e128653010e19fbd493f)<br  />
+[Indent Multiple Lines](https://stackoverflow.com/questions/235839/indent-multiple-lines-quickly-in-vi)<br  />
 
 # Plugins I Want To Write
 ## Vim Outline Mode and Maybe Org Mode
@@ -16,8 +17,3 @@ Outline mode for edting text documents with text folding and jumping to headers.
 ## Status Line
 Status line that changes color based on the current mode.<br  />
 [lightline.vim](https://github.com/itchyny/lightline.vim)<br  />
-## Scratchpad
-Scratchpad to quickly run code especially shell scripts.<br  />
-[Running Python In Vim Buffer](https://izziswift.com/running-python-code-in-vim/)<br  />
-[Show Output of Shell Command](https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window)<br  />
-[codi.vim](https://github.com/metakirby5/codi.vim)<br  />
