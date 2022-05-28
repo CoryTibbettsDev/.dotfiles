@@ -52,6 +52,8 @@ export CABAL_CONFIG="${XDG_CONFIG_HOME}/cabal/config"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export GOPATH="${XDG_DATA_HOME}/go"
+# https://drewdevault.com/2021/08/06/goproxy-breaks-go.html
+export GOPROXY="direct"
 export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
 export ELINKS_CONFDIR="${XDG_CONFIG_HOME}/elinks"
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java"

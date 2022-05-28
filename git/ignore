@@ -5,7 +5,6 @@
 a.out
 *.o
 *.so
-*.com
 *.class
 *.dll
 *.exe

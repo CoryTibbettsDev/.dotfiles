@@ -114,11 +114,12 @@ let mapleader = ' '
 command! W :w
 nnoremap <leader>w :w<CR>:make<CR>
 nnoremap <leader>s :w<CR>
+nnoremap <leader>e :e $MYVIMRC<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
 
 " xclip is needed for paste and yank with system clipboard
-" Paste from system clipboard
 " For some reason leader key with this binding is slow but not with control
+" Paste from system clipboard
 nnoremap <C-p> "+p
 " Yank into system clipboard
 nnoremap <C-y> "+y
@@ -264,6 +265,7 @@ function! WritingMode()
 	" set thesaurus+=/home/test/.vim/thesaurus/mthesaur.txt
 	" complete+=s makes autocompletion search the thesaurus
 	" set complete+=s
+	setlocal textwidth=80
 
 	if &filetype == "markdown"
 		setlocal foldexpr=Foldexpr_markdown(v:lnum)

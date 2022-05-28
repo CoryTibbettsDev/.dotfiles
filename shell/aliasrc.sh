@@ -223,9 +223,12 @@ if [ "${ytdl_cmd}" = "youtube-dl" ]; then
 else
 	alias ytdl='eval "${ytdl_cmd}"'
 fi
-alias dl='ytdl "$(myclip)"'
+ytdl_ext() {
+	ytdl -o "${1}.\%\(ext\)s" "$(myclip)"
+}
+alias dl='ytdl_ext'
+alias dlc='ytdl "$(myclip)"'
 alias dla='ytdl --extract-audio "$(myclip)"'
-alias dlmp3='ytdl --extract-audio --audio-format mp3'
 
 # Alias for YouTube command line search tool
 alias yt='ytfzf -l'
