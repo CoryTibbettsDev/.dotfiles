@@ -73,7 +73,6 @@ document_viewer="zathura"
 screen_locker="i3lock"
 detect_cmd "yt-dlp" "youtube-dl"
 ytdl_cmd="${cmd}"
-ytdl_path="$(which ${ytdl_cmd})"
 set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""
 
 detect_cmd "xclip" "wl-paste"

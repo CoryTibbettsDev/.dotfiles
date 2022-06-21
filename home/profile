@@ -20,9 +20,6 @@ export VISUAL="${visual_editor:-"$EDITOR"}"
 export BROWSER="${web_browser}"
 export READER="${document_viewer}"
 
-# Path to youtube-dl fork for ytfzf
-export YTDL_PATH="${ytdl_path}"
-
 # Some programs look for XDG dirs from exported shell variables and not from
 # the $XDG_CONFIG_DIR/user-dirs.dirs or $HOME/.config/user-dirs.dirs file
 # so export these in case so they can find config files and not mess with
