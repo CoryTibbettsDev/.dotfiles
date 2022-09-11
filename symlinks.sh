@@ -75,6 +75,58 @@ verbose_ln "${shellrc_file}" "$HOME/.kshrc"
 # Copy Wallpapers
 cp -r "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
 
-browser_config_dir="${dotfiles_dir}/browser-config"
-sh "${browser_config_dir}/link.sh" "${browser_config_dir}" ||
-	printf "ERROR: linking browser config\n" 1>&2
+# Browser config files
+firefox_source_dir="${dotfiles_dir}/firefox"
+firefox_user_js="${firefox_source_dir}/user.js"
+
+chromium_source_dir="${dotfiles_dir}/chromium"
+chromium_input_file="${chromium_source_dir}/preferences.json"
+chromium_output_file="${chromium_source_dir}/Preferences"
+
+# Check to make sure our config files are there
+if [ ! -f "${firefox_user_js}" ]; then
+	printf "firefox '%s' is an invalid file\n" "${firefox_user_js}" 1>&2
+	exit 1
+fi
+if [ ! -f "${chromium_input_file}" ]; then
+	printf "chromium '%s' is an invalid file\n" "${chromium_input_file}" 1>&2
+	exit 1
+fi
+
+# Firefox
+# firefox has to have been started before to create it's profile directory
+# firefox --headless &
+# sleep 2
+# pkill firefox
+# Find firefox profile directory with suffix from argument 1 to function
+firefox_profile_dir=
+get_firefox_profile_dir() {
+	# Check to make sure the profile dir is not set already
+	[ -z "${firefox_profile_dir}" ] &&
+		firefox_profile_dir="$(find "$HOME/.mozilla/firefox" -type d -path *.default-${1})"
+}
+# Try all the firefox profile directory suffixes I know
+get_firefox_profile_dir "release"
+get_firefox_profile_dir "esr"
+
+# If we found the right directory link the user.js
+if [ -n "${firefox_profile_dir}" ]; then
+	printf "'%s' -> '%s'\n" "${firefox_user_js}" "${firefox_profile_dir}"
+	ln -sf "${firefox_user_js}" "${firefox_profile_dir}" ||
+		printf "ERROR: Failed to link firefox user.js\n" 1>&2
+else
+	printf "ERROR: Could not find firefox profile directory\n" 1>&2
+fi
+
+# Chromium
+# Strip all whitespace from the chromium json file
+# This may not be needed but some sources say chromium does not like
+# whitespace in the Preferences file so it seems safer to do it to me
+tr -d " \n\r" < "${chromium_input_file}" > "${chromium_output_file}"
+
+chromium_config_dir="${config_dir}/chromium/Default"
+[ -d "${chromium_config_dir}" ] || mkdir -p "${chromium_config_dir}"
+
+printf "'%s' -> '%s'\n" "${chromium_output_file}" "${chromium_config_dir}"
+ln -sf "${chromium_output_file}" "${chromium_config_dir}" ||
+	printf "ERROR: Failed to link chromium Preferences\n" 1>&2
