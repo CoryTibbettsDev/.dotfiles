@@ -11,12 +11,13 @@ let g:colors_name="mycolorscheme"
 " }}}
 
 " Palette: {{{
-" Base tones
-let s:black = { "gui": "#000000", "cterm": "0" }
-let s:darkgray = { "gui": "#323232", "cterm": "8" }
 let s:white = { "gui": "#ffffff", "cterm": "15" }
+let s:black = { "gui": "#000000", "cterm": "0" }
+
+let s:dark = { "gui": "#282C34", "cterm": "0" }
+let s:darkgray = { "gui": "#323232", "cterm": "8" }
 let s:lightgray = { "gui": "#afafaf", "cterm": "7" }
-" Accent Tones
+
 let s:blue = { "gui": "#7AA3F7", "cterm": "33" }
 let s:green = { "gui": "#9ECE6A", "cterm": "64" }
 let s:red = { "gui": "#F7768E", "cterm": "160" }
@@ -26,12 +27,11 @@ let s:magenta = { "gui": "#9a7ecc", "cterm": "125" }
 let s:violet = { "gui": "#6c71c4", "cterm": "61" }
 let s:cyan = { "gui": "#4abaaf", "cterm": "37" }
 
-" Base Colors
-let s:bg = s:black
+let s:bg = s:dark
 let s:bg2 = s:darkgray
 let s:fg = s:white
 let s:fg2 = s:lightgray
-" Accent Colors
+
 let s:warmaccent = s:red
 let s:warmaccent2 = s:yellow
 let s:warmaccent3 = s:orange
@@ -71,7 +71,7 @@ call s:hl("Cursor", s:bg, s:coldaccent, "")
 call s:hl("CursorColumn", "", s:bg2, "")
 call s:hl("CursorLine", "", s:bg2, "")
 
-call s:hl("LineNr", s:fg2, s:bg2, "")
+call s:hl("LineNr", s:fg, s:bg2, "")
 call s:hl("CursorLineNr", s:fg2, "", "")
 
 call s:hl("IncSearch", s:bg, s:warmaccent, "")
@@ -93,7 +93,7 @@ call s:hl("SpellCap", s:warmaccent2, "", "")
 call s:hl("SpellLocal", s:warmaccent2, "", "")
 call s:hl("SpellRare", s:warmaccent2, "", "")
 
-call s:hl("StatusLine", s:fg2, s:bg2, "")
+call s:hl("StatusLine", s:fg, s:bg2, "")
 call s:hl("StatusLineNC", s:fg, s:bg, "")
 call s:hl("TabLine", s:fg2, s:bg2, "")
 call s:hl("TabLineFill", s:fg2, s:bg2, "")
