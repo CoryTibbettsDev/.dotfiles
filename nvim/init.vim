@@ -285,6 +285,22 @@ endfunction
 let g:netrw_dirhistmax = 0
 " Tree like listing
 let g:netrw_liststyle = 3
+
+" vim-plug
+" Automatically install vim-plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+	silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin()
+Plug 'https://github.com/jpalardy/vim-slime'
+call plug#end()
+
+" vim-slime
+let g:slime_target = "tmux"
+let g:slime_paste_file = tempname()
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
 " }}}
 
 " {{{ My Custom Plugins
