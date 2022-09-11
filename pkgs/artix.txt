@@ -27,3 +27,6 @@ usbutils
 lowdown
 entr
 nmap
+calcurse
+gimp
+warpinator

@@ -44,6 +44,10 @@ clone_install() {
 }
 
 pkg_file="${dotfiles_dir}/pkgs/${operating_system}.txt"
+if test "${operating_system}" = "artix"; then
+	yes_no "Detected OS is artix. Use arch package list?" "no" &&
+		pkg_file="${dotfiles_dir}/pkgs/arch.txt"
+fi
 
 case "${package_manager}" in
 	pacman)
