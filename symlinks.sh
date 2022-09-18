@@ -58,6 +58,7 @@ link_config ytfzf
 link_config mpv
 link_config gtk-2.0
 link_config gtk-3.0
+link_config gtk-4.0
 link_config zathura
 link_config feh
 link_config emacs
