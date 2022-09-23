@@ -26,7 +26,6 @@ mpv
 yt-dlp
 jq
 fzf
-qemu
 usbutils
 lowdown
 entr

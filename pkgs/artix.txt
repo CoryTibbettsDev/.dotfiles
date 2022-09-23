@@ -22,7 +22,6 @@ feh
 mpv
 jq
 fzf
-qemu
 usbutils
 lowdown
 entr
