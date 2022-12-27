@@ -10,4 +10,4 @@ enable_noti=0
 
 #the amount of links to get from each subscription
 #same as --subs=
-sub_link_count=20
+sub_link_count=5

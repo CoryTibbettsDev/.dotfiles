@@ -2,12 +2,9 @@
 My basic configuration files
 
 # Installation
-Clone the repository and run `symlinks.sh` to create symlinks to all the config files.
-If you wish to add dotfiles to you home directory add them to the `home/` directory.
-For directorys located within `$HOME/.config` directory add your own directory and add a function call in `symlinks.sh` with it's name.
-For files located with `$HOME/.config` directory add the files to the `config/` directory.
+Run `symlinks.sh` to create symlinks to all the config files.
 
-# STOP MESSING WITH MY DIRECTORIES PLEASE
+# Stop Creation of Directories
 Annoying creation of directories in home folders and how to fix some of the programs that do this.<br  />
 [Arch Wiki on XDG Specification With Fixes for Some Programs](https://wiki.archlinux.org/title/XDG_Base_Directory#Partial)<br  />
 [How to Prevent Creation of Desktop Folder stackexchange.com](https://unix.stackexchange.com/questions/37922/how-to-prevent-the-auto-creation-of-the-desktop-folder)<br  />
