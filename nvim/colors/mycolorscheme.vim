@@ -125,7 +125,8 @@ call s:hl("DiffText", s:coldaccent, "", "")
 " Whitespace is defined in Neovim, not Vim.
 " See :help hl-Whitespace and :help hl-SpecialKey
 call s:hl("Whitespae", s:bg, "", "")
-call s:hl("NonText", s:bg2, "", "")
+" Whitespace tab characters and spaces
+call s:hl("NonText", s:black, "", "")
 call s:hl("Comment", s:coldaccent2, "", "italic")
 call s:hl("Constant", s:coldaccent, "", "")
 call s:hl("String", s:coldaccent3, "", "")

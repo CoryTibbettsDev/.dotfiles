@@ -57,7 +57,7 @@ package_manager_help() {
 			print_pmh "pacman -S" "pacman -R" "pacman -Ss" "pacman -Syu"
 			;;
 		pkg_add)
-			print_pmh "pkg_add" "pkg_remove" "pkg_info -E" "pkg_add -u"
+			print_pmh "pkg_add" "pkg_remove" "pkg_info -Q" "pkg_add -u"
 			;;
 		xbps-install)
 			print_pmh "xbps-install" "xbps-remove" "xbps-query -Rs" "xbps-install -Su"
@@ -84,6 +84,11 @@ EOF
 
 init_system_help() {
 	case "${init_system}" in
+		rcctl)
+			print_ish "rcctl <action> <service>" \
+				"start, stop, restart" "rcctl enable/disable <service>" \
+				"rcctl ls <lsarg>(on)" "rcctl" "rcctl"
+			;;
 		rc-service)
 			print_ish "rc-service <service> <action> OR /etc/init.d/<service> <action>" \
 				"start, stop, restart" "rc-update add/del <service> <runlevel>" \
@@ -218,11 +223,7 @@ alias cw='eval "${set_wallpaper_cmd}"'
 alias lock='eval "${screen_locker}"'
 
 alias youtube-dl='youtube-dl --no-call-home'
-if [ "${ytdl_cmd}" = "youtube-dl" ]; then
-	alias ytdl='eval "${ytdl_cmd}" --no-call-home'
-else
-	alias ytdl='eval "${ytdl_cmd}"'
-fi
+alias ytdl='eval "${ytdl_cmd}"'
 ytdl_ext() {
 	ytdl -o "${1}.\%\(ext\)s" "$(myclip)"
 }

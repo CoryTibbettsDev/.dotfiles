@@ -1,5 +1,8 @@
 ! .Xresources
 
+! XTerm*eightBitInput: false
+! UXTerm*eightBitInput: false
+
 ! Xterm
 xterm*saveLines: 0
 xterm*faceName: Monospace

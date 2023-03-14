@@ -88,12 +88,13 @@ parse_git_dirty() {
 		printf " %s" "${bits}"
 	fi
 }
-my_directory='$(my_pwd)$(parse_git_branch)'
+# my_directory='$(my_pwd)$(parse_git_branch)'
+my_directory='$(my_pwd)'
 
-if [ "${current_shell}" = "bash" ] || [ "${current_shell}" = "zsh" ]; then
-	check_color_support &&
-		colors="$(text_effect bold)$(esc_func "${rgb_fore}150;150;255")" ||
-		colors="$(text_effect bold)${four_bit_blue_fore}"
+# if [ "${current_shell}" = "bash" ] || [ "${current_shell}" = "zsh" ]; then
+if check_color_support; then
+	colors="$(text_effect bold)$(esc_func "${rgb_fore}150;150;255")"
+	colors="$(text_effect bold)${four_bit_blue_fore}"
 
 	start_ps1="${non_printable_open}${colors}${non_printable_close}"
 	end_ps1=" \$${non_printable_open}$(text_effect reset)${non_printable_close}"

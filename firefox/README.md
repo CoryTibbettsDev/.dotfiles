@@ -18,6 +18,10 @@ You can create a new profile with:<br  />
 But I have not found a command to change the default profile.
 Firefox command line options appear to be poorly documented and many deprecated.
 
+## Firefox Keyboard Shortcuts
+[Keyboard Shortcuts](https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly)<br  />
+[Cannot Change Search Engine From user.js](https://stackoverflow.com/questions/47118248/firefox-ignoring-default-search-engine-preferences)<br  />
+
 ## user.js Examples
 [Github arkenfox/user.js](https://github.com/arkenfox/user.js)<br  />
 [Github pyllyukko/user.js](https://github.com/pyllyukko/user.js)<br  />

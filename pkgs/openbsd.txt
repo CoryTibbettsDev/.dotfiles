@@ -1,0 +1,17 @@
+arc-theme-solid--
+chromium--
+feh--
+firefox--
+fzf--
+git--
+jq--
+mpv--
+neovim--
+password-store--
+quirks--
+rsync--
+sbcl--
+xclip--
+yt-dlp--
+zathura--
+zathura-pdf-mupdf--

@@ -55,8 +55,8 @@ endif
 if has('termguicolors')
 	set termguicolors
 endif
+
 " Set Colorscheme if available
-" colorscheme default
 try
 	colorscheme mycolorscheme
 catch /^Vim\%((\a\+)\)\=:E185/
@@ -130,6 +130,11 @@ nnoremap <leader>b a<br  /><Esc>
 nnoremap <leader>m :make<CR>
 nnoremap <leader>t :make test<CR>
 
+" Quickfix list shortcuts
+" https://github.com/tpope/vim-unimpaired
+nnoremap [q :cprev<CR>
+nnoremap ]q :cnext<CR>
+
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
@@ -178,7 +183,7 @@ set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
 set statusline+=%{&ff}] " file format
 set statusline+=%y " filetype
 set statusline+=%h " help file flag
-" set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] " modified flag
+set statusline+=[%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] " modified flag
 set statusline+=%r " read only flag
 set statusline+=\ %= " align left
 " set statusline+=\ [%b][0x%B] " ASCII and byte code under cursor

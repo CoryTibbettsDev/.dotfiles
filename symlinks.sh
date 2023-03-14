@@ -109,6 +109,8 @@ get_firefox_profile_dir() {
 # Try all the firefox profile directory suffixes I know
 get_firefox_profile_dir "release"
 get_firefox_profile_dir "esr"
+# Found on OpenBSD
+get_firefox_profile_dir "default"
 
 # If we found the right directory link the user.js
 if [ -n "${firefox_profile_dir}" ]; then

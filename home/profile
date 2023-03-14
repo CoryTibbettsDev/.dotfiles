@@ -10,12 +10,16 @@ if [ ! -f "${LIBRARY_FILE}" ]; then
 fi
 . "${LIBRARY_FILE}"
 
+# Append our home directory bin dir
+export PATH="$HOME/.bin:$PATH"
+
 # ksh looks for ENV to source it's rc file
 export ENV="$HOME/.kshrc"
 
 # Set global variables for programs that look for them
 # Export just in case it is not exported already
 export EDITOR="${text_editor:-vi}"
+export FCEDIT="$EDITOR"
 export VISUAL="${visual_editor:-"$EDITOR"}"
 export BROWSER="${web_browser}"
 export READER="${document_viewer}"
@@ -81,6 +85,7 @@ export SEMGREP_SEND_METRICS=off
 . "${shellrc_file}"
 
 # Automatically startx on login
-if [ -z "${DISPLAY}" -a "${XDG_VTNR}" -eq 1 ]; then
-	exec startx
-fi
+# if [ -z "${DISPLAY}" -a "${XDG_VTNR}" -eq 1 ]; then
+# if test -z "${DISPLAY}"; then
+# 	exec startx
+# fi

@@ -66,7 +66,8 @@ detect_cmd() {
 # Programs
 text_editor="nvim"
 visual_editor="${text_editor}"
-window_manager="awesome"
+# window_manager="awesome"
+window_manager="cwm"
 terminal_emulator="xterm"
 web_browser="firefox"
 document_viewer="zathura"
@@ -228,8 +229,10 @@ yes_no() {
 	done
 }
 
+# https://unix.stackexchange.com/questions/450365/check-if-terminal-supports-24-bit-true-color
 check_color_support() {
-	if [ "$COLORTERM" = truecolor ] || [ "$COLORTERM" = 24bit ]; then
+	# return "$(( $(tput colors) >= 256 ))"
+	if test "$(tput colors)" -ge 256; then
 		return 0
 	else
 		return 1
