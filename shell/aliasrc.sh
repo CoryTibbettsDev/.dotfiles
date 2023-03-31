@@ -139,7 +139,6 @@ alias mvv='mv -v'
 alias rmv='rm -v'
 alias mkd='mkdir -p'
 
-alias g='grep'
 # Recursive grep
 alias rg='grep -R -I -n'
 # History grep
@@ -150,10 +149,10 @@ alias less='less -R'
 # Human readable free
 alias hfree='free -mht'
 
-alias f='find'
 # Custom find command because it is annoying to type everytime
 myfind() {
-	find . -iname "*${1}*"
+	dir="${2:-"."}"
+	find "${dir}" -iname "*${1}*"
 }
 alias mf='myfind'
 
@@ -165,17 +164,11 @@ alias gp='git push'
 alias gpo='git push origin'
 alias clone='git clone "$(myclip)"'
 setremote() {
-	remote_name="origin"
-	if [ -n "${2}" ]; then
-		remote_name="${2}"
-	fi
+	remote_name="${2:-"origin"}"
 	repo="${remote_git}/${1}.git"
 	printf "New Remote: [%s] at [%s]\n" "${repo}" "${remote_name}"
 	git remote set-url "${remote_name}" "${repo}"
 }
-
-alias mt='make test'
-alias mc='make clean'
 
 myclip() {
 	case "${clipboard_cmd}" in
@@ -191,19 +184,14 @@ myclip() {
 
 # Copy clipboard over ssh
 clipssh() {
-	if [ -z "$1" ]; then
-		printf "No arg 1 for target user\n" 1>&2
-		return 1
-	fi
-	forward_port=${2:-2222}
-	display_num=${3:-0}
-	clipboard="$(myclip)"
+	user="${1:-"user"}"
+	display_num=${2:-1}
+	forward_port=${3:-22}
 	# Need to specify display not sure why
 	# https://unix.stackexchange.com/questions/16694/copy-input-to-clipboard-over-ssh
-	printf "%s" "${clipboard}" |
-		ssh -p "${forward_port}" "$1"@127.0.0.1 \
-			"DISPLAY=:${display_num} xclip -in -selection clipboard && printf 'Copied\n' || printf 'Not Copied\n'"
-	clipboard=
+	xclip -out -selection clipboard |
+		ssh -p "${forward_port}" "${user}"@127.0.0.1 \
+			"DISPLAY=:${display_num} xclip -in -selection clipboard"
 }
 
 # : is a placeholder command that is always true so the file gets overwritten
@@ -223,12 +211,12 @@ alias cw='eval "${set_wallpaper_cmd}"'
 alias lock='eval "${screen_locker}"'
 
 alias youtube-dl='youtube-dl --no-call-home'
-alias ytdl='eval "${ytdl_cmd}"'
+alias ytdl='"${ytdl_cmd}"'
 ytdl_ext() {
-	ytdl -o "${1}.\%\(ext\)s" "$(myclip)"
+	ytdl -o "${1}.%(ext)s" "$(myclip)"
 }
 alias dl='ytdl_ext'
-alias dlv='ytdl "$(myclip)"'
+alias dlv='ytdl -o \%\(title\)s\[\%\(id\)s\]\%\(uploader_id\|UploaderIDUnknown\)s.\%\(ext\)s "$(myclip)"'
 alias dla='ytdl --extract-audio "$(myclip)"'
 
 # Alias for YouTube command line search tool
