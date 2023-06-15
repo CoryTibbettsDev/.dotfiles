@@ -67,13 +67,6 @@ esac
 # (optional for thumbnails) ueberzug
 clone_install https://github.com/pystardust/ytfzf "${repos_dir}/ytfzf"
 
-# My projects
-clone_install "${remote_url}/simpleqemu" "${projects_dir}/simpleqemu"
-
-clone_repo "${remote_url}/IUseArchBTW" "${projects_dir}/IUseArchBTW"
-clone_repo "${remote_url}/barisbloat" "${projects_dir}/barisbloat"
-clone_repo "${remote_url}/xcbutilisbloat" "${projects_dir}/xcbutilisbloat"
-
 # Change swappiness to better value
 if [ "$(uname)" = Linux ]; then
 	swappiness=10

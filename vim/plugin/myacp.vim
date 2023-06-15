@@ -115,7 +115,7 @@ function! s:myacp_enable()
 		inoremap <silent><buffer><expr> <cr>
 					\ pumvisible()? "\<c-y>\<cr>" : "\<cr>"
 	else
-		inoremap <silent><buffer><expr> <cr> 
+		inoremap <silent><buffer><expr> <cr>
 					\ pumvisible()? "\<c-y>" : "\<cr>"
 	endif
 	inoremap <silent><buffer><expr> <bs> <SID>on_backspace()

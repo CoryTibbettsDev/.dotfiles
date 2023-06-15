@@ -116,6 +116,8 @@ nnoremap <leader>w :w<CR>:make<CR>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>e :e $MYVIMRC<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
+" Open netrw
+nnoremap <leader>f :Ex<CR>
 
 " xclip is needed for paste and yank with system clipboard
 " For some reason leader key with this binding is slow but not with control
@@ -288,8 +290,6 @@ endfunction
 " {{{ Plugins
 " Disable netrw history (cuz it's really annoying)
 let g:netrw_dirhistmax = 0
-" Tree like listing
-let g:netrw_liststyle = 3
 
 " vim-plug
 " Automatically install vim-plug

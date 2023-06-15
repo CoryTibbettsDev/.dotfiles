@@ -10,15 +10,16 @@ else
 	return
 fi
 
+# np_open np_close non printable characters open and close
 if [ -n "$BASH_VERSION" -o -n "$BASH" ]; then
 	current_shell="bash"
-	non_printable_open="\["
-	non_printable_close="\]"
+	np_open="\["
+	np_close="\]"
 	source_file "${bashrc_file}"
 elif [ -n "$ZSH_VERSION" ]; then
 	current_shell="zsh"
-	non_printable_open="%{"
-	non_printable_close="%}"
+	np_open="%{"
+	np_close="%}"
 	source_file "${zshrc_file}"
 elif [ -n "$KSH_VERSION" -o -n "$FCEDIT" ]; then
 	current_shell="ksh"
@@ -91,13 +92,11 @@ parse_git_dirty() {
 # my_directory='$(my_pwd)$(parse_git_branch)'
 my_directory='$(my_pwd)'
 
-# if [ "${current_shell}" = "bash" ] || [ "${current_shell}" = "zsh" ]; then
 if check_color_support; then
-	colors="$(text_effect bold)$(esc_func "${rgb_fore}150;150;255")"
-	colors="$(text_effect bold)${four_bit_blue_fore}"
+	user_color="$(esc_func "${rgb_fore}150;255;150")"
 
-	start_ps1="${non_printable_open}${colors}${non_printable_close}"
-	end_ps1=" \$${non_printable_open}$(text_effect reset)${non_printable_close}"
+	start_ps1="${np_open}${user_color}${np_close}["
+	end_ps1="]\$${np_open}$(text_effect reset)${np_close}"
 else
 	start_ps1="["
 	end_ps1="]\$"

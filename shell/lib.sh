@@ -26,11 +26,6 @@ bashrc_file="${shell_dir}/bashrc.sh"
 zshrc_file="${shell_dir}/zshrc.sh"
 kshrc_file="${shell_dir}/kshrc.sh"
 
-remote_username="CoryTibbettsDev"
-remote_addr="github.com"
-remote_url="https://${remote_addr}/${remote_username}"
-remote_git="git@${remote_addr}:${remote_username}"
-
 notes_file="${stuff_dir}/notes/notes.md"
 
 # Append message with date to ${log_file}
@@ -66,8 +61,11 @@ detect_cmd() {
 # Programs
 text_editor="nvim"
 visual_editor="${text_editor}"
-# window_manager="awesome"
-window_manager="cwm"
+case "$(uname)" in
+	Linux*) window_manager="awesome";;
+	OpenBSD*) window_manager="cwm";;
+	*) window_manager="awesome";;
+esac
 terminal_emulator="xterm"
 web_browser="firefox"
 document_viewer="zathura"

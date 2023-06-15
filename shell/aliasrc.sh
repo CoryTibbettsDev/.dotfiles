@@ -57,7 +57,7 @@ package_manager_help() {
 			print_pmh "pacman -S" "pacman -R" "pacman -Ss" "pacman -Syu"
 			;;
 		pkg_add)
-			print_pmh "pkg_add" "pkg_remove" "pkg_info -Q" "pkg_add -u"
+			print_pmh "pkg_add" "pkg_delete" "pkg_info -Q" "pkg_add -u"
 			;;
 		xbps-install)
 			print_pmh "xbps-install" "xbps-remove" "xbps-query -Rs" "xbps-install -Su"
@@ -158,17 +158,14 @@ alias mf='myfind'
 
 alias gs='git status'
 alias gd='git diff'
+alias gd2='git diff $(git log --pretty=format:%h -2 --reverse | tr "\n" " ")'
 alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
 alias gpo='git push origin'
 alias clone='git clone "$(myclip)"'
-setremote() {
-	remote_name="${2:-"origin"}"
-	repo="${remote_git}/${1}.git"
-	printf "New Remote: [%s] at [%s]\n" "${repo}" "${remote_name}"
-	git remote set-url "${remote_name}" "${repo}"
-}
+alias gr='git remote'
+alias grs='git remote set-url'
 
 myclip() {
 	case "${clipboard_cmd}" in

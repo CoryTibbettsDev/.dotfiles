@@ -1,12 +1,14 @@
 ! .Xresources
 
+! Reload with xrdb "$HOME/.Xresources"
+
 ! XTerm*eightBitInput: false
 ! UXTerm*eightBitInput: false
 
 ! Xterm
 xterm*saveLines: 0
 xterm*faceName: Monospace
-xterm*faceSize: 20
+xterm*faceSize: 24
 xterm*ScrollBar: false
 
 ! URxvt
