@@ -86,6 +86,8 @@ export SEMGREP_SEND_METRICS=off
 
 # Automatically startx on login
 # if [ -z "${DISPLAY}" -a "${XDG_VTNR}" -eq 1 ]; then
-# if test -z "${DISPLAY}"; then
-# 	exec startx
-# fi
+if test -z "${DISPLAY}"; then
+	# Ask if we want to startx on login
+	yes_no "Would you like to exec startx?" &&
+		exec startx
+fi

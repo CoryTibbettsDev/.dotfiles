@@ -62,9 +62,9 @@ detect_cmd() {
 text_editor="nvim"
 visual_editor="${text_editor}"
 case "$(uname)" in
-	Linux*) window_manager="awesome";;
+	Linux*) window_manager="openbox";;
 	OpenBSD*) window_manager="cwm";;
-	*) window_manager="awesome";;
+	*) window_manager="openbox";;
 esac
 terminal_emulator="xterm"
 web_browser="firefox"

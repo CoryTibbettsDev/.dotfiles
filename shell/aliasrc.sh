@@ -187,7 +187,7 @@ clipssh() {
 	# Need to specify display not sure why
 	# https://unix.stackexchange.com/questions/16694/copy-input-to-clipboard-over-ssh
 	xclip -out -selection clipboard |
-		ssh -p "${forward_port}" "${user}"@127.0.0.1 \
+		ssh -p "${forward_port}" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${user}"@127.0.0.1 \
 			"DISPLAY=:${display_num} xclip -in -selection clipboard"
 }
 

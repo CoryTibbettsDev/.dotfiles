@@ -51,7 +51,7 @@ link_config() {
 }
 link_config shell
 link_config awesome
-link_config kitty
+link_config openbox
 link_config nvim
 link_config git
 link_config ytfzf
@@ -62,6 +62,7 @@ link_config gtk-4.0
 link_config zathura
 link_config feh
 link_config emacs
+link_config tmux
 
 verbose_ln "${dotfiles_dir}/vim" "$HOME/.vim"
 

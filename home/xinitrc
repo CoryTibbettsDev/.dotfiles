@@ -24,4 +24,10 @@ eval "${set_wallpaper_cmd}" ||
 	log_func "ERROR: setting wallpaper in .xinitrc command '${set_wallpaper_cmd}'"
 
 # Start Window Manager
+case "$(uname)" in
+	Linux)
+		lxpanel &
+		nm-applet &
+		;;
+esac
 exec "${window_manager}"
