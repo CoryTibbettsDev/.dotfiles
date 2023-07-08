@@ -1,7 +1,7 @@
 acpi
 alsa-utils
 arc-solid-gtk-theme
-awesome
+cups-openrc
 feh
 firefox
 fzf
@@ -10,10 +10,14 @@ git
 i3lock
 inkscape
 jq
+lxpanel
 man-pages
 mpv
 neovim
+network-manager-applet
+networkmanager-openrc
 nmap
+openbox
 pass
 rsync
 tmux

@@ -64,8 +64,6 @@ link_config feh
 link_config emacs
 link_config tmux
 
-verbose_ln "${dotfiles_dir}/vim" "$HOME/.vim"
-
 # Link shell agnostic rc and profile files to shell specific rc and profile files
 # Need to be linked after home dotfiles and shell config dir is linked
 # Profile files
