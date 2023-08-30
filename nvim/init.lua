@@ -1,17 +1,13 @@
 require("keymap")
 require("set")
 require("tabs")
-require("plugins")
 --require("mycomp").setup()
 
-require('onedark').setup {
-  style = 'deep'
-}
-require('onedark').load()
+vim.cmd.colorscheme('mycolorscheme')
 
-local lspconfig = require('lspconfig')
+-- local lspconfig = require('lspconfig')
 -- Setup language servers.
-lspconfig.ccls.setup {}
+-- lspconfig.ccls.setup {}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions

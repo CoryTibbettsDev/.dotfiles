@@ -1,5 +1,3 @@
--- Set a bunch of variables
-
 vim.opt.title = true
 
 -- Enable line numbers

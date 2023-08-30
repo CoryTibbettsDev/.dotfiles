@@ -16,6 +16,12 @@
 " let g:myacp_min_length = get(g:, 'myacp_min_length', 2)   " minimal length to open popup
 " let g:myacp_key_ignore = get(g:, 'myacp_key_ignore', [])  " ignore keywords
 
+let g:myacp_enable_tab = get(g:, 'myacp_enable_tab', 1)   " remap tab
+let g:myacp_min_length = get(g:, 'myacp_min_length', 2)   " minimal length to open popup
+let g:myacp_key_ignore = get(g:, 'myacp_key_ignore', [])  " ignore keywords
+" Enable for all filetypes
+let g:myacp_enable_ft = {'*':1}
+
 " get word before cursor
 function! s:get_context()
 	return strpart(getline('.'), 0, col('.') - 1)

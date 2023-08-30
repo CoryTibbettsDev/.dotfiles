@@ -1923,6 +1923,9 @@ user_pref("extensions.pocket.enabled", false); // Pocket Account [FF46+]
 user_pref("extensions.screenshots.disabled", true); // [FF55+]
 user_pref("identity.fxaccounts.enabled", false); // Firefox Accounts & Sync [FF60+] [RESTART]
 user_pref("reader.parse-on-load.enabled", false); // Reader View
+// Enable view image info again
+// https://support.mozilla.org/en-US/questions/1330576
+user_pref("browser.menu.showViewImageInfo", true);
 
 /* OTHER */
 // user_pref("browser.bookmarks.max_backups", 2);

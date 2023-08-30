@@ -358,6 +358,14 @@
       <command>firefox</command>
     </action>
   </keybind>
+
+  <keybind key="W-m">
+    <action name="ToggleMaximize"/>
+  </keybind>
+  <keybind key="A-m">
+    <action name="ToggleMaximize"/>
+  </keybind>
+
 </keyboard>
 
 <mouse>
@@ -651,6 +659,13 @@
   </application>
 
   <application class="firefox">
+    <!-- enable or disable window decorations -->
+    <decor>yes</decor>
+    <!--'Horizontal', 'Vertical' or boolean (yes/no) -->
+    <maximized>true</maximized>
+  </application>
+
+  <application role="browser">
     <!-- enable or disable window decorations -->
     <decor>yes</decor>
     <!--'Horizontal', 'Vertical' or boolean (yes/no) -->

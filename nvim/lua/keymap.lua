@@ -1,16 +1,12 @@
 -- This file must be required before loading plugins so correct leader key is set
--- A bunch of keymappings
 
 vim.g.mapleader = " "
 vim.keymap.set("i", "<C-c>", "<Esc>")
+vim.keymap.set("v", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "<leader>s", vim.cmd.write)
 vim.keymap.set("n", "<leader>m", vim.cmd.make)
-
--- Source current file
-vim.keymap.set("n", "<leader>r", vim.cmd.source)
--- Source $MYVIMRC
-vim.keymap.set("n", "<leader>r", ":source $MYVIMRC<CR>")
+vim.keymap.set("n", "<leader>t", ":make test<CR>")
 
 vim.keymap.set({"n", "v"}, "<leader>f", vim.cmd.Ex)
 
@@ -35,5 +31,11 @@ vim.keymap.set("n", "<leader>l", vim.cmd.tablast)
 
 -- Quickfix list shortcuts
 -- https://github.com/tpope/vim-unimpaired
-vim.keymap.set("n", "[q", vim.cmd.cprev)
+-- Need single quotes here idk why
 vim.keymap.set("n", "]q", vim.cmd.cnext)
+vim.keymap.set("n", "[q", vim.cmd.cprev)
+
+
+-- Cycle through buffers
+vim.keymap.set("n", "<Tab>", vim.cmd.bnext)
+vim.keymap.set("n", "<S-Tab>", vim.cmd.bprev)
