@@ -34,15 +34,6 @@ clone_repo() {
 	return 0
 }
 
-clone_install() {
-	clone_repo "$1" "$2" || return 1
-	if ! eval "${su_cmd}" make install -C "${repos_dir}/$2"; then
-		log_func "make install failed for $2"
-		return 1
-	fi
-	return 0
-}
-
 pkg_file="${dotfiles_dir}/pkgs/${operating_system}.txt"
 if test "${operating_system}" = "artix"; then
 	yes_no "Detected OS is artix. Use arch package list?" "no" &&
@@ -60,12 +51,6 @@ case "${package_manager}" in
 		log_func "ERROR: pkg_file: '${pkg_file}' os: '${operating_system}' package manager: '${package_manager}' not supported\n"
 		;;
 esac
-
-# ytfzf
-# Command line tool for searching and watching YouTube Videos
-# Dependencies are youtube-dl, mpv, jq, fzf
-# (optional for thumbnails) ueberzug
-clone_install https://github.com/pystardust/ytfzf "${repos_dir}/ytfzf"
 
 # Change swappiness to better value
 if [ "$(uname)" = Linux ]; then

@@ -50,11 +50,10 @@ link_config() {
 	verbose_ln "${dotfiles_dir}/$1" "${config_dir}"
 }
 link_config shell
-link_config awesome
+link_config vim
+verbose_ln "${dotfiles_dir}/vim" "${config_dir}/nvim"
 link_config openbox
-link_config nvim
 link_config git
-link_config ytfzf
 link_config mpv
 link_config gtk-2.0
 link_config gtk-3.0
