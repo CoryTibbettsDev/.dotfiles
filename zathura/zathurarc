@@ -1,8 +1,17 @@
 # .zathurarc
 
-set selection-clipboard clipboard
+# Selection goes to clipboard
+set selection-clipboard "clipboard"
 
 set font "monospace normal 16"
+
+# Window title becomes filename
+set window-title-basename "true"
+
+# For Dark Mode
+set recolor true
+set recolor-darkcolor "#dcdccc"
+set recolor-lightcolor "#1f1f1f"
 
 # Normal
 map f toggle_fullscreen

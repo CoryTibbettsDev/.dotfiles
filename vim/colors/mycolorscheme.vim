@@ -11,6 +11,7 @@ let g:colors_name="mycolorscheme"
 " }}}
 
 " Palette: {{{
+" https://www.canva.com/colors/color-wheel/
 let s:white = { "gui": "#ffffff", "cterm": "15" }
 let s:black = { "gui": "#000000", "cterm": "0" }
 
@@ -24,7 +25,7 @@ let s:blue = { "gui": "#0000fc", "cterm": "33" }
 let s:green = { "gui": "#00fc00", "cterm": "33" }
 let s:yellow = { "gui": "#ECD803", "cterm": "136" }
 
-let s:lightblue = { "gui": "#7AA3F7", "cterm": "33" }
+let s:lightblue = { "gui": "#0475cb", "cterm": "33" }
 let s:niceblue = { "gui": "#035899", "cterm": "33" }
 let s:darkgreen = { "gui": "#117520", "cterm": "37" }
 let s:orange = { "gui": "#cb4b16", "cterm": "166" }
@@ -201,11 +202,22 @@ endif
 " Change Status Line Color Based on Mode {{{
 " https://vim.fandom.com/wiki/Change_statusline_color_to_show_insert_or_normal_mode
 if version >= 700
-	autocmd ModeChanged *:n call s:hl("MyModeColor", s:fg, s:bg2, "")
-	autocmd ModeChanged *:i call s:hl("MyModeColor", s:fg, s:niceblue, "")
+	" normal
+	autocmd ModeChanged *:n call s:hl("MyModeColor", s:fg, s:niceblue, "")
+	" insert
+	autocmd ModeChanged *:i call s:hl("MyModeColor", s:fg, s:orange, "")
+	" visual visual-line
 	autocmd ModeChanged *:[vV] call s:hl("MyModeColor", s:fg, s:darkgreen, "")
-	autocmd ModeChanged *:\v(|s|S|) call s:hl("MyModeColor", s:fg, s:magenta, "")
-	autocmd ModeChanged *:c call s:hl("MyModeColor", s:fg, s:orange, "")
+	" visual-block
+	autocmd ModeChanged *:\v() call s:hl("MyModeColor", s:fg, s:magenta, "")
+	" replace
+	autocmd ModeChanged *:\v(r|R) call s:hl("MyModeColor", s:fg, s:magenta, "")
+	" command line
+	autocmd ModeChanged *:c call s:hl("MyModeColor", s:fg, s:violet, "")
+	" select
+	autocmd ModeChanged *:\v(s|S|) call s:hl("MyModeColor", s:fg, s:magenta, "")
+	" terminal
+	autocmd ModeChanged *:t call s:hl("MyModeColor", s:fg, s:magenta, "")
 	" Why do I need to do this to get the right colors when launching?
 	call s:hl("MyModeColor", s:fg, s:bg2, "")
 	call s:hl("MyStatusColor", s:fg, s:bg2, "")

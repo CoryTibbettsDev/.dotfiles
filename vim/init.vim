@@ -145,6 +145,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 " Cycle through buffers
 noremap <Tab> :bnext<CR>
 noremap <S-Tab> :bprev<CR>
+noremap <leader>d :bdelete<CR>
 
 " Remaps for managing tabs
 noremap <leader>n :tabnew<Space>
@@ -153,13 +154,12 @@ noremap <leader>k :tabnext<CR>
 noremap <leader>j :tabprev<CR>
 noremap <leader>h :tabfirst<CR>
 noremap <leader>l :tablast<CR>
+" }}}
 
-" Insert c multiline comment like /* */
-" Insert comment into normal mode move left 2 spaces into insert mode
-inoremap <C-d> /*  */<ESC>2hi
-" Insert c multiline block style comment
-" Trailing space is necessary don't delete
-noremap <Leader>d i/*<CR>* <CR>*/<ESC>ka
+" {{{ Filetype Specific Commenting
+" Insert comment with <leader>z based on filetype
+noremap <Leader>z i/* <CR>*/<ESC>k$a
+autocmd FileType html noremap <Leader>z i<!--  --><ESC>3hi
 " }}}
 
 " {{{ Status Line
@@ -179,15 +179,13 @@ function! ParseMode()
 		return 'VISUAL'
 	elseif l:mode[0] ==# 'V'
 		return 'V-LINE'
-	elseif l:mode[0] =~ '\v(|s|S|)'
+	elseif l:mode[0] =~ '\v()'
 		return 'V-BLOCK'
-	elseif l:mode[0] =~ '\v(c|r|!)'
+	elseif l:mode[0] =~ '\v(c|!)'
 		return 'COMMAND'
-	elseif l:mode[0] =~ '\v(s|S|)'
-		return 'SELECT'
-	elseif l:mode[0] == 'R'
+	elseif l:mode[0] =~ '\v(r|R)'
 		return 'REPLACE'
-	elseif l:mode[0] =~ 's'
+	elseif l:mode[0] =~ '\v(s|S|)'
 		return 'SELECT'
 	elseif l:mode ==# "t"
 		return 'TERMINAL'
@@ -216,7 +214,7 @@ set statusline+=\ %{strlen(&fenc)?&fenc:'none'} " file encoding
 set statusline+=\ %{&ff} " file format
 set statusline+=\ %y " filetype
 set statusline+=%#MyModeColor#
-set statusline+=\ %l/%L " CurrentLine/TotalLines
+set statusline+=\ %c:%l " Column:Line
 set statusline+=\ %#MyStatusColor#
 " }}}
 
