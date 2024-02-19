@@ -130,9 +130,6 @@ nnoremap <C-p> "+p
 " Yank into system clipboard
 nnoremap <C-y> "+y
 
-" Insert <br  /> for markdown line breaks
-nnoremap <leader>b a<br  /><Esc>
-
 " Quickfix list shortcuts
 " https://github.com/tpope/vim-unimpaired
 nnoremap [q :cprev<CR>
@@ -144,7 +141,7 @@ nnoremap <C-L> :nohl<CR><C-L>
 
 " Cycle through buffers
 noremap <Tab> :bnext<CR>
-noremap <S-Tab> :bprev<CR>
+noremap <S-Tab> :bprevious<CR>
 noremap <leader>d :bdelete<CR>
 
 " Remaps for managing tabs
@@ -158,7 +155,7 @@ noremap <leader>l :tablast<CR>
 
 " {{{ Filetype Specific Commenting
 " Insert comment with <leader>z based on filetype
-noremap <Leader>z i/* <CR>*/<ESC>k$a
+noremap <Leader>z i/*  */<ESC>2hi
 autocmd FileType html noremap <Leader>z i<!--  --><ESC>3hi
 " }}}
 

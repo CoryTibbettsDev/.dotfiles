@@ -1,6 +1,11 @@
 " Color function based on onehalf
 " https://github.com/sonph/onehalf
 
+" :source $VIMRUNTIME/syntax/hitest.vim
+" :help highlight-groups
+" :help cterm-colors
+" :help group-name
+
 " Setup: {{{
 set background=dark
 highlight clear
@@ -14,9 +19,13 @@ let g:colors_name="mycolorscheme"
 " https://www.canva.com/colors/color-wheel/
 let s:white = { "gui": "#ffffff", "cterm": "15" }
 let s:black = { "gui": "#000000", "cterm": "0" }
+let s:gray = { "gui": "#7e7e7e", "cterm": "0" }
 
-let s:almostblack = { "gui": "#0f0f0f", "cterm": "8" }
-let s:darkgray = { "gui": "#1c1c1c", "cterm": "8" }
+let s:background = { "gui": "#282828", "cterm": "8" }
+let s:background2 = { "gui": "#323232", "cterm": "8" }
+let s:foreground = s:white
+let s:foreground2 = { "gui": "#c8c8c8", "cterm": "8" }
+let s:darkgray = { "gui": "#969696", "cterm": "8" }
 let s:lightgray = { "gui": "#5b5b5b", "cterm": "7" }
 
 " These colors are exactly the named color not stylized versions
@@ -33,21 +42,17 @@ let s:magenta = { "gui": "#9a7ecc", "cterm": "125" }
 let s:violet = { "gui": "#6c71c4", "cterm": "61" }
 let s:cyan = { "gui": "#4abaaf", "cterm": "37" }
 
-let s:bg = s:darkgray
-let s:bg2 = s:almostblack
-let s:fg = s:white
-let s:fg2 = s:lightgray
+let s:bg = s:background
+let s:bg2 = s:background2
+let s:fg = s:foreground
+let s:fg2 = s:gray
 
 let s:warm = s:orange
-let s:warm2 = s:lightblue
-let s:warm3 = s:orange
+let s:warm2 = s:yellow
+let s:warm3 = s:red
 let s:cold = s:niceblue
 let s:cold2 = s:violet
 let s:cold3 = s:cyan
-
-" Highlight group for statusline colors
-highlight MyModeColor guifg=s:fg guibg=s:bg2
-highlight MyStatusColor guifg=s:fg guibg=s:gray
 " }}}
 
 " Color Function: {{{
@@ -90,8 +95,8 @@ call s:hl("MoreMsg", s:fg, "", "")
 call s:hl("WarningMsg", s:warm, "", "")
 call s:hl("Question", s:cold2, "", "")
 
-call s:hl("Pmenu", s:fg, s:bg, "")
-call s:hl("PmenuSel", s:bg2, s:cold2, "")
+call s:hl("Pmenu", s:fg, s:bg2, "")
+call s:hl("PmenuSel", s:bg2, s:cold, "")
 call s:hl("PmenuSbar", s:bg2, s:fg2, "")
 call s:hl("PmenuThumb", s:bg, s:fg, "")
 
@@ -131,49 +136,49 @@ call s:hl("DiffText", s:cold, "", "")
 " Syntax Colors: {{{
 " Whitespace is defined in Neovim, not Vim.
 " See :help hl-Whitespace and :help hl-SpecialKey
-call s:hl("Whitespae", s:bg, "", "")
+call s:hl("Whitespace", s:black, "", "")
 " Whitespace tab characters and spaces
 call s:hl("NonText", s:black, "", "")
-call s:hl("Comment", s:cold2, "", "italic")
-call s:hl("Constant", s:cold, "", "")
-call s:hl("String", s:cold3, "", "")
-call s:hl("Character", s:cold3, "", "")
-call s:hl("Number", s:warm2, "", "")
-call s:hl("Boolean", s:warm2, "", "")
-call s:hl("Float", s:warm2, "", "")
+call s:hl("Comment", s:cold, "", "italic")
+call s:hl("Constant", s:cold2, "", "bold")
+call s:hl("String", s:warm, "", "")
+call s:hl("Character", s:warm2, "", "")
+call s:hl("Number", s:cold, "", "bold")
+call s:hl("Boolean", s:cold2, "", "bold")
+call s:hl("Float", s:cold3, "", "bold")
 
 call s:hl("Identifier", s:warm, "", "")
-call s:hl("Function", s:cold, "", "")
+call s:hl("Function", s:cold, "", "bold")
 call s:hl("Statement", s:cold2, "", "")
 
-call s:hl("Conditional", s:cold2, "", "")
-call s:hl("Repeat", s:cold2, "", "")
-call s:hl("Label", s:cold2, "", "")
-call s:hl("Operator", s:fg, "", "")
-call s:hl("Keyword", s:warm, "", "")
-call s:hl("Exception", s:cold2, "", "")
+call s:hl("Conditional", s:cold, "", "bold")
+call s:hl("Repeat", s:cold2, "", "bold")
+call s:hl("Label", s:cold3, "", "bold")
+call s:hl("Operator", s:cold, "", "bold")
+call s:hl("Keyword", s:cold2, "", "bold")
+call s:hl("Exception", s:cold3, "", "bold")
 
-call s:hl("PreProc", s:warm2, "", "")
-call s:hl("Include", s:cold2, "", "")
-call s:hl("Define", s:cold2, "", "")
-call s:hl("Macro", s:cold2, "", "")
-call s:hl("PreCondit", s:warm2, "", "")
+call s:hl("PreProc", s:cold, "", "bold")
+call s:hl("Include", s:cold2, "", "bold")
+call s:hl("Define", s:cold3, "", "bold")
+call s:hl("Macro", s:cold2, "", "bold")
+call s:hl("PreCondit", s:cold3, "", "bold")
 
-call s:hl("Type", s:warm2, "", "")
-call s:hl("StorageClass", s:warm2, "", "")
-call s:hl("Structure", s:warm2, "", "")
-call s:hl("Typedef", s:warm2, "", "")
+call s:hl("Type", s:cold, "", "bold")
+call s:hl("Structure", s:cold2, "", "bold")
+call s:hl("Typedef", s:cold3, "", "bold")
+call s:hl("StorageClass", s:cold3, "", "bold")
 
-call s:hl("Special", s:cold, "", "")
-call s:hl("SpecialChar", s:fg, "", "")
-call s:hl("Tag", s:fg, "", "")
-call s:hl("Delimiter", s:fg, "", "")
-call s:hl("SpecialComment", s:fg, "", "")
-call s:hl("Debug", s:fg, "", "")
+call s:hl("Special", s:cold, "", "bold")
+call s:hl("SpecialChar", s:fg2, "", "bold")
+call s:hl("Tag", s:fg2, "", "")
+call s:hl("Delimiter", s:fg2, "", "")
+call s:hl("SpecialComment", s:fg2, "", "")
+call s:hl("Debug", s:fg2, "", "")
 call s:hl("Underlined", s:fg, "", "")
 call s:hl("Ignore", s:fg, "", "")
-call s:hl("Error", s:warm, s:bg, "")
-call s:hl("Todo", s:cold2, "", "")
+call s:hl("Error", s:red, s:bg, "")
+call s:hl("Todo", s:cold2, "", "bold")
 " }}}
 
 " Fix Colors In Neovim Terminal Buffers {{{
@@ -201,25 +206,27 @@ endif
 
 " Change Status Line Color Based on Mode {{{
 " https://vim.fandom.com/wiki/Change_statusline_color_to_show_insert_or_normal_mode
-if version >= 700
-	" normal
-	autocmd ModeChanged *:n call s:hl("MyModeColor", s:fg, s:niceblue, "")
-	" insert
-	autocmd ModeChanged *:i call s:hl("MyModeColor", s:fg, s:orange, "")
-	" visual visual-line
-	autocmd ModeChanged *:[vV] call s:hl("MyModeColor", s:fg, s:darkgreen, "")
-	" visual-block
-	autocmd ModeChanged *:\v() call s:hl("MyModeColor", s:fg, s:magenta, "")
-	" replace
-	autocmd ModeChanged *:\v(r|R) call s:hl("MyModeColor", s:fg, s:magenta, "")
-	" command line
-	autocmd ModeChanged *:c call s:hl("MyModeColor", s:fg, s:violet, "")
-	" select
-	autocmd ModeChanged *:\v(s|S|) call s:hl("MyModeColor", s:fg, s:magenta, "")
-	" terminal
-	autocmd ModeChanged *:t call s:hl("MyModeColor", s:fg, s:magenta, "")
-	" Why do I need to do this to get the right colors when launching?
-	call s:hl("MyModeColor", s:fg, s:bg2, "")
-	call s:hl("MyStatusColor", s:fg, s:bg2, "")
-endif
+" Highlight group for statusline colors
+highlight MyModeColor guifg=s:fg guibg=s:bg2
+highlight MyStatusColor guifg=s:fg guibg=s:bg2
+" Why do I need to do this to get the right colors when launching?
+call s:hl("MyModeColor", s:fg, s:niceblue, "")
+call s:hl("MyStatusColor", s:fg, s:bg2, "")
+
+" normal
+autocmd ModeChanged *:n call s:hl("MyModeColor", s:fg, s:niceblue, "")
+" insert
+autocmd ModeChanged *:i call s:hl("MyModeColor", s:fg, s:orange, "")
+" visual visual-line
+autocmd ModeChanged *:[vV] call s:hl("MyModeColor", s:fg, s:darkgreen, "")
+" visual-block
+autocmd ModeChanged *:\v() call s:hl("MyModeColor", s:fg, s:magenta, "")
+" replace
+autocmd ModeChanged *:\v(r|R) call s:hl("MyModeColor", s:fg, s:magenta, "")
+" command line
+autocmd ModeChanged *:c call s:hl("MyModeColor", s:fg, s:violet, "")
+" select
+autocmd ModeChanged *:\v(s|S|) call s:hl("MyModeColor", s:fg, s:magenta, "")
+" terminal
+autocmd ModeChanged *:t call s:hl("MyModeColor", s:fg, s:magenta, "")
 " }}}
