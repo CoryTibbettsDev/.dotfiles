@@ -9,6 +9,7 @@ git
 i3lock
 inkscape
 lxpanel
+lxterminal
 man-pages
 mpv
 neovim
