@@ -69,7 +69,7 @@ esac
 terminal_emulator="xterm"
 web_browser="firefox"
 document_viewer="zathura"
-screen_locker="i3lock"
+screen_locker="i3lock --color=000000"
 detect_cmd "yt-dlp" "youtube-dl"
 ytdl_cmd="${cmd}"
 set_wallpaper_cmd="feh --no-fehbg --bg-fill --recursive --randomize "${wallpaper_dir}""

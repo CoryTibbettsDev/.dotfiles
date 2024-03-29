@@ -213,7 +213,7 @@ ytdl_ext() {
 	ytdl -o "${1}.%(ext)s" "$(myclip)"
 }
 alias dl='ytdl_ext'
-alias dlv='ytdl -o \%\(title\)s\[\%\(id\)s\]\%\(uploader_id\|UploaderIDUnknown\)s.\%\(ext\)s "$(myclip)"'
+alias dlv='ytdl -o \%\(title\)s\[\%\(webpage_url_domain\)s-\%\(id\)s\-\%\(uploader_id\)s\].\%\(ext\)s "$(myclip)"'
 alias dla='ytdl --extract-audio "$(myclip)"'
 
 # Alias for YouTube command line search tool
