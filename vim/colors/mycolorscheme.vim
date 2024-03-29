@@ -21,9 +21,9 @@ let s:white = { "gui": "#ffffff", "cterm": "15" }
 let s:black = { "gui": "#000000", "cterm": "0" }
 let s:gray = { "gui": "#7e7e7e", "cterm": "0" }
 
-let s:background = { "gui": "#282828", "cterm": "8" }
+let s:background = { "gui": "#222222", "cterm": "8" }
 let s:background2 = { "gui": "#323232", "cterm": "8" }
-let s:foreground = s:white
+let s:foreground = { "gui": "#F5F5F5", "cterm": "8" }
 let s:foreground2 = { "gui": "#c8c8c8", "cterm": "8" }
 let s:darkgray = { "gui": "#969696", "cterm": "8" }
 let s:lightgray = { "gui": "#5b5b5b", "cterm": "7" }

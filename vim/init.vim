@@ -123,12 +123,18 @@ nnoremap <leader>r :source $MYVIMRC<CR>
 " Open netrw
 nnoremap <leader>f :Ex<CR>
 
+" Delete and paste what was in buffer prior to deleting
+xnoremap <leader>p "_dP
 " xclip is needed for paste and yank with system clipboard
 " For some reason leader key with this binding is slow but not with control
 " Paste from system clipboard
 nnoremap <C-p> "+p
 " Yank into system clipboard
 nnoremap <C-y> "+y
+
+" Move highlighted Line(s) up or down while also indenting into code blocks
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 " Quickfix list shortcuts
 " https://github.com/tpope/vim-unimpaired
@@ -153,10 +159,10 @@ noremap <leader>h :tabfirst<CR>
 noremap <leader>l :tablast<CR>
 " }}}
 
-" {{{ Filetype Specific Commenting
+" {{{ Filetype Specific Comments/Commenting
 " Insert comment with <leader>z based on filetype
 noremap <Leader>z i/*  */<ESC>2hi
-autocmd FileType html noremap <Leader>z i<!--  --><ESC>3hi
+autocmd FileType html,svelte noremap <Leader>z i<!--  --><ESC>3hi
 " }}}
 
 " {{{ Status Line
@@ -211,14 +217,14 @@ set statusline+=\ %{strlen(&fenc)?&fenc:'none'} " file encoding
 set statusline+=\ %{&ff} " file format
 set statusline+=\ %y " filetype
 set statusline+=%#MyModeColor#
-set statusline+=\ %c:%l " Column:Line
+set statusline+=\ %l:%c " Line:Column
 set statusline+=\ %#MyStatusColor#
 " }}}
 
 " {{{ Formatting Options
 " How tabs are displayed and inserted
 " Settings for hardtabs
-set tabstop=4 shiftwidth=4 noexpandtab
+set tabstop=2 shiftwidth=2 noexpandtab
 " Automatically indents lines when you insert a new line :h smartindent
 set smartindent
 " https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width
@@ -237,7 +243,7 @@ autocmd FileType lisp setlocal colorcolumn=100
 autocmd FileType make setlocal tabstop=4 shiftwidth=4 noexpandtab
 
 " PEP 8, the style guide for python, specifies the use of
-" spaces aka softtabs this is because they are morons
+" spaces aka softtabs
 " Haskell compiler (GHC) is picky about whitespace
 " using four spaces as a tab aka softtabs is generally safer and easier
 " Settings for softtabs
@@ -308,9 +314,24 @@ function! WritingMode()
 endfunction
 " }}}
 
-" {{{ Plugins
+" {{{ Default Plugins
 " Disable netrw history (cuz it's really annoying)
 let g:netrw_dirhistmax = 0
+" }}}
+
+" {{{ Plugins
+" https://github.com/junegunn/vim-plug
+" :PlugUpdate
+" :PlugInstall
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+	silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin()
+Plug 'leafOfTree/vim-svelte-plugin'
+Plug 'Tetralux/odin.vim'
+call plug#end()
 " }}}
 
 " {{{ My Custom Plugins
