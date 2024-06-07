@@ -123,8 +123,9 @@ nnoremap <leader>r :source $MYVIMRC<CR>
 " Open netrw
 nnoremap <leader>f :Ex<CR>
 
-" Delete and paste what was in buffer prior to deleting
-xnoremap <leader>p "_dP
+" Paste over what is highlighted in visual mode without overwriting paste buffer
+" does not seem to work with xnoremap but does with vnoremap
+vnoremap <leader>p "_dP
 " xclip is needed for paste and yank with system clipboard
 " For some reason leader key with this binding is slow but not with control
 " Paste from system clipboard
@@ -217,15 +218,15 @@ set statusline+=\ %{strlen(&fenc)?&fenc:'none'} " file encoding
 set statusline+=\ %{&ff} " file format
 set statusline+=\ %y " filetype
 set statusline+=%#MyModeColor#
-set statusline+=\ %l:%c " Line:Column
+set statusline+=\ %c:%l " Column:Line
 set statusline+=\ %#MyStatusColor#
 " }}}
 
 " {{{ Formatting Options
 " How tabs are displayed and inserted
-" Settings for hardtabs
+" Settings for hardtabs displayed two characters wide
 set tabstop=2 shiftwidth=2 noexpandtab
-" Automatically indents lines when you insert a new line :h smartindent
+" Automatically indents lines when you insert a new line
 set smartindent
 " https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width
 set colorcolumn=81
@@ -250,7 +251,8 @@ autocmd FileType make setlocal tabstop=4 shiftwidth=4 noexpandtab
 autocmd FileType python,haskell setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 
 " Softtabs two spaces wide
-autocmd FileType json,lisp setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+" https://stackoverflow.com/questions/19975954/a-yaml-file-cannot-contain-tabs-as-indentation
+autocmd FileType yaml,json,lisp setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 " }}}
 
 " {{{ Terminal Settings
@@ -317,6 +319,9 @@ endfunction
 " {{{ Default Plugins
 " Disable netrw history (cuz it's really annoying)
 let g:netrw_dirhistmax = 0
+" https://vi.stackexchange.com/questions/14622/how-can-i-close-the-netrw-buffer
+" https://github.com/tpope/vim-vinegar/issues/13#issuecomment-489440040
+let g:netrw_fastbrowse = 0
 " }}}
 
 " {{{ Plugins
