@@ -50,8 +50,7 @@ link_config() {
 	verbose_ln "${dotfiles_dir}/$1" "${config_dir}"
 }
 link_config shell
-link_config vim
-verbose_ln "${dotfiles_dir}/vim" "${config_dir}/nvim"
+link_config nvim
 link_config openbox
 link_config git
 link_config mpv
@@ -80,6 +79,8 @@ cp -r "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
 # Browser config files
 firefox_source_dir="${dotfiles_dir}/firefox"
 firefox_user_js="${firefox_source_dir}/user.js"
+firefox_profiles_ini="${firefox_source_dir}/profiles.ini"
+firefox_policies_json="${firefox_source_dir}/policies.json"
 
 chromium_source_dir="${dotfiles_dir}/chromium"
 chromium_input_file="${chromium_source_dir}/preferences.json"
@@ -96,31 +97,16 @@ if [ ! -f "${chromium_input_file}" ]; then
 fi
 
 # Firefox
-# firefox has to have been started before to create it's profile directory
-# firefox --headless &
-# sleep 2
-# pkill firefox
-# Find firefox profile directory with suffix from argument 1 to function
-firefox_profile_dir=
-get_firefox_profile_dir() {
-	# Check to make sure the profile dir is not set already
-	[ -z "${firefox_profile_dir}" ] &&
-		firefox_profile_dir="$(find "$HOME/.mozilla/firefox" -type d -path *.default-${1})"
-}
-# Try all the firefox profile directory suffixes I know
-get_firefox_profile_dir "release"
-get_firefox_profile_dir "esr"
-# Found on OpenBSD
-get_firefox_profile_dir "default"
-
-# If we found the right directory link the user.js
-if [ -n "${firefox_profile_dir}" ]; then
-	printf "'%s' -> '%s'\n" "${firefox_user_js}" "${firefox_profile_dir}"
-	ln -sf "${firefox_user_js}" "${firefox_profile_dir}" ||
-		printf "ERROR: Failed to link firefox user.js\n" 1>&2
-else
-	printf "ERROR: Could not find firefox profile directory\n" 1>&2
-fi
+# policies.json
+eval "${su_cmd}" cp -v "${firefox_policies_json}" "/etc/firefox/policies/policies.json"
+# profile
+for firefox_appdata_dir in "$HOME/.mozilla/firefox" "$HOME/.mozilla/firefox-esr"; do
+	mkdir -p "${firefox_appdata_dir}"
+	cp -v "${firefox_profiles_ini}" "${firefox_appdata_dir}"
+	firefox_profile_dir="${firefox_appdata_dir}/custom"
+	mkdir -p "${firefox_profile_dir}"
+	verbose_ln "${firefox_user_js}" "${firefox_profile_dir}"
+done
 
 # Chromium
 # Strip all whitespace from the chromium json file

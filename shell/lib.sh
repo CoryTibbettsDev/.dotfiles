@@ -207,8 +207,8 @@ source_file() {
 # Some non-GNU versions of ln do not have the verbose option with -v
 verbose_ln() {
 	ln -sf "${1}" "${2}" &&
-		printf "'%s' -> '%s'\n" "${1}" "${2}" ||
-		printf "failed to link '%s' -> '%s'\n" "${1}" "${2}" 1>&2
+		printf "symlink '%s' -> '%s'\n" "${1}" "${2}" ||
+		printf "failed to symlink '%s' -> '%s'\n" "${1}" "${2}" 1>&2
 }
 
 yes_no() {

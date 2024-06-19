@@ -25,7 +25,7 @@ Firefox command line options appear to be poorly documented and many deprecated.
 ## user.js Examples
 [Github arkenfox/user.js](https://github.com/arkenfox/user.js)<br/>
 [Github pyllyukko/user.js](https://github.com/pyllyukko/user.js)<br/>
-[Github yokoffing/Better-Fox](https://github.com/yokoffing/Better-Fox)<br/>
+[Github yokoffing/Betterfox](https://github.com/yokoffing/Betterfox)<br/>
 
 ## Policies policies.json
 Policy SearchEngines is only allowed on ESR
@@ -34,3 +34,10 @@ https://support.mozilla.org/en-US/kb/customizing-firefox-using-policiesjson<br/>
 https://support.mozilla.org/en-US/kb/managing-policies-linux-desktops<br/>
 https://mozilla.github.io/policy-templates/<br/>
 https://github.com/gorhill/uBlock/wiki/Deploying-uBlock-Origin:-configuration<br/>
+
+## Profiles
+https://kb.mozillazine.org/Profiles.ini_file
+
+## Get Firefox Extension ID
+https://support.mozilla.org/en-US/questions/1217302<br/>
+https://stackoverflow.com/questions/48056506/get-add-on-id-of-extensions-in-firefox<br/>
