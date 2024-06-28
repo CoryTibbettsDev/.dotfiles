@@ -39,7 +39,7 @@
   <!-- with Smart placement on a multi-monitor system, try to place new windows
        on: 'Any' - any monitor, 'Mouse' - where the mouse is, 'Active' - where
        the active window is, 'Primary' - only on the primary monitor -->
-  <primaryMonitor>1</primaryMonitor>
+  <primaryMonitor>Active</primaryMonitor>
   <!-- The monitor where Openbox should place popup dialogs such as the
        focus cycling popup, or the desktop switch popup.  It can be an index
        from 1, specifying a particular monitor.  Or it can be one of the
@@ -219,12 +219,12 @@
 
   <!-- Send/Move window to monitor -->
   <!-- This toggles the winow between monitors -->
-  <keybind key="W-o">
+  <keybind key="W-e">
     <action name="MoveResizeTo">
       <monitor>1</monitor>
     </action>
   </keybind>
-  <keybind key="A-o">
+  <keybind key="A-e">
     <action name="MoveResizeTo">
       <monitor>1</monitor>
     </action>
