@@ -82,10 +82,6 @@ firefox_user_js="${firefox_source_dir}/user.js"
 firefox_profiles_ini="${firefox_source_dir}/profiles.ini"
 firefox_policies_json="${firefox_source_dir}/policies.json"
 
-chromium_source_dir="${dotfiles_dir}/chromium"
-chromium_input_file="${chromium_source_dir}/preferences.json"
-chromium_output_file="${chromium_source_dir}/Preferences"
-
 # Check to make sure our config files are there
 if [ ! -f "${firefox_user_js}" ]; then
 	printf "firefox '%s' is an invalid file\n" "${firefox_user_js}" 1>&2
@@ -107,16 +103,3 @@ for firefox_appdata_dir in "$HOME/.mozilla/firefox" "$HOME/.mozilla/firefox-esr"
 	mkdir -p "${firefox_profile_dir}"
 	verbose_ln "${firefox_user_js}" "${firefox_profile_dir}"
 done
-
-# Chromium
-# Strip all whitespace from the chromium json file
-# This may not be needed but some sources say chromium does not like
-# whitespace in the Preferences file so it seems safer to do it to me
-tr -d " \n\r" < "${chromium_input_file}" > "${chromium_output_file}"
-
-chromium_config_dir="${config_dir}/chromium/Default"
-[ -d "${chromium_config_dir}" ] || mkdir -p "${chromium_config_dir}"
-
-printf "'%s' -> '%s'\n" "${chromium_output_file}" "${chromium_config_dir}"
-ln -sf "${chromium_output_file}" "${chromium_config_dir}" ||
-	printf "ERROR: Failed to link chromium Preferences\n" 1>&2
