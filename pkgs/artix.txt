@@ -32,3 +32,6 @@ xorg-xinit
 xterm
 yt-dlp
 picom
+librewolf
+ghex
+android-file-transfer

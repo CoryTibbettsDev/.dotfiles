@@ -34,3 +34,5 @@ yt-dlp
 zathura
 zathura-pdf-mupdf
 picom
+ghex
+android-file-transfer
