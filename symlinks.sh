@@ -59,7 +59,6 @@ link_config gtk-3.0
 link_config gtk-4.0
 link_config zathura
 link_config feh
-link_config emacs
 link_config tmux
 link_config picom
 
@@ -78,28 +77,26 @@ cp -r "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
 
 # Browser config files
 firefox_source_dir="${dotfiles_dir}/firefox"
-firefox_user_js="${firefox_source_dir}/user.js"
-firefox_profiles_ini="${firefox_source_dir}/profiles.ini"
 firefox_policies_json="${firefox_source_dir}/policies.json"
+firefox_autoconfig_js="${firefox_source_dir}/autconfig.js"
+firefox_cfg="${firefox_source_dir}/firefox.cfg"
 
-# Check to make sure our config files are there
-if [ ! -f "${firefox_user_js}" ]; then
-	printf "firefox '%s' is an invalid file\n" "${firefox_user_js}" 1>&2
-	exit 1
-fi
-if [ ! -f "${chromium_input_file}" ]; then
-	printf "chromium '%s' is an invalid file\n" "${chromium_input_file}" 1>&2
-	exit 1
-fi
+for firefox_type in "firefox" "firefox-esr"; do
+	firefox_lib_dir="/lib/${firefox_type}"
+	firefox_preferences_dir="${firefox_lib_dir}/browser/defaults/preferences"
+	firefox_distribution_dir="${firefox_lib_dir}/distribution"
+	eval "${su_cmd}" mkdir -p "${firefox_lib_dir}" \
+		"${firefox_preferences_dir}" \
+		"${firefox_distribution_dir}"
 
-# Firefox
-# policies.json
-eval "${su_cmd}" cp -v "${firefox_policies_json}" "/etc/firefox/policies/policies.json"
-# profile
-for firefox_appdata_dir in "$HOME/.mozilla/firefox" "$HOME/.mozilla/firefox-esr"; do
-	mkdir -p "${firefox_appdata_dir}"
-	cp -v "${firefox_profiles_ini}" "${firefox_appdata_dir}"
-	firefox_profile_dir="${firefox_appdata_dir}/custom"
-	mkdir -p "${firefox_profile_dir}"
-	verbose_ln "${firefox_user_js}" "${firefox_profile_dir}"
+	eval "${su_cmd}" cp -v "${firefox_cfg}" "${firefox_lib_dir}"
+	eval "${su_cmd}" cp -v "${firefox_autoconfig_js}" "${firefox_preferences_dir}"
+	eval "${su_cmd}" cp -v "${firefox_policies_json}" "${firefox_distribution_dir}"
 done
+
+librewolf_source_dir="${dotfiles_dir}/librewolf"
+librewolf_overrides_cfg="${librewolf_source_dir}/librewolf.overrides.cfg"
+librewolf_config_dir="$HOME/.librewolf"
+
+mkdir -p "${librewolf_config_dir}"
+verbose_ln "${librewolf_overrides_cfg}" "${librewolf_config_dir}"

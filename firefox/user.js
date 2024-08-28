@@ -9,20 +9,31 @@ user_pref("_user.js.parrot", "START: Begin user.js");
 user_pref("_user.js.parrot", "Section: Personal Preferences");
 user_pref("browser.aboutConfig.showWarning", false);
 user_pref("browser.ctrlTab.sortByRecentlyUsed", false);
+{"placements":
+	{"widget-overflow-fixed-list":[],
+		"unified-extensions-area":[],
+		"nav-bar":["back-button","forward-button","stop-reload-button","customizableui-special-spring1","urlbar-container","customizableui-special-spring2","save-to-pocket-button","downloads-button","fxa-toolbar-menu-button","ublock0_raymondhill_net-browser-action","jid1-qofqdk4qzufgwq_jetpack-browser-action","unified-extensions-button"],
+		"toolbar-menubar":["menubar-items"],
+		"TabsToolbar":["firefox-view-button","tabbrowser-tabs","new-tab-button","alltabs-button"],
+		"PersonalToolbar":["personal-bookmarks"]},
+		"seen":["developer-button","jid1-qofqdk4qzufgwq_jetpack-browser-action","ublock0_raymondhill_net-browser-action"],
+		"dirtyAreaCache":["nav-bar","unified-extensions-area","toolbar-menubar","TabsToolbar","PersonalToolbar"],
+		"currentVersion":19,"newElementCount":4}
 user_pref("browser.uiCustomization.state",
-	{ "placements": {
-		"widget-overflow-fixed-list": [],
-		"unified-extensions-area": [],
-		"nav-bar": ["back-button","forward-button","stop-reload-button","customizableui-special-spring1","urlbar-container","customizableui-special-spring2","downloads-button","fxa-toolbar-menu-button","ublock0_raymondhill_net-browser-action","jid1-qofqdk4qzufgwq_jetpack-browser-action","unified-extensions-button","reset-pbm-toolbar-button"],
-		"toolbar-menubar": ["menubar-items"],
-		"TabsToolbar": ["firefox-view-button","tabbrowser-tabs","new-tab-button","alltabs-button"],
-		"PersonalToolbar": ["import-button","personal-bookmarks"]
-	},
-	//"seen": ["save-to-pocket-button","developer-button","ublock0_raymondhill_net-browser-action","addon_darkreader_org-browser-action"],
-	"seen": ["developer-button","ublock0_raymondhill_net-browser-action","addon_darkreader_org-browser-action"],
-	"dirtyAreaCache": ["nav-bar","PersonalToolbar","toolbar-menubar","TabsToolbar","unified-extensions-area"],
-	"currentVersion": 20, "newElementCount":3
-});
+	{
+		"placements": {
+			"widget-overflow-fixed-list": [],
+			"unified-extensions-area": [],
+			"nav-bar": ["back-button","forward-button","stop-reload-button","customizableui-special-spring1","urlbar-container","customizableui-special-spring2","downloads-button","fxa-toolbar-menu-button","ublock0_raymondhill_net-browser-action","jid1-qofqdk4qzufgwq_jetpack-browser-action","unified-extensions-button","reset-pbm-toolbar-button"],
+			"toolbar-menubar": ["menubar-items"],
+			"TabsToolbar": ["firefox-view-button","tabbrowser-tabs","new-tab-button","alltabs-button"],
+			"PersonalToolbar": ["personal-bookmarks"]
+		},
+		"seen":["developer-button","jid1-qofqdk4qzufgwq_jetpack-browser-action","ublock0_raymondhill_net-browser-action"],
+		"dirtyAreaCache": ["nav-bar","PersonalToolbar","toolbar-menubar","TabsToolbar","unified-extensions-area"],
+		"currentVersion": 19, "newElementCount":4
+	}
+);
 
 user_pref("_user.js.parrot", "Section: Startup");
 user_pref("browser.shell.checkDefaultBrowser", false);
@@ -106,6 +117,8 @@ user_pref("network.connectivity-service.enabled", false);
 * https://developer.mozilla.org/docs/Web/API/Navigator/sendBeacon
 */
 user_pref("beacon.enabled", false);
+// disable Privacy-Preserving Attribution
+user_pref("dom.private-attribution.submission.enabled", false);
 
 user_pref("_user.js.parrot", "Section: Blocklists");
 // [DEFAULT: true]
@@ -448,7 +461,7 @@ user_pref("media.eme.enabled", false);
 * [NOTE] You can set exceptions under site permissions
 * [SETTING] Privacy & Security>Permissions>Autoplay>Settings>Default for all websites
 */
-// user_pref("media.autoplay.default", 5);
+user_pref("media.autoplay.default", 5);
 
 /* 2031: disable autoplay of HTML5 media if you interacted with the site [FF78+]
 * 0=sticky (default), 1=transient, 2=user

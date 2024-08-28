@@ -18,9 +18,13 @@ You can create a new profile with:<br/>
 But I have not found a command to change the default profile.
 Firefox command line options appear to be poorly documented and many deprecated.
 
+## Firefox autoconfig.js
+https://github.com/simeononsecurity/FireFox-Privacy-Script<br/>
+https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig<br/>
+
 ## Firefox Keyboard Shortcuts
-[Keyboard Shortcuts](https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly)<br  />
-[Cannot Change Search Engine From user.js](https://stackoverflow.com/questions/47118248/firefox-ignoring-default-search-engine-preferences)<br  />
+[Keyboard Shortcuts](https://support.mozilla.org/en-US/kb/keyboard-shortcuts-perform-firefox-tasks-quickly)<br/>
+[Cannot Change Search Engine From user.js](https://stackoverflow.com/questions/47118248/firefox-ignoring-default-search-engine-preferences)<br/>
 
 ## user.js Examples
 [Github arkenfox/user.js](https://github.com/arkenfox/user.js)<br/>
@@ -28,15 +32,22 @@ Firefox command line options appear to be poorly documented and many deprecated.
 [Github yokoffing/Betterfox](https://github.com/yokoffing/Betterfox)<br/>
 
 ## Policies policies.json
-Policy SearchEngines is only allowed on ESR
+Policy SearchEngines is only allowed on ESR<br/>
+The policies.json can be put into
 `/etc/firefox/policies/policies.json`
+or the firefox distribution directory such as:
+`/lib/firefox/distribution/policies.json`<br/>
+or<br/>
+`/lib/firefox-esr/distribution/policies.json`<br/>
 https://support.mozilla.org/en-US/kb/customizing-firefox-using-policiesjson<br/>
 https://support.mozilla.org/en-US/kb/managing-policies-linux-desktops<br/>
 https://mozilla.github.io/policy-templates/<br/>
-https://github.com/gorhill/uBlock/wiki/Deploying-uBlock-Origin:-configuration<br/>
 
 ## Profiles
 https://kb.mozillazine.org/Profiles.ini_file
+
+## uBlock Origin
+https://github.com/gorhill/uBlock/wiki/Deploying-uBlock-Origin:-configuration<br/>
 
 ## Get Firefox Extension ID
 https://support.mozilla.org/en-US/questions/1217302<br/>

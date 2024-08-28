@@ -12,35 +12,25 @@
       "Remove": [ "Google", "Amazon.com", "Bing", "eBay" ],
       "Add": [
         {
-          "Name": "OpenBSD Packages",
-          "URLTemplate": "https://openbsd.app/?search={searchTerms}",
-          "Method": "GET",
-          "Alias": "@b",
-          "Description": "Search OpenBSD Packages"
-        },
-        {
           "Name": "YouTube",
           "URLTemplate": "https://www.youtube.com/results?search_query={searchTerms}",
           "Method": "GET",
-          "IconURL": "https://www.youtube.com/favicon.ico",
           "Alias": "@y",
           "Description": "Search YouTube"
         },
         {
-          "Name": "Nix Packages",
-          "URLTemplate": "https://search.nixos.org/packages?query={searchTerms}",
+          "Name": "OpenBSD Man Pages",
+          "URLTemplate": "https://man.openbsd.org/?query={searchTerms}&apropos=1",
           "Method": "GET",
-          "IconURL": "https://search.nixos.org/images/nix-logo.png",
-          "Alias": "@n",
-          "Description": "Search Nix Packages"
+          "Alias": "@m",
+          "Description": "Search OpenBSD Man Pages"
         },
         {
-          "Name": "Nix Options",
-          "URLTemplate": "https://search.nixos.org/options?query={searchTerms}",
+          "Name": "OpenBSD Packages",
+          "URLTemplate": "https://openbsd.app/?search={searchTerms}",
           "Method": "GET",
-          "IconURL": "https://search.nixos.org/images/nix-logo.png",
-          "Alias": "@o",
-          "Description": "Search Nix Options"
+          "Alias": "@p",
+          "Description": "Search OpenBSD Packages"
         }
       ]
     },
@@ -56,7 +46,7 @@
     "ExtensionUpdate": true,
     "ExtensionSettings": {
       "*": {
-        "blocked_install_message": "Installation of extensions is blocked.",
+        "blocked_install_message": "Installation of extensions is blocked(cjt).",
         "installation_mode": "blocked"
       },
       "uBlock0@raymondhill.net": {
