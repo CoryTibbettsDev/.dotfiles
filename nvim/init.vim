@@ -1,5 +1,3 @@
-" init.vim
-
 " {{{ Vim Specific Settings
 " These settings are on by default in nvim
 if !has('nvim')
@@ -56,13 +54,10 @@ if has('termguicolors')
 	set termguicolors
 endif
 
+" :so $VIMRUNTIME/syntax/hitest.vim
 " Set Colorscheme if available
-try
-	colorscheme mycolorscheme
-catch /^Vim\%((\a\+)\)\=:E185/
-	colorscheme default
-	set background=dark
-endtry
+" https://vi.stackexchange.com/questions/3397/how-do-i-conditionally-set-colorscheme
+silent! colorscheme onehalfdark
 
 " Case insensitive search and highlight
 set incsearch ignorecase smartcase hlsearch
@@ -227,7 +222,10 @@ set statusline+=\ %#MyStatusColor#
 " Settings for hardtabs displayed two characters wide
 set tabstop=2 shiftwidth=2 noexpandtab
 " Automatically indents lines when you insert a new line
-set smartindent
+set cindent
+" https://superuser.com/questions/783233/vim-switch-statement-indenting
+" Indent switch and case the same amount
+set cinoptions+=:0
 " https://softwareengineering.stackexchange.com/questions/148677/why-is-80-characters-the-standard-limit-for-code-width
 set colorcolumn=81
 " }}}
