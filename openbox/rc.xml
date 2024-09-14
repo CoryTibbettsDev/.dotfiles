@@ -386,9 +386,28 @@
     <action name="Execute">
       <startupnotify>
         <enabled>true</enabled>
-        <name>Firefox</name>
+        <name>Firefox ESR</name>
       </startupnotify>
-      <command>firefox</command>
+      <command>firefox-esr</command>
+    </action>
+  </keybind>
+
+  <keybind key="W-S-d">
+    <action name="Execute">
+      <startupnotify>
+        <enabled>true</enabled>
+        <name>LibreWolf</name>
+      </startupnotify>
+      <command>librewolf</command>
+    </action>
+  </keybind>
+  <keybind key="A-S-d">
+    <action name="Execute">
+      <startupnotify>
+        <enabled>true</enabled>
+        <name>LibreWolf</name>
+      </startupnotify>
+      <command>librewolf</command>
     </action>
   </keybind>
 
