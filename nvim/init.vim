@@ -105,6 +105,12 @@ vmap <C-c> <Esc>
 " Maps leader key to space
 let mapleader = ' '
 
+" https://stackoverflow.com/questions/4521818/automatically-insert-a-matching-brace-in-vim
+autocmd FileType python inoremap ( ()<Esc>ha
+autocmd FileType python inoremap [ []<Esc>ha
+autocmd FileType python inoremap " ""<Esc>ha
+autocmd FileType python inoremap ' ''<Esc>ha
+
 " Still save if you do :W instead of :w
 command! W :w
 nnoremap <leader>w :w<CR>:make<CR>

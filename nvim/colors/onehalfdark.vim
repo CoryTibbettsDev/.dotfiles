@@ -48,7 +48,6 @@ function! s:h(group, fg, bg, attr)
 	endif
 endfun
 
-
 " User interface colors
 call s:h("Normal", s:fg, s:bg, "")
 
