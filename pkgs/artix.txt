@@ -3,7 +3,8 @@ alsa-utils
 arc-solid-gtk-theme
 cups-openrc
 feh
-firefox
+firefox-esr
+librewolf
 gimp
 git
 i3lock
