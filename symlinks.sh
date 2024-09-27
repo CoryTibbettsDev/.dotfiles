@@ -61,6 +61,7 @@ link_config zathura
 link_config feh
 link_config tmux
 link_config picom
+link_config lxterminal
 
 # Link shell agnostic rc and profile files to shell specific rc and profile files
 # Need to be linked after home dotfiles and shell config dir is linked
@@ -78,7 +79,7 @@ cp -r "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
 # Browser config files
 firefox_source_dir="${dotfiles_dir}/firefox"
 firefox_policies_json="${firefox_source_dir}/policies.json"
-firefox_autoconfig_js="${firefox_source_dir}/autconfig.js"
+firefox_autoconfig_js="${firefox_source_dir}/autoconfig.js"
 firefox_cfg="${firefox_source_dir}/firefox.cfg"
 
 for firefox_type in "firefox" "firefox-esr"; do
