@@ -152,6 +152,13 @@ noremap <Tab> :bnext<CR>
 noremap <S-Tab> :bprevious<CR>
 noremap <leader>d :bdelete<CR>
 
+" Control-I the default jump to next item in jump list gets remapped by my
+" buffer settings because it is considered the same as <Tab>.
+" Remap to <leader>o because <C-O> jumps to previous item in the jump list.
+" Important to use nnoremap here so the new binding uses the original binding
+" of the key and not the new binding
+nnoremap <leader>o <C-I>
+
 " Remaps for managing tabs
 noremap <leader>n :tabnew<Space>
 noremap <leader>c :tabclose<CR>
