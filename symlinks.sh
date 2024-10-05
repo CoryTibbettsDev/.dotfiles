@@ -62,6 +62,7 @@ link_config feh
 link_config tmux
 link_config picom
 link_config lxterminal
+link_config lxpanel
 
 # Link shell agnostic rc and profile files to shell specific rc and profile files
 # Need to be linked after home dotfiles and shell config dir is linked
