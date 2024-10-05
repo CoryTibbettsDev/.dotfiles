@@ -1,16 +1,9 @@
 [Default Applications]
-x-scheme-handler/http=firefox.desktop
-text/html=firefox.desktop
-text/xml=firefox.desktop
-application/xhtml_xml=firefox.desktop
-image/webp=firefox.desktop
-x-scheme-handler/https=firefox.desktop
-x-scheme-handler/ftp=firefox.desktop
-
-[Added Associations]
-text/html=firefox.desktop;
-text/xml=firefox.desktop;
-application/xhtml_xml=firefox.desktop;
-image/webp=firefox.desktop;
-x-scheme-handler/https=firefox.desktop;
-x-scheme-handler/ftp=firefox.desktop;
+x-scheme-handler/http=librewolf.desktop
+text/html=librewolf.desktop
+text/xml=librewolf.desktop
+application/xhtml_xml=librewolf.desktop
+image/webp=librewolf.desktop
+x-scheme-handler/https=librewolf.desktop
+x-scheme-handler/ftp=librewolf.desktop
+application/pdf=librewolf.desktop
