@@ -220,7 +220,7 @@ set statusline+=\ %#MyStatusColor#
 set statusline+=%f " file name
 set statusline+=%h " help file flag
 set statusline+=%r " read only flag
-set statusline+=\ [%{getbufvar(bufnr('%'),'&mod')?'modified':'saved'}] " modified flag
+set statusline+=%m " modified flag
 set statusline+=\ %= " align left
 set statusline+=\ %{strlen(&fenc)?&fenc:'none'} " file encoding
 set statusline+=\ %{&ff} " file format
@@ -333,21 +333,6 @@ let g:netrw_dirhistmax = 0
 " https://vi.stackexchange.com/questions/14622/how-can-i-close-the-netrw-buffer
 " https://github.com/tpope/vim-vinegar/issues/13#issuecomment-489440040
 let g:netrw_fastbrowse = 0
-" }}}
-
-" {{{ Plugins
-" https://github.com/junegunn/vim-plug
-" :PlugUpdate
-" :PlugInstall
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-	silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-call plug#begin()
-Plug 'leafOfTree/vim-svelte-plugin'
-Plug 'Tetralux/odin.vim'
-call plug#end()
 " }}}
 
 " {{{ My Custom Plugins
