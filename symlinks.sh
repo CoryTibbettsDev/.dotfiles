@@ -51,7 +51,6 @@ link_config() {
 }
 link_config shell
 link_config nvim
-link_config openbox
 link_config git
 link_config mpv
 link_config gtk-2.0
@@ -60,9 +59,7 @@ link_config gtk-4.0
 link_config zathura
 link_config feh
 link_config tmux
-link_config picom
-link_config lxterminal
-link_config lxpanel
+link_config xfce4
 
 # Link shell agnostic rc and profile files to shell specific rc and profile files
 # Need to be linked after home dotfiles and shell config dir is linked
@@ -73,6 +70,11 @@ verbose_ln "${profile_file}" "$HOME/.zprofile"
 verbose_ln "${shellrc_file}" "$HOME/.bashrc"
 verbose_ln "${shellrc_file}" "$HOME/.zshrc"
 verbose_ln "${shellrc_file}" "$HOME/.kshrc"
+
+# Link gtk themes
+app_themes_dir="${XDG_DATA_HOME}/themes"
+mkdir -p "${app_themes_dir}"
+verbose_ln "${dotfiles_dir}/themes/macOS-Dark" "${app_themes_dir}"
 
 # Copy Wallpapers
 cp -r "${dotfiles_dir}/Wallpaper" "${stuff_dir}"

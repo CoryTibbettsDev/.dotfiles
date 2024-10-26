@@ -15,6 +15,7 @@ wallpaper_dir="${stuff_dir}/Wallpaper"
 repos_dir="$HOME/Repos"
 projects_dir="$HOME/Projects"
 misc_dir="${HOME}/Misc"
+xdg_base_dir="$HOME/XDG"
 
 shell_dir="${config_dir}/shell"
 shell_cache_dir="${cache_dir}/shell"

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# .xinitrc
+# ~/.xinitrc
 
 # Source library file
 if [ ! -f "${LIBRARY_FILE}" ]; then
@@ -19,16 +19,4 @@ if [ -f "$HOME/.Xresources" ]; then
 		log_func "ERROR: xrdb -merge ~/.Xresources in .xinitrc"
 fi
 
-# Set Wallpaper
-eval "${set_wallpaper_cmd}" ||
-	log_func "ERROR: setting wallpaper in .xinitrc command '${set_wallpaper_cmd}'"
-
-# Start Window Manager
-case "$(uname)" in
-	Linux)
-		lxpanel &
-		nm-applet &
-		picom &
-		;;
-esac
-exec "${window_manager}"
+exec startxfce4

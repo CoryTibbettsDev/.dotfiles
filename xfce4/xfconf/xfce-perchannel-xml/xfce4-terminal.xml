@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-terminal" version="1.0">
+  <property name="overlay-scrolling" type="bool" value="false"/>
+  <property name="misc-show-unsafe-paste-dialog" type="bool" value="false"/>
+  <property name="font-name" type="string" value="Liberation Mono 18"/>
+  <property name="text-blink-mode" type="string" value="TERMINAL_TEXT_BLINK_MODE_ALWAYS"/>
+  <property name="color-bold-is-bright" type="bool" value="true"/>
+  <property name="color-cursor-use-default" type="bool" value="true"/>
+  <property name="color-use-theme" type="bool" value="false"/>
+  <property name="color-background-vary" type="bool" value="false"/>
+  <property name="color-background" type="string" value="#24241f1f3131"/>
+  <property name="tab-activity-color" type="string" value="#f6f661615151"/>
+  <property name="title-mode" type="string" value="TERMINAL_TITLE_APPEND"/>
+  <property name="run-custom-command" type="bool" value="false"/>
+  <property name="binding-backspace" type="string" value="TERMINAL_ERASE_BINDING_AUTO"/>
+  <property name="binding-delete" type="string" value="TERMINAL_ERASE_BINDING_AUTO"/>
+  <property name="binding-ambiguous-width" type="string" value="TERMINAL_AMBIGUOUS_WIDTH_BINDING_NARROW"/>
+</channel>

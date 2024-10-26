@@ -1,4 +1,4 @@
-# .profile
+# ~/.profile
 
 # This file is symlinked to all the shell specific profiles
 # such as .bash_profile, .zprofile etc.
@@ -33,14 +33,14 @@ export XDG_CACHE_HOME="${cache_dir}"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
 
-export XDG_DESKTOP_DIR="${XDG_DATA_HOME}/Desktop"
-export XDG_DOCUMENTS_DIR="${downloads_dir}"
 export XDG_DOWNLOAD_DIR="${downloads_dir}"
-export XDG_MUSIC_DIR="${downloads_dir}"
-export XDG_PICTURES_DIR="${downloads_dir}"
-export XDG_PUBLICSHARE_DIR="${downloads_dir}"
-export XDG_TEMPLATES_DIR="${downloads_dir}"
-export XDG_VIDEOS_DIR="${downloads_dir}"
+export XDG_DESKTOP_DIR="${xdg_base_dir}/Desktop"
+export XDG_DOCUMENTS_DIR="${xdg_base_dir}/Documents"
+export XDG_MUSIC_DIR="${xdg_base_dir}/Music"
+export XDG_PICTURES_DIR="${xdg_base_dir}/Pictures"
+export XDG_PUBLICSHARE_DIR="${xdg_base_dir}/Public"
+export XDG_TEMPLATES_DIR="${xdg_base_dir}/Templates"
+export XDG_VIDEOS_DIR="${xdg_base_dir}/Videos"
 
 # Workarounds for programs annoyingly creating directories in $HOME
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/pass"
@@ -85,7 +85,6 @@ export SEMGREP_SEND_METRICS=off
 . "${shellrc_file}"
 
 # Automatically startx on login
-# if [ -z "${DISPLAY}" -a "${XDG_VTNR}" -eq 1 ]; then
 if test -z "${DISPLAY}"; then
 	# Ask if we want to startx on login
 	yes_no "Would you like to exec startx?" &&
