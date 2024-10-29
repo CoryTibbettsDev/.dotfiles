@@ -58,18 +58,6 @@
     </property>
     <property name="plugin-6" type="string" value="systray">
       <property name="square-icons" type="bool" value="true"/>
-      <property name="known-legacy-items" type="array">
-        <value type="string" value="wi-fi network connection “eggshells” active: eggshells (91%)"/>
-        <value type="string" value="wi-fi network connection “eggshells” active: eggshells (86%)"/>
-        <value type="string" value="wi-fi network connection “eggshells” active: eggshells (85%)"/>
-        <value type="string" value="wi-fi network connection “eggshells” active: eggshells (87%)"/>
-        <value type="string" value="xfce4-power-manager"/>
-        <value type="string" value="wi-fi network connection “eggshells” active: eggshells (89%)"/>
-        <value type="string" value="wi-fi network connection “eggshells” active: eggshells (93%)"/>
-        <value type="string" value="warpinator-launch.py"/>
-        <value type="string" value="networkmanager applet"/>
-        <value type="string" value="no network connection"/>
-      </property>
     </property>
     <property name="plugin-9" type="string" value="power-manager-plugin"/>
     <property name="plugin-10" type="string" value="notification-plugin"/>
@@ -82,7 +70,8 @@
       <property name="digital-date-font" type="string" value="Liberation Serif 14"/>
       <property name="digital-time-font" type="string" value="Liberation Serif 16"/>
       <property name="digital-date-format" type="string" value="%A, %B %d, %Y"/>
-      <property name="tooltip-format" type="string" value="American: %m/%d/%y ISO: %F"/>
+      <property name="tooltip-format" type="string" value="24 Hour: %R American: %m/%d/%y ISO: %F"/>
+      <property name="digital-time-format" type="string" value="%I:%M %p"/>
     </property>
     <property name="plugin-13" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
