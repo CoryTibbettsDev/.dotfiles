@@ -34,6 +34,10 @@ android-file-transfer
 xfce4
 gvfs
 xfce4-screensaver
-xfce4-mixer
+xfce4-pulseaudio-plugin
+xfce4-volumed-pulse
+pulseaudio
+pulseaudio-alsa
+pavucontrol
 mate-calc
 elementary-icon-theme
