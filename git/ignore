@@ -22,11 +22,13 @@ Session.vim
 # Cache Files
 node_modules
 __pycache__
-build/
 .cache
 .ccls-cache
 .clangd
 .miniSnip
+
+# CMake standard output directory
+build/
 
 # Temporary files
 *.swp

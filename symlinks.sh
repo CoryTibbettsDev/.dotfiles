@@ -75,9 +75,10 @@ verbose_ln "${shellrc_file}" "$HOME/.kshrc"
 app_themes_dir="${XDG_DATA_HOME}/themes"
 mkdir -p "${app_themes_dir}"
 verbose_ln "${dotfiles_dir}/themes/macOS-Dark" "${app_themes_dir}"
-
-# Copy Wallpapers
-cp -r "${dotfiles_dir}/Wallpaper" "${stuff_dir}"
+# Link gtk icon themes
+icon_themes_dir="${XDG_DATA_HOME}/icons"
+mkdir -p "${icon_themes_dir}"
+verbose_ln "${dotfiles_dir}/icons/MyIconsDark" "${icon_themes_dir}"
 
 # Browser config files
 firefox_source_dir="${dotfiles_dir}/firefox"

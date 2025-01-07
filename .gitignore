@@ -5,3 +5,5 @@ auto-save-list/
 watch_later/
 gtkfilechooser.ini
 Preferences
+# gtk icons theme cache file
+icon-theme.cache
