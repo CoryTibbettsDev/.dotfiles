@@ -111,12 +111,20 @@ autocmd FileType python inoremap [ []<Esc>ha
 autocmd FileType python inoremap " ""<Esc>ha
 autocmd FileType python inoremap ' ''<Esc>ha
 
-" Still save if you do :W instead of :w
+" In case I hit shift
 command! W :w
-nnoremap <leader>w :w<CR>:make<CR>
+command! E :e
 nnoremap <leader>s :w<CR>
-nnoremap <leader>m :make<CR>
 nnoremap <leader>t :make test<CR>
+function! SaveIfModifiedAndMake()
+	" Check if current file modified
+	if getbufinfo('%')[0].changed
+		" Save the file
+		write
+	endif
+	make
+endfunction
+nnoremap <leader>m :call SaveIfModifiedAndMake()<CR>
 
 nnoremap <leader>e :e $MYVIMRC<CR>
 nnoremap <leader>r :source $MYVIMRC<CR>
@@ -142,6 +150,7 @@ vnoremap K :m '<-2<CR>gv=gv
 " https://github.com/tpope/vim-unimpaired
 nnoremap [q :cprev<CR>
 nnoremap ]q :cnext<CR>
+nnoremap \q :copen<CR>
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
@@ -166,6 +175,10 @@ noremap <leader>k :tabnext<CR>
 noremap <leader>j :tabprev<CR>
 noremap <leader>h :tabfirst<CR>
 noremap <leader>l :tablast<CR>
+
+" https://stackoverflow.com/a/734447
+" https://stackoverflow.com/a/15306800
+autocmd FileType c,cpp let &makeprg = 'if [ -f Makefile ]; then make; else make -C ..; fi'
 " }}}
 
 " {{{ Filetype Specific Comments/Commenting
