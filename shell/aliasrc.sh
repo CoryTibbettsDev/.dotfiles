@@ -18,6 +18,7 @@ alias pls='eval "${su_cmd}"'
 
 alias reload='. "${shellrc_file}"'
 
+# Run the most recent command
 alias r='fc -s'
 
 myshutdown() {
@@ -123,8 +124,7 @@ alias h='myhelp'
 # Alias for editor
 # e is easy to reach and I remember with e for edit like in vim
 alias e='eval "${EDITOR}"'
-alias v='"${VISUAL}"'
-alias o='xdg-open'
+alias open='xdg-open'
 
 mycd() {
 	builtin cd "$1" && ls -F
@@ -163,7 +163,7 @@ alias ga='git add'
 alias gc='git commit'
 alias gp='git push'
 alias gpo='git push origin'
-alias clone='git clone "$(myclip)"'
+alias clone='git clone --depth 1 "$(myclip)"'
 alias gr='git remote'
 alias grs='git remote set-url'
 

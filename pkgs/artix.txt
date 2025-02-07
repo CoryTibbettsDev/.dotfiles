@@ -7,7 +7,6 @@ firefox-esr
 librewolf
 gimp
 git
-i3lock
 inkscape
 man-pages
 mpv
@@ -27,8 +26,6 @@ xorg-xhost
 xorg-xinit
 xterm
 yt-dlp
-picom
-librewolf
 ghex
 android-file-transfer
 xfce4
@@ -40,4 +37,3 @@ pulseaudio
 pulseaudio-alsa
 pavucontrol
 mate-calc
-elementary-icon-theme
